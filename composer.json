@@ -1,0 +1,92 @@
+{
+    "name": "edesa/edesa",
+    "type": "project",
+    "description": "The Laravolt Platform.",
+    "keywords": [
+        "platform",
+        "laravolt"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.4",
+        "asbiin/laravel-webauthn": "*",
+        "barryvdh/laravel-debugbar": "^3.7",
+        "barryvdh/laravel-dompdf": "^0.8.7",
+        "bensampo/laravel-enum": "*",
+        "doctrine/dbal": "^2.10",
+        "fideloper/proxy": "^4.4",
+        "guzzlehttp/guzzle": "^7.5",
+        "ixudra/curl": "^6.18",
+        "laravel-notification-channels/webpush": "^5.1",
+        "laravel/framework": "^8.0",
+        "laravel/sail": "^1.18",
+        "laravel/sanctum": "^2.15",
+        "laravel/tinker": "^2.8",
+        "laravolt/laravolt": "^4.2.11",
+        "maatwebsite/excel": "*",
+        "nunomaduro/collision": "^5.11",
+        "stolz/assets": "^0.2.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.5",
+        "phpunit/phpunit": "^8.0",
+        "spatie/laravel-web-tinker": "^1.5"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Workbench\\Frontend\\": "packages/workbench/frontend/src",
+            "Workbench\\Dashboard\\": "packages/workbench/dashboard/src",
+            "Workbench\\Site\\": "packages/workbench/site/src",
+            "Workbench\\Dataentry\\": "packages/workbench/dataentry/src",
+            "Workbench\\Printing\\": "packages/workbench/printing/src",
+            "Workbench\\Reporting\\": "packages/workbench/reporting/src",
+            "Workbench\\Gis\\": "packages/workbench/gis/src",
+            "Workbench\\Asset\\": "packages/workbench/asset/src"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Workbench\\Frontend\\": "packages/workbench/frontend/src",
+            "Workbench\\Dashboard\\": "packages/workbench/dashboard/src",
+            "Workbench\\Site\\": "packages/workbench/site/src",
+            "Workbench\\Dataentry\\": "packages/workbench/dataentry/src",
+            "Workbench\\Printing\\": "packages/workbench/printing/src",
+            "Workbench\\Reporting\\": "packages/workbench/reporting/src",
+            "Workbench\\Gis\\": "packages/workbench/gis/src",
+            "Workbench\\Asset\\": "packages/workbench/asset/src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "@php artisan storage:link",
+            "@php artisan laravolt:link"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php artisan preset laravolt"
+        ]
+    }
+}

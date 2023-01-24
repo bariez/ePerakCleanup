@@ -1,0 +1,2 @@
+<label>Url<font color="red">*</font></label>
+<input type="text"  name="urledit" id="urledit" required="required" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
