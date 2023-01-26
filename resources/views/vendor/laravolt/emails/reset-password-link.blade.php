@@ -1,20 +1,19 @@
 @component('laravolt::mail.body')
     @component('laravolt::mail.headline')
-        Reset Password
+        Reset Kata Laluan
     @endcomponent
 
     @component('laravolt::mail.message')
-        Anda baru saja melakukan
-        <br> permintaan reset password di <strong>{{ config('app.url') }}</strong>.
-        <br> Untuk melanjutkan proses, silakan klik tombol di bawah ini:
+        Anda baru saja memohon reset kata laluan di <strong>{{ config('app.url') }}</strong>.
+        <br> Sila Klik dibawah untuk meneruskan prosess reset kata laluan:
     @endcomponent
 
-    @component('laravolt::mail.button', ['url' => route('auth::reset', compact('token', 'email'))])
-        Reset Password
+    @component('laravolt::mail.button', ['url' => route('auth::reset.show', compact('token', 'email'))])
+        Reset Kata Laluan
     @endcomponent
 
     @component('laravolt::mail.info')
-        Jika Anda tidak merasa melakukan permintaan reset password, abaikan email ini.
+        Jika Anda tidak memohon reset kata laluan, sila abaikan emel ini.
     @endcomponent
 
 @endcomponent

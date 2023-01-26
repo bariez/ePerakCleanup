@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}" data-font-size="{{ config('laravolt.ui.font_size') }}">
+<html lang="{{ config('app.locale') }}" data-font-size="{{ config('laravolt.ui.font_size') }}" style="font-size: 14px">
 <head>
     <title>{{ $title ?? '' }} | {{ config('app.name') }}</title>
 
@@ -21,6 +21,7 @@
           href="{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/all.css', 'laravolt') }}"/>
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/app.css') }}"/>
+    <link rel="icon" href="{{ URL::asset('logo.png') }}" type="image/x-icon"/>
 
     @stack('style')
     @stack('head')
@@ -37,6 +38,29 @@
 
     <script defer data-turbolinks-track="reload" src="{{ mix('js/app.js') }}"></script>
 </head>
+<style type="text/css">
+.layout--auth.is-modern .x-auth {
+    background: #ffffffde;
+}
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+ .x-auth {
+
+    width:100% !important;
+}
+    
+}
+.layout--auth.is-modern {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    align-items: center;
+    padding-top: 10vh;
+
+}
+</style>
 
 <body data-theme="{{ config('laravolt.ui.theme') }}" class="{{ $bodyClass ?? '' }} @yield('body.class')">
 
@@ -44,15 +68,12 @@
      <!--    <div class="layout--auth__container" > -->
         <div class="x-auth" style="width: 50%">
            
-                <div class="x-auth__content">
+                <div class="x-auth__content" style="padding-right: 2vh;padding-left: 2vh;">
 
-                    <div data-role="x-brand-image" class="ui image centered">
+                     <div data-role="x-brand-image" class="ui image centered" style="width: 100%;">
+                        <img src="{{asset('logo.png')}}" alt="" class="ui image tiny centered">
                     
-                        <img
-                                src="ss"
-                                alt=""
-                                class="ui image tiny centered"
-                        >
+                      
                 </div>
 
 
@@ -88,8 +109,8 @@
     </div>
 
     <div class="field action">
-        <button class="fluid" style="background: #ffc33d;color: #000">Daftar</button>
-
+        <button class="ui fluid button" style="background: #ffc33d;color: #000" type="submit"><b>Daftar</b></button>
+       
 
     </div>
 
@@ -100,13 +121,13 @@
             <div class="column left aligned">
                 <div>
                     <font color="#000"><b>Sudah ada Akaun e-Perak? </b></font><a themed href="{{ route('auth::login.show') }}" class="link">
-                        <font color="#000" style="font-size: larger"><b>Login Disini <i class="sign in alternate icon"></i></b></font>
+                        <font color="#000" style="font-size: small"><b>Login Disini <i class="sign in alternate icon"></i></b></font>
                     </a>
                 </div>
             </div>
             <div class="column right aligned">
                 <a themed href="/eperak" class="link">
-                    <font  color="#000" style="font-size: larger"><b>Laman Utama <i class="home icon"></i></b></font>
+                    <font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font>
                 </a>
             </div>
         </div>

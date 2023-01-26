@@ -95,7 +95,7 @@ class SiteController extends Controller
 
 
     	
-        $this->authorize('create', User::class);
+       // $this->authorize('create', User::class);
 
         // save to db
         $roles = $request->get('role', []);
@@ -180,7 +180,7 @@ class SiteController extends Controller
      public function create()
     {
         
-        $this->authorize('create', User::class);
+        //$this->authorize('create', User::class);
         $statuses = $this->repository->availableStatus();
         $roles = app('laravolt.epicentrum.role')->all()->pluck('name', 'id');
         $multipleRole = config('laravolt.epicentrum.role.multiple');
@@ -225,10 +225,13 @@ class SiteController extends Controller
     public function update(Update $request, $id)
     {
        //dd($request);
-     
+ 
         $old_value=User::with('roles')->where('id',$id)->first();
+
         try {
-           $user= $this->repository->updateAccount($id, $request->except('_token', '_method'), $request->get('role', []));
+
+      
+           $user= $this->repository->updateAccount($id, $request->except('_token', '_method','role','daerah01edit','daerah01','daerah02','mukimedit','mukim','hantar'), $request->get('role', []));
 
            $updateuser=User::find($id);
 
@@ -323,6 +326,8 @@ class SiteController extends Controller
     {
         // dd($request);
         try {
+
+
             $this->repository->updateAccount($id, $request->except('_token', '_method'), $request->get('role', []));
 
             $updateuser=Users::find($id);

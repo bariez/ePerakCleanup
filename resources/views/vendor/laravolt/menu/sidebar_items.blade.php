@@ -34,7 +34,7 @@ $id=5;
                data-parent="{{ $item->parent()->title }}">
   <!-- aku delete icon  -->
 
-                @if($item->title == 'Kelulusan Pengguna')
+                @if($item->title == 'KELULUSAN PENGGUNA')
                 <span>{{ $item->title }} <span> <div class="ui primary inverted basic label">{{$pendding}}</div>
                 @else
                 <span>{{ $item->title }}</span> 

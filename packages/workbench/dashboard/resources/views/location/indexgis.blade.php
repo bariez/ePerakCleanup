@@ -46,9 +46,7 @@
         </div>
     </div>
 
-    <br>
-
-    <div class="ui container-fluid content__body p-3 tab-content">
+    <div class="ui container-fluid content__body p-2 tab-content">
     
         <div class="ui one column grid content__body" id="divtitle" style="margin-top: -50px; padding-bottom: 20px; display: none">
             <div class="column middle aligned">

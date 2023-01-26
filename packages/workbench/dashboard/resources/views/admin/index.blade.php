@@ -186,7 +186,7 @@ aside{
 
 </style>
 
-<div id="actionbar" class="ui two column grid content__body p-3">
+<div id="actionbar" class="ui two column grid content__body p-1">
   <div class="column middle aligned">
     <h3 class="ui header m-t-xs">
       DASHBOARD {{data_get($roleuser,'acl_roles.name')}}
@@ -346,9 +346,9 @@ aside{
   </div>
 
 </div> -->
-<br>
 
-<div class="ui container-fluid content__body" id="result3" style="display: none; padding: 0rem 2rem">
+
+<div class="ui container-fluid content__body" id="result3" style="display: none;">
     <div id="resultcountpetempatan">
     </div>
 </div>
@@ -357,7 +357,7 @@ aside{
 <!-- <div class="ui container-fluid content__body p-3" id="result4">
   <div class="ui segments panel">
     <div class="ui segment p-3"> -->
-<div class="ui container-fluid content__body p-3" id="result4">
+<div class="ui container-fluid content__body p-1" id="result4">
   
       <div class="ui two stackable cards raised">
         <div class="card ">

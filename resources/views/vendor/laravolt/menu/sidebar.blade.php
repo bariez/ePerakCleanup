@@ -12,25 +12,24 @@
                     <img src="{{asset('logo.png') }}" alt="" class="ui image tiny centered avatar">
                     <br>
                 <div align="text-center" align="text-center" style="
-                        font-size: 22px;
+                        font-size: 18px;
                         font-style: initial;
                         font-weight: 700;
                         color: #000;">e-Perak</div>
-                    <h4 class="ui header m-b-3">
+                    <h4 class="ui header m-b-2">
                         <?php echo strtoupper(auth()->user()->name);?> 
-                        
                     </h4>
-                    <a class="ui button" data-tooltip="Logout" href="{!! URL::to('auth/addlog/'.auth()->user()->id) !!}" style="height: 40px;background-color: #000;color: white;font-size:11px;padding-top: 1.1em;"><i class="sign in alternate icon" style="margin: auto;"></i></a>
+                    <a class="ui button" data-tooltip="Logout" href="{!! URL::to('auth/addlog/'.auth()->user()->id) !!}" style="height: 35px;background-color: #000;color: white;font-size:11px;"><i class="sign in alternate icon" style="margin: auto;"></i></a>
                       <div class="ui simple dropdown basic button top right pointing b-0 p-x-volt-0" style="padding: 6px 0px;background: transparent;">
-                     <a class="ui button" style="background-color: #000;color: white;font-size:11px;height: 40px;"><i class="user icon" style="margin: auto;"></i></a>
+                     <a class="ui button" style="background-color: #000;color: white;font-size:11px;height: 35px;"><i class="user icon" style="margin: auto;"></i></a>
                     
-                        <div class="menu">
+                        <div class="menu" style="width: 180px">
                             <div class="header"><span class="ui text {{ config('laravolt.ui.color') }}">{{ auth()->user()->name }}</span></div>
 
                             <div class="divider"></div>
 
-                            <a href="{{ route('my::profile.edit') }}" class="item">@lang('KEMASKINI PROFIL')</a>
-                            <a href="{{ route('my::password.edit') }}" class="item">@lang('KEMASKINI KATA LALUAN')</a>
+                            <a href="{{ route('my::profile.edit') }}" class="item" style="font-size: 12px">@lang('KEMASKINI PROFIL')</a>
+                            <a href="{{ route('my::password.edit') }}" class="item" style="font-size: 12px">@lang('KEMASKINI KATA LALUAN')</a>
                         </div>
                 </div>
                 

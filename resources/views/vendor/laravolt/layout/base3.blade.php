@@ -162,6 +162,11 @@ nav.sidebar {
 }
 .layout--app header.ui.menu {
    left: 250px;
+   height: 50px;
+}
+
+.layout--app>.content .content__body {
+    margin-top: 50px;
 }
 
     </style>
