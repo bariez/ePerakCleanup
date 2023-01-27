@@ -31,7 +31,7 @@
  <h4 class="ui top attached header">
 Senarai Kamus Data
 </h4>
-    <div class="ui container-fluid content__body p-3">
+    <div class="ui container-fluid content__body p-2">
 <div class="ui attached segment raised">
 
                 <table id="listdetail" class="ui celled table" style="width:100%">

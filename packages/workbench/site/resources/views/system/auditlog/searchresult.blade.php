@@ -27,8 +27,8 @@
                                  <td style="vertical-align: top;">{{data_get($data,'users.name')}}</td>
                                  <td style="vertical-align: top;">{{data_get($data,'users.user_role.acl_roles.name')}}</td>
                                  <td style="vertical-align: top;">{{data_get($data,'Activities')}}</td>
-                                 <td style="vertical-align: top;text-align: left;" width="200px">{{data_get($data,'Old_Value')}}</td>
-                                 <td style="vertical-align: top;text-align: left;" width="200px">{{data_get($data,'New_Value')}}</td>
+                                 <td style="vertical-align: top;text-align: left;word-break:break-all" width="200px">{{data_get($data,'Old_Value')}}</td>
+                                 <td style="vertical-align: top;text-align: left;word-break:break-all" width="200px">{{data_get($data,'New_Value')}}</td>
                                  <td style="vertical-align: top;">{{date('d-m-Y H:i:s',strtotime(data_get($data,'created_at')))}}</td>
                                 
                              </tr>

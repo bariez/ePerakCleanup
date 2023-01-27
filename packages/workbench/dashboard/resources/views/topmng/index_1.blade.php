@@ -347,7 +347,7 @@ aside{
 
 </div> -->
 
-<div class="ui container-fluid content__body p-3" id="result3" style="display: none">
+<div class="ui container-fluid content__body p-1" id="result3" style="display: none">
   <div class="ui segments panel">
     <div class="ui segment p-3" id="resultcountpetempatan">
 
@@ -356,10 +356,8 @@ aside{
   </div>
 </div>
 
-<!-- <div class="ui container-fluid content__body p-3" id="result4">
-  <div class="ui segments panel">
-    <div class="ui segment p-3"> -->
-<div class="ui container-fluid content__body p-3" id="result4">
+
+<div class="ui container-fluid content__body p-1" id="result4">
   
       <div class="ui two stackable cards raised">
         <div class="card ">
@@ -439,11 +437,6 @@ aside{
       </div>
     </div>
   </div>
-<!--   </div>
-
-</div>
-</div>
- -->
 
 
 @endsection

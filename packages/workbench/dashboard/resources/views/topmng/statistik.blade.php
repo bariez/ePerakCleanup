@@ -44,7 +44,7 @@
     </div>
 
     <!-- start print statistik ----------------------------------------------------------------------------------------------------- -->
-    <div class="ui container-fluid content__body p-3" style="">
+    <div class="ui container-fluid content__body p-1" style="">
 
         <!-- chart n detail kemudahan asas print -->
             <div class="ui one stackable cards raised" id="divasas">

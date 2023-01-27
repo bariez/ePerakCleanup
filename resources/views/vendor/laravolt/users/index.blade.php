@@ -23,10 +23,10 @@
 </div>
 
 <br>
- <h4 class="ui top attached header">
+<h4 class="ui top attached header">
 Senarai Pengguna
 </h4>
-    <div class="ui container-fluid content__body p-3">
+    <div class="ui container-fluid content__body p-1">
 <div class="ui attached segment raised">
 
                 <table id="listuser" class="ui celled table" style="width:100%">

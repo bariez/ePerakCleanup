@@ -46,7 +46,7 @@ img:hover {
  <h4 class="ui top attached header" style="color:black">
 Senarai Dun
 </h4>
-    <div class="ui container-fluid content__body p-3">
+    <div class="ui container-fluid content__body p-2">
 <div class="ui attached segment raised">
 
             	<table id="listparlimen" class="ui celled table" style="width:100%">

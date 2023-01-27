@@ -4,15 +4,15 @@
 
 
 
-<div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
+<div id="actionbar" class="ui two column grid content__body p-2" >
     <div class="column middle aligned">
                 <h3 class="ui header m-t-xs">
           Carian Kampung
         </h3>
     </div> 
 </div>
- <div class="tab-content mt-5">
-    <div class="ui container-fluid content__body p-3">
+
+    <div class="ui container-fluid content__body p-2">
         <div class="ui segments panel">
             <div class="ui segment p-3">
                 <form class="ui form">
@@ -145,24 +145,11 @@
 
     </div>
 </div>
-</div>
 
-<!-- <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
-        <div class="ui segments panel">
-            <div class="ui segment p-3">
-                  <div class="ui blue sliding indeterminate progress" >
-                        <div class="bar">
-                            <div class="progress">Sila Tunggu Sebentar</div>
-                        </div>
-                
-                </div>
-            </div>
-        </div>
-  
-    </div> -->
-        <div class="ui container-fluid content__body p-3" id="result2" style="display: none">
+
+        <div class="ui container-fluid content__body p-2" id="result2" style="display: none">
         <div class="ui segments panel" >
-            <div class="ui segment p-3" id="result">
+            <div class="ui segment p-2" id="result">
                 
                 </div>
             </div>
