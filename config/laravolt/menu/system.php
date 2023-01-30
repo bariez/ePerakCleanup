@@ -80,12 +80,6 @@ return [
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_USER],
             ],
 
-            // 'Workflow' => [
-            //     'route' => 'workflow::definitions.index',
-            //     'active' => 'workflow/definitions/*',
-            //     'icon' => 'code-branch',
-            //     'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_WORKFLOW],
-            // ],
         ],
     ],
 

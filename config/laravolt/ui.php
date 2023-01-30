@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'brand_name' => env('APP_NAME', 'Laravolt'),
+    'brand_name' => env('APP_NAME', 'e-Perak'),
     'brand_image' => null,
     'brand_description' => env('APP_DESCRIPTION', 'Sample application powered by Laravolt'),
 
