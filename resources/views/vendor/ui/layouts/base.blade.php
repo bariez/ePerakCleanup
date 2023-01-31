@@ -20,7 +20,7 @@
 
 @yield('body')
 
-<script type="text/javascript" src="{{ mix('js/all.js', 'laravolt') }}"></script>
+
 {!! Assets::group('laravolt')->js() !!}
 {!! Assets::js() !!}
 @stack('script')

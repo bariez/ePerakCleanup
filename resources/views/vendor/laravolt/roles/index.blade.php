@@ -1,14 +1,26 @@
-@extends(config('laravolt.epicentrum.view.layout'))
+@extends('laravolt::layout.app2')
 
-@section('page.title', __('laravolt::label.roles'))
 
-@push('page.actions')
-    <a href="{{ route('epicentrum::roles.create') }}" class="ui button primary">
-        <i class="icon plus"></i> @lang('laravolt::action.add')
-    </a>
-@endpush
+
 
 @section('content')
+<div id="actionbar" class="ui two column grid content__body p-x-2 p-y-1 m-b-0" >
+    <div class="column middle aligned">
+        <h3 class="ui header m-t-xs">
+          Kategori Pengguna
+        </h3>
+    </div> 
+    <div class="column right aligned middle aligned">
+
+           <a class="ui button green" href="{{ route('epicentrum::roles.create') }}" id="addbutton"><i class="icon plus"></i><span>Tambah</span></a>
+
+
+    </div>
+</div>
+<br>
+
+
+<div class="ui attached segment raised">
     <div class="ui grid">
         <div class="column sixteen wide">
             <div class="ui cards three doubling">
@@ -29,5 +41,7 @@
             </div>
         </div>
     </div>
+</div>
+
 
 @endsection

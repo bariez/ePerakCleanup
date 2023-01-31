@@ -1079,6 +1079,8 @@ class SiteController extends Controller
 
       $roles = $this->rolerepository->all();
 
+      //dd($roles);
+
         return view('laravolt::roles.index', compact('roles'));
     }
 

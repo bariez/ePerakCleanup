@@ -1,17 +1,27 @@
-@extends(config('laravolt.epicentrum.view.layout'))
+@extends('laravolt::layout.app2')
 
-@section('page.title', __('laravolt::label.roles'))
-
-@push('page.actions')
-    <a href="{{ route('epicentrum::roles.index') }}" class="ui button">
-        <i class="icon arrow up"></i> Kembali ke Index
-    </a>
-@endpush
 
 @section('content')
-    @component('laravolt::components.panel', ['title' => __('laravolt::label.add_role')])
+
+<div id="actionbar" class="ui two column grid content__body p-x-2 p-y-1 m-b-0" >
+    <div class="column middle aligned">
+        <h3 class="ui header m-t-xs">
+          Tambah Kategori Pengguna
+        </h3>
+    </div> 
+    <div class="column right aligned middle aligned">
+
+           <a class="ui button green" href="{{ route('epicentrum::roles.index') }}" id="addbutton"><i class="icon arrow left"></i><span><b>Kembali</b></span></a>
+
+
+    </div>
+</div>
+
+<div class="ui attached segment">
+
         {!! SemanticForm::open()->post()->action(route('epicentrum::roles.store')) !!}
-        {!! SemanticForm::text('name', old('name'))->label(trans('laravolt::roles.name'))->required() !!}
+
+        {!! SemanticForm::text('name', old('name'))->label('Nama Kategori Pengguna')->required() !!}
 
         <table class="ui table">
             <thead>
@@ -20,10 +30,10 @@
                     <div class="ui checkbox" data-toggle="checkall"
                          data-selector=".checkbox[data-type='check-all-child']">
                         <input type="checkbox">
-                        <label><strong>@lang('laravolt::label.permissions')</strong></label>
+                        <label><strong>Kebenaran Pengguna</strong></label>
                     </div>
                 </th>
-                <th>@lang('laravolt::permissions.description')</th>
+                <th>Diskripsi Kebenaran Pengguna</th>
             </tr>
             </thead>
             <tbody>
@@ -44,8 +54,9 @@
 
         <div class="ui divider hidden"></div>
 
-        <button class="ui button primary" type="submit" name="submit" value="1">@lang('laravolt::action.save')</button>
-        <a href="{{ route('epicentrum::roles.index') }}" class="ui button">@lang('laravolt::action.cancel')</a>
+        <button class="ui button primary" type="submit" name="submit" value="1">Simpan</button>
+        <a href="{{ route('epicentrum::roles.index') }}" class="ui button">Batal</a>
         {!! SemanticForm::close() !!}
-    @endcomponent
+    </div>
+  
 @endsection
