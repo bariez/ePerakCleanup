@@ -18,10 +18,13 @@
 
 <div class="ui attached segment">
 
-      {!! SemanticForm::open()->put()->action(route('epicentrum::roles.update', $role['id'])) !!}
+    {!! form()->open()->post()->action(route('site::roles.update'))!!}
+    <div class="field">
+        <label>Nama Kategori Pengguna<font color="red">*</font></label>
+                    <input type="text" name="name" id="name" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="{{ old('name', $role['name'])}}">
+            </div>
 
-        {!! SemanticForm::text('name', old('name', $role['name']))->label('Nama Kategori Pengguna')->required() !!}
-
+            <input type="hidden" name="idrole" id="idrole" value="{{$id}}" >
         <table class="ui table">
             <thead>
             <tr>
@@ -56,7 +59,7 @@
 
         <button class="ui button primary" type="submit" name="submit" value="1">Simpan</button>
         <a href="{{ route('epicentrum::roles.index') }}" class="ui button">Batal</a>
-        {!! SemanticForm::close() !!}
+             {!! Form::close() !!}
     </div>
 
 
@@ -67,11 +70,12 @@
         <h3 class="">Padam Kategori</h3>
         <p>{{$role->users->count()}} Pengguna akan terlibat</p>
 
-        {!! SemanticForm::open()->delete()->action(route('epicentrum::roles.destroy', $role['id'])) !!}
+        {!! Form::open()->post()->action(route('site::roles.destroy')) !!}
+         <input type="hidden" name="idrole" id="idrole" value="{{$id}}" >
         <button class="ui button red" type="submit" name="submit" value="1"
                 onclick="return confirm('Adakah anda pasti untuk padam?')">Padam
         </button>
-        {!! SemanticForm::close() !!}
+        {!! Form::close() !!}
     </div>
 
 @endsection

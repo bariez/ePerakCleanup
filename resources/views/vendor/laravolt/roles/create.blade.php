@@ -19,7 +19,7 @@
 
 <div class="ui attached segment">
 
-        {!! SemanticForm::open()->post()->action(route('epicentrum::roles.store')) !!}
+        {!! SemanticForm::open()->post()->action(route('site::roles.store')) !!}
 
         {!! SemanticForm::text('name', old('name'))->label('Nama Kategori Pengguna')->required() !!}
 
