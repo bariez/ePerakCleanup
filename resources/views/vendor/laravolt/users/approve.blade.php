@@ -162,26 +162,6 @@
 
 
 
-      <!--   <div class="ui red segment p-2">
-                <h4 class="ui header">@lang('laravolt::users.delete_account')</h4>
-
-                @if($user['id'] == auth()->id())
-                    <div class="ui message warning">@lang('laravolt::message.cannot_delete_yourself')</div>
-                @else
-                    {!! form()->open()->delete()->action(route('epicentrum::users.destroy', $user['id'])) !!}
-                    <p>Menghapus pengguna dan semua data yang berhubungan dengan pengguna ini.
-                        <br>
-                        Aksi ini tidak bisa dibatalkan.</p>
-                    <x-volt-button class="red" value="1">
-                        @lang('laravolt::action.delete') {{ $user->name }}
-                    </x-volt-button>
-                    {!! form()->close() !!}
-                @endif
-            </div>
-
-
- -->
-
 
     </div>
   </div>

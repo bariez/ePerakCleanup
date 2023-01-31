@@ -324,11 +324,11 @@ class SiteController extends Controller
     }
     public function approveusers(Update $request, $id)
     {
-        // dd($request);
+
         try {
 
 
-            $this->repository->updateAccount($id, $request->except('_token', '_method'), $request->get('role', []));
+            $this->repository->updateAccount($id, $request->except('_token', '_method','role','daerah01','daerah02','mukim','hantar'), $request->get('role', []));
 
             $updateuser=Users::find($id);
             if($request->role==2){//pegawai daerah
