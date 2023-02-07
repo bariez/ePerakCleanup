@@ -9,10 +9,10 @@
         font-family: Verdana, Arial, sans-serif;
     }
     table{
-         font-size:10px;
+         font-size:7px;
     }
     div{
-          font-size:10px;
+          font-size:7px;
     }
     tfoot tr td{
         font-weight: bold;
