@@ -44,7 +44,7 @@
 
             </center>
         </div>
-        <div class="ui container-fluid content__body p-3">
+        <div class="ui container-fluid p-2">
             <div class="ui four stackable link cards">
 
                 <div class="card">
@@ -105,8 +105,8 @@
 
             </div>
         </div>
-        <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
-            <div class="ui segment p-3">
+        <div class="ui container-fluid content__body p-2" id="loading" style="display: none;">
+            <div class="ui segment p-2">
                 <div class="ui blue sliding indeterminate progress">
                     <div class="bar">
                         <div class="progress">Sila Tunggu Sebentar</div>
@@ -116,7 +116,7 @@
         </div>
     </div>
 
-    <div class="ui one column grid content__body" id="divtitle" style="margin-top: -80px; display: none">
+    <div class="ui one column grid content__body" id="divtitle" style="margin-top: -100px; display: none">
         <div class="column middle aligned">
             <center>
                 <h1 class="">
@@ -126,11 +126,11 @@
         </div>
     </div>
 
-    <div class="tab-content p-3 raised" style="page-break-after: avoid !important">
+    <div class="tab-content p-2 raised" style="page-break-after: avoid !important">
         <div class="ui one stackable cards raised">
             <div class="card" style="margin-right: 0px !important; margin-left: 0px !important">
                 
-                <div class="p-3" id="contentgis"></div>
+                <div class="p-2" id="contentgis"></div>
 
             </div>
         </div>

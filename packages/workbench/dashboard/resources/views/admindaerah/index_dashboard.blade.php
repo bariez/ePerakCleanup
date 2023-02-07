@@ -215,7 +215,7 @@
             <h2 class="ui header m-t-xs" style="text-shadow: rgb(0 0 0) 4px 4px;font-size: 40px"> DASHBOARD PENTADBIR DAERAH {{data_get($daerah,'NamaDaerah')}} </h2>
         </center>
     </div>
-    <div class="ui container-fluid content__body p-3">
+    <div class="ui container-fluid p-2">
         <div class="ui four stackable link cards">
 
             <div class="card" onclick="showmap()">
@@ -279,9 +279,9 @@
 
     <br>
 
-    <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
+    <div class="ui container-fluid content__body p-2" id="loading" style="display: none;">
         <div class="ui segments panel">
-            <div class="ui segment p-3">
+            <div class="ui segment p-2">
                 <div class="ui blue sliding indeterminate progress">
                     <div class="bar">
                         <div class="progress">Sila Tunggu Sebentar</div>
@@ -292,7 +292,7 @@
     </div>
 </div>
 
-<div class="ui one column grid content__body" id="divtitle" style="margin-top: -80px; display: none">
+<div class="ui one column grid content__body" id="divtitle" style="margin-top: -100px; display: none">
     <div class="column middle aligned">
         <center>
             <h3 class="">
@@ -350,7 +350,7 @@
 
 
 
-<div class="tab-content p-3 raised" id="contentstatistic" style="">
+<div class="tab-content p-2 raised" id="contentstatistic" style="">
     <div class="ui styled fluid accordion" id="divaccordion">
         <div class="title">
             <i class="dropdown icon"></i>CARIAN STATISTIK
@@ -441,13 +441,13 @@
         </div>
     </div>
 
-    <div class="ui container-fluid content__body" id="result3" style="display: none; padding: 2rem 0rem">
+    <div class="ui container-fluid" id="result3" style="display: none; padding: 2rem 0rem">
         <!-- <div class="ui segments panel"> -->
             <div class="" id="resultcountpetempatan"></div>
         <!-- </div> -->
     </div>
 
-    <div class="ui container-fluid content__body" id="result4" style="padding: 1rem 0rem">
+    <div class="ui container-fluid" id="result4" style="padding: 1rem 0rem">
 
         <!-- chart 1 ------------------------------- -->
         <div class="ui two stackable cards raised">
@@ -590,6 +590,9 @@
         <!-- end chart 4 ------------------------------- -->
 
         <!-- end chart 5 ------------------------------- -->
+        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
+                
+        </div>
         <div class="ui two stackable cards raised">
             <div class="card">
                 <div class="ui active loader" id="loader5"></div>
@@ -624,9 +627,6 @@
         <!-- end chart 5 ------------------------------- -->
 
         <!-- chart 6 ------------------------------- -->
-        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
-                
-        </div>
         <div class="ui two stackable cards raised" style="">
             
             <div id="divtitle" style="display: none">
@@ -666,6 +666,9 @@
         <!-- end chart 6 ------------------------------- -->
 
         <!-- chart 7 ------------------------------- -->
+        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
+                
+        </div>
         <div class="ui two stackable cards raised link" id="modalchart7">
             <div class="card">
                 <div class="ui active loader" id="loader7"></div>
@@ -748,7 +751,7 @@
 
             <div class="ui active loader" id="loadertable1"></div>
 
-            <div class="ui active p-3" id="divchart1">
+            <div class="ui active p-2" id="divchart1">
                 <table id="tablechart1" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -786,7 +789,7 @@
 
             <div class="ui active loader" id="loadertable2"></div>
 
-            <div class="ui active p-3" id="divchart2">
+            <div class="ui active p-2" id="divchart2">
                 <table id="tablechart2" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -824,7 +827,7 @@
 
             <div class="ui active loader" id="loadertable3"></div>
 
-            <div class="ui active p-3" id="divchart3">
+            <div class="ui active p-2" id="divchart3">
                 <table id="tablechart3" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -863,7 +866,7 @@
 
             <div class="ui active loader" id="loadertable4"></div>
 
-            <div class="ui active p-3" id="divchart4">
+            <div class="ui active p-2" id="divchart4">
                 <table id="tablechart4" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -905,7 +908,7 @@
 
             <div class="ui active loader" id="loadertable5"></div>
 
-            <div class="ui active p-3" id="divchart5">
+            <div class="ui active p-2" id="divchart5">
                 <table id="tablechart5" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -943,7 +946,7 @@
 
             <div class="ui active loader" id="loadertable6"></div>
 
-            <div class="ui active p-3" id="divchart6">
+            <div class="ui active p-2" id="divchart6">
                 <table id="tablechart6" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -981,7 +984,7 @@
 
             <div class="ui active loader" id="loadertable7"></div>
 
-            <div class="ui active p-3" id="divchart7">
+            <div class="ui active p-2" id="divchart7">
                 <table id="tablechart7" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
@@ -1019,7 +1022,7 @@
 
             <div class="ui active loader" id="loadertable8"></div>
 
-            <div class="ui active p-3" id="divchart8">
+            <div class="ui active p-2" id="divchart8">
                 <table id="tablechart8" class="ui unstackable celled striped table" style="width: 100%">
                     <thead>
                         <tr>
