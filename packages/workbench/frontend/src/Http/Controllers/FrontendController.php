@@ -86,7 +86,7 @@ class FrontendController extends Controller
 		$notis = $this->setPaginate($request, $notisAll, $limitori);
 
 		$paginated = $this->paging->index($notisAll, $request, $limitori);
-
+// dd($request, $year, $notisAll, $limitori, $notis, $paginated);exit;
 		return view('frontend::news.listfilter', compact('notis', 'paginated', 'year', 'request'));
 	}
 

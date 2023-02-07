@@ -155,17 +155,20 @@
 				{
 					karen = defot+2;
 
-					mainmenu.style.fontSize = karen+'px';
-					infomenu.style.fontSize = karen+'px';
-					faq.style.fontSize = karen+'px';
-					contactus.style.fontSize = karen+'px';
-
-					for (i=0; i < pagemenu.length; i++) 
+					if(karen != "24")
 					{
-						pagemenu[i].style.fontSize = karen+'px';
-					}
+						mainmenu.style.fontSize = karen+'px';
+						infomenu.style.fontSize = karen+'px';
+						faq.style.fontSize = karen+'px';
+						contactus.style.fontSize = karen+'px';
 
-					defot = karen;
+						for (i=0; i < pagemenu.length; i++) 
+						{
+							pagemenu[i].style.fontSize = karen+'px';
+						}
+						
+						defot = karen;
+					}
 				}
 				else if(size == '2')
 				{
@@ -186,17 +189,20 @@
 				{
 					karen = defot-2;
 
-					mainmenu.style.fontSize = karen+'px';
-					infomenu.style.fontSize = karen+'px';
-					faq.style.fontSize = karen+'px';
-					contactus.style.fontSize = karen+'px';
-					
-					for (i=0; i < pagemenu.length; i++) 
+					if(karen != "8")
 					{
-						pagemenu[i].style.fontSize = karen+'px';
-					}
+						mainmenu.style.fontSize = karen+'px';
+						infomenu.style.fontSize = karen+'px';
+						faq.style.fontSize = karen+'px';
+						contactus.style.fontSize = karen+'px';
+						
+						for (i=0; i < pagemenu.length; i++) 
+						{
+							pagemenu[i].style.fontSize = karen+'px';
+						}
 
-					defot = karen;
+						defot = karen;
+					}
 				}
 			}
 

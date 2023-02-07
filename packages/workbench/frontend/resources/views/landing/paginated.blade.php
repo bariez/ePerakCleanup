@@ -36,11 +36,11 @@
 <ul class="pager">
 	<li <?php if($request->page <= 1){ echo 'disabled'; } ?> >
         @if(isset($tahun))
-            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?tahun=$tahun&data=$data&page=" . $request->page-1; } ?>" class="pager-prev"></a>
+            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?tahun=$tahun&data=$data&page=" . ((int)$request->page-(int)1); } ?>" class="pager-prev"></a>
         @elseif(isset($daerah))
-            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?daerah=$daerah&mukim=$mukim&kampung=$kampung&page=" . $request->page-1; } ?>" class="pager-prev"></a>
+            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?daerah=$daerah&mukim=$mukim&kampung=$kampung&page=" . ((int)$request->page-(int)1); } ?>" class="pager-prev"></a>
         @else
-            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?page=" . $request->page-1; } ?>" class="pager-prev"></a>
+            <a href="<?php if($request->page <= 1){ echo 'javascript:;'; } else { echo "?page=" . ((int)$request->page-(int)1); } ?>" class="pager-prev"></a>
         @endif
 	</li>
 
@@ -167,11 +167,11 @@
 
     <li <?php if($request->page == $totalpage){ echo 'disabled'; } ?> >
         @if(isset($tahun))
-            <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?tahun=$tahun&data=$data&page=" . $request->page+1; } ?>" class="pager-next"></a>
+            <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?tahun=$tahun&data=$data&page=" . ((int)$request->page+(int)1); } ?>" class="pager-next"></a>
         @elseif(isset($daerah))
-            <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?daerah=$daerah&mukim=$mukim&kampung=$kampung&page=" . $request->page+1; } ?>" class="pager-next"></a>
+            <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?daerah=$daerah&mukim=$mukim&kampung=$kampung&page=" . ((int)$request->page+(int)1); } ?>" class="pager-next"></a>
         @else
-    	   <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?page=" . $request->page+1; } ?>" class="pager-next"></a>
+    	   <a href="<?php if($request->page == $totalpage) { echo 'javascript:;'; } else { echo "?page=" . ((int)$request->page+(int)1); } ?>" class="pager-next"></a>
         @endif
     </li>
 </ul>
