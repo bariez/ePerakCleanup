@@ -59,7 +59,7 @@
 		</div> 
 		<div class="column right aligned middle aligned">
 			<a class="ui button green" href="{!! URL::to('site/katprod/add') !!}" id="addbutton">
-				<i class="icon plus"></i><span>Tambah</span>
+				<i class="icon plus"></i><span><b>Tambah</b></span>
 			</a>
 		</div>
 	</div>

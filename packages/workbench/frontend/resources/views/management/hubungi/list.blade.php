@@ -61,7 +61,7 @@
 			@if( count($data) >= 1 )
 			@else
 				<a class="ui button green" href="{!! URL::to('site/hubungi/add') !!}" id="addbutton">
-					<i class="icon plus"></i><span>Tambah</span>
+					<i class="icon plus"></i><span><b>Tambah</b></span>
 				</a>
 			@endif
 		</div>

@@ -59,7 +59,7 @@
 		</div>
 		<div class="column right aligned middle aligned">
 			<a class="ui button" href="{!! URL::to('site/soalan/index') !!}" id="backbutton">
-				Kembali
+				<b>Kembali</b>
 			</a>
 		</div>
 	</div>
@@ -116,11 +116,11 @@
 			<div class="ui divider section"></div>
 
 			<div class="ui buttons right floated">
-				<button class="ui positive button" id="addbutton" type="submit" style="display: none; border-radius: 4px 4px 4px 4px">Simpan</button>
+				<button class="ui positive button" id="addbutton" type="submit" style="display: none; border-radius: 4px 4px 4px 4px"><b>Simpan</b></button>
 				<a onclick="alert('Sila Isi Ruangan Bertanda *')" 
 				   class="ui positive button" 
 				   id="gonebutton" 
-				   style="border-radius: 4px 4px 4px 4px;background-color: #432712;color: white">Simpan</a>
+				   style="border-radius: 4px 4px 4px 4px;background-color: #432712;color: white"><b>Simpan</b></a>
 			</div>
 
 			<br/><br/><br/>

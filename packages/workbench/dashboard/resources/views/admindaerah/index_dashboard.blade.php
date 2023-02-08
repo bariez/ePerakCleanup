@@ -2,16 +2,21 @@
 
 @section('content')
 <style type="text/css">
-    /*canvas{
-    width:480px !important;
-    height:200px !important;
+    
+    /*canvas
+    {
+        width:480px !important;
+        height:200px !important;
     }*/
-    .graph_container {
+
+    .graph_container 
+    {
         display: block;
         width: 600px;
     }
 
-    .wrapper {
+    .wrapper 
+    {
         height: 200px;
         width: 400px;
     }
@@ -26,23 +31,28 @@
         padding: 10px !important;
     }
 
-    @media print {
-
-        /*   @page {
-    size: 330mm 427mm;
-    margin: 14mm;
-  }
-  .container {
-    width: 1170px;
-  }*/
-        @page {
+    @media print 
+    {
+        /*@page 
+        {
+            size: 330mm 427mm;
+            margin: 14mm;
+        }
+        .container 
+        {
+            width: 1170px;
+        }*/
+        
+        @page 
+        {
             size: auto;
             margin: 0;
         }
 
-        /*#myBarChart{
-        width:250px
-        height:100px;
+        /*#myBarChart
+        {
+            width:250px
+            height:100px;
         }*/
 
         #topbar {
@@ -279,7 +289,7 @@
 
     <br>
 
-    <div class="ui container-fluid content__body p-2" id="loading" style="display: none;">
+    <div class="ui container-fluid p-2" id="loading" style="display: none;">
         <div class="ui segments panel">
             <div class="ui segment p-2">
                 <div class="ui blue sliding indeterminate progress">
@@ -292,7 +302,7 @@
     </div>
 </div>
 
-<div class="ui one column grid content__body" id="divtitle" style="margin-top: -100px; display: none">
+<div class="ui one column grid" id="divtitle" style="margin-top: -100px; display: none">
     <div class="column middle aligned">
         <center>
             <h3 class="">
@@ -450,7 +460,7 @@
     <div class="ui container-fluid" id="result4" style="padding: 1rem 0rem">
 
         <!-- chart 1 ------------------------------- -->
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader1"></div>
                 <div class="content" id="resultchart1" style="display: none"></div>
@@ -484,7 +494,7 @@
         <!-- end chart 1 ------------------------------- -->
 
         <!-- chart 2 ------------------------------- -->
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader2"></div>
                 <div class="content" id="resultchart2" style="display: none"></div>
@@ -521,7 +531,7 @@
         <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
                 
         </div>
-        <div class="ui two stackable cards raised" style=" ">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader3"></div>
                 <div class="content" id="resultchart3" style="display: none"></div>
@@ -555,7 +565,7 @@
         <!-- end chart 3 ------------------------------- -->
 
         <!-- chart 4 ------------------------------- -->
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader4"></div>
                 <div class="content" id="resultchart4" style="display: none"></div>
@@ -590,10 +600,7 @@
         <!-- end chart 4 ------------------------------- -->
 
         <!-- end chart 5 ------------------------------- -->
-        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
-                
-        </div>
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader5"></div>
                 <div class="content" id="resultchart5" style="display: none"></div>
@@ -627,7 +634,10 @@
         <!-- end chart 5 ------------------------------- -->
 
         <!-- chart 6 ------------------------------- -->
-        <div class="ui two stackable cards raised" style="">
+        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
+                
+        </div>
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             
             <div id="divtitle" style="display: none">
                 <br/><br/><br/>
@@ -666,10 +676,7 @@
         <!-- end chart 6 ------------------------------- -->
 
         <!-- chart 7 ------------------------------- -->
-        <div id="divtitle2" style="page-break-before:always; display: none; padding-top: 4rem !important">
-                
-        </div>
-        <div class="ui two stackable cards raised link" id="modalchart7">
+        <div class="ui two stackable cards raised link" id="modalchart7" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader7"></div>
                 <div class="content" id="resultchart7" style="display: none"></div>
@@ -703,7 +710,7 @@
         <!-- end chart 7 ------------------------------- -->
 
         <!-- chart 8 ------------------------------- -->
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader8"></div>
                 <div class="content" id="resultchart8" style="display: none"></div>

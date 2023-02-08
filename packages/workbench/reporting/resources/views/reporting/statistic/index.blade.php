@@ -23,7 +23,12 @@
 
     table > tbody > tr > td
     {
-        padding: 0px !important;
+        padding: 5px !important;
+    }
+
+    table > thead > tr > th
+    {
+        padding: 10px !important;
     }
 
     @media print 
@@ -414,13 +419,13 @@
         <div class="ui divider section" id="divaccordion"></div>
 
         <div class="ui buttons right floated" id="divaccordion">
-            <a class="ui button" href="{!! URL::to('reporting/statistic/index') !!}">Set Semula</a>
+            <a class="ui button" href="{!! URL::to('reporting/statistic/index') !!}"><b>Set Semula</b></a>
             <div class="or" data-text="@"></div>
             <button class="ui button primary" onclick="search()" style="background-color: #432712">
-                Carian
+                <b>Carian</b>
             </button>
             <div class="or" data-text="@"></div>
-            <a href="javascript:;"  class="ui red button"  onclick="pdfclick()"   title="PDF">&nbsp;Cetak&nbsp;</a>
+            <a href="javascript:;"  class="ui red button"  onclick="pdfclick()"   title="PDF"><b>&nbsp;Cetak&nbsp;</b></a>
         </div>
 
         <div id="divaccordion">
