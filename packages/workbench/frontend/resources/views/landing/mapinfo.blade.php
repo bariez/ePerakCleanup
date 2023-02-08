@@ -1,6 +1,4 @@
 <script>
-    const longKampung = 101.056717;
-    const latKampung = 4.801320;
     // console.log(longKampung + "    -----   " + latKampung);
 
     require(["esri/Map",
@@ -391,7 +389,7 @@
             container: "viewDiv",
             map: map,
             zoom: 8,
-            center: [longKampung, latKampung]
+            center: [101.027036, 4.723397]
         });
 
         const searchWidget = new Search({
