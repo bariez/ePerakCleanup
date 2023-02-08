@@ -44,8 +44,11 @@ class LocationController extends Controller
 		$roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))
 							   ->first();
 
+
+
         if($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') // pentadbir sistem n Ptinggi n Dataentri
         {
+          
             return view('dashboard::location.gisadmin', compact('datalocation','datagis','latKampung','longKampung','kampungdata','kemudahandata'));
         }
         elseif($roleuser->role_id == '2') // PDaerah

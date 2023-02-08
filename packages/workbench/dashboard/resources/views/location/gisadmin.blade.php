@@ -508,132 +508,7 @@
         }
         ?>
 
-        /*****************************************************************
-                             END KETUA ISI RUMAH
-        *****************************************************************/
 
-        /*****************************************************************
-                             START KEMUDAHAN AWAM
-        *****************************************************************/
-
-        // <?php
-
-        // $pointGraphic = "";
-
-        // foreach ($kemudahandata as $key => $value ){
-        //     // dd($value);
-        // ?>
-
-        // if( " data_get($value, 'KatKemudahan') }}" == '10' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [58, 26, 188],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '11' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [35, 223, 61],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '12' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [35, 223, 221],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '13' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [223, 35, 66],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '14' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [223, 186, 35 ],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-
-        // // First create a point geometry (this is the location of the Titanic)
-        // point = {
-        //     type: "point", // autocasts as new Point()
-        //     longitude:  $value->Longitud }},
-        //     latitude:  $value->Latitud }}
-        // };
-
-        // // Create a graphic and add the geometry and symbol to it
-        // pointGraphic = new Graphic({
-        //     geometry: point,
-        //     symbol: markerSymbol,
-        //     popupTemplate: {
-        //         // autocasts as new PopupTemplate()
-        //         title: "$value->Description}}",
-        //         content: "<table>" +
-        //             "<tr> " +
-        //             "<td>Nama</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaKemudahan }}</td> " +
-        //             "</tr> " +
-        //             "<tr> " +
-        //             "<td>Mukim</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaMukim }}</td> " +
-        //             "</tr> " +
-        //             "<tr> " +
-        //             "<td>Daerah</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaDaerah }}</td> " +
-        //             "</tr> " +
-        //             "</table>"
-        //     }
-        // });
-
-        // view.graphics.add(pointGraphic);
-
-        // <?php
-        // }
-        // ?>
 
         /*****************************************************************
                              END KEMUDAHAN AWAM
@@ -724,7 +599,7 @@
 
     @media print
     {
-        #divtitle
+        #divtitle1
         {
             display: block !important;
         }
@@ -764,7 +639,7 @@
 
 <br><br>
 
-<div id="divtitle" style="display: none;">
+<div id="divtitle1" style="display: none;">
     <div id="getLegend" style="display: flex">
 
     </div>

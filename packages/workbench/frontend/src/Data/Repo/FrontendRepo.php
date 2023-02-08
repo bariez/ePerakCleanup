@@ -1128,15 +1128,15 @@ class FrontendRepo
 
     public function jumlahGis($request)
 	{
-		$pemilikanrumah  = VwKampungRumah::with('pemilikanrumah','mukim','daerah')
-                                        ->get();
+		// $pemilikanrumah  = VwKampungRumah::with('pemilikanrumah','mukim','daerah')
+        //                                 ->get();
 
         $latlong = Pemilikanrumah::first();
 
         $lat = $latlong->Latitud;
         $long = $latlong->Longitud;
 
-		return compact('pemilikanrumah','lat','long');
+		return compact('lat','long');
 	}
 
     public function mainkirGis($request)
