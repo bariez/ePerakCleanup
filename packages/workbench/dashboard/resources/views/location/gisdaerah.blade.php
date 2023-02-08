@@ -442,132 +442,6 @@
                              END KETUA ISI RUMAH
         *****************************************************************/
 
-        /*****************************************************************
-                             START KEMUDAHAN AWAM
-        *****************************************************************/
-
-        // <?php
-
-        // $pointGraphic = "";
-
-        // foreach ($kemudahandata as $key => $value ){
-        //     // dd($value);
-        // ?>
-
-        // if( " data_get($value, 'KatKemudahan') }}" == '10' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [58, 26, 188],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '11' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [35, 223, 61],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '12' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [35, 223, 221],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '13' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [223, 35, 66],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-        // else if( " data_get($value, 'KatKemudahan') }}" == '14' )
-        // {
-        //     // Create a symbol for drawing the point
-        //     markerSymbol = {
-        //         type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-        //         color: [223, 186, 35 ],
-        //         outline: {
-        //             // autocasts as new SimpleLineSymbol()
-        //             color: [255, 255, 255],
-        //             width: 0.5
-        //         },
-        //         size: 8
-        //     };
-        // }
-
-        // // First create a point geometry (this is the location of the Titanic)
-        // point = {
-        //     type: "point", // autocasts as new Point()
-        //     longitude:  $value->Longitud }},
-        //     latitude:  $value->Latitud }}
-        // };
-
-        // // Create a graphic and add the geometry and symbol to it
-        // pointGraphic = new Graphic({
-        //     geometry: point,
-        //     symbol: markerSymbol,
-        //     popupTemplate: {
-        //         // autocasts as new PopupTemplate()
-        //         title: "$value->Description}}",
-        //         content: "<table>" +
-        //             "<tr> " +
-        //             "<td>Nama</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaKemudahan }}</td> " +
-        //             "</tr> " +
-        //             "<tr> " +
-        //             "<td>Mukim</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaMukim }}</td> " +
-        //             "</tr> " +
-        //             "<tr> " +
-        //             "<td>Daerah</td> " +
-        //             "<td>: </td> " +
-        //             "<td> $value->NamaDaerah }}</td> " +
-        //             "</tr> " +
-        //             "</table>"
-        //     }
-        // });
-
-        // view.graphics.add(pointGraphic);
-
-        // <?php
-        // }
-        // ?>
-
-        /*****************************************************************
-                             END KEMUDAHAN AWAM
-        *****************************************************************/
 
         view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-right");
         map.add(mapLayer);
@@ -607,9 +481,9 @@
     }
 
     function divtitle() {
-        console.log("sini meeyyyy");
+        // console.log("sini meeyyyy");
         var leng_legend = $(".esri-legend__service .esri-legend__layer-table").length;
-        console.log(leng_legend);
+        // console.log(leng_legend);
 
         var html_legend = "";
 
@@ -619,18 +493,18 @@
             var firsticon = '<i class="circle icon" style="color: rgb(188, 26, 183);"></i>Ketua Isi Rumah';
 
 
-            console.log("\n");
-            console.log(icon);
-            console.log("\n");
-            console.log(name);
-            console.log("\n");
+            // console.log("\n");
+            // console.log(icon);
+            // console.log("\n");
+            // console.log(name);
+            // console.log("\n");
 
             if(i == 0){
                 html_legend = '<div>' + firsticon + '</div>' + '<div>' + icon + '</div>' + '<div>' + name + '</div>';
             }else{
                 html_legend = html_legend + "," + '<div>' + icon + '</div>' + '<div>' + name + '</div>';
             }
-            console.log(html_legend);
+            // console.log(html_legend);
         }
 
         $("#getLegend").html(html_legend);
