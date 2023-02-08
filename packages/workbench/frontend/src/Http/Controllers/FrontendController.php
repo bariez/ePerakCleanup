@@ -490,15 +490,15 @@ class FrontendController extends Controller
     public function getAjaxMapinfo(Request $request)
     {
         $data = $this->repos->jumlahGis($request);
-        $kirkampung = $this->repos->mainkirGis($request);
-        $kampungdata = $this->repos->mainkampungGis($request);
+        // $kirkampung = $this->repos->mainkirGis($request);
+        // $kampungdata = $this->repos->mainkampungGis($request);
 
-        $datagis = $data['pemilikanrumah'];
+        // $datagis = $data['pemilikanrumah'];
 
         $latKampung = $data['lat'];
         $longKampung = $data['long'];
 
-        return view('frontend::landing.mapinfo', compact('datagis','latKampung','longKampung','kirkampung','kampungdata'));
+        return view('frontend::landing.mapinfo', compact('data','latKampung','longKampung'));
     }
 
 	// ------------------------------------------------------------------------
