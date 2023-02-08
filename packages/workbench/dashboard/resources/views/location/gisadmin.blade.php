@@ -724,7 +724,7 @@
 
     @media print
     {
-        #divtitle
+        #divtitle1
         {
             display: block !important;
         }
@@ -764,7 +764,7 @@
 
 <br><br>
 
-<div id="divtitle" style="display: none;">
+<div id="divtitle1" style="display: none;">
     <div id="getLegend" style="display: flex">
 
     </div>
