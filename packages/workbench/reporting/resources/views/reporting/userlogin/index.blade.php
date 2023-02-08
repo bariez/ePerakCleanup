@@ -118,11 +118,11 @@
 				<div class="ui divider section"></div>
 
 				<div class="ui buttons right floated">
-					<a class="ui button" href="{!! URL::to('reporting/userlogin/index') !!}">Set Semula</a>
+					<a class="ui button" href="{!! URL::to('reporting/userlogin/index') !!}"><b>Set Semula</b></a>
 					<div class="or" data-text="@"></div>
 					<a href="javascript:;" class="ui blue button" 
 					   id="clicksubmit" type="button"
-					   style="border-radius: 4px 4px 4px 4px;background-color: #432712;color: white">&nbsp;&nbsp;&nbsp;Carian&nbsp;&nbsp;&nbsp;</a>
+					   style="border-radius: 4px 4px 4px 4px;background-color: #432712;color: white"><b>&nbsp;&nbsp;&nbsp;Carian&nbsp;&nbsp;&nbsp;</b></a>
 				</div>
 				<br/><br/><br/>
 			</div>
@@ -130,9 +130,9 @@
 	</div>
 
 	<!-- sila tunggu is here -->
-	<div class="ui container-fluid content__body p-3" id="ajaxpleasewaitmain" style="display: none;">
+	<div class="ui container-fluid p-2" id="ajaxpleasewaitmain" style="display: none;">
 		<div class="ui segments panel">
-			<div class="ui segment p-3">
+			<div class="ui segment p-2">
 				<div class="ui blue sliding indeterminate progress" >
 					<div class="bar">
 						<div class="progress">Sila Tunggu Sebentar</div>
@@ -141,14 +141,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="ui container-fluid content__body p-3" id="ajaxlistmain" style="display: none">
+	<div class="ui container-fluid p-2" id="ajaxlistmain" style="display: none">
 		<div class="ui segments panel" >
-			<div class="ui segment p-3" id="result">
+			<div class="ui segment p-2" id="result">
 
 				<div class="ui buttons right floated">
-					<a href="javascript:;"  class="ui red button"  onclick="pdfclick()"   title="PDF">&nbsp;PDF&nbsp;</a>
+					<a href="javascript:;"  class="ui red button"  onclick="pdfclick()"   title="PDF"><b>&nbsp;PDF&nbsp;</b></a>
 					<div class="or" data-text="@"></div>
-					<a href="javascript:;"  class="ui green button"  onclick="excelclick()" title="EXCEL">EXCEL</a>
+					<a href="javascript:;"  class="ui green button"  onclick="excelclick()" title="EXCEL"><b>EXCEL</b></a>
 				</div>
 				<br/><br/>
 

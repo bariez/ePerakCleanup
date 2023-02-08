@@ -190,7 +190,7 @@
 
 </style>
 
-<div id="actionbar" class="ui two column grid content__body p-1">
+<div id="actionbar" class="ui two column grid  p-1">
     <div class="column middle aligned">
         <h3 class="ui header m-t-xs">
             LAPORAN STATISTIK PENDUDUK
@@ -200,10 +200,10 @@
 
 <br>
 
-<div class="tab-content p-3 raised" style="background-color: white; ">
+<div class="tab-content p-2 raised" style="background-color: white; ">
 
 
-    <div class="ui one column grid content__body p-3" id="divtitle" style="margin-top: -80px; display: none">
+    <div class="ui one column grid  p-2" id="divtitle" style="margin-top: -100px; display: none">
         <div class="column middle aligned">
             <center>
                 <h3 class="">
@@ -227,7 +227,7 @@
 
                 </h3>
             </center>
-            <table class="ui very basic collapsing celled table" id="divaccordion" style="width:100%; font-size: 12px;">
+            <table class="ui very basic collapsing celled table" id="divaccordion2" style="width:100%; font-size: 12px;">
                 <tbody>
                     <tr>
                         <td style="text-align: center; width: 25%">
@@ -248,7 +248,7 @@
                             Parlimen
                         </td>
                         <td style="text-align: center;">
-                            <span id="showparlime"> - </span>
+                            <span id="showparlimen"> - </span>
                         </td>
                         <td style="text-align: center;">
                             Dun
@@ -276,7 +276,7 @@
         </div>
     </div>
 
-    <div class="p-3" id="divaccordion2">
+    <div class="p-2" id="divaccordion">
         <form class="ui form">
 
             <div class="two fields">
@@ -398,7 +398,7 @@
 
                 <div class="field">
                     <label>Nama Kampung</label>
-                    <div class="ui fluid search selection dropdown">
+                    <div class="ui fluid search selection dropdown" id="sel_kampung">
                         <input type="hidden" name="kampung" id="kampung" value="">
                         <i class="dropdown icon"></i>
                         <div class="default text" id="pilihkampung">Sila Pilih</div>
@@ -428,7 +428,7 @@
         </div>
     </div>
 
-    <div class="ui container-fluid content__body" id="result3" style="display: none">
+    <div class="ui container-fluid " id="result3" style="display: none">
         <div class="">
             <div class="" id="resultcountpetempatan" style="padding-right: 2rem !important; padding-left: 2rem !important;">
               
@@ -436,8 +436,8 @@
         </div>
     </div>
 
-    <div class="ui container-fluid content__body p-3" id="result4">
-        <div class="ui two stackable cards raised">
+    <div class="ui container-fluid  p-2" id="result4">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card ">
                 <div class="ui active loader" id="loader1"></div>
                 <div class="content" id="resultchart1" style="display: none">
@@ -454,7 +454,7 @@
 
         <!-- explaination/ legend - chart 1+2 ------------------------------- -->
 
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card ">
                 <div class="ui active loader" id="explainloader1"></div>
                 <div class="content" id="explainchart1">
@@ -491,7 +491,7 @@
 
         <!-- end explaination/ legend - chart 1+2 ------------------------------- -->
 
-        <div class="ui two stackable cards raised" style="page-break-before:always; ">
+        <div class="ui two stackable cards raised" style="page-break-before:always; margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader3"></div>
                 <div class="content" id="resultchart3" style="display: none">
@@ -508,7 +508,7 @@
 
         <!-- explaination/ legend - chart 3+4 ------------------------------- -->
 
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card ">
                 <div class="ui active loader" id="explainloader3"></div>
                 <div class="content" id="explainchart3">
@@ -546,7 +546,7 @@
 
         <!-- end explaination/ legend - chart 3+4 ------------------------------- -->
 
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader5"></div>
                 <div class="content" id="resultchart5" style="display: none">
@@ -563,7 +563,7 @@
 
         <!-- explaination/ legend - chart 5+6 ------------------------------- -->
 
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card ">
                 <div class="ui active loader" id="explainloader5"></div>
                 <div class="content" id="explainchart5">
@@ -600,7 +600,7 @@
 
         <!-- end explaination/ legend - chart 5+6 ------------------------------- -->
 
-        <div class="ui two stackable cards raised" style="page-break-before:always; ">
+        <div class="ui two stackable cards raised" style="page-break-before:always; margin-top: 5px;">
             <div class="card">
                 <div class="ui active loader" id="loader7"></div>
                 <div class="content" id="resultchart7" style="display: none">
@@ -617,7 +617,7 @@
 
         <!-- explaination/ legend - chart 7+8 ------------------------------- -->
 
-        <div class="ui two stackable cards raised">
+        <div class="ui two stackable cards raised" style="margin-top: 5px;">
             <div class="card ">
                 <div class="ui active loader" id="explainloader7"></div>
                 <div class="content" id="explainchart7">
@@ -664,6 +664,32 @@
     $(document).ready(function() 
     {
         $('.ui.accordion').accordion();
+
+        $('#sel_kampung').change(function()
+        {
+            var id = $('#kampung').val();
+            // alert("kampung -> "+kampung)
+        
+            $.ajax(
+            {
+                type: "GET",
+                url: "{{ URL::to('dashboard/kampungname/')}}" + "/" + id,
+                datatype: 'json',
+
+                beforeSend: function() 
+                {
+                    block("tab-content");
+                    // $('#contentstatistic').hide();
+                    $('#loading').show();
+                },
+                success: function(data) 
+                {
+                    $('#showkampung').html(data);
+
+                    search();
+                }
+            });
+        });
 
 
         // untuk kegunaan admin daerah -------------------------
@@ -2474,6 +2500,21 @@
                 $('#selectkampung').html(data);
             }
         });
+            
+        $.ajax(
+        {
+            type: "GET",
+            url: "{{ URL::to('dashboard/parlimenname/')}}" + "/" + id,
+            datatype: 'json',
+
+            beforeSend: function() 
+            {
+            },
+            success: function(data) 
+            {
+                $('#showparlimen').html(data);
+            }
+        });
     };
 
     function mukim(id, namadaerah) 
@@ -2733,6 +2774,21 @@
                 $('#selectkampung').html(data);
             }
         });
+            
+        $.ajax(
+        {
+            type: "GET",
+            url: "{{ URL::to('dashboard/dunname/')}}" + "/" + id,
+            datatype: 'json',
+
+            beforeSend: function() 
+            {
+            },
+            success: function(data) 
+            {
+                $('#showdun').html(data);
+            }
+        });
     };
 
     function kampungmukim(id) 
@@ -2865,6 +2921,21 @@
                 $('#selectkampung').html(data);
             }
         });
+            
+        $.ajax(
+        {
+            type: "GET",
+            url: "{{ URL::to('dashboard/mukimname/')}}" + "/" + id,
+            datatype: 'json',
+
+            beforeSend: function() 
+            {
+            },
+            success: function(data) 
+            {
+                $('#showmukim').html(data);
+            }
+        });
     };
 
     function kampungpenempatan(id) 
@@ -2960,6 +3031,21 @@
                 $('#selectkampung').html(data);
             }
         });
+
+        $.ajax(
+        {
+            type: "GET",
+            url: "{{ URL::to('dashboard/katpetname/')}}" + "/" + id,
+            datatype: 'json',
+
+            beforeSend: function() 
+            {
+            },
+            success: function(data) 
+            {
+                $('#showcat').html(data);
+            }
+        });
     };
 </script> 
 
@@ -2974,12 +3060,12 @@
         var viewKategori = $('#cat_petempatan').val();
         var viewKampung = $('#kampung').val();
 
-        console.log("viewDareah->"+viewDareah);
-        console.log("viewMukim->"+viewMukim);
-        console.log("viewParlimen->"+viewParlimen);
-        console.log("viewDun->"+viewDun);
-        console.log("viewKategori->"+viewKategori);
-        console.log("viewKampung->"+viewKampung);
+        // console.log("viewDareah->"+viewDareah);
+        // console.log("viewMukim->"+viewMukim);
+        // console.log("viewParlimen->"+viewParlimen);
+        // console.log("viewDun->"+viewDun);
+        // console.log("viewKategori->"+viewKategori);
+        // console.log("viewKampung->"+viewKampung);
 
         window.print();
 
