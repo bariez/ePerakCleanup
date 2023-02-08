@@ -44,7 +44,7 @@ class LocationController extends Controller
 		$roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))
 							   ->first();
 
-        dd($roleuser);
+ 
 
         if($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') // pentadbir sistem n Ptinggi n Dataentri
         {
