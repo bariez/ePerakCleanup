@@ -48,7 +48,7 @@ class LocationController extends Controller
 
         if($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') // pentadbir sistem n Ptinggi n Dataentri
         {
-            dd('sini');
+          
             return view('dashboard::location.gisadmin', compact('datalocation','datagis','latKampung','longKampung','kampungdata','kemudahandata'));
         }
         elseif($roleuser->role_id == '2') // PDaerah
