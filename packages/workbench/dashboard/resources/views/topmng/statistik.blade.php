@@ -19,7 +19,7 @@
 </style>
 
 
-<div class="ui one column grid content__body" id="divtitle" style="margin-top: -150px; display: none">
+<div class="ui one column grid" id="divtitle" style="margin-top: -150px; display: none">
     <div class="column middle aligned">
         <center>
             <h1 class="">
@@ -31,9 +31,9 @@
 
 <div class="tab-content raised">
 
-    <div class="ui container-fluid content__body" id="result3" style="display: none; padding: 0rem 2rem">
+    <div class="ui container-fluid" id="result3" style="display: none; padding: 0rem 2rem">
         <div class="ui buttons right floated" id="divaccordion2">
-            <a href="javascript:;"  class="ui red button" onclick="document.title='LAPORAN STATISTIK PETEMPATAN {{ date('d-M-Y') }}'; window.print();" title="PDF">&nbsp;Cetak&nbsp;</a>
+            <a href="javascript:;"  class="ui red button" onclick="document.title='LAPORAN STATISTIK PETEMPATAN {{ date('d-M-Y') }}'; window.print();" title="PDF"><b>&nbsp;Cetak&nbsp;</b></a>
         </div> 
         <div id="divaccordion2">
             <br><br><br>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- start print statistik ----------------------------------------------------------------------------------------------------- -->
-    <div class="ui container-fluid content__body p-1" style="">
+    <div class="ui container-fluid p-1" style="">
 
         <!-- chart n detail kemudahan asas print -->
             <div class="ui one stackable cards raised" id="divasas">
@@ -127,7 +127,7 @@
         </div>
         
         <!-- chart n detail jenis rumah print -->
-            <div class="ui two stackable cards raised" id="divrumahtype">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divrumahtype">
                 <div class="card ">
                     <div class="ui active loader loader2_2" id=""></div>
                     <div class="content resultchart2_2" id="" style="display: none">
@@ -164,7 +164,7 @@
         </div>
 
         <!-- chart n detail kemudahan awam n infra print -->
-            <div class="ui two stackable cards raised" id="divinfra">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divinfra">
                 <div class="card">
                     <div class="ui active loader loader3_2" id=""></div>
                     <div class="content resultchart3_2" id="" style="display: none">
@@ -201,7 +201,7 @@
         </div>
 
         <!-- chart n detail status kerja print -->
-            <div class="ui two stackable cards raised" id="divkerja">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divkerja">
                 <div class="card">
                     <div class="ui active loader loader5_2" id=""></div>
                     <div class="content resultchart5_2" id="" style="display: none">
@@ -238,7 +238,7 @@
         </div>
 
         <!-- chart n detail taraf perkahwinan print -->
-            <div class="ui two stackable cards raised" id="divkahwin">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divkahwin">
                 <div class="card">
                     <div class="ui active loader loader6_2" id=""></div>
                     <div class="content resultchart6_2" id="" style="display: none">
@@ -278,10 +278,10 @@
     <!-- end print statistik ----------------------------------------------------------------------------------------------------- -->
 
     <!-- start show statistik ----------------------------------------------------------------------------------------------------- -->
-    <div class="ui container-fluid content__body p-3" id="divaccordion2">
+    <div class="ui container-fluid p-2" id="divaccordion2">
 
         <!-- chart n detail jenis rumah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card ">
                     <div class="ui active loader loader2_1" id=""></div>
                     <div class="content resultchart2_1" id="" style="display: none">
@@ -298,7 +298,7 @@
         <!-- end chart n detail jenis rumah -->
 
         <!-- chart n detail jenis rumah mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card ">
                     <div class="ui active loader loader23_1" id=""></div>
                     <div class="content resultchart23_1" id="" style="display: none">
@@ -315,7 +315,7 @@
         <!-- end chart n detail jenis rumah mengikut daerah -->
 
         <!-- chart n detail kemudahan awam n infra -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader3_1" id=""></div>
                     <div class="content resultchart3_1" id="" style="display: none">
@@ -332,7 +332,7 @@
         <!-- end chart n detail kemudahan awam n infra -->
 
         <!-- chart n detail kemudahan awam n infra mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader19_1" id=""></div>
                     <div class="content resultchart19_1" id="" style="display: none">
@@ -349,7 +349,7 @@
         <!-- end chart n detail kemudahan awam n infra mengikut daerah -->
 
         <!-- chart n detail status kerja -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader5_1" id=""></div>
                     <div class="content resultchart5_1" id="" style="display: none">
@@ -366,7 +366,7 @@
         <!-- end chart n detail status kerja -->
 
         <!-- chart n detail status kerja mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader9_1" id=""></div>
                     <div class="content resultchart9_1" id="" style="display: none">
@@ -383,7 +383,7 @@
         <!-- end chart n detail status kerja mengikut daerah -->
 
         <!-- chart n detail taraf perkahwinan -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader6_1" id=""></div>
                     <div class="content resultchart6_1" id="" style="display: none">
@@ -400,7 +400,7 @@
         <!-- end chart n detail taraf perkahwinan -->
 
         <!-- chart n detail taraf perkahwinan mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader15_1" id=""></div>
                     <div class="content resultchart15_1" id="" style="display: none">
@@ -417,7 +417,7 @@
         <!-- end chart n detail taraf perkahwinan mengikut daerah -->
 
         <!-- chart n detail kemudahan asas -->
-            <div class="ui two stackable cards raised" id="divaccordion2">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divaccordion2">
                 <div class="card">
                     <div class="ui active loader loader4_1" id=""></div>
                     <div class="content resultchart4_1" id="" style="display: none">
@@ -434,7 +434,7 @@
         <!-- end chart n detail kemudahan asas -->
 
         <!-- chart n detail pemilikan rumah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card ">
                     <div class="ui active loader loader25_1" id=""></div>
                     <div class="content resultchart25_1" id="" style="display: none">
@@ -451,7 +451,7 @@
         <!-- end chart n detail pemilikan rumah -->
         
         <!-- chart n detail pendapatan penduduk mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader8_1" id=""></div>
                     <div class="content resultchart8_1" id="" style="display: none">
@@ -468,7 +468,7 @@
         <!-- end chart n detail pendapatan penduduk mengikut daerah -->
 
         <!-- chart n detail umur mengikut daerah -->
-            <div class="ui two stackable cards raised">
+            <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader26_1" id=""></div>
                     <div class="content resultchart26_1" id="" style="display: none">

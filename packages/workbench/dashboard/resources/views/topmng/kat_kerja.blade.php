@@ -1,131 +1,114 @@
- <table class="ui very basic collapsing celled table" style="width:100%; font-size: 12px;">
-                        <thead>
-                            <tr>
-                                <th colspan="6">
-                                    <center>
-                                        <span style="font-family: Helvetica; font-size: 18px; letter-spacing: 0px;">STATUS PEKERJAAN MENGIKUT DAERAH</span>
-                                    </center>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center;">Daerah</th>
-                                 @foreach($statuskerja as $key2 =>$data2)
-                                 <th style="text-align: center;">{{data_get($data2,'description')}}</th>
-                                 @endforeach
-                                
-                               
-                            </tr>
-                        </thead>
-                         <tbody>
-                           <?php $i=1; ?>
-                           @forelse($kerja as $key =>$data)
-                             <tr  style="text-align: center;">
-                                 <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',0)" style="color: black">{{data_get($data,'namadaerah')}}</a></td>
-                                 <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',125)" style="color: black">{{data_get($data,'KERAJAAN')}}</a></td>
-                                 <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',126)" style="color: black">{{data_get($data,'SWASTA')}}</a></td>
-                                 <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',127)" style="color: black">{{data_get($data,'BEKERJA SENDIRI')}}</a></td>
-                                 <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',128)" style="color: black">
-                                 {{data_get($data,'TIDAK BEKERJA')}}</a></td>
-                                 
-                                 <!--  <td><a href="{!! URL::to('/site/daerah/viewdaerah/'.data_get($data,'id')) !!}"><i class="eye icon"></i>
-                                  </a>
-                                      <a href="{!! URL::to('/site/daerah/editdaerah/'.data_get($data,'id')) !!}"><i class="edit icon"></i></a>
-                                     
 
-                                  </td> -->
-                             </tr>
+<table class="ui very basic collapsing celled table" style="width:100%; font-size: 12px; page-break-inside:auto">
+    <thead style="display:table-header-group">
+        <tr style="page-break-inside:avoid; page-break-after:auto">
+            <th colspan="6">
+                <center>
+                    <span style="font-family: Helvetica; font-size: 18px; letter-spacing: 0px;">STATUS PEKERJAAN MENGIKUT DAERAH</span>
+                </center>
+            </th>
+        </tr>
+        <tr style="page-break-inside:avoid; page-break-after:auto">
+            <th style="text-align: center;">Daerah</th>
+            @foreach($statuskerja as $key2 =>$data2)
+                <th style="text-align: center;">{{data_get($data2,'description')}}</th>
+            @endforeach
+        </tr>
+    </thead>
+    <tbody>
+        
+        <?php $i=1; ?>
+        
+        @forelse($kerja as $key =>$data)
+            <tr  style="text-align: center;">
+                <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',0)" style="color: black">{{data_get($data,'namadaerah')}}</a></td>
+                <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',125)" style="color: black">{{data_get($data,'KERAJAAN')}}</a></td>
+                <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',126)" style="color: black">{{data_get($data,'SWASTA')}}</a></td>
+                <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',127)" style="color: black">{{data_get($data,'BEKERJA SENDIRI')}}</a></td>
+                <td><a onclick="detailallkerja('{{data_get($data,'daerah_id')}}',128)" style="color: black">{{data_get($data,'TIDAK BEKERJA')}}</a></td>
+                <!-- <td>
+                    <a href="{!! URL::to('/site/daerah/viewdaerah/'.data_get($data,'id')) !!}">
+                        <i class="eye icon"></i>
+                    </a>
+                    <a href="{!! URL::to('/site/daerah/editdaerah/'.data_get($data,'id')) !!}">
+                        <i class="edit icon"></i>
+                    </a>
+                </td> -->
+            </tr>
+        
+        <?php $i++;?>
 
-                             <?php $i++;?>
-                            @empty
-                                 <tr><td colspan='6' class="center aligned">Tiada Data</td></tr>
-                            @endforelse
+        @empty
+            <tr style="page-break-inside:avoid; page-break-after:auto"><td colspan='6' class="center aligned">Tiada Data</td></tr>
+        @endforelse
 
-                 </tbody>
-                    </table>
+    </tbody>
+</table>
 
 <!-- start modal view-->
-  <div class="ui large modal" id="detailkerja">
-   <i class="close icon"></i>
-   <div class="header" style="">
+<div class="ui large modal" id="detailkerja">
+    <i class="close icon"></i>
+    <div class="header" style="">
         <h4>MAKLUMAT PEKERJAAN PENDUDUK</h4>
     </div>
-       <div class="scrolling content" id="datadetailallkerja">
-
-
-       </div>
+    <div class="scrolling content" id="datadetailallkerja">
+      
+    </div>
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+    $(document).ready(function() 
+    {
 
+    });
 
-               
+    function detailallkerja(fk_daerah,types)
+    {
+        var daerah=fk_daerah;
+        var types=types;
 
+        $.ajax(
+        {
+            type: "GET",
+            url: "{{ URL::to('/dashboard/detailallkerja/')}}?fk_daerah=" + daerah+ "&types=" + types,
 
+            beforeSend: function() 
+            {
+                block("tab-content");
+                $('#listkerja').DataTable().destroy();///before send ajax
+            },
+            success: function(data) 
+            {
+                unblock("tab-content");
+                $("#datadetailallkerja").html(data);
+                $('#listkerja').DataTable( 
+                {
+                    "lengthChange": false,
+                    "language": 
+                    {
+                        "search":  "Carian:",
+                        "info":     "Paparan _START_ hingga _END_ daripada _TOTAL_ jumlah data",
+                        "infoEmpty": "Paparan 0 hingga 0 daripada 0 jumlah data",
+                        "paginate": 
+                        {
+                            "first":      "Pertama",
+                            "last":       "Terakhir",
+                            "next":       "Seterusnya",
+                            "previous":   "Sebelumnya"
+                        },
+                    }
+                });
 
-  });
-  function detailallkerja(fk_daerah,types){
-
-
-   var daerah=fk_daerah;
-   var types=types;
-
-
-     $.ajax({
-      type: "GET",
-
-
-        url: "{{ URL::to('/dashboard/detailallkerja/')}}?fk_daerah=" + daerah+ "&types=" + types,
-
-      beforeSend: function() {
-
-        block("tab-content");
-
-          $('#listkerja').DataTable().destroy();///before send ajax
-
-      },
-
-      success: function(data) {
-        unblock("tab-content");
-
-      $("#datadetailallkerja").html(data);
-
-
-     $('#listkerja').DataTable( {
-                   "lengthChange": false,
-                    "language": {
-                   "search":  "Carian:",
-                    "info":     "Paparan _START_ hingga _END_ daripada _TOTAL_ jumlah data",
-                    "infoEmpty": "Paparan 0 hingga 0 daripada 0 jumlah data",
-                     "paginate": {
-                        "first":      "Pertama",
-                        "last":       "Terakhir",
-                        "next":       "Seterusnya",
-                        "previous":   "Sebelumnya"
-                    },
-                 }
-             });
-
-
-
-     $('#detailkerja').modal({
-            blurring: true
-        }).modal(
-            'setting',
-            'transition', 
-            'horizontal flip'
-        ).modal('show');
-
-
-      } //end sucsess chart12
-
-
-    }); //end ajax chart12
-
-
-
-
-
-  }
+                $('#detailkerja').modal(
+                {
+                    blurring: true
+                }).modal(
+                    'setting',
+                    'transition', 
+                    'horizontal flip'
+                ).modal('show');
+            } //end sucsess chart12
+        }); //end ajax chart12
+    }
 
 </script>

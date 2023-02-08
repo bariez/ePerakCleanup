@@ -11,7 +11,7 @@
                                     background-repeat: no-repeat; 
                                     background-size: cover;
                                     ">
-            <div class="content__inner">
+            <div class="content__inner" style="min-height: 700px !important">
 
                 <div class="ui container-fluid content__body p-12">
                     <!-- <div id="divaccordion"> -->

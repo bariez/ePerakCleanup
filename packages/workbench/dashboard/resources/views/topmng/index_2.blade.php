@@ -295,7 +295,7 @@
                 <h2 class="ui header m-t-xs" style="text-shadow: rgb(3 3 3) 4px 4px;font-size: 40px">DASHBOARD PENGURUSAN TERTINGGI</h2>
             </center>
         </div>
-        <div class="ui container-fluid content__body p-3">
+        <div class="ui container-fluid p-2">
             <div class="ui four stackable link cards">
                 <div class="card" onclick="showmap()">
                    <div class="content" style="text-align: center;background-image: linear-gradient(to top, #ffca41 , #4a4747);">
@@ -345,8 +345,8 @@
                 </div>
             </div>
         </div>
-        <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
-            <div class="ui segment p-3">
+        <div class="ui container-fluid p-2" id="loading" style="display: none;">
+            <div class="ui segment p-2">
                 <div class="ui blue sliding indeterminate progress">
                     <div class="bar">
                         <div class="progress">Sila Tunggu Sebentar</div>
