@@ -4,9 +4,9 @@
     Carian Kampung
   </div> -->
 <div class="tab-content mt-5" style="padding-top:1rem">
-    <div class="ui container-fluid p-3">
+    <div class="ui container-fluid p-2">
         <div class="ui panel">
-            <div class="ui segment p-3">
+            <div class="ui segment p-2">
                 <form class="ui form">
                        <div class="two fields">
                   @if(data_get($roleuser,'role_id')==2)
@@ -140,9 +140,9 @@
 </div>
 <!-- </div> -->
 
-<!-- <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
+<!-- <div class="ui container-fluid content__body p-2" id="loading" style="display: none;">
         <div class="ui segments panel">
-            <div class="ui segment p-3">
+            <div class="ui segment p-2">
                   <div class="ui blue sliding indeterminate progress" >
                         <div class="bar">
                             <div class="progress">Sila Tunggu Sebentar</div>
@@ -153,9 +153,9 @@
         </div>
   
     </div> -->
-        <div class="ui container-fluid content__body p-3" id="result2" style="display: none">
+        <div class="ui container-fluid p-2" id="result2" style="display: none">
         <div class="ui segments panel" >
-            <div class="ui segment p-3" id="result">
+            <div class="ui segment p-2" id="result">
                 
                 </div>
             </div>

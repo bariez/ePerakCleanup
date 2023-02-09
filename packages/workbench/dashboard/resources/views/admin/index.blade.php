@@ -186,7 +186,7 @@ aside{
 
 </style>
 
-<div id="actionbar" class="ui two column grid content__body p-1">
+<div id="actionbar" class="ui two column grid  p-1">
   <div class="column middle aligned">
     <h3 class="ui header m-t-xs">
       DASHBOARD {{data_get($roleuser,'acl_roles.name')}}
@@ -195,7 +195,7 @@ aside{
 
 </div>
 <br>
-   <div class="tab-content p-3 raised">
+   <div class="tab-content p-2 raised">
 <div class="ui styled fluid accordion " id="divaccordion">
   <div class="title">
     <i class="dropdown icon"></i>
@@ -203,7 +203,7 @@ aside{
   </div>
 
   <div class="content">
-    <div class="ui segment p-3">
+    <div class="ui segment p-2">
       <form class="ui form">
         <div class="two fields">
           @if(data_get($roleuser,'role_id')==2)
@@ -333,9 +333,9 @@ aside{
   </div>
 </div>
 
-<!-- <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
+<!-- <div class="ui container-fluid  p-2" id="loading" style="display: none;">
   <div class="ui segments panel">
-    <div class="ui segment p-3">
+    <div class="ui segment p-2">
       <div class="ui blue sliding indeterminate progress">
         <div class="bar">
           <div class="progress">Sila Tunggu Sebentar</div>
@@ -354,10 +354,10 @@ aside{
 </div>
 
 
-<!-- <div class="ui container-fluid content__body p-3" id="result4">
+<!-- <div class="ui container-fluid  p-2" id="result4">
   <div class="ui segments panel">
-    <div class="ui segment p-3"> -->
-<div class="ui container-fluid content__body p-1" id="result4">
+    <div class="ui segment p-2"> -->
+<div class="ui container-fluid  p-1" id="result4">
   
       <div class="ui two stackable cards raised">
         <div class="card ">
