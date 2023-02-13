@@ -1001,7 +1001,7 @@ class SiteController extends Controller
                           ->where('status',1)
                           ->get();
 
-       
+
 
 
        return view('site::system.induk',compact('getinduk'));
@@ -1029,8 +1029,18 @@ class SiteController extends Controller
             $jeniskampung=LkpDetail::where('status',1)->where('fk_lkp_master',28)->get();
 
              $dunedit=Dun::where('status',1)->where('fk_parlimen',data_get($kampung,'fk_parlimen'))->get();
-              $mukimedit  = Mukim::where('status',1)->where('fk_daerah',data_get($kampung,'fk_daerah'))->get();
-            return view('site::system.kampung.editkampung',compact('kampung','id','parlimen','daerah','catpenempatan','jeniskampung','dun','dunedit','mukimedit'));
+             $mukimedit  = Mukim::where('status',1)->where('fk_daerah',data_get($kampung,'fk_daerah'))->get();
+
+             $indukedit  = Kampung::where('fk_parlimen',data_get($kampung,'fk_parlimen'))
+                          ->where('fk_dun',data_get($kampung,'fk_dun'))
+                          ->where('fk_daerah',data_get($kampung,'fk_daerah'))
+                          ->where('fk_mukim',data_get($kampung,'fk_mukim'))
+                          ->whereNull('IdKampungInduk')
+                          ->where('status',1)
+                          ->get();
+
+
+            return view('site::system.kampung.editkampung',compact('kampung','id','parlimen','daerah','catpenempatan','jeniskampung','dun','dunedit','mukimedit','indukedit'));
 
     }
     public function saveeditkampung(Request $request)

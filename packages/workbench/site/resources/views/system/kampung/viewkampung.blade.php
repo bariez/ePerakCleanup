@@ -89,7 +89,7 @@
               <td width="25%">
                 <h5 class="ui image header">
                   <div class="content">
-                    <span id="spanlabel"><i class="house icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Nama Kampung Induk</b></span>
+                    <span id="spanlabel"><i class="map pin icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Nama Kampung Induk</b></span>
                 </div>
               </h5></td>
               <td>{{data_get($kampunginduk,'NamaKampung') }}

@@ -521,7 +521,7 @@ class SiteRepo
             }
           }
           
-          $data->IdKampungInduk=$request->kginduk;
+          $data->IdKampungInduk=$request->indukedit;
           $data->KategoriPetempatan=$request->cat;
           $data->JenisKgTradisional=$request->kgtradisional;
           $data->NamaJPKK=$request->namajpkk;

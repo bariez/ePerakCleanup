@@ -197,14 +197,31 @@
       </div>
     </div>
   </div>
-  <div class="field" id="induk">
+   <div class="field" id="diveditinduk">
+    <label>Nama Kampung Induk<font color="red">*</font></label>
+    <div class="ui fluid search selection dropdown pilihindukedit">
+      <input type="hidden" name="indukedit" id="indukedit" value="{{ data_get($kampung,'IdKampungInduk') }}">
+      <i class="dropdown icon"></i>
+      <div class="default text" id="pilihdindukedit">Sila Pilih</div>
+      <div class="menu" id="selectindukedit">
+        <div class="item" data-value="">Sila Pilih</div>
+        @foreach($indukedit as $key => $value)
+        <div class="item" data-value="{{$value->id}}" data-text="{{$value->NamaKampung}}">
+          {{$value->NamaKampung}}
+        </div>
+        @endforeach
+
+      </div>
+
+    </div>
+  </div>
+  <div class="field" id="divinduk">
     <label>Nama Kampung Induk<font color="red">*</font></label>
     <div class="ui fluid search selection dropdown namainduk">
       <input type="hidden" name="kginduk" id="kginduk" value="">
       <i class="dropdown icon"></i>
       <div class="default text" id="pilihinduk">Sila Pilih</div>
       <div class="menu" id="selectinduk">
-
       </div>
     </div>
   </div>
@@ -305,6 +322,7 @@
     $('#divnamataman').hide();
     $('#divdun').hide();
     $('#divmukim').hide();
+    $('#divinduk').hide();
 
     $('#namakampung').prop('required', false);
     $('#namaserata').prop('required', false);
@@ -322,12 +340,14 @@
 
 
        $('#induk').show();
-       $('#divnamakampungedit').hide();
-       $('#namakampungedit').prop('required', false);
+       // $('#divnamakampungedit').hide();
+       // $('#namakampungedit').prop('required', false);
       var parlimen = "{{ data_get($kampung,'fk_parlimen') }}";
       var dun = "{{ data_get($kampung,'fk_dun') }}";
       var daerah = "{{ data_get($kampung,'fk_daerah') }}";
       var mukim = "{{ data_get($kampung,'fk_mukim') }}";
+
+
 
 
 
@@ -345,7 +365,7 @@
         valdun = dun;
 
       }
-      var daerah = $('#daerah').val();
+      var daerah = daerah;
 
       if (daerah == '') {
         valdaerah = 0;
@@ -353,7 +373,7 @@
         valdaerah = daerah;
 
       }
-      var mukim = $('#mukim').val();
+      var mukim = mukim;
 
       if (mukim == '') {
         valmukim = 0;
@@ -379,6 +399,8 @@
         },
 
         success: function(data) {
+
+
 
           $('#loading').hide();
           $('#selectinduk').html(data);
@@ -435,6 +457,7 @@
 
 
     var daerah = document.getElementById("daerah").value; // added .value
+
     if ($('#divmukim').is(':visible') == true) {
       var mukim = document.getElementById("mukim").value; // added .value
     } else {
@@ -442,9 +465,17 @@
 
     }
 
+    if ($('#divinduk').is(':visible') == true) {
+      var kginduk = document.getElementById("kginduk").value; // added .value
+
+    } else {
+      var kginduk = document.getElementById("indukedit").value; // added .value
+
+    }
+
     var cat = document.getElementById("cat").value; // added .value
     var kgtradisional = document.getElementById("kgtradisional").value; // added .value
-    var kginduk = document.getElementById("kginduk").value; // added .value
+    //var kginduk = document.getElementById("kginduk").value; // added .value
     var status = document.getElementById("status").value; // added .value
 
 
