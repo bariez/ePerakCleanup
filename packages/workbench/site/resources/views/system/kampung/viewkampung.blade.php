@@ -112,7 +112,7 @@
                     <span id="spanlabel"><i class="map marker icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Nama Taman</b></span>
                 </div>
               </h5></td>
-              <td>{{data_get($kampunginduk,'NamaKampung') }}
+              <td>{{data_get($kampung,'NamaKampung') }}
               </td>
             </tr>
              <tr id="divnamaserata">
@@ -122,7 +122,7 @@
                     <span id="spanlabel"><i class="map marker icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Nama Serata</b></span>
                 </div>
               </h5></td>
-              <td>{{data_get($kampunginduk,'NamaKampung') }}
+              <td>{{data_get($kampung,'NamaKampung') }}
               </td>
             </tr>
               <tr id="divnamaserata">
@@ -212,16 +212,20 @@
 
   }
 
-   var katpetempatan="{{ data_get($kampung,'KategoriPetempatan') }}";
+   var id="{{ data_get($kampung,'KategoriPetempatan') }}";
 
 
-    if (katpetempatan == 4) { //kampung tradisional
+
+
+    if (id == 4) { //kampung tradisional
       $('#divkgtradisional').show();
       $('#divnamakampung').show();
       $('#divnamaserata').hide();
       $('#divnamataman').hide();
 
     } else {
+
+
 
       if (id == 0) {
 
@@ -232,12 +236,15 @@
 
       } else {
 
+
         if (id == 5 || id == 6 || id == 9) { //tersusun baru orang asli
           $('#divnamakampung').show();
           $('#divnamaserata').hide();
           $('#divnamataman').hide();
 
         } else {
+
+
 
           if (id == 8) { //serata
             $('#divnamaserata').show();
@@ -247,6 +254,7 @@
 
 
           } else { //taman
+
             $('#divnamataman').show();
             $('#divnamaserata').hide();
            

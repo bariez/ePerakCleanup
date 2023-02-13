@@ -560,11 +560,17 @@ class SiteController extends Controller
     public function editdetail(Request $request,$id)
     {
 
+          //specify your custom message here
+        $messages = [
+          'unique' => 'Diskripsi telah wujud!',
+          
+        ];
+
           $validator = Validator::make($request->all(), [
             'description'     => 'required|max:255|unique:lkp_detail,description,'.$id,
             'status'=>'required'
            
-        ]);
+        ],$messages);
 
         // $validator = Validator::make($request->all(), [
         //     'description' => [

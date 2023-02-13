@@ -316,6 +316,7 @@
 
 
     var jeiniskgtradisional="{{ data_get($kampung,'kgtradisonal.id') }}";
+    var katpetempatan="{{ data_get($kampung,'KategoriPetempatan') }}";
 
       if (jeiniskgtradisional == 148) {
 
@@ -398,8 +399,20 @@
 
     } else {
       $('#induk').hide();
+
+      if(katpetempatan==7){//taman
+      $('#divnamatamanedit').show();
+      $('#namatamanedit').prop('required', true);
+
+      }else if(katpetempatan==8){//serata
+
+      $('#divnamaserataedit').show();
+      $('#namaserataedit').prop('required', true);
+
+      }else{
       $('#divnamakampungedit').show();
       $('#namakampungedit').prop('required', true);
+      }
 
     }
 
