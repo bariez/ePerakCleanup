@@ -18,7 +18,7 @@
 				<div class="row">
 					<div id="lightgallery">
 						@foreach($data->where('kategori', 145) as $key => $value)
-							@if( data_get($value, 'Gambar_path') )
+							@if( data_get($value, 'gambar_path') )
 								@if( file_exists( public_path( data_get($value, 'gambar_path') ) ) )
 									<a href="{{ data_get($value, 'gambar_path') }}" data-bs-dismiss="modal">
 										<img class="" src="{{ data_get($value, 'gambar_path') }}" style="max-width: 30%" />
