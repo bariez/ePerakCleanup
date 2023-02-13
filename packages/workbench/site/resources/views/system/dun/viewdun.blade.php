@@ -17,7 +17,7 @@
     </div> 
     <div class="column right aligned middle aligned">
 
-           <a class="ui button" href="{!! URL::to('site/parlimen/index') !!}" id="backbutton">Kembali</a>
+           <a class="ui button" href="{!! URL::to('site/dun/index') !!}" id="backbutton">Kembali</a>
     </div>
 </div>
   <div class="ui container-fluid content__body p-3">
