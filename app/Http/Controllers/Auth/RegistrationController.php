@@ -39,6 +39,8 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
+       
+
         $request->validate(
             [
                 'name' => 'required|string|max:255',
@@ -59,12 +61,23 @@ class RegistrationController extends Controller
 
 
             ],
+            [
+                'password.regex' => 'Sila masukkan gabungan abjad, nombor & aksara khas!',
+                'password.min' => 'Panjang kata laluan 8 karakter!',
+                'password.required' => 'Katalaluan wajib diisi!',
+                'email.required' => 'Email wajib diisi!',
+                'email.regex' => 'Email Salah Format!',
+
+                
+               
+            ]
       //        [
       //     'notel.integer' => 'Sila masukan nombor !',
           
         
       // ]
         );
+
 
 
         Auth::login(
@@ -99,26 +112,58 @@ class RegistrationController extends Controller
               );
 
 
-     try {
+     // try {//asal
 
-         Mail::to(data_get($emailto,'user.email'))->send(new AccountInformation($dataemail));
 
-       } catch (\Exception $e) {
 
-            $activities='Hantar email Permohonan Baru Gagal Dihantar';
-             Event::dispatch(new AuditLog('','',$activities,'',$e));
+
+     //     Mail::to(data_get($emailto,'user.email'))->send(new AccountInformation($dataemail));
+
+     //   } catch (\Exception $e) {
+
+     //        $activities='Hantar email Permohonan Baru Gagal Dihantar';
+     //         Event::dispatch(new AuditLog('','',$activities,'',$e));
             
-        }
+     //    }//asal
+
+  try {
+
+        Mail::send('site::email/emailnewuser', $dataemail, function($message)use($name,$email)
+          {
+            $message->from('eperak.gov.my', 'Pemberitahuan');
+
+            $message->to($emailto->email)->subject('Perlu Kelulusan Pengguna');
+
+            
+
+
+          });
       
 
-   }
+       } catch (\Exception $e) {
+
+            $activities='Hantar email Permohonan Baru Gagal Dihantar';
+             Event::dispatch(new AuditLog('','',$activities,'',$e));
+            
+        }
 
    //email ke user
-
+}
 
      try {
 
-         Mail::to($request->email)->send(new NotifyUserNewRegis($dataemail));
+        // Mail::to($request->email)->send(new NotifyUserNewRegis($dataemail)); asal
+
+          Mail::send('site::email/emailnotifyuser', $dataemail, function($message)use($name,$email)
+          {
+            $message->from('eperak.gov.my', 'Pemberitahuan');
+
+            $message->to($request->email)->subject('Perlu Kelulusan Pengguna');
+
+             
+
+
+          });
 
        } catch (\Exception $e) {
 
@@ -131,18 +176,7 @@ class RegistrationController extends Controller
 
 
 
-        // Mail::send('site::email/emailnewuser', $dataemail, function($message)use($name,$email)
-        //   {
-        //     $message->from('eperak.gov.my', 'Pemberitahuan');
 
-        //     // $message->to($emailto->email)->subject('Perlu Kelulusan Pengguna');
-
-        //      $message->to('dora@3fresources.com')->subject('Perlu Kelulusan Pengguna');
-
-
-        //   });
-
-   // }
 
         // if (config('laravolt.platform.features.verification') === false) {
         //     $user->markEmailAsVerified();
