@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Laravolt\Epicentrum\Http\Requests\My\Profile\Update;
 use Laravolt\Support\Contracts\TimezoneRepository;
+use Redirect;
 
 class ProfileController extends Controller
 {
@@ -20,10 +21,11 @@ class ProfileController extends Controller
 
     public function update(Update $request): RedirectResponse
     {
+       
         auth()->user()->update($request->validated());
 
         // return redirect()->back()->withSuccess(__('Profil Telah dikemaskini') ?? '');
 
-         return redirect::to('/home')->withSuccess(__('Profil Telah dikemaskini'));
+         return redirect::to('/dashboard/admin')->withSuccess(__('Profil Telah dikemaskini'));
     }
 }
