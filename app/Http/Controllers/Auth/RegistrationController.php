@@ -67,6 +67,7 @@ class RegistrationController extends Controller
                 'password.required' => 'Katalaluan wajib diisi!',
                 'email.required' => 'Email wajib diisi!',
                 'email.regex' => 'Email Salah Format!',
+                'email.unique'=> 'Email Telah Wujud!',
 
                 
                
