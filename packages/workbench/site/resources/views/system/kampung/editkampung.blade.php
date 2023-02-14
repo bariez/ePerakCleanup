@@ -339,7 +339,8 @@
       if (jeiniskgtradisional == 148) {
 
 
-       $('#induk').show();
+      $('#divinduk').hide();
+      $('#diveditinduk').show();
        // $('#divnamakampungedit').hide();
        // $('#namakampungedit').prop('required', false);
       var parlimen = "{{ data_get($kampung,'fk_parlimen') }}";
@@ -420,7 +421,8 @@
 
 
     } else {
-      $('#induk').hide();
+      $('#diveditinduk').hide();
+       $('#divinduk').hide();
 
       if(katpetempatan==7){//taman
       $('#divnamatamanedit').show();
@@ -934,8 +936,10 @@
   function induk(id) {
 
 
+
     if (id == 148) {
-      $('#induk').show();
+      $('#divinduk').show();
+      $('#diveditinduk').hide();
      
 
 
@@ -1031,7 +1035,9 @@
 
 
     } else {
-      $('#induk').hide();
+
+      $('#divinduk').hide();
+      $('#diveditinduk').hide();
      
 
     }

@@ -520,8 +520,17 @@ class SiteRepo
               }
             }
           }
+
+          if($request->kgtradisional==148){//kampung rangkaian
+            $data->IdKampungInduk=$request->indukedit;
+
+          }else{//kampung induk
+            $data->IdKampungInduk=NULL;
+
+
+          }
           
-          $data->IdKampungInduk=$request->indukedit;
+          
           $data->KategoriPetempatan=$request->cat;
           $data->JenisKgTradisional=$request->kgtradisional;
           $data->NamaJPKK=$request->namajpkk;

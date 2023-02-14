@@ -483,13 +483,15 @@ class FrontendRepo
 	public function dataGaleri($request)
 	{
 		return GaleriMast::where('fk_kampung', $request->idkampung)
-							 ->get();
+						->where('Status',1)
+					    ->get();
 	}
 
 	public function dataGaleriModal($request)
 	{
 		return GaleriDetail::where('fk_galeri_mast', $request->idgaleri)
-						   ->with('galerimast', 'type')
+							->where('status',1)
+						    ->with('galerimast', 'type')
 						   ->get();
 	}
 
