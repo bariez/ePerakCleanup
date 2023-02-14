@@ -126,7 +126,7 @@
                 </div>
             </div>
             <div class="column right aligned">
-                <a themed href="/eperak" class="link">
+                <a themed href="/" class="link">
                     <font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font>
                 </a>
             </div>
