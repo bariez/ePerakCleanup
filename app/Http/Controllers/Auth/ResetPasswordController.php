@@ -37,6 +37,15 @@ class ResetPasswordController extends Controller
                 'token' => 'required',
                 'email' => 'required|email',
                 'password' => 'required|string|confirmed|min:8',
+            ],
+
+             [
+
+                'password.min' => 'Panjang kata laluan 8 karakter!',
+                'password.required' => 'Katalaluan wajib diisi!',
+                'email.required' => 'Email wajib diisi!',
+                
+               
             ]
         );
 

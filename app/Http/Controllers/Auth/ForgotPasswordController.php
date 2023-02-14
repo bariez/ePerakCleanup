@@ -29,7 +29,26 @@ class ForgotPasswordController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(['email' => ['required', 'email', 'exists:users']]);
+        $request->validate(
+
+           
+         ['email' => ['required', 'email', 'exists:users']
+
+
+
+        ],
+
+        [
+
+                'email.required' => 'Email wajib diisi!',
+                'email.exists' => 'Email telah wujud!',
+
+                
+               
+            ]
+
+
+        );
 
         $response = Password::INVALID_USER;
 
