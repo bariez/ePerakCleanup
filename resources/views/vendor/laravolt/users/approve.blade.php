@@ -30,8 +30,8 @@
     <div class="ui segment p-3">
       {!! form()->bind($user)->open()->post()->action(route('site::users.approveusers', $user['id']))->horizontal() !!}
 
-      {!! form()->text('name')->label(__('laravolt::users.name'))->readonly() !!}
-      {!! form()->text('email')->label(__('laravolt::users.email'))->readonly() !!}
+      {!! form()->text('name')->label(__('Username'))->readonly() !!}
+      {!! form()->text('email')->label(__('Email'))->readonly() !!}
       {!! form()->text('jabatan')->label('Jabatan / Agensi')->readonly() !!}
       {!! form()->text('jawatan')->label('Jawatan')->readonly() !!}
       {!! form()->text('notel')->label(__('No.Tel'))->readonly() !!}
