@@ -4,7 +4,7 @@
 
 <br>
 
-<div class="ui container-fluid content__body p-3">
+<div class="ui container-fluid p-2">
   <h4 class="ui top attached header">
 Senarai Ketua Isi Rumah - {{data_get($infokampung,'NamaKampung')}}
 </h4>

@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="ui one column grid content__body p-3" >
+<div class="ui one column grid p-2" >
     <div class="column right aligned middle aligned">
         <a class="ui button" href="{!! URL::to('dashboard/searchkampung/isirumah/ketuaisirumah/'.$idkampung) !!}" id="backbutton"><i class="material-icons left"></i><span>Kembali</span></a>
     </div>
