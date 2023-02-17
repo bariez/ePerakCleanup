@@ -35,7 +35,7 @@ img:hover {
 }
 
 </style>
-<div id="actionbar" class="ui two column grid content__body p-3" >
+<div id="actionbar" class="ui two column grid p-2" >
     <div class="column middle aligned">
                 <h3 class="ui header m-t-xs">
           Paparan Makumat Ketua Isi Rumah
@@ -48,7 +48,7 @@ img:hover {
 </div>
 <br>
 
-<div class="ui container-fluid content__body p-3">
+<div class="ui container-fluid p-2">
     	<div class="ui raised segment">
     		<h4 class="ui dividing header" style="color:black" align="middle">{{data_get($infokampung,'NamaKampung')}}</h4>
       		<a class="ui black ribbon label noHover" style="background-color: yellow;font-size: 18px"><i class="user icon"></i>Profil Ketua Isi Rumah</a>
@@ -215,7 +215,7 @@ img:hover {
 		    </div>
   	</div>
   </div>
-<div class="ui container-fluid content__body p-3">
+<div class="ui container-fluid p-2">
     	<div class="ui raised segment">
       		<a class="ui black ribbon label noHover" style="background-color: yellow;font-size: 18px"><i class="phone icon"></i>Maklumat Untuk Dihubungi</a>
       			
@@ -247,7 +247,7 @@ img:hover {
   	</div>
   </div>
 
-  <div class="ui container-fluid content__body p-3">
+  <div class="ui container-fluid  p-2">
     	<div class="ui raised segment">
       		<a class="ui black ribbon label noHover" style="background-color: yellow;font-size: 18px"><i class="home icon"></i>Maklumat Rumah</a>
       			
