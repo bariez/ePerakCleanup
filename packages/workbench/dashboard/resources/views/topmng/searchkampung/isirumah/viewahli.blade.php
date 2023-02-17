@@ -9,12 +9,12 @@
   color:black !important;
 }
   </style>
-<div class="ui one column grid content__body p-3" >
+<div class="ui one column grid  p-2">
     <div class="column right aligned middle aligned">
         <a class="ui button" href="{!! URL::to('dashboard/searchkampung/isirumah/ketuaisirumah/'.$idkampung) !!}" id="backbutton"><i class="material-icons left"></i><span>Kembali</span></a>
     </div>
     </div>
-<div class="ui container-fluid content__body p-3">
+<div class="ui container-fluid  p-2">
       <div class="ui raised segment">
         <h4 class="ui dividing header" style="color:black" align="middle">{{data_get($infokampung,'NamaKampung')}}</h4>
           <a class="ui black ribbon label noHover" style="background-color: yellow;font-size: 18px"><i class="user icon"></i>Maklumat Ahli Isi Rumah</a>

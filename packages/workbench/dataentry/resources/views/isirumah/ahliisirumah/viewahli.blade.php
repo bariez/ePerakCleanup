@@ -9,7 +9,7 @@
   color:black !important;
 }
   </style>
-<div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
+<div id="actionbar" class="ui two column grid p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
                 <h3 class="ui header m-t-xs">
           Paparan Maklumat Ahli Isi Rumah
@@ -20,7 +20,7 @@
            <a class="ui button" href="{!! URL::to('dataentry/searchkampung/isirumah/ahliisirumah/'.$idkampung.'/'.$idrumah) !!}" id="backbutton"><i class="material-icons left"></i><span>Kembali</span></a>
     </div>
 </div>
-<div class="ui container-fluid content__body p-3">
+<div class="ui container-fluid p-2">
       <div class="ui raised segment">
         <h4 class="ui dividing header" style="color:black" align="middle">{{data_get($infokampung,'NamaKampung')}}</h4>
           <a class="ui black ribbon label noHover" style="background-color: yellow;font-size: 18px"><i class="user icon"></i>Maklumat Ahli Isi Rumah</a>
