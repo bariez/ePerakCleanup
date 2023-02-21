@@ -5,7 +5,7 @@ return [
         'Laman Utama' => [
         'order' => 1,
         'menu' => [
-            'LAMAN UTAMA' => [
+            '- LAMAN UTAMA' => [
                 'route' => '/',
                 'active' => '/',
                 'icon' => 'home',
@@ -20,7 +20,7 @@ return [
  'Dashboard' => [
         'order' => 2,
         'menu' => [
-            'DASHBOARD' => [
+            ' - DASHBOARD' => [
                 'route' => 'home',
                 'active' => 'dashboard/*',
                 'icon' => 'thumbtack',
@@ -30,12 +30,12 @@ return [
         ],
     ],
 
-    'Lokasi' =>
+    'Peta Lokasi' =>
     [
         'order' => 8,
         'menu' =>
         [
-            'LOKASI' =>
+            '- LOKASI' =>
             [
                 'route' => 'location::location.indexGis',
                 'active' => 'location/*',
@@ -49,31 +49,31 @@ return [
     'System' => [
         'order' =>3,
         'menu' => [
-            'PENGGUNA' => [
+            ' - PENGGUNA' => [
                 'route' => 'site::users.index',
                 'active' => 'site/users/*',
                 'icon' => 'user-friends',
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_USER],
             ],
-             'KELULUSAN PENGGUNA' => [
+             '- KELULUSAN PENGGUNA' => [
                 'route' => 'site::users.approveindex',
                 'active' => 'site/approveindex/*',
                 'icon' => 'user-friends',
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_USER],
             ],
-            'KATEGORI PENGGUNA' => [
+            ' - KATEGORI PENGGUNA' => [
                 'route' => 'site::roles.index',
                 'config' => 'site/roles/*',
                 'icon' => 'user-astronaut',
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_ROLE],
             ],
-            'KEBENARAN PENGGUNA' => [
+            ' - KEBENARAN PENGGUNA' => [
                 'route' => 'site::permissions.index',
                 'active' => 'site/permissions/*',
                 'icon' => 'shield-check',
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_PERMISSION],
             ],
-            'AUDIT LOG' => [
+            ' - AUDIT LOG' => [
                 'route' => 'site::auditlogindex',
                 'active' => 'site/auditlog/*',
                 'icon' => 'user-secret',
@@ -86,7 +86,7 @@ return [
      'Pengurusan Kamus Data' => [
         'order' => 4,
         'menu' => [
-            'KAMUS DATA' => [
+            '- KAMUS DATA' => [
                 'route' => 'site::lookup.index',
                 'active' => 'site/lookup/*',
                 'icon' => 'stream',
@@ -106,67 +106,67 @@ return [
        'Pengurusan Sistem' => [
         'order' => 5,
         'menu' => [
-            'PARLIMEN' => [
+            '- PARLIMEN' => [
                 'route' => 'site::parlimen.index',
                 'active' => 'site/parlimen/*',
                 'icon' => 'landmark',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-            'DUN' => [
+            ' - DUN' => [
                 'route' => 'site::dun.index',
                 'active' => 'site/dun/*',
                 'icon' => 'university',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'DAERAH' => [
+             ' - DAERAH' => [
                 'route' => 'site::daerah.index',
                 'active' => 'site/daerah/*',
                 'icon' => 'archway',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'MUKIM' => [
+             ' - MUKIM' => [
                 'route' => 'site::mukim.index',
                 'active' => 'site/mukim/*',
                 'icon' => 'warehouse',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'KAMPUNG' => [
+             ' - KAMPUNG' => [
                 'route' => 'site::kampung.index',
                 'active' => 'site/kampung/*',
                 'icon' => 'home',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'LOGO' => [
+             ' - LOGO' => [
                 'route' => 'site::frontendmanage.getLogoList',
                 'active' => 'site/logo/*',
                 'icon' => 'shapes',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'BANNER' => [
+             ' - BANNER' => [
                 'route' => 'site::frontendmanage.getBannerList',
                 'active' => 'site/banner/*',
                 'icon' => 'flag',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'NOTIS' => [
+             ' - NOTIS' => [
                 'route' => 'site::frontendmanage.getNotisList',
                 'active' => 'site/notis/*',
                 'icon' => 'newspaper',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'HUBUNGI KAMI' => [
+             ' - HUBUNGI KAMI' => [
                 'route' => 'site::frontendmanage.getHubungiList',
                 'active' => 'site/hubungi/*',
                 'icon' => 'phone',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'SOALAN LAZIM' => [
+             ' - SOALAN LAZIM' => [
                 'route' => 'site::frontendmanage.getSoalanList',
                 'active' => 'site/soalan/*',
                 'icon' => 'question',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             'KATEGORI PRODUK' => [
+             ' - KATEGORI PRODUK' => [
                 'route' => 'site::frontendmanage.getProductIconList',
                 'active' => 'site/katprod/*',
                 'icon' => 'tags',
@@ -198,7 +198,7 @@ return [
       'Maklumat Kampung' => [
         'order' => 6,
         'menu' => [
-            'CARIAN KAMPUNG' => [
+            ' - CARIAN KAMPUNG' => [
                 'route' => 'dataentry::searchkampung.index',
                 'active' => 'dataentry/searchkampung/*',
                 'icon' => 'search',
@@ -221,14 +221,14 @@ return [
         'order' => 7,
         'menu' =>
         [
-            'LAPORAN PENGGUNA TIDAK AKTIF' =>
+            ' - LAPORAN PENGGUNA TIDAK AKTIF' =>
             [
                 'route' => 'reporting::reporting.getUserLoginIndex',
                 'active' => 'reporting/userlogin/*',
                 'icon' => 'archive',
                 'permissions' => [\App\Enums\Permission::MANAGE_LAPORAN],
             ],
-            'LAPORAN STATISTIK' =>
+            '- LAPORAN STATISTIK' =>
             [
                 'route' => 'reporting::reporting.getStatistic',
                 'active' => 'reporting/statistic/*',

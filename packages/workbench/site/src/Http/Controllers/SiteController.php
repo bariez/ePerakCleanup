@@ -976,7 +976,7 @@ class SiteController extends Controller
       public function dun($parlimenid)
     {
 
-       $dun  = Dun::where('fk_parlimen',$parlimenid)->get();
+       $dun  = Dun::where('fk_parlimen',$parlimenid)->where('status',1)->get();
 
        return view('site::system.dun',compact('dun'));
 
@@ -984,7 +984,7 @@ class SiteController extends Controller
      public function mukim($daerahid)
     {
 
-       $mukim  = Mukim::where('fk_daerah',$daerahid)->get();
+       $mukim  = Mukim::where('fk_daerah',$daerahid)->where('status',1)->get();
 
        return view('site::system.mukim',compact('mukim'));
 

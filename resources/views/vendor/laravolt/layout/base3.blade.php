@@ -145,7 +145,7 @@ font-weight: 650!important;
     color: black;
 }
 .ui.menu {
-    font-size: 14px!important;
+    font-size: 13px!important;
 }
 nav.sidebar {
 

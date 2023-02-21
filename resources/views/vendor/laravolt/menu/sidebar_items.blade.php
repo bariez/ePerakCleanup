@@ -18,10 +18,10 @@ $id=5;
                data-parent="{{ $item->parent()->title }}">
   <!-- aku delete icon  -->
 
-                @if($item->title == 'KELULUSAN PENGGUNA')
-                <span>{{ $item->title }} <span> <div class="ui primary inverted basic label">{{$pendding}}</div>
+                @if($item->title == '- KELULUSAN PENGGUNA')
+                <span><font style="font-size:12px;">{{ $item->title }}</font><span> <div class="ui primary inverted basic label">{{$pendding}}</div>
                 @else
-                <span>{{ $item->title }}</span> 
+                <span><font style="font-size:12px;">{{ $item->title }}</font></span> 
                 @endif
                 
             </a>
