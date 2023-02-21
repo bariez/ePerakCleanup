@@ -433,7 +433,8 @@
 																						 style="width: 40%">
 																				@empty
 																					<img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-																						 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}">
+																						 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+																						 style="width: 40%">
 																				@endforelse
 
 									                                        </figure>
@@ -480,7 +481,8 @@
 																						 style="width: 40%">
 																				@empty
 																					<img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-																						 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}">
+																						 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+																						 style="width: 40%">
 																				@endforelse
 
 									                                        </figure>
