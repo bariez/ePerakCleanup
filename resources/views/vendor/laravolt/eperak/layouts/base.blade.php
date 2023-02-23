@@ -144,22 +144,59 @@
 			var infomenu = document.getElementById("infomenu");
 			var contactus= document.getElementById("contactus");
 			var faq 	 = document.getElementById("faq");
+			var manual 	 = document.getElementById("manual");
 			var pagemenu = document.getElementsByClassName("pagemenuc");
 
-			var defot = 16;
+			var defot;
+
+			if(localStorage.getItem("karenfont") == null){
+				localStorage.setItem("karenfont", 16);
+			}
+
+			if(localStorage.getItem("sizefont") == null){
+				localStorage.setItem("sizefont", 2);
+			}
+
+			if(localStorage.getItem("karenfont") == null && localStorage.getItem("sizefont") == null)
+			{
+				defot = 16;
+				onLoadFont(defot,2);
+			}
+			else
+			{
+				defot = localStorage.getItem("karenfont");
+				size = localStorage.getItem("sizefont");
+				onLoadFont(defot,size);
+			}
+
 			var karen;
+
+			function onLoadFont(karen,size)
+			{
+				mainmenu.style.fontSize = karen+'px';
+				infomenu.style.fontSize = karen+'px';
+				faq.style.fontSize = karen+'px';
+				manual.style.fontSize = karen+'px';
+				contactus.style.fontSize = karen+'px';
+				
+				for (i=0; i < pagemenu.length; i++) 
+				{
+					pagemenu[i].style.fontSize = karen+'px';
+				}
+			}
 
 			function changeSizeByBtn(size) 
 			{
 				if(size == '3')
 				{
-					karen = defot+2;
+					karen = parseInt(defot)+2;
 
 					if(karen != "24")
 					{
 						mainmenu.style.fontSize = karen+'px';
 						infomenu.style.fontSize = karen+'px';
 						faq.style.fontSize = karen+'px';
+						manual.style.fontSize = karen+'px';
 						contactus.style.fontSize = karen+'px';
 
 						for (i=0; i < pagemenu.length; i++) 
@@ -169,12 +206,15 @@
 						
 						defot = karen;
 					}
+
+					setlocalstorage(karen,size);
 				}
 				else if(size == '2')
 				{
 					mainmenu.style.fontSize = '16px';
 					infomenu.style.fontSize = '16px';
 					faq.style.fontSize = '16px';
+					manual.style.fontSize = '16px';
 					contactus.style.fontSize = '16px';
 					
 					for (i=0; i < pagemenu.length; i++) 
@@ -184,16 +224,19 @@
 
 					defot = 16;
 					karen = 16;
+
+					setlocalstorage(karen,size);
 				}
 				else if(size == '1')
 				{
-					karen = defot-2;
+					karen = parseInt(defot)-2;
 
 					if(karen != "8")
 					{
 						mainmenu.style.fontSize = karen+'px';
 						infomenu.style.fontSize = karen+'px';
 						faq.style.fontSize = karen+'px';
+						manual.style.fontSize = karen+'px';
 						contactus.style.fontSize = karen+'px';
 						
 						for (i=0; i < pagemenu.length; i++) 
@@ -203,7 +246,15 @@
 
 						defot = karen;
 					}
+
+					setlocalstorage(karen,size);
 				}
+			}
+
+			function setlocalstorage(karen,size)
+			{
+				localStorage.setItem("karenfont", karen);
+				localStorage.setItem("sizefont", size);
 			}
 
 		</script>

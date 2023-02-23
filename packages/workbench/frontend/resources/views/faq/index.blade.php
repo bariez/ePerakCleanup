@@ -45,7 +45,7 @@
 	<!-- banner end   -->
 
 	<!-- section title   -->
-		<section class="section-box">
+		<!-- <section class="section-box">
 			<div class="container pt-50">
 				<div class="w-60 w-md-100 mx-auto text-center">
 					<h3 class="mb-30 wow animate__animated animate__fadeInUp" style="color: white; text-shadow: 2px 2px #000000;">
@@ -56,14 +56,12 @@
 					</p>
 				</div>
 			</div>
-		</section>
+		</section> -->
 	<!-- section title end -->
 
 	<!-- section contact us -->
-		<section class="section-box bg-blue-full mt-30 mb-30 pt-30 pb-30">
+		<!-- <section class="section-box bg-blue-full mt-30 mb-30 pt-30 pb-30">
 			<div class="container" style="">
-				<!-- <img alt="e-Perak" src="{{ asset('theme/assets/imgs/theme/perak/faqquestion.png') }}" style="width: 60px"/> -->
-				
 				<div class="row">
 					<div class="col-lg-2">&nbsp;</div>
 					<div class="col-lg-4">
@@ -86,11 +84,11 @@
 					<div class="col-lg-2">&nbsp;</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 	<!-- section contact us end -->
 
 	<!-- accordion start -->
-	    <section class="section-box">
+	    <section class="section-box mt-30">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-1 col-md-1 col-sm-12 col-12">&nbsp;</div>

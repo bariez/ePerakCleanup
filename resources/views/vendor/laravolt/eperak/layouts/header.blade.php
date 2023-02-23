@@ -109,7 +109,7 @@
 														<a href="javascript:;" onclick="changeSizeByBtn('3')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Tambah Saiz</a>
 													</li>
 													<li>
-														<a href="javascript:;" onclick="changeSizeByBtn('2')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Reset Saiz</a>
+														<a href="javascript:;" onclick="changeSizeByBtn('2')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Set Semula Saiz</a>
 													</li>
 													<li>
 														<a href="javascript:;" onclick="changeSizeByBtn('1')"><i class="fi fi-rr-zoom-out"></i>&nbsp;&nbsp;Kurangkan Saiz</a>
@@ -238,7 +238,7 @@
 														<a href="javascript:;" onclick="changeSizeByBtn('3')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Tambah Saiz</a>
 													</li>
 													<li>
-														<a href="javascript:;" onclick="changeSizeByBtn('2')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Reset Saiz</a>
+														<a href="javascript:;" onclick="changeSizeByBtn('2')"><i class="fi fi-rr-zoom-in"></i>&nbsp;&nbsp;Set Semula Saiz</a>
 													</li>
 													<li>
 														<a href="javascript:;" onclick="changeSizeByBtn('1')"><i class="fi fi-rr-zoom-out"></i>&nbsp;&nbsp;Kurangkan Saiz</a>
@@ -360,6 +360,17 @@
 									<a href="/faq" id="faq" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px">
 										SOALAN LAZIM
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/faq.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25"> -->
+									</a>
+								</li>
+								<li>
+									<a class="active" href="javascript:;" id="" style="font-weight: 900; padding-right: 0px !important; padding-left: 0px !important; color: white; font-size: 7px">
+										|
+									</a>
+								</li>
+								<li class="signin">
+									<a href="/manual" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px">
+										MANUAL PENGGUNA
+										<!-- <img src=" asset('theme/assets/imgs/theme/perak/manual.png') }}" alt="Manual Pengguna" title="Manual Pengguna" width="25" height="25"> -->
 									</a>
 								</li>
 							</ul>
