@@ -166,7 +166,7 @@
 			var infomenu = document.getElementById("infomenu");
 			var contactus= document.getElementById("contactus");
 			var faq 	 = document.getElementById("faq");
-			var manual 	 = document.getElementById("manual");
+			// var manual 	 = document.getElementById("manual");
 			var pagemenu = document.getElementsByClassName("pagemenuc");
 
 			var defot;
@@ -198,7 +198,7 @@
 				mainmenu.style.fontSize = karen+'px';
 				infomenu.style.fontSize = karen+'px';
 				faq.style.fontSize = karen+'px';
-				manual.style.fontSize = karen+'px';
+				// manual.style.fontSize = karen+'px';
 				contactus.style.fontSize = karen+'px';
 				
 				for (i=0; i < pagemenu.length; i++) 
@@ -218,7 +218,7 @@
 						mainmenu.style.fontSize = karen+'px';
 						infomenu.style.fontSize = karen+'px';
 						faq.style.fontSize = karen+'px';
-						manual.style.fontSize = karen+'px';
+						// manual.style.fontSize = karen+'px';
 						contactus.style.fontSize = karen+'px';
 
 						for (i=0; i < pagemenu.length; i++) 
@@ -236,7 +236,7 @@
 					mainmenu.style.fontSize = '16px';
 					infomenu.style.fontSize = '16px';
 					faq.style.fontSize = '16px';
-					manual.style.fontSize = '16px';
+					// manual.style.fontSize = '16px';
 					contactus.style.fontSize = '16px';
 					
 					for (i=0; i < pagemenu.length; i++) 
@@ -258,7 +258,7 @@
 						mainmenu.style.fontSize = karen+'px';
 						infomenu.style.fontSize = karen+'px';
 						faq.style.fontSize = karen+'px';
-						manual.style.fontSize = karen+'px';
+						// manual.style.fontSize = karen+'px';
 						contactus.style.fontSize = karen+'px';
 						
 						for (i=0; i < pagemenu.length; i++) 
