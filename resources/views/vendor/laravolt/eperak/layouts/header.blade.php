@@ -311,7 +311,7 @@
 							<!-- <ul class="main-menu d-none d-sm-block"> -->
 							<ul class="main-menu d-none d-lg-block">
 								<li class="">
-									<a class="active" href="/" id="mainmenu" style="font-weight: 900; padding-right: 7px !important; padding-left: 0px !important; color: white; font-size: 14.5px">
+									<a class="active" href="/" id="mainmenu" style="font-weight: 900; padding-right: 7px !important; padding-left: 0px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										LAMAN UTAMA
 									</a>
 								</li>
@@ -321,7 +321,7 @@
 									</a>
 								</li>
 								<li class="">
-									<a href="/info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px">
+									<a href="/info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										INFO PETEMPATAN
 									</a>
 								</li>
@@ -334,7 +334,7 @@
 									</li>
 									<li class="">
 										<a href="/page/{{ data_get($pages, 'menum.id') }}" class="pagemenuc" id="pagemenu{{ data_get($pages, 'id') }}"
-										   style="font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px">
+										   style="font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 											{{ strtoupper(data_get($pages, 'menum.nama')) }}
 										</a>
 									</li>
@@ -346,7 +346,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px">
+									<a href="/contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										HUBUNGI KAMI
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/hubungi.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25"> -->
 									</a>
@@ -357,7 +357,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/faq" id="faq" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px">
+									<a href="/faq" id="faq" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										SOALAN LAZIM
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/faq.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25"> -->
 									</a>
@@ -368,7 +368,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/manual" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px">
+									<a href="/manual" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										MANUAL PENGGUNA
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/manual.png') }}" alt="Manual Pengguna" title="Manual Pengguna" width="25" height="25"> -->
 									</a>

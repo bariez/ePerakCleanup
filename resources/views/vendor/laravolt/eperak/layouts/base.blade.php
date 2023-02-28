@@ -33,6 +33,18 @@
 
 
 	</head>
+	<style type="text/css">
+		.sticky-toolbar-container 
+		{
+			position: fixed;
+			top: 27.5%;
+			right: 0;
+			/*transform: translateY(-50%);*/
+			/*width: 80px;*/
+			z-index: 2;
+			text-align: center;
+		}
+	</style>
 
 	@stack('style')
 
@@ -75,6 +87,16 @@
 				</div> -->
 
 				@yield('content')
+
+				<div class="sticky-toolbar-container">
+
+					<a href="{{ asset('manual.pdf') }}"  target="_blank">
+						<button class="hover-up" aria-label="close toolbar" type="button" class="close-toolbar toggle-toolbar">
+							<img src="{{ asset('theme/assets/imgs/theme/perak/book.png') }}" alt="Panduan Pengguna" title="Panduan Pengguna" width="23" height="26">
+						</button>
+					</a>
+
+				</div>
 
 			</main>
 		</div>
@@ -256,6 +278,16 @@
 				localStorage.setItem("karenfont", karen);
 				localStorage.setItem("sizefont", size);
 			}
+
+			const toggleToolbar = document.querySelectorAll(".toggle-toolbar");
+			const stickyToolbarContainer = document.querySelector(".sticky-toolbar-container");
+			toggleToolbar.forEach(function (element) 
+			{
+				element.addEventListener("click", function () 
+				{
+					stickyToolbarContainer.classList.toggle("show-toolbar");
+				});
+			});
 
 		</script>
 

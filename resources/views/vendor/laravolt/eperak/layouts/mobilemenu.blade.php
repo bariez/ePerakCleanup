@@ -71,10 +71,10 @@
 									<nav>
 										<ul class="mobile-menu font-heading">
 											<li class="">
-												<a class="active" href="/">Laman Utama</a>
+												<a class="active" href="/">LAMAN UTAMA</a>
 											</li>
 											<li class="">
-												<a href="/info">Info Petempatan</a>
+												<a href="/info">INFO PETEMPATAN</a>
 											</li>
 
 											@foreach($page as $key => $pages)
