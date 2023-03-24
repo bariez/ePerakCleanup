@@ -362,16 +362,17 @@
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/faq.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25"> -->
 									</a>
 								</li>
-								<!-- <li>
+								<li>
 									<a class="active" href="javascript:;" id="" style="font-weight: 900; padding-right: 0px !important; padding-left: 0px !important; color: white; font-size: 7px">
 										|
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/manual" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
-										MANUAL PENGGUNA
+									<a href="{{ asset('manual.pdf')}}" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+										PANDUAN PENGGUNA
 									</a>
-								</li> -->
+
+								</li>
 							</ul>
 						</nav>
 					</div>
