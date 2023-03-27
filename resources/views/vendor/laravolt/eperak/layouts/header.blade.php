@@ -35,6 +35,13 @@
 							   // dd($roleuser->acl_roles->name);exit;
 
 	?>
+<style>
+
+	@media (min-width: 1400px)
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1400px;
+}
+</style>
 
 
 
@@ -304,7 +311,7 @@
 		<!-- end first row ------------------------------------------------------------- -->
 
 		<!-- start menu foreach ------------------------------------------------------------- -->
-			<div class="container" style="">
+			<div class="container" style="max-width: 1400px">
 				<div class="main-header">
 					<div class="header-nav">
 						<nav class="nav-main-menu">
@@ -368,7 +375,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="{{ asset('manual.pdf')}}" target="_blank" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="{{ asset('manual.pdf')}}" target="_blank" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 15.5px; text-shadow: 0 0 5px #000000;">
 										PANDUAN PENGGUNA
 									</a>
 
