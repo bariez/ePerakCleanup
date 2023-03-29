@@ -88,7 +88,7 @@
 
 				@yield('content')
 
-				<div class="sticky-toolbar-container">
+				<!-- <div class="sticky-toolbar-container">
 
 					<a href="{{ asset('manual.pdf') }}"  target="_blank">
 						<button class="hover-up" aria-label="close toolbar" type="button" class="close-toolbar toggle-toolbar">
@@ -97,7 +97,7 @@
 					</a>
 
 				</div>
-
+ -->
 			</main>
 		</div>
 		<!-- Content/Body END   -->
