@@ -113,6 +113,8 @@
     <button type="submit" class="ui button primary" id="addbutton" name="addbutton" onclick="return validatedaerah();">
       Simpan
     </button>
+    <a onclick="return confirm('Adakah anda pasti untuk hapus?');" href="{!! URL::to('site/daerah/deletedaerah/'.data_get($daerah,'id')) !!}" data-tooltip="Padam" data-position="bottom center">
+    <button class="ui red button" type="button">Padam</button></a>
   </div>
 
 

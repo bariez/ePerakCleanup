@@ -161,6 +161,8 @@ Kemaksini Ahli Dun
                 <button type="submit" class="ui button primary" id="addbutton" name="addbutton" onclick="return validatedun();">
                     Simpan
                 </button>
+                <a onclick="return confirm('Adakah anda pasti untuk hapus?');" href="{!! URL::to('site/dun/deletedun/'.data_get($dun,'id')) !!}" data-tooltip="Padam" data-position="bottom center">
+                <button class="ui red button" type="button">Padam</button></a>
             </div>
 
 

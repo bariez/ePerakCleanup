@@ -719,6 +719,25 @@ class SiteController extends Controller
              return view('site::system.parlimen.viewparlimen',compact('parlimen','id'));
 
     }
+    public function deleteparlimen($id){
+
+             
+
+   
+             $deleteparlimen = Parlimen::find($id);
+             $old_value = json_encode($deleteparlimen);
+
+             $activities='Padam Parlimen';
+
+             Event::dispatch(new AuditLog(auth()->user()->id,$id,$activities,$old_value,''));
+
+             $deleteparlimen->delete();
+
+             
+
+            return redirect::to('/site/parlimen/index')->withError(__('Data telah berjaya dipadam'));
+
+    }
     public function dunindex()
     {
         $dun=Dun::with('parlimen')->get();
@@ -795,6 +814,25 @@ class SiteController extends Controller
              return view('site::system.dun.viewdun',compact('dun','id','parlimen'));
 
     }
+    public function deletedun($id){
+
+             
+
+   
+             $deletedun = Dun::find($id);
+             $old_value = json_encode($deletedun);
+
+             $activities='Padam Dun';
+
+             Event::dispatch(new AuditLog(auth()->user()->id,$id,$activities,$old_value,''));
+
+             $deletedun->delete();
+
+             
+
+            return redirect::to('/site/dun/index')->withError(__('Data telah berjaya dipadam'));
+
+    }
      public function daerahindex()
     {
         $daerah=Daerah::all();;
@@ -866,6 +904,23 @@ class SiteController extends Controller
        
             $daerah=Daerah::find($id);
              return view('site::system.daerah.viewdaerah',compact('daerah','id'));
+
+    }
+    public function deletedaerah($id){
+
+   
+             $deletedaerah = Daerah::find($id);
+             $old_value = json_encode($deletedaerah);
+
+             $activities='Padam Daerah';
+
+             Event::dispatch(new AuditLog(auth()->user()->id,$id,$activities,$old_value,''));
+
+             $deletedaerah->delete();
+
+             
+
+            return redirect::to('/site/daerah/index')->withError(__('Data telah berjaya dipadam'));
 
     }
      public function mukimindex()
@@ -951,6 +1006,23 @@ class SiteController extends Controller
             $mukim=Mukim::find($id);
             $daerah=Daerah::find(data_get($mukim,'fk_daerah'));
             return view('site::system.mukim.viewmukim',compact('daerah','id','mukim'));
+
+    }
+     public function deletemukim($id){
+
+   
+             $deletemukim = Mukim::find($id);
+             $old_value = json_encode($deletemukim);
+
+             $activities='Padam Mukim';
+
+             Event::dispatch(new AuditLog(auth()->user()->id,$id,$activities,$old_value,''));
+
+             $deletemukim->delete();
+
+             
+
+            return redirect::to('/site/mukim/index')->withError(__('Data telah berjaya dipadam'));
 
     }
     public function kampungindex()
@@ -1068,6 +1140,23 @@ class SiteController extends Controller
 
             $kampunginduk=Kampung::find(data_get($kampung,'IdKampungInduk'));
             return view('site::system.kampung.viewkampung',compact('kampung','id','parlimen','daerah','catpenempatan','jeniskampung','dun','dunedit','mukimedit','kampunginduk'));
+
+    }
+     public function deletekampung($id){
+
+   
+             $deletekampung = Kampung::find($id);
+             $old_value = json_encode($deletekampung);
+
+             $activities='Padam Kampung';
+
+             Event::dispatch(new AuditLog(auth()->user()->id,$id,$activities,$old_value,''));
+
+             $deletekampung->delete();
+
+             
+
+            return redirect::to('/site/kampung/index')->withError(__('Data telah berjaya dipadam'));
 
     }
     public function indexpermission()

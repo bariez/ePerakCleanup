@@ -59,24 +59,28 @@ Route::group(
     Route::get('/parlimen/editparlimen/{id}', 'SiteController@editparlimen')->name('editparlimen');
     Route::post('/parlimen/saveeditparlimen', ['uses' => 'SiteController@saveeditparlimen', 'as' => 'parlimen.saveeditparlimen']);
     Route::get('/parlimen/viewparlimen/{id}', 'SiteController@viewparlimen')->name('viewparlimen');
+     Route::get('/parlimen/deleteparlimen/{id}', 'SiteController@deleteparlimen')->name('deleteparlimen');
     Route::get('/dun/index', 'SiteController@dunindex')->name('dun.index');
     Route::get('/dun/adddun', 'SiteController@adddun')->name('adddun');
     Route::post('/dun/savedun', ['uses' => 'SiteController@savedun', 'as' => 'dun.savedun']);
     Route::get('/dun/editdun/{id}', 'SiteController@editdun')->name('editdun');
      Route::post('/dun/saveeditdun', ['uses' => 'SiteController@saveeditdun', 'as' => 'dun.saveeditdun']);
     Route::get('/dun/viewdun/{id}', 'SiteController@viewdun')->name('viewdun');
+     Route::get('/dun/deletedun/{id}', 'SiteController@deletedun')->name('deletedun');
     Route::get('/daerah/index', 'SiteController@daerahindex')->name('daerah.index');
     Route::get('/daerah/adddaerah', 'SiteController@adddaerah')->name('adddaerah');
     Route::post('/daerah/savedaerah', ['uses' => 'SiteController@savedaerah', 'as' => 'daerah.savedaerah']);
     Route::get('/daerah/editdaerah/{id}', 'SiteController@editdaerah')->name('editdaerah');
     Route::post('/daerah/saveeditdaerah', ['uses' => 'SiteController@saveeditdaerah', 'as' => 'daerah.saveeditdaerah']);
     Route::get('/daerah/viewdaerah/{id}', 'SiteController@viewdaerah')->name('viewdaerah');
+    Route::get('/daerah/deletedaerah/{id}', 'SiteController@deletedaerah')->name('deletedaerah');
     Route::get('/mukim/index', 'SiteController@mukimindex')->name('mukim.index');
     Route::get('/mukim/addmukim', 'SiteController@addmukim')->name('addmukim');
     Route::post('/mukim/savemukim', ['uses' => 'SiteController@savemukim', 'as' => 'mukim.savemukim']);
     Route::get('/mukim/editmukim/{id}', 'SiteController@editmukim')->name('editmukim');
     Route::post('/mukim/saveeditmukim', ['uses' => 'SiteController@saveeditmukim', 'as' => 'mukim.saveeditmukim']);
-     Route::get('/mukim/viewmukim/{id}', 'SiteController@viewmukim')->name('viewmukim');
+    Route::get('/mukim/viewmukim/{id}', 'SiteController@viewmukim')->name('viewmukim');
+    Route::get('/mukim/deletemukim/{id}', 'SiteController@deletemukim')->name('deletemukim');
      Route::get('/kampung/index', 'SiteController@kampungindex')->name('kampung.index');
      Route::get('/kampung/addkampung', 'SiteController@addkampung')->name('addkampung');
      Route::get('/dun/{parlimenid}', 'SiteController@dun')->name('dun');
@@ -88,6 +92,7 @@ Route::group(
     Route::post('/kampung/saveeditkampung', ['uses' => 'SiteController@saveeditkampung', 'as' => 'kampung.saveeditkampung']);
 
     Route::get('/kampung/viewkampung/{id}', 'SiteController@viewkampung')->name('viewkampung');
+    Route::get('/kampung/deletekampung/{id}', 'SiteController@deletekampung')->name('deletekampung');
     Route::get('/getmukim/{daerahid}', 'SiteController@getmukim')->name('getmukim');
     Route::get('/auditlog/index', 'SiteController@auditlogindex')->name('auditlogindex');
     Route::get('/auditlog/searchlog', 'SiteController@searchlog')->name('searchlog');
@@ -96,8 +101,24 @@ Route::group(
       Route::get('/exportauditlog/{type}/{user}/{datefrom}/{dateto}/{kat}', 'SiteController@exportauditlog')->name('exportauditlog');
 
 
+
+
+
     }
 );
+
+///start contoh TOT
+
+// Route::get('/', function()
+// {
+//    return View::make('pages.home');
+// });
+// Route::get('/about', function()
+// {
+//    return View::make('pages.contact');
+// });
+
+//end contoh tot
 
 
 // Route::group(
