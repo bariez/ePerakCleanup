@@ -53,7 +53,11 @@
 				<div class="main-header">
 
 					<!-- logo big device start ----------------------------------------------------------- -->
+					@auth
+					<div class="header-left d-none d-lg-block" style="width: 120%">
+					@else
 					<div class="header-left d-none d-lg-block" style="width: 80%">
+					@endauth
 						<div class="header-logo" style="margin-right: 10px !important ">
 							<div class="d-flex">
 								<!-- foreach($logo as $key => $logos) -->
