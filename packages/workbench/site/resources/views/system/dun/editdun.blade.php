@@ -44,7 +44,7 @@ img:hover {
 </div>
 <br>
  <h4 class="ui top attached header">
-Kemaksini Ahli Dun
+Kemasksini Ahli Dun
 </h4>
 <div class="ui attached segment">
 {!! form()->open()->post()->action(route('site::dun.saveeditdun'))->attribute('id', 'formstruk')->multipart()->horizontal() !!}
