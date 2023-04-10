@@ -379,9 +379,14 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="{{ asset('manual.pdf')}}" target="_blank" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 15.5px; text-shadow: 0 0 5px #000000;">
+
+									
+									<a href="{{ asset('Manual Pengguna - Laman Utama.pdf')}}" target="_blank" id="manual" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 15.5px; text-shadow: 0 0 5px #000000;">
 										PANDUAN PENGGUNA
 									</a>
+								
+
+									
 
 								</li>
 							</ul>

@@ -38,7 +38,7 @@ $id=5;
 
                 <div class="ui compact b-0">
                     <div class="ui simple dropdown basic button top right pointing b-0 p-x-volt-0" style="padding: 6px 0px;background: transparent;">
-                         <a class="ui button" style="background-color: #000;color: white;font-size:12px;height: 40px;"><i class="user icon" style="margin: auto;"></i></a>
+                         <a class="ui button" style="background-color: #000;color: white;font-size:14px;height: 40px;"><i class="user icon" style="margin: auto;"></i></a>
                     
                         <div class="menu">
                             <div class="header"><span class="ui text {{ config('laravolt.ui.color') }}">{{ auth()->user()->name }}</span></div>
@@ -55,6 +55,12 @@ $id=5;
                     </div>
 
                 </div>
+                 @if(data_get($roleuser, 'acl_roles.id')==4)
+                 <a class="ui button" data-tooltip="Panduan Pengguna" target="_blank" href="{{  asset('Manual Pengguna - Pengurusan Tertinggi.pdf')}}" style="height: 40px;background-color: #000;color: white;font-size:14px;"><i class="address book outline icon" style="margin: auto;"></i></a>
+                 @else
+                 <a class="ui button" data-tooltip="Panduan Pengguna" target="_blank" href="{{  asset('Manual Pengguna - Pentadbir Daerah.pdf')}}" style="height: 40px;background-color: #000;color: white;font-size:14px;"><i class="address book outline icon" style="margin: auto;"></i></a>
+                 @endif
+                 &nbsp;
                  <a class="ui button" href="{!! URL::to('auth/addlog/'.auth()->user()->id) !!}" data-tooltip="Logout" style="height: 40px;background-color: #000;color: white;font-size:12px;padding-top: 1.1em;"><i style="margin: auto;" class="sign in alternate icon"></i></a>
             </div>
         @endauth
