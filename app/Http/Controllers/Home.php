@@ -11,57 +11,49 @@ use Redirect;
 class Home extends Controller
 {
     // public function __invoke(Request $request): View
-     public function __invoke()
+    public function __invoke()
     {
-        
         $user = auth()->user();
-
-
 
         if($user->roles->count() == 0)
         {
-            //no roles ->go to apply roles
+            // no roles ->go to apply roles
             return redirect::to('/indexhome');
         }
 
+        if($user->hasRole('PENTADBIR SISTEM') ==  true)
+        {
+            return redirect::to('/dashboard/admin');
+        }
 
-         if($user->hasRole('PENTADBIR SISTEM') ==  true)
-            {
-                return redirect::to('/dashboard/admin');
-            }
+        if($user->hasRole('PENGURUSAN TERTINGGI') ==  true)
+        {
+            return redirect::to('/location/topmanage');
+        }
 
-            if($user->hasRole('PENGURUSAN TERTINGGI') ==  true)
-            {
-               
-                return redirect::to('/location/topmanage');
-            }
+        if($user->hasRole('PENGHULU MUKIM') ==  true)
+        {
+            return redirect::to('/dashboard/penghulumukim');
+        }
 
-             if($user->hasRole('PENGHULU MUKIM') ==  true)
-            {
+        if($user->hasRole('PENTADBIR DAERAH') ==  true)
+        {
+            return redirect::to('/location/admindaerah');
+        }
 
-                return redirect::to('/dashboard/penghulumukim');
-            }
+        if($user->hasRole('DATA ENTRY') ==  true)
+        {
+            return redirect::to('/dataentry/searchkampung/index');
+        }
 
-             if($user->hasRole('PENTADBIR DAERAH') ==  true)
-            {
-                
-              
-                return redirect::to('/location/admindaerah');
-            }
-
-
-            if($user->hasRole('DATA ENTRY') ==  true)
-            {
-            
-                return redirect::to('/dataentry/searchkampung/index');
-            }
-           
-
+        if($user->hasRole('KETUA KAMPUNG') ==  true)
+        {
+            return redirect::to('/dashboard/ketuakampung');
+        }
     }
-    public function indexhome(){
-
-
-     return redirect::to('/dashboard/homeindex');
-
+    
+    public function indexhome()
+    {
+        return redirect::to('/dashboard/homeindex');
     }
 }
