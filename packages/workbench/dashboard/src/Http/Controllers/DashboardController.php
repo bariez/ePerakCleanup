@@ -241,6 +241,42 @@ class DashboardController extends Controller
       return view('dashboard::penghulumukim.index',compact('daerah','mukim','catpenempatan','roleuser','daerahuser','mukimuser'));
 
     }
+    // ketua kampung start ------------------------------------
+    public function ketuakampung()
+    {
+        $user = auth()->user();
+        // $daerahuser=data_get($user,'Daerah');
+        // $mukimuser=data_get($user,'Mukim');
+        // $daerah  = Daerah::find($daerahuser);
+        // $mukim=Mukim::find($mukimuser);
+        $catpenempatan = LkpDetail::where('status',1)
+                                  ->where('fk_lkp_master', 3)
+                                  ->get();
+
+        $user = auth()->user();
+        $roleuser = AclRoleUser::with('acl_roles')
+                               ->where('user_id', data_get($user, 'id'))
+                               ->first();
+
+        if(data_get($roleuser, 'role_id') == 2 || data_get($roleuser, 'role_id') == 3)
+        {
+            $daerahuser = data_get($user, 'Daerah');
+            $daerah = Daerah::find($daerahuser);
+            $mukimuser = data_get($user,'Mukim');
+            $mukim  = Mukim::find($mukimuser);
+        }
+        else
+        {
+            $daerah = Daerah::where('status',1)->get();
+            $mukim = Mukim::where('status',1)->get();
+            $daerahuser = '';
+            $mukimuser = '';
+        }
+
+        return view('dashboard::ketuakampung.index',compact('daerah','mukim','catpenempatan','roleuser','daerahuser','mukimuser'));
+    }
+    // ketua kampung end ------------------------------------
+
     public function dataentry()
     {
       return view('dashboard::dataentry.index');

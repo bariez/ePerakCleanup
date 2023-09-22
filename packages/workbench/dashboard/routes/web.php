@@ -30,6 +30,10 @@ Route::group(
         Route::get('/topmanage/{type}', 'DashboardController@topmanage')->name('dashboard.topmanage');
         Route::get('/topmanage2', 'DashboardController@topmanage2')->name('dashboard.topmanage2');
 
+        // ketua kampung start ------------------------------------
+        Route::get('/ketuakampung', 'DashboardController@ketuakampung')->name('dashboard.ketuakampung');
+        // ketua kampung end ------------------------------------
+
         Route::get('/homeindex', 'DashboardController@homeindex')->name('dashboard.homeindex');
 
         Route::get('/countpetempatan', 'DashboardController@countpetempatan')->name('dashboard.countpetempatan');

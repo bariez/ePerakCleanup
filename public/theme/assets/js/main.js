@@ -7,18 +7,18 @@
     /*-----------------
         Menu Stick
     -----------------*/
-    var header = $(".sticky-bar");
-    var win = $(window);
-    win.on("scroll", function () {
-        var scroll = win.scrollTop();
-        if (scroll < 200) {
-            header.removeClass("stick");
-            $(".header-style-2 .categories-dropdown-active-large").removeClass("open");
-            $(".header-style-2 .categories-button-active").removeClass("open");
-        } else {
-            header.addClass("stick");
-        }
-    });
+    // var header = $(".sticky-bar");
+    // var win = $(window);
+    // win.on("scroll", function () {
+    //     var scroll = win.scrollTop();
+    //     if (scroll < 200) {
+    //         header.removeClass("stick");
+    //         $(".header-style-2 .categories-dropdown-active-large").removeClass("open");
+    //         $(".header-style-2 .categories-button-active").removeClass("open");
+    //     } else {
+    //         header.addClass("stick");
+    //     }
+    // });
     /*------ ScrollUp -------- */
     $.scrollUp({
         scrollText: '<i class="fi-rr-arrow-small-up"></i>',
