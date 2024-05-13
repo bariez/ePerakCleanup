@@ -39,7 +39,7 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-       
+
 
         $request->validate(
             [
@@ -50,9 +50,9 @@ class RegistrationController extends Controller
                 // 'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&.~`^()-_+={}:;<>])[A-Za-z\d@$!%*#?&.~`^()-_+={}:;<>]{8,}$/',
                 //'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[a-z0-9])[a-z0-9!@#$%&*.]{8,}$/i',
                  'password' => [
-                     'required', 
+                     'required',
                      'regex:/^(?=.*[A-Z])(?=.*\d).*$|^(?=.*[@\].])(?=.*\d).*$|^(?=.*[@\].])(?=.*[A-Z]).*$|^[A-Z]$|^[A-Z]{3,}$/',
-                     'min:8', 
+                     'min:8',
                      'confirmed',
                    ],
                 'jabatan' => 'required|string|max:255',
@@ -69,13 +69,13 @@ class RegistrationController extends Controller
                 'email.regex' => 'Email Salah Format!',
                 'email.unique'=> 'Email Telah Wujud!',
 
-                
-               
+
+
             ]
       //        [
       //     'notel.integer' => 'Sila masukan nombor !',
-          
-        
+
+
       // ]
         );
 
@@ -124,7 +124,7 @@ class RegistrationController extends Controller
 
      //        $activities='Hantar email Permohonan Baru Gagal Dihantar';
      //         Event::dispatch(new AuditLog('','',$activities,'',$e));
-            
+
      //    }//asal
 
   try {
@@ -135,17 +135,17 @@ class RegistrationController extends Controller
 
             $message->to($emailto->email)->subject('Perlu Kelulusan Pengguna');
 
-            
+
 
 
           });
-      
+
 
        } catch (\Exception $e) {
 
             $activities='Hantar email Permohonan Baru Gagal Dihantar';
              Event::dispatch(new AuditLog('','',$activities,'',$e));
-            
+
         }
 
    //email ke user
@@ -161,7 +161,7 @@ class RegistrationController extends Controller
 
             $message->to($request->email)->subject('Perlu Kelulusan Pengguna');
 
-             
+
 
 
           });
@@ -170,7 +170,7 @@ class RegistrationController extends Controller
 
             $activities='Hantar email Permohonan Baru Gagal Dihantar';
              Event::dispatch(new AuditLog('','',$activities,'',$e));
-            
+
         }
 
 

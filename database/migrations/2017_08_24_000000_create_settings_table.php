@@ -10,9 +10,9 @@ class CreateSettingsTable extends Migration
      */
     public function __construct()
     {
-        $this->table = config('setting.database.table');
-        $this->key = config('setting.database.key');
-        $this->value = config('setting.database.value');
+        $this->table = config('setting.database.table', 'settings');
+        $this->key = config('setting.database.key', 'key');
+        $this->value = config('setting.database.value', 'value');
     }
 
     /**

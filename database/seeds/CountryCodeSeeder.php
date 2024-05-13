@@ -1,8 +1,8 @@
 <?php
-  
+
 use Illuminate\Database\Seeder;
 use App\Models\LkpCountryCode;
-  
+
 class CountryCodeSeeder extends Seeder
 {
     /**
@@ -13,7 +13,7 @@ class CountryCodeSeeder extends Seeder
     public function run()
     {
         LkpCountryCode::truncate();
-  
+
         $countries = [
             ['status' =>1,'description' => 'Afghanistan', 'code' => 'AF'],
             ['status' =>1,'description' => 'Åland Islands', 'code' => 'AX'],
@@ -265,7 +265,7 @@ class CountryCodeSeeder extends Seeder
             ['status' =>1,'description' => 'Zambia', 'code' => 'ZM'],
             ['status' =>1,'description' => 'Zimbabwe', 'code' => 'ZW'],
         ];
-          
+
         foreach ($countries as $key => $value) {
             LkpCountryCode::create($value);
         }

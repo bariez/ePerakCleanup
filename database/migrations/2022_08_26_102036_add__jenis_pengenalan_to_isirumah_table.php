@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('isirumah', function (Blueprint $table) {
-             $table->integer('JenisPengenalan')->after('Gambar_path')->nullable();
+             $table->integer('JenisPengenalan')->nullable();
         });
     }
 

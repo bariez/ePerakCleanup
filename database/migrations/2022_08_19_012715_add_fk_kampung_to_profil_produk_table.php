@@ -13,6 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
+        if(Schema::hasColumn('profil_produk', 'fk_kampung')) {
+            return;
+        }
         Schema::table('profil_produk', function (Blueprint $table) {
              $table->integer('fk_kampung')->after('id')->nullable();
         });
@@ -25,8 +28,12 @@ return new class extends Migration
      */
     public function down()
     {
+        if(Schema::hasColumn('profil_produk', 'fk_kampung')) {
+            return;
+        }
+
         Schema::table('profil_produk', function (Blueprint $table) {
-            //
+            $table->dropColumn('fk_kampung');
         });
     }
 };
