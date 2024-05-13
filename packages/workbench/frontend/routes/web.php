@@ -53,7 +53,8 @@ Route::group(
 
         Route::get('/info', 'FrontendController@getInfoPenempatan')->name('frontend.getInfoPenempatan');
         Route::get('/info/{idkampung}', 'FrontendController@getInfoDetail')->name('frontend.getInfoDetail');
-
+        //add 23/02/2024 /////////////////////////////////////////////////////////////////////////////////////////
+        Route::get('/infoKampungKetua', 'FrontendController@infoKampungKetua')->name('frontend.infoKampungKetua');
         Route::get('/info/ajax/parlimen/daerah/{iddaerah}', 'FrontendController@getAjaxParlimenDaerah')->name('frontend.getAjaxParlimenDaerah');
         Route::get('/info/ajax/parlimen/mukim/{idmukim}', 'FrontendController@getAjaxParlimenMukim')->name('frontend.getAjaxParlimenMukim');
 
@@ -163,18 +164,3 @@ Route::group(
         Route::get('/page/edit/{page_id}', 'FrontendManagementController@getPageEdit')->name('frontendmanage.getPageEdit');
         Route::post('/page/saveedit', 'FrontendManagementController@postPageSaveEdit')->name('frontendmanage.postPageSaveEdit');
     });
-
-// Route::group(
-//     [
-//         'namespace'  => '\Workbench\Site\Http\Controllers',
-//         'prefix'     => '',
-//         'as'         => 'site::',
-//         'middleware' => ['guest','web'],
-//     ],
-//     function () {
-
-//         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
-//         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-
-//     }
-// );

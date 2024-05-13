@@ -23,6 +23,7 @@ use Workbench\Site\Model\Lookup\ProfilPencapaian;
 use Workbench\Site\Model\Lookup\ProfilPengeluar;
 use Workbench\Site\Model\Lookup\ProfilPentadbiran;
 use Workbench\Site\Model\Lookup\ProfilProduk;
+//use Workbench\Site\Model\Lookup\vcetaktengah;
 use Workbench\Site\Model\Lookup\ProfilProjek;
 use Workbench\Site\Model\Lookup\VcetakKIR;
 
@@ -630,6 +631,7 @@ class DataentryRepo
         $ketua->KAstro = $request->astro;
         $ketua->Longitud = $request->Longitud;
         $ketua->Latitud = $request->Latitud;
+        $ketua->Status = $request->status;
         $ketua->save();
 
         $new_value = $request->except(['_token', 'action']);
@@ -703,6 +705,7 @@ class DataentryRepo
         $ketua->KAstro = $request->astro;
         $ketua->Longitud = $request->Longitud;
         $ketua->Latitud = $request->Latitud;
+        $ketua->Status = $request->status; //add 24.04.2024
         $ketua->save();
 
         $new_value = $request->except(['_token', 'action']);
@@ -895,8 +898,9 @@ class DataentryRepo
 
     public function cetakKIR($idrumah, $idkampung)
     {
-        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan')
-          ->where('IdRumah', $idrumah)
+        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status')
+         //$cetakKIR  =vcetaktengah::selectRaw("IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status")
+         ->where('IdRumah', $idrumah)
           ->where('fk_kampung', $idkampung)
           ->orderByRaw('CAST(IdRumah AS int)')
           ->get();
@@ -906,8 +910,9 @@ class DataentryRepo
 
     public function cetakkirAll($idkampung)
     {
-        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan')
-          ->where('fk_kampung', $idkampung)
+        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status')
+         //$cetakKIR  =vcetaktengah::selectRaw("IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status")
+         ->where('fk_kampung', $idkampung)
           ->orderByRaw('CAST(IdRumah AS int)')
           ->get();
 

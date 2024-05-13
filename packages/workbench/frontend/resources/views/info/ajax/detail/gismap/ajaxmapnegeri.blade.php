@@ -3,7 +3,7 @@
     const latKampung = {!! $latKampung !!};
     // console.log(longKampung + "    -----   " + latKampung);
 
-    require(["esri/Map",
+  /*  require(["esri/Map",
         "esri/views/MapView",
         "esri/layers/MapImageLayer",
         "esri/widgets/Legend",
@@ -12,7 +12,13 @@
         "esri/widgets/LayerList",
         "esri/widgets/Search",
         "esri/Graphic"
-    ], (Map, MapView, MapImageLayer, Legend, Expand, BasemapGallery, LayerList, Search, Graphic) => {
+    ], (Map, MapView, MapImageLayer, Legend, Expand, BasemapGallery, LayerList, Search, Graphic) => {*/
+	require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer",
+        "esri/widgets/BasemapGallery",
+        "esri/widgets/LayerList",
+        "esri/Graphic",
+        "esri/widgets/Legend",
+        "esri/widgets/Expand", "esri/widgets/Search"], function(Map, MapView, FeatureLayer, BasemapGallery, LayerList, Graphic, Legend, Expand, Search) {
 
         /*****************************************************************
          * Create a MapImageLayer instance pointing to a Map Service
@@ -47,303 +53,14 @@
         urlKampungGis = urlGis.replace("VARMAP","{{ $kampungdata->url_gis}}");
         // console.log(urlKampungGis);
 
-        const mapLayer = new MapImageLayer({
-            url: urlKampungGis,
-            sublayers: [{
-                    id: 1,
-                    title: "Pasar",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{BA3}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 4,
-                    title: "Hospital",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{ALAMAT}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 5,
-                    title: "Klinik",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Mukim</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{MUKIM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 7,
-                    title: "Stesen Bas",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Mukim</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{MUKIM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 8,
-                    title: "Rumah Ibadat",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAMA}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAMA}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{BA3}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 9,
-                    title: "Pondok Polis",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{ALAMAT}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 10,
-                    title: "Balai Polis",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{BA3}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 11,
-                    title: "Balai Bomba",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{ALAMAT}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 12,
-                    title: "Kemudahan Pos",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{BA3}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 13,
-                    title: "Perpustakaan",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Nama</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{NAM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Alamat</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{BA3}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 17,
-                    title: "Sempadan Mukim",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{MUKIM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>MUKIM</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{MUKIM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 18,
-                    title: "Sempadan Daerah",
-                    visible: true,
-                    popupTemplate: {
-                        title: "{DAERAH}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
-                },
-                {
-                    id: 14,
-                    title: "Sempadan Kampung",
-                    visible: true,
-                    opacity: 0.5,
-                    renderer: renderer,
-                    popupTemplate: {
-                        title: "{NAMA} {ID_KG}",
-                        content: getData,
-                        fieldInfos: [{
-                                fieldName: "{NAMA}"
-                            },
-                            {
-                                fieldName: "{ID_KG}"
-                            },
-                        ]
-                    },
-                },
-
-            ]
+        const featureLayer = new FeatureLayer({
+		   url: "https://mygdispatial.perak.gov.my/server/rest/services/Hosted/Kampung_Perak/FeatureServer/0/query",
+          outFields: ["*"], // used by queryFeaturesA1_BO_0001
+		  definitionExpression: "UPPER(ID_KG)=UPPER('{{ $kampungdata->IdKampung}}')",
+        
+        
+			
+       			
         });
 
         /*****************************************************************
@@ -352,7 +69,7 @@
 
         const map = new Map({
             basemap: "gray-vector",
-            layers: [mapLayer]
+          //  layers: [featureLayer]
         });
 
         const view = new MapView({
@@ -366,7 +83,7 @@
             view: view
         });
 
-        const basemapGallery = new BasemapGallery({
+       const basemapGallery = new BasemapGallery({
             view: view,
             content: document.getElementById("bg-gallery"),
 
@@ -417,7 +134,7 @@
             if (mobileSize) {
                 bgExpand.collapse();
             }
-        });
+        }); /* */
 
         /*****************************************************************
                              START KETUA ISI RUMAH
@@ -478,8 +195,8 @@
         // Add the expand instance to the ui
         view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-right");
 
-        map.add(mapLayer);
-
+      //  map.add(mapLayer);
+ map.add(featureLayer);
         function getData(feature) {
             // console.log(feature.graphic.attributes);
             var data = {!! $datagis !!};

@@ -100,9 +100,13 @@
 												<div class="contact-from-area padding-20-row-col">
 													<h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".1s"
 														style="color: white; text-shadow: 2px 2px #000000;">
-														<span style="color: white">PETA</span>
+													<!--	<span style="color: white">PETA<br>
+
+
+
+ </span>-->
 													</h4>
-													<!-- <p class="mb-30 font-md text-center wow animate__ animate__fadeInUp animated capitalall" data-wow-delay=".3s"
+													<!--<p class="mb-30 font-md text-center wow animate__ animate__fadeInUp animated capitalall" data-wow-delay=".3s"
 													   style="color: white; text-shadow: 1px 1px #000000;">
 														Peta interaktif portal e-Perak
 													</p> -->
@@ -159,7 +163,7 @@
 														</p> -->
 													</div>
 
-														<!-- <div class="card-grid-3" style="background: none; border: none">
+														 <!--<div class="card-grid-3" style="background: none; border: none">
 						                                    <h5 class="heading-md" style="color: white; text-shadow: 1px 1px #FFFFFF;">
 						                                    	<a href="news?page=1" style="font-weight: bolder; ">
 						                                    		BERITA
@@ -193,44 +197,44 @@
 																		 data-wow-delay=".5s" 
 																		 onclick="location.href = '/news/{{ data_get($notiss, 'id') }}';"
 																		 style="cursor: pointer">
-																		<div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
-																			<div class="text-center card-grid-2-image">
-																				<a href="javascript:;">
+									<div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
+														<div class="text-center card-grid-2-image">
+														<a href="javascript:;">
 																					<figure>
 
 																						@if( data_get($notiss, 'path') )
 																							@if( file_exists( public_path( data_get($notiss, 'path') ) ) )
-																								<img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-																									 style="height: 200px !important">
+								<img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+																		 style="height: 200px !important">
 																							@else
-																								<img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-																									 style="height: 50% !important; width: 50% !important">
+								<img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+							         style="height: 50% !important; width: 50% !important">
 																							@endif
 																						@else
-																							<img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-																								 style="height: 50% !important; width: 50% !important">
+							   <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+										 style="height: 50% !important; width: 50% !important">
 																						@endif
 
 																					</figure>
 																				</a>
 																			</div>
-																			<div class="card-block-info" style="padding-top: 5px; padding-bottom: 5px"><!-- min-height: 210px !important -->
-																				<h6 class="">
-																					<a href="javascript:;">
-																						{{ data_get($notiss, 'tajuk') }}
+								<div class="card-block-info" style="padding-top: 5px; padding-bottom: 5px"><!-- min-height: 210px !important -->
+								<h6 class="">
+								<a href="javascript:;">
+									{{ data_get($notiss, 'tajuk') }}
 																					</a>
 																				</h6>
 																				<div class="row">
-																					<a href="javascript:;" class="">
+														<a href="javascript:;" class="">
 																						<span>
-																							{{ data_get($notiss, 'ringkasan') }}
+																			{{ data_get($notiss, 'ringkasan') }}
 																						</span>
 																					</a>
 																				</div>
 																				<div class="card-2-bottom mt-30 mb-30">
 																					<div class="row ml-0">
 																						<!-- <div class="col-lg-5 col-5"> -->
-																							<span class="card-calender">{{ data_get($notiss, 'tarikh_notis') }}</span>
+														<span class="card-calender">{{ data_get($notiss, 'tarikh_notis') }}</span>
 																						<!-- </div> -->
 																					</div>
 																				</div>

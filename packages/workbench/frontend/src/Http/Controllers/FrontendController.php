@@ -96,6 +96,19 @@ class FrontendController extends Controller
         return view('frontend::news.detail', compact('notis'));
     }
 
+    public function infoKampungKetua(Request $request)
+    {
+        $user = auth()->user();
+        $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))
+                               ->first();
+        echo '-->'.$roleuser;
+        if ($roleuser->role_id == 10) {
+            return Redirect::to('/dashboard/ketuakampung')->with('popupKampung', $user->Kampung);
+        } else {
+            return Redirect::to('/indexhome');
+        }
+    }
+
     public function getActivityList(Request $request)
     {
         $year = $this->repos->tahunAktiviti($request);
@@ -336,7 +349,7 @@ class FrontendController extends Controller
             return view('frontend::info.ajax.detail.gismap.ajaxmapnegeri', compact('datagis', 'id_kampung', 'latKampung', 'longKampung', 'kirkampung', 'kampungdata', 'kemudahandata'));
         } elseif ($roleuser->role_id == '2') { // PDaerah
             return view('frontend::info.ajax.detail.gismap.ajaxmapdaerah', compact('datagis', 'id_kampung', 'latKampung', 'longKampung', 'kirkampung', 'kampungdata', 'kemudahandata'));
-        } elseif ($roleuser->role_id == '3') { // Pmukim
+        } elseif ($roleuser->role_id == '3' || $roleuser->role_id == '10') { // Pmukim
             return view('frontend::info.ajax.detail.gismap.ajaxmapmukim', compact('datagis', 'id_kampung', 'latKampung', 'longKampung', 'kirkampung', 'kampungdata', 'kemudahandata'));
         }
     }

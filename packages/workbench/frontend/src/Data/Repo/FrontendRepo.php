@@ -960,14 +960,14 @@ class FrontendRepo
         $user = auth()->user();
         $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
 
-        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
+        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
             $kir = VwKetuaIsiRumah::where('fk_kampung', $request->idkampung)
                                 ->get();
         } elseif ($roleuser->role_id == '2') { // PDaerah
             $kir = VwKetuaIsiRumah::where('fk_kampung', $request->idkampung)
                             ->where('fk_daerah', $user->Daerah)
                             ->get();
-        } elseif ($roleuser->role_id == '3') { // Pmukim
+        } elseif ($roleuser->role_id == '3' || $roleuser->role_id == '6' || $roleuser->role_id == '10') { // Pmukim
             $kir = VwKetuaIsiRumah::where('fk_kampung', $request->idkampung)
                             ->where('fk_mukim', $user->Mukim)
                             ->get();

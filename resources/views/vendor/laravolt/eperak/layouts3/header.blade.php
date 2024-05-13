@@ -39,7 +39,7 @@
 
 
 	<!-- <header class="header sticky-bar" style="background-color: #FEED21 !important; padding-top: 5px; padding-bottom: 5px; position: unset !important;"> -->
-	<header class="header" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/headerbgfour.jpeg') }}') !important; background-size: cover; background-repeat: no-repeat; padding-top: 15px; padding-bottom: 15px; position: unset !important;">
+	<header class="header sticky-bar" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/headerbgfour.jpeg') }}') !important; background-size: cover; background-repeat: no-repeat; padding-top: 15px; padding-bottom: 15px; position: unset !important;">
 
 		<!-- end first row ------------------------------------------------------------- -->
 			<div class="container" style="max-width: 95% !important">

@@ -51,8 +51,9 @@
 
         const mapLayer = new MapImageLayer({
             url: urlDaerahGis,
-            sublayers: [{
-                    id: 1,
+            sublayers: [
+                {
+                    id: 6,
                     title: "Pasar",
                     visible: false,
                     popupTemplate: {
@@ -72,7 +73,7 @@
                     },
                 },
                 {
-                    id: 4,
+                    id: 10,
                     title: "Hospital",
                     visible: false,
                     popupTemplate: {
@@ -92,7 +93,7 @@
                     },
                 },
                 {
-                    id: 5,
+                    id: 11,
                     title: "Klinik",
                     visible: false,
                     popupTemplate: {
@@ -117,7 +118,7 @@
                     },
                 },
                 {
-                    id: 7,
+                    id: 13,
                     title: "Stesen Bas",
                     visible: false,
                     popupTemplate: {
@@ -142,7 +143,7 @@
                     },
                 },
                 {
-                    id: 8,
+                    id: 15,
                     title: "Rumah Ibadat",
                     visible: false,
                     popupTemplate: {
@@ -167,7 +168,7 @@
                     },
                 },
                 {
-                    id: 9,
+                    id: 16,
                     title: "Pondok Polis",
                     visible: false,
                     popupTemplate: {
@@ -192,33 +193,8 @@
                     },
                 },
                 {
-                    id: 10,
+                    id: 17,
                     title: "Balai Polis",
-                    visible: false,
-                    popupTemplate: {
-                        title: "{NAM}",
-                        content: "<table>" +
-                            "<tr> " +
-                            "<td>Nama</td> " +
-                            "<td>: </td> " +
-                            "<td>{NAM}</td> " +
-                            "</tr> " +
-                            "<tr> " +
-                            "<td>Alamat</td> " +
-                            "<td>: </td> " +
-                            "<td>{BA3}</td> " +
-                            "</tr> " +
-                            "<tr> " +
-                            "<td>Daerah</td> " +
-                            "<td>: </td> " +
-                            "<td>{DAERAH}</td> " +
-                            "</tr> " +
-                            "</table>"
-                    },
-                },
-                {
-                    id: 11,
-                    title: "Balai Bomba",
                     visible: false,
                     popupTemplate: {
                         title: "{NAM}",
@@ -242,11 +218,11 @@
                     },
                 },
                 {
-                    id: 12,
-                    title: "Kemudahan Pos",
+                    id: 18,
+                    title: "Balai Bomba",
                     visible: false,
                     popupTemplate: {
-                        title: "{NAM} {ALAMAT}",
+                        title: "{NAM}",
                         content: "<table>" +
                             "<tr> " +
                             "<td>Nama</td> " +
@@ -267,7 +243,32 @@
                     },
                 },
                 {
-                    id: 13,
+                    id: 19,
+                    title: "Kemudahan Pos",
+                    visible: false,
+                    popupTemplate: {
+                        title: "{NAM}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Nama</td> " +
+                            "<td>: </td> " +
+                            "<td>{NAM}</td> " +
+                            "</tr> " +
+                            "<tr> " +
+                            "<td>Alamat</td> " +
+                            "<td>: </td> " +
+                            "<td>{ALAMAT}</td> " +
+                            "</tr> " +
+                            "<tr> " +
+                            "<td>Daerah</td> " +
+                            "<td>: </td> " +
+                            "<td>{DAERAH}</td> " +
+                            "</tr> " +
+                            "</table>"
+                    },
+                },
+                {
+                    id: 20,
                     title: "Perpustakaan",
                     visible: false,
                     popupTemplate: {
@@ -292,21 +293,78 @@
                     },
                 },
                 {
-                    id: 14,
+                    id: 22,
                     title: "Sempadan Kampung Daerah",
                     visible: true,
-                    opacity: 0.5,
-                    renderer: renderer,
                     popupTemplate: {
-                        title: "{NAMA} {ID_KG}",
-                        content: getData,
-                        fieldInfos: [{
-                                fieldName: "{NAMA}"
-                            },
-                            {
-                                fieldName: "{ID_KG}"
-                            },
-                        ]
+                        title: "{NAMA}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Kampung</td> " +
+                            "<td>: </td> " +
+                            "<td>{NAMA}</td> " +
+                            "</tr> " +
+                            "</table>"
+                    },
+                },
+                {
+                    id: 23,
+                    title: "Sempadan Pilihanraya (Parlimen)",
+                    visible: true,
+                    popupTemplate: {
+                        title: "{NAM}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Parlimen</td> " +
+                            "<td>: </td> " +
+                            "<td>{NAM}</td> " +
+                            "</tr> " +
+                            "</table>"
+                    },
+                },
+                {
+                    id: 24,
+                    title: "Sempadan Pilihanraya (Dun)",
+                    visible: true,
+                    popupTemplate: {
+                        title: "{NAM}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Dun</td> " +
+                            "<td>: </td> " +
+                            "<td>{NAM}</td> " +
+                            "</tr> " +
+                            "</table>"
+                    },
+                },
+                {
+                    id: 25,
+                    title: "Sempadan Mukim",
+                    visible: true,
+                    popupTemplate: {
+                        title: "{MUKIM}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Mukim</td> " +
+                            "<td>: </td> " +
+                            "<td>{MUKIM}</td> " +
+                            "</tr> " +
+                            "</table>"
+                    },
+                },
+                {
+                    id: 26,
+                    title: "Sempadan Daerah",
+                    visible: true,
+                    popupTemplate: {
+                        title: "{KODDAERAH}",
+                        content: "<table>" +
+                            "<tr> " +
+                            "<td>Daerah</td> " +
+                            "<td>: </td> " +
+                            "<td>{KODDAERAH}</td> " +
+                            "</tr> " +
+                            "</table>"
                     },
                 },
 

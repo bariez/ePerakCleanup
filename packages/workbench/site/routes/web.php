@@ -91,6 +91,8 @@ Route::group(
         Route::get('/kampung/viewkampung/{id}', 'SiteController@viewkampung')->name('viewkampung');
         Route::get('/kampung/deletekampung/{id}', 'SiteController@deletekampung')->name('deletekampung');
         Route::get('/getmukim/{daerahid}', 'SiteController@getmukim')->name('getmukim');
+
+        Route::get('/getkampung/{mukimid}', 'SiteController@getkampung')->name('getkampung');
         Route::get('/auditlog/index', 'SiteController@auditlogindex')->name('auditlogindex');
         Route::get('/auditlog/searchlog', 'SiteController@searchlog')->name('searchlog');
         Route::get('/auditlog/searchlog', 'SiteController@searchlog')->name('searchlog');

@@ -20,9 +20,17 @@ class User extends \Laravolt\Platform\Models\User
     /**
      * @var string[]
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone', 'jabatan', 'jawatan', 'kategori', 'notel', 'email_verified_at', 'Ulasan', 'Daerah', 'Mukim'];
+    protected $fillable = [
+        'name', 'email', 'username', 'password',
+        'status', 'timezone', 'jabatan', 'jawatan',
+        'kategori', 'notel', 'email_verified_at',
+        'Ulasan', 'Daerah', 'Mukim', 'Kampung',
+    ];
 
     public function getPermalinkAttribute()
     {

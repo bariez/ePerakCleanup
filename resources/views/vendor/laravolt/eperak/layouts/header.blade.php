@@ -159,15 +159,15 @@
 											<li class="signin mr-5">
 												@auth
 													<div class="btn-group" role="group" aria-label="Basic example">
-														<a href="/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
+														<a href="{{env('BASEFOLDER')}}/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
 															{{ data_get($roleuser, 'acl_roles.name') }}
 														</a>
-                                                        <a href="/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
+                                                        <a href="{{env('BASEFOLDER')}}/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
 													</div>
 												@else
 													<div class="btn-group" role="group" aria-label="Basic example">
-														<a href="/auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
-														<a href="/auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
+														<a href="auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
+														<a href="auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
 														<!-- <button type="button" class="btn btn-outline-light btn-shadow hover-up">Daftar</button> -->
 													</div>
 												@endauth
@@ -260,12 +260,12 @@
 												</ul>
 											</li>
 											<li class="signin">
-												<a href="/contactus" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
+												<a href="contactus" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/hubungi3.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25">
 												</a>
 											</li>
 											<li class="signin">
-												<a href="/faq" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 15px;">
+												<a href="faq" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 15px;">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/faq3.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25">
 												</a>
 											</li>
@@ -287,15 +287,15 @@
 											<li class="signin mr-5">
 												@auth
 													<div class="btn-group" role="group" aria-label="Basic example">
-														<a href="/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
+														<a href="{{env('BASEFOLDER')}}/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
 															{{ data_get($roleuser, 'acl_roles.name') }}
 														</a>
-                                                        <a href="/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
+                                                        <a href="{{env('BASEFOLDER')}}/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
 													</div>
 												@else
 													<div class="btn-group" role="group" aria-label="Basic example">
-														<a href="/auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
-														<a href="/auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
+														<a href="auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
+														<a href="auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
 														<!-- <button type="button" class="btn btn-outline-light btn-shadow hover-up">Daftar</button> -->
 													</div>
 												@endauth
@@ -332,7 +332,7 @@
 									</a>
 								</li>
 								<li class="">
-									<a href="/info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										INFO PETEMPATAN
 									</a>
 								</li>
@@ -344,7 +344,7 @@
 										</a>
 									</li>
 									<li class="">
-										<a href="/page/{{ data_get($pages, 'menum.id') }}" class="pagemenuc" id="pagemenu{{ data_get($pages, 'id') }}"
+										<a href="page/{{ data_get($pages, 'menum.id') }}" class="pagemenuc" id="pagemenu{{ data_get($pages, 'id') }}"
 										   style="font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 											{{ strtoupper(data_get($pages, 'menum.nama')) }}
 										</a>
@@ -357,7 +357,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										HUBUNGI KAMI
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/hubungi.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25"> -->
 									</a>
@@ -368,7 +368,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="/faq" id="faq" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="faq" id="faq" style="text-decoration: none; font-weight: 900; padding-left: 10px !important; padding-right: 10px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										SOALAN LAZIM
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/faq.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25"> -->
 									</a>

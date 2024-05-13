@@ -44,32 +44,6 @@
 			z-index: 2;
 			text-align: center;
 		}
-		.background-image-fixed-editted
-		{ 
-			/*background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgsix.jpg') }}') !important;
-			background-attachment: fixed;
-			background-repeat: no-repeat; 
-			background-size: cover;*/
-			min-height: 100%;
-			position: relative;
-			overflow: hidden;
-
-			&::before 
-			{
-				background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgsix.jpg') }}') !important;
-				background-repeat: no-repeat;
-				background-position: center top;
-				background-size: cover;
-				content: '';
-				height: 100%;
-				left: 0;
-				position: fixed;
-				top: 0;
-				width: 100%;
-				will-change: transform;
-				z-index: -1;
-			}
-		}
 	</style>
 
 	@stack('style')
@@ -99,7 +73,11 @@
 		<!-- Content/Body Start -->
 		<div>
 			<!-- <main class="main" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgtwo.png') }}') !important;"> -->
-			<main class="main background-image-fixed-editted" style="" id="">
+			<main class="main" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgsix2.jpg') }}') !important; 
+									  background-attachment: fixed;
+									  background-repeat: no-repeat; 
+									  background-size: cover;
+									  ">
 
 				<!-- <div style="padding-top: 55px !important" class="d-block d-sm-none">
 					&nbsp;

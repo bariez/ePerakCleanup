@@ -182,6 +182,44 @@ class DataentryController extends Controller
         return view('dataentry::searchkampung.tab1.edit_profil_kg', compact('tabmain', 'tabdetail', 'id', 'iddetail', 'datakampung'));
     }
 
+    // add NEW 21/02/2024
+    public function menuKampungEdit()
+    {
+        $tabmain = 1;
+        $tabdetail = 1;
+        //	$idMenu=$idMenu;
+        $iddetail = 0;
+
+        $user = auth()->user();
+        $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+
+        $id = $user->Kampung;
+
+        $datakampung = Kampung::find($id);
+
+        // return view('dataentry::searchkampung.tab1.edit_profil_kg',compact('tabmain','tabdetail','id','iddetail','datakampung'));
+        return redirect::to('/dataentry/searchkampung/editkampung/'.$id.'/'.$tabmain.'/'.$tabdetail.'/'.$iddetail);
+    }
+
+    public function menuKampungEditIsi()
+    {
+        $tabmain = 1;
+        $tabdetail = 1;
+        //	$idMenu=$idMenu;
+        $iddetail = 0;
+
+        $user = auth()->user();
+        $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+
+        $id = $user->Kampung;
+        $datakampung = Kampung::find($id);
+
+        //  return view('dataentry::isirumah.ketuaisirumah.listketuaisirumah',compact('idkampung','ketuaisirumah','kamusdata','infokampung','roleuser'));
+        return redirect::to('/dataentry/searchkampung/isirumah/ketuaisirumah/'.$id);
+    }
+
+    //until here
+
     public function gettab($id, $tabmain, $tabdetail, $iddetail)
     {
         $tabmain = $tabmain;
@@ -286,8 +324,7 @@ class DataentryController extends Controller
         // ]);
 
         // if($validator->fails()) {
-        //    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/2/0')->withErrors($validator)->withInput($request->all());
-        // }else{
+        //    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/2/0')->withErrors($validator)->withInput($request->all())else{
 
         //check pengerusi
 
@@ -302,8 +339,6 @@ class DataentryController extends Controller
 
             return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
         }
-
-        // }
     }
 
     public function editstruktur(Request $request)
@@ -321,8 +356,7 @@ class DataentryController extends Controller
         // ]);
 
         // if($validator->fails()) {
-        //    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/2/0')->withErrors($validator)->withInput($request->all());
-        // }else{
+        //    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/2/0')->withErrors($validator)->withInput($request->all())else{
 
         $pengerusi = ProfilPentadbiran::where('fk_kampung', $request->idkampung)
                     ->where('jawatan', $request->jawatan)
@@ -335,8 +369,6 @@ class DataentryController extends Controller
 
             return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/2/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
         }
-
-        // }
     }
 
     public function deletestruk($deletestruk, $idkampung)
@@ -390,8 +422,6 @@ class DataentryController extends Controller
         $savekemudahan = $this->repos->savekemudahan($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/3/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editkemudahan(Request $request)
@@ -399,8 +429,6 @@ class DataentryController extends Controller
         $savekemudahan = $this->repos->editkemudahan($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/3/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deletekemudahan($deletekemudahan, $idkampung)
@@ -444,8 +472,6 @@ class DataentryController extends Controller
         $savepencapaian = $this->repos->savepencapaian($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/4/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editpencapaian(Request $request)
@@ -453,8 +479,6 @@ class DataentryController extends Controller
         $editpencapaian = $this->repos->editpencapaian($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/4/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deletepencapaian($deletepencapaian, $idkampung)
@@ -498,8 +522,6 @@ class DataentryController extends Controller
         $saveaktiviti = $this->repos->saveaktiviti($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editaktiviti(Request $request)
@@ -507,8 +529,6 @@ class DataentryController extends Controller
         $editaktiviti = $this->repos->editaktiviti($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deleteaktiviti($deleteaktiviti, $idkampung)
@@ -575,8 +595,6 @@ class DataentryController extends Controller
         $savepengeluar = $this->repos->savepengeluar($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/6/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editpengeluar(Request $request)
@@ -584,8 +602,6 @@ class DataentryController extends Controller
         $editpengeluar = $this->repos->editpengeluar($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/6/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deletepengeluar($deletepengeluar, $idkampung)
@@ -611,8 +627,6 @@ class DataentryController extends Controller
         $saveproduk = $this->repos->saveproduk($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/6/5/'.$request->iddetail)->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editproduk(Request $request)
@@ -620,8 +634,6 @@ class DataentryController extends Controller
         $editproduk = $this->repos->editproduk($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/6/5/'.$request->pengeluar)->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deleteproduk($deleteproduk, $idkampung, $idpengeluar)
@@ -665,8 +677,6 @@ class DataentryController extends Controller
         $saveprojek = $this->repos->saveprojek($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/7/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function editprojek(Request $request)
@@ -674,8 +684,6 @@ class DataentryController extends Controller
         $editprojek = $this->repos->editprojek($request);
 
         return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/7/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
-
-        // }
     }
 
     public function deleteprojek($deleteprojek, $idkampung)
@@ -827,7 +835,7 @@ class DataentryController extends Controller
                             isirumah.Bangsa as bangsa
                           FROM
                            isirumah
-                           join 
+                           join
                             pemilikanrumah
                             on
                             isirumah.fk_rumah=pemilikanrumah.id
@@ -848,8 +856,8 @@ class DataentryController extends Controller
                           ON (
                             (
                               lkp_detail.id = a.bangsa
-                              
-                        
+
+
                             )
                           )
                       )where lkp_detail.fk_lkp_master=20
@@ -927,11 +935,9 @@ class DataentryController extends Controller
             $namakamapung = Kampung::find($idkampung);
 
             $data = [
-
                 'data' => $data,
                 'namakmapung'=> data_get($namakamapung, 'NamaKampung'),
                 'title'=>'MAKLUMAT KETUA ISI RUMAH & AHLI ISI RUMAH',
-
             ];
 
             $pdf = PDF::loadView('dataentry::isirumah.cetakan.pdf.cetakanKIR', $data);
@@ -939,20 +945,16 @@ class DataentryController extends Controller
             $pdf->setPaper('A4', 'landscape');
 
             return $pdf->download('cetakan_KIR.pdf');
-            //return $pdf->stream('cetakan_KIR.pdf');
         }
     }
 
     public function ketuaisirumah($idkampung)
     {
         $idkampung = $idkampung;
-        // $ketuaisirumah=Isirumah::with('rumah')->where('rumah.fk_kampung',$idkampung)->get();
 
         $ketuaisirumah = Isirumah::whereHas('rumah', function ($query) use ($idkampung) {
             return $query->where('fk_kampung', '=', $idkampung);
         })->where('flag_ketua_rumah', 1)->orderBy('fk_rumah', 'asc')->get();
-
-        //$ketuaisirumah=Pemilikanrumah::with('kampung')->where('fk_kampung',$idkampung)->get();
 
         $kamusdata = LkpDetail::with('lkpmaster')->get();
         $infokampung = Kampung::find($idkampung);
@@ -979,10 +981,10 @@ class DataentryController extends Controller
         $binaanrumah = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 12)->get();
         $biltingkat = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 13)->get();
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
-
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
+        $Status = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
 
-        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'infokampung'));
+        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'Status', 'infokampung'));
     }
 
     public function saveketuarumah(Request $request)
@@ -1012,17 +1014,12 @@ class DataentryController extends Controller
         $biltingkat = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 13)->get();
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
+        $Status = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
 
         $filexists = file_exists(public_path(data_get($ketuaisirumah, 'rumah.Gambar_path')));
 
-        // $ketuaisirumah=Isirumah::whereHas('rumah', function ($query)use($idkampung) {
-        //                return $query->where('fk_kampung', '=', $idkampung);
-        //            })->get();
-
-        //$ketuaisirumah=Pemilikanrumah::with('kampung')->where('fk_kampung',$idkampung)->get();
-
         return view('dataentry::isirumah.ketuaisirumah.editketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'filexists', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'Status', 'filexists', 'infokampung'));
     }
 
     public function editketuarumah(Request $request)
@@ -1052,23 +1049,16 @@ class DataentryController extends Controller
         $biltingkat = LkpDetail::find(data_get($ketuaisirumah, 'rumah.BilTingkat'));
         $bilbilik = LkpDetail::find(data_get($ketuaisirumah, 'rumah.BilBilik'));
         $jenispengenalan = LkpDetail::find(data_get($ketuaisirumah, 'JenisPengenalan'));
-
-        // $ketuaisirumah=Isirumah::whereHas('rumah', function ($query)use($idkampung) {
-        //                return $query->where('fk_kampung', '=', $idkampung);
-        //            })->get();
-
-        //$ketuaisirumah=Pemilikanrumah::with('kampung')->where('fk_kampung',$idkampung)->get();
+        $Status = LkpDetail::find(data_get($ketuaisirumah, 'Status'));
 
         return view('dataentry::isirumah.ketuaisirumah.viewketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'Status', 'infokampung'));
     }
 
     public function ahliisirumah($idkampung, $idrumah)
     {
         $idkampung = $idkampung;
         $idrumah = $idrumah;
-
-        // $ketuaisirumah=Isirumah::with('rumah')->where('rumah.fk_kampung',$idkampung)->get();
 
         $ahliisirumah = Isirumah::whereHas('rumah', function ($query) use ($idkampung) {
             return $query->where('fk_kampung', '=', $idkampung);
@@ -1178,7 +1168,6 @@ class DataentryController extends Controller
         foreach ($deleteahli as $key => $value) {
             $searchahli = Isirumah::find($value->id);
             $searchahli->delete();
-            // code...
         }
 
         return redirect::to('/dataentry/searchkampung/isirumah/ketuaisirumah/'.$idkampung)->withSuccess(__('Data telah berjaya dikemaskini'));
@@ -1186,24 +1175,14 @@ class DataentryController extends Controller
 
     public function importketuarumah(Request $request)
     {
-
-        //$path = $request->file('fileimport')->getRealPath();
-
         $path1 = $request->file('fileimport')->store('temp');
         $path = storage_path('app').'/'.$path1;
 
         $idkampung = $request->idkampung;
-        // $data = Excel::load($path, function($reader) {})->4requesget();
+
         $data = Excel::import(new KetuaIsiRumahImport($idkampung), $path);
 
-        //dd($data);
-        // if($data=='1'){
         return back()->withSuccess(__('Data telah berjaya diImport'));
-
-        // }else{
-        //      return back()->withErrors(__('Excel Data Imported Unsuccessfully.Duplicate Data'));
-
-        // }
     }
 
     public function importisirumah(Request $request)

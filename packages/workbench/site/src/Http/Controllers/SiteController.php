@@ -125,6 +125,12 @@ class SiteController extends Controller
             $attributes['Daerah'] = $attributes['daerah02'];
             $attributes['Mukim'] = $attributes['mukim'];
         }
+        if ($attributes['role'] == 10) {//ketua kampung
+            $attributes['Daerah'] = $attributes['daerah02'];
+            $attributes['Mukim'] = $attributes['mukim'];			 //  echo $attributes['kampung'];
+
+            $attributes['Kampung'] = $attributes['kampung'];
+        }
         $user = $this->model->fill($attributes);
         $user->save();
         $user->roles()->sync($roles);
@@ -303,6 +309,11 @@ class SiteController extends Controller
             if ($request->role == 3) {//pegawai mukim
                 $updateuser->Daerah = $request->daerah02;
                 $updateuser->Mukim = $request->mukim;
+            }
+            if ($request->role == 6 || $request->role == 10) {//Ketua Kampung
+                $updateuser->Daerah = $request->daerah02;
+                $updateuser->Mukim = $request->mukim;
+                $updateuser->Kampung = $request->kampung;
             }
             $updateuser->Ulasan = $request->ulasan;
             $updateuser->save();
@@ -1096,6 +1107,13 @@ class SiteController extends Controller
         $mukim = Mukim::where('fk_daerah', $daerahid)->get();
 
         return view('laravolt::users.mukim', compact('mukim'));
+    }
+
+    public function getkampung($mukimid)
+    {
+        $kampung = Kampung::where('fk_mukim', $mukimid)->get();
+
+        return view('laravolt::users.kampung', compact('kampung'));
     }
 
     public function auditlogindex()

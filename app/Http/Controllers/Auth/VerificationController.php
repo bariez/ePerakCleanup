@@ -12,9 +12,11 @@ use Illuminate\Routing\Controller;
 
 class VerificationController extends Controller
 {
-    public function show(): View|RedirectResponse
+    public function show()
     {
-        if (auth()->user()?->hasVerifiedEmail()) {
+        abort_if(! auth()->user(), 401, 'Unauthorized Access');
+
+        if (auth()->user()->hasVerifiedEmail()) {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
 

@@ -86,20 +86,8 @@ Route::group(
         Route::get('/searchkampung/cetakkirAll/{type}/{idkampung}', 'DataentryController@cetakkirAll')->name('cetakkirAll');
         Route::get('/searchkampung/deletekampung/{idkampung}', 'DataentryController@deletekampung')->name('deletekampung');
         Route::get('/gambaredit/{id}', 'DataentryController@gambaredit')->name('gambaredit');
+        //edit 21/02/2024
+        Route::get('/editKampung/menukampungEdit', 'DataentryController@menuKampungEdit')->name('editKampung.menukampungEdit');
+        Route::get('/editIsiRumah/menukampungEditIsi', 'DataentryController@menuKampungEditIsi')->name('editIsiRumah.menukampungEditIsi');
     }
 );
-
-// Route::group(
-//     [
-//         'namespace'  => '\Workbench\Site\Http\Controllers',
-//         'prefix'     => '',
-//         'as'         => 'site::',
-//         'middleware' => ['guest','web'],
-//     ],
-//     function () {
-
-//         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
-//         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-
-//     }
-// );

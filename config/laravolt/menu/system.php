@@ -29,7 +29,7 @@ return [
     ],
 
     'Peta Lokasi' => [
-        'order' => 8,
+        'order' => 7,
         'menu' => [
             '- LOKASI' => [
                 'route' => 'location::location.indexGis',
@@ -194,6 +194,18 @@ return [
                 'icon' => 'search',
                 'permissions' => [\App\Enums\Permission::MANAGE_DATA_ENTRY],
             ],
+            ' - INFO KAMPUNG' => [
+                'route' => 'frontend.infoKampungKetua',
+                'active' => 'frontend/infoKampungKetua/*',
+                'icon' => 'tags',
+                'permissions' => [\App\Enums\Permission::MANAGE_KAMPUNG],
+            ],
+            ' - KEMASKINI MAKLUMAT ASAS' => [
+                'route' => 'dataentry::editKampung.menukampungEdit',
+                'active' => 'dataentry/editKampung/*',
+                'icon' => 'tags',
+                'permissions' => [\App\Enums\Permission::MANAGE_KAMPUNG],
+            ],
 
             // 'Workflow' => [
             //     'route' => 'workflow::definitions.index',
@@ -205,7 +217,7 @@ return [
     ],
 
     'Laporan' => [
-        'order' => 7,
+        'order' => 8,
         'menu' => [
             ' - LAPORAN PENGGUNA TIDAK AKTIF' => [
                 'route' => 'reporting::reporting.getUserLoginIndex',

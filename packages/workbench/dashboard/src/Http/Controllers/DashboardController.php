@@ -36,6 +36,7 @@ use Workbench\Site\Model\Lookup\VwKemudahanAsasDetail;
 use Workbench\Site\Model\Lookup\VwKemudahanAwamDetail;
 use Workbench\Site\Model\Lookup\VwKemudahanDetail;
 use Workbench\Site\Model\Lookup\VwKerja;
+use Workbench\Site\Model\Lookup\VwKetuaIsiRumah;
 use Workbench\Site\Model\Lookup\VwPendapatanPenduduk;
 use Workbench\Site\Model\Lookup\VwStatusMilikanDetail;
 
@@ -209,7 +210,6 @@ class DashboardController extends Controller
         return view('dashboard::penghulumukim.index', compact('daerah', 'mukim', 'catpenempatan', 'roleuser', 'daerahuser', 'mukimuser'));
     }
 
-    // ketua kampung start ------------------------------------
     public function ketuakampung()
     {
         $user = auth()->user();
@@ -217,20 +217,26 @@ class DashboardController extends Controller
         // $mukimuser=data_get($user,'Mukim');
         // $daerah  = Daerah::find($daerahuser);
         // $mukim=Mukim::find($mukimuser);
-        $catpenempatan = LkpDetail::where('status', 1)
-                                  ->where('fk_lkp_master', 3)
-                                  ->get();
+        $catpenempatan = LkpDetail::where('status', 1)->where('fk_lkp_master', 3)->get();
 
         $user = auth()->user();
-        $roleuser = AclRoleUser::with('acl_roles')
-                               ->where('user_id', data_get($user, 'id'))
-                               ->first();
+        $roleuser = AclRoleUser::with('acl_roles')->where('user_id', data_get($user, 'id'))->first();
 
-        if (data_get($roleuser, 'role_id') == 2 || data_get($roleuser, 'role_id') == 3) {
+        if (data_get($roleuser, 'role_id') == 2 || data_get($roleuser, 'role_id') == 3 || data_get($roleuser, 'role_id') == 10) {
             $daerahuser = data_get($user, 'Daerah');
+            // echo $daerahuser."<--";
             $daerah = Daerah::find($daerahuser);
             $mukimuser = data_get($user, 'Mukim');
+            //echo $mukimuser."<--";
             $mukim = Mukim::find($mukimuser);
+
+            $kampunguser = '';
+            $kampung = '';
+            if (data_get($roleuser, 'role_id') == 10) {
+                $kampunguser = data_get($user, 'Kampung');
+                //   echo $kampunguser."<--";
+                $kampung = Kampung::find($kampunguser);
+            }
         } else {
             $daerah = Daerah::where('status', 1)->get();
             $mukim = Mukim::where('status', 1)->get();
@@ -238,9 +244,8 @@ class DashboardController extends Controller
             $mukimuser = '';
         }
 
-        return view('dashboard::ketuakampung.index', compact('daerah', 'mukim', 'catpenempatan', 'roleuser', 'daerahuser', 'mukimuser'));
+        return view('dashboard::ketuakampung.index', compact('daerah', 'mukim', 'catpenempatan', 'roleuser', 'daerahuser', 'mukimuser', 'kampunguser', 'kampung'));
     }
-    // ketua kampung end ------------------------------------
 
     public function dataentry()
     {
@@ -482,8 +487,15 @@ class DashboardController extends Controller
             $countpetempatan->where('id', $request->kampung);
         }
 
-        $result = $countpetempatan->where('status', 1)->first();
-
+        //  DB::enableQueryLog();
+        if ($request->statKetuaKampung == 1) {
+            //  VwKetuaIsiRumah
+            $result = VwKetuaIsiRumah::selectRaw('count(id) AS jum_petempatan')
+            ->where('id', $request->kampung)->first();
+        } else {
+            $result = $countpetempatan->where('status', 1)->first();
+        }
+        //dd(\DB::getQueryLog());
         $resultall = $this->repos->countallpetemptan($request);
 
         $category = LkpDetail::find($request->catpetempatan);
@@ -579,11 +591,11 @@ class DashboardController extends Controller
         } else {
             $kampung = 'and kampung.id='.$request->kampung;
         }
-
+        // DB::enableQueryLog();
         $data = DB::select('
-          select 
+          select
               lkp_detail.description as label,
-              count(pemilikanrumah.id) as data, 
+              count(pemilikanrumah.id) as data,
               lkp_detail.id as idlkp
           from
               pemilikanrumah
@@ -607,7 +619,7 @@ class DashboardController extends Controller
                '.$kampunginduk.'
                '.$kampung.'
           group by lkp_detail.description, lkp_detail.id');
-
+        //dd(\DB::getQueryLog());
         // dd($data);exit;
 
         $data_query = '';
@@ -817,7 +829,7 @@ class DashboardController extends Controller
         $jumjenisrumah = $sumjenisrumah->count();
 
         $data = DB::select('
-                select 
+                select
                     lkp_detail.description as label,
                     count(pemilikanrumah.id) as value,
                     lkp_detail.id as idlkp
@@ -974,7 +986,7 @@ class DashboardController extends Controller
         $jumkemudahan = $sumkemudahan->count();
 
         $data = DB::select('
-                select 
+                select
                     lkp_detail.description as label,
                     count(profil_kemudahan.id) as value,
                     lkp_detail.id as idlkp
@@ -1085,25 +1097,25 @@ class DashboardController extends Controller
         }
 
         $data = DB::select("
-                  select 
+                  select
                       label,
                       sum(case when ya='1' then 1 else 0 end) as YA,
                       sum(case when ya='0' then 1 else 0 end) as TIDAK,
                       case
-                          when label='ELEKTRIK' 
+                          when label='ELEKTRIK'
                           then '1'
-                          when label='AIR' 
+                          when label='AIR'
                           then '2'
-                          when label='ASTRO' 
+                          when label='ASTRO'
                           then '3'
-                          when label='INTERNET' 
+                          when label='INTERNET'
                           then '4'
-                          when label='TELEFON' 
+                          when label='TELEFON'
                           then '5'
                       END as rownumber
-                  from 
+                  from
                       vw_kemudahan_detail
-                  where 
+                  where
                       label is not null
                       ".$parlimen.'
                       '.$dun.'
@@ -1494,7 +1506,7 @@ class DashboardController extends Controller
         $jumjeniskawin = $sumjeniskawin->count();
 
         $data = DB::select('
-                select 
+                select
                     lkp_detail.description as label,
                     count(isirumah.id) as value,
                     lkp_detail.id as idlkp
@@ -1607,22 +1619,22 @@ class DashboardController extends Controller
                     peringkat as label,
                     sum(kira) as value,
                     case
-                        when peringkat='KANAK-KANAK & REMAJA AWAL 0-14' 
+                        when peringkat='KANAK-KANAK & REMAJA AWAL 0-14'
                         then '1'
-                        when peringkat='BELIA AWAL 15-18' 
+                        when peringkat='BELIA AWAL 15-18'
                         then '2'
-                        when peringkat='BELIA PETENGAHAN 19-24' 
+                        when peringkat='BELIA PETENGAHAN 19-24'
                         then '3'
-                        when peringkat='BELIA AKHIR 25-30' 
+                        when peringkat='BELIA AKHIR 25-30'
                         then '4'
-                        when peringkat='BELIA DEWASA 31-40' 
+                        when peringkat='BELIA DEWASA 31-40'
                         then '5'
-                        when peringkat='DEWASA 41-64' 
+                        when peringkat='DEWASA 41-64'
                         then '6'
-                        when peringkat='WARGA EMAS 65 ++' 
+                        when peringkat='WARGA EMAS 65 ++'
                         then '7'
                     END as ROWNUMBER
-                from 
+                from
                     vw_age_detail
                 where peringkat is not null
                     ".$parlimen.'
@@ -1632,7 +1644,7 @@ class DashboardController extends Controller
                     '.$catpetempatan.'
                     '.$kampunginduk.'
                     '.$kampung.'
-                group by peringkat 
+                group by peringkat
                 ORDER BY ROWNUMBER desc');
 
         $data_query = '';
@@ -1741,7 +1753,7 @@ class DashboardController extends Controller
                '.$catpetempatan.'
                '.$kampunginduk.'
                '.$kampung.'
-              group by peringkat 
+              group by peringkat
               ORDER BY ROWNUMBER asc');
 
         $data_query = '';
@@ -2745,7 +2757,7 @@ class DashboardController extends Controller
             $daerahfilter = 'and fk_daerah='.$request->fk_daerah;
         }
 
-        $detailage = DB::select("select  Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat 
+        $detailage = DB::select("select  Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat
             from(
             select
                Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat,
@@ -2807,7 +2819,7 @@ class DashboardController extends Controller
             $daerahfilter = 'and fk_daerah='.$daerahid;
         }
 
-        $detailage = DB::select("select  Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat 
+        $detailage = DB::select("select  Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat
             from(
             select
                Nama,NoKP,TelNo,Pekerjaan,Umur,NamaKampung,NamaDaerah,fk_daerah,NamaDun,NamaMukim,NamaParlimen,peringkat,

@@ -120,7 +120,17 @@
           </div>
         </div>
       </div>
-
+ <div class="field" id="divkampung">
+                          <label>Nama Kampung<font color="red">*</font></label>
+                               <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="kampung" id="kampung" value="" >
+                                <i class="dropdown icon"></i>
+                                <div class="default text" id="pilihkampung">Sila Pilih</div>
+                                <div class="menu" id="selectkampung">
+                                 
+                                </div>
+                            </div>
+                     </div>
       <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
         <div class="ui segments panel">
           <div class="ui segment p-3">
@@ -179,6 +189,9 @@
     $('#wajib').hide();
     $("#divcategori").hide();
 
+          $("#divkampung").hide();
+
+
     $('#ulasan').keyup(function() {
       $(this).val($(this).val().toUpperCase());
     });
@@ -188,20 +201,30 @@
     $("#role").change(function(e) {
 
       $role = this.value;
-
+//alert($role);
       if ($role == 2) { //daerah
         $("#divpgdaerah").show();
         $("#divpgmukim").hide();
         $("#divmukim").hide();
+		
+          $("#divkampung").hide();
       } else if ($role == 3) { //mukim
         $("#divpgmukim").show();
         $("#divmukim").show();
         $("#divpgdaerah").hide();
+		
+          $("#divkampung").hide();
+} else if($role==10){//kampung
+          $("#divpgmukim").show();
+          $("#divmukim").show();
+          $("#divkampung").show();
+           $("#divpgdaerah").hide();
 
       } else {
         $("#divpgdaerah").hide();
         $("#divpgmukim").hide();
         $("#divmukim").hide();
+		  $("#divkampung").hide();
       }
 
 
@@ -271,6 +294,49 @@
 
 
   }
+   function kampung(id){
+
+     $('#daerahmukim').show();
+
+     $('#parlimendun').hide();
+
+      var role = document.getElementById("role").value; // added .value
+    
+         
+       $.ajax({ 
+            type: "GET", 
+            url: "{{ URL::to('site/getkampung/')}}"+"/"+id,
+            datatype : 'json',
+
+            beforeSend: function ()
+            {
+         
+               document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
+               $('#selectkampung').html('');
+
+               if(role==6){
+                $('#loading').show();
+               }
+               
+              // $('#result2').hide();
+               
+
+            },
+            
+            success: function(data){ 
+              $('#loading').hide();
+
+        
+             $('#selectkampung').html(data);
+           
+
+           }
+
+
+          });
+
+
+     }
 
   function validateuser() {
 

@@ -8,7 +8,7 @@
 
         @include('laravolt::menu.topbar_top_0')
 
-         <div class="content" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgsix.jpg') }}') !important; 
+         <div class="content" style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgsix2.jpg') }}') !important; 
                                     background-attachment: fixed;
                                     background-repeat: no-repeat; 
                                     background-size: cover;

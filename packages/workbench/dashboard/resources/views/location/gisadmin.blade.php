@@ -330,7 +330,7 @@
                 {
                     id: 25,
                     title: "Sempadan Mukim",
-                    visible: false,
+                    visible: true,
                     popupTemplate: {
                         title: "{MUKIM}",
                         content:    "<table>" +

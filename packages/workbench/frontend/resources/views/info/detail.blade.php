@@ -50,7 +50,7 @@
 
 	/*.ayat
 	{
-		text-transform: lowercase;
+		text-transform: uppercase;
 	}
 	.ayat:first-letter
 	{
@@ -155,7 +155,7 @@
 										<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
 											<div class="accordion-body">
 												<div class="content-single">
-													<p class="ayat" id ="ayat" style="text-align: justify;">
+													<p class="capitalall" id ="ayat" style="text-align: justify;"> 
 														{{ data_get($data, 'Sejarah') }}
 													</p><br/><br/>
 													<h4 class="capitalall" style="margin-top: 20px; margin-left: 20px">Populasi dan Statistik Penduduk</h4>

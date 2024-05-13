@@ -1,4 +1,4 @@
-<script>
+<!--<script>
     const longKampung = 101.056717;
     const latKampung = 4.801320;
     // console.log(longKampung + "    -----   " + latKampung);
@@ -484,3 +484,4 @@
 <div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;">
     <div id="viewDiv"></div>
 </div>
+-->

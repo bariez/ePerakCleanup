@@ -26,13 +26,10 @@ Route::group(
         Route::get('/kampungname/{kg_id}', 'DashboardDOController@getKampung')->name('dashboard.getKampung');
 
         Route::get('/penghulumukim', 'DashboardController@penghulumukim')->name('dashboard.penghulumukim');
+        Route::get('/ketuakampung', 'DashboardController@ketuakampung')->name('dashboard.ketuakampung');
         Route::get('/dataentry', 'DashboardController@dataentry')->name('dashboard.dataentry');
         Route::get('/topmanage/{type}', 'DashboardController@topmanage')->name('dashboard.topmanage');
         Route::get('/topmanage2', 'DashboardController@topmanage2')->name('dashboard.topmanage2');
-
-        // ketua kampung start ------------------------------------
-        Route::get('/ketuakampung', 'DashboardController@ketuakampung')->name('dashboard.ketuakampung');
-        // ketua kampung end ------------------------------------
 
         Route::get('/homeindex', 'DashboardController@homeindex')->name('dashboard.homeindex');
 
@@ -105,18 +102,3 @@ Route::group(
         Route::get('/topmanage', 'DashboardController@topmanagelocation')->name('location.topmanagelocation');
     }
 );
-
-// Route::group(
-//     [
-//         'namespace'  => '\Workbench\Site\Http\Controllers',
-//         'prefix'     => '',
-//         'as'         => 'site::',
-//         'middleware' => ['guest','web'],
-//     ],
-//     function () {
-
-//         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
-//         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-
-//     }
-// );
