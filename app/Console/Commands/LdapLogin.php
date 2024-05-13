@@ -45,7 +45,7 @@ class LdapLogin extends Command
             $user = $ldapService->getUser(['password' => $password, config('laravolt.auth.identifier') => $username]);
             dd($user);
         } catch (\Exception $e) {
-            $this->error(get_class($e).":".$e->getMessage());
+            $this->error(get_class($e).':'.$e->getMessage());
         }
     }
 }

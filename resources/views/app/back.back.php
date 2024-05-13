@@ -38,9 +38,9 @@
                         <br>
                         <div class="email-content" id="contentdiv">
                            @if($user->language == 'en')
-                                <?php echo $app->content_en ;?>
+                                <?php echo $app->content_en; ?>
                             @else
-                                <?php echo $app->content_bm ;?>
+                                <?php echo $app->content_bm; ?>
                             @endif
                         </div>
                         

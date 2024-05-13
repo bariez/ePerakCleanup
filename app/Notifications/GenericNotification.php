@@ -3,22 +3,26 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use NotificationChannels\WebPush\WebPushMessage;
+use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
+use NotificationChannels\WebPush\WebPushMessage;
+
 class GenericNotification extends Notification
 {
     use Queueable;
-    public $title, $body;
+
+    public $title;
+
+    public $body;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($title, $body,$url)
+    public function __construct($title, $body, $url)
     {
         //
         $this->title = $title;
@@ -39,14 +43,13 @@ class GenericNotification extends Notification
 
     public function toWebPush($notifiable, $notification)
     {
-            $time = \Carbon\Carbon::now();
-            
-            return (new WebPushMessage)
+        $time = \Carbon\Carbon::now();
+
+        return (new WebPushMessage)
             ->title('MyTax LHDNM')
             ->icon(url('/logo3.jpg'))
             ->body($this->body)
-            ->action('Baca','https://mytax.hasil.gov.my')
+            ->action('Baca', 'https://mytax.hasil.gov.my')
             ->data(['url' => $this->url]);
     }
-
 }

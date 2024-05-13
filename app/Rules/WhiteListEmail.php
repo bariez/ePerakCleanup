@@ -26,7 +26,7 @@ class WhiteListEmail implements Rule
     public function passes($attribute, $value)
     {
         $allowedDomains = config('email.white-list-domains');
-        $emailDomain = substr(strrchr($value, "@"), 1);
+        $emailDomain = substr(strrchr($value, '@'), 1);
 
         // Check if the domain is in the allowed domains
         if (in_array($emailDomain, $allowedDomains)) {

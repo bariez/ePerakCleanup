@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests\Account;
 
-
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class Update extends FormRequest implements \Laravolt\Epicentrum\Contracts\Requests\Account\Update
 {
@@ -29,15 +28,13 @@ class Update extends FormRequest implements \Laravolt\Epicentrum\Contracts\Reque
         //$id = request()->route('site::users.update');
         $id = Request::segment(4);
 
-     
-
         return [
             'name'     => 'required|max:255',
             'email'    => [
                 'required',
                 'email',
                 Rule::unique(auth()->user()->getTable())->ignore($id),
-               // 'regex:/(.*)@gov\.my/i',
+                // 'regex:/(.*)@gov\.my/i',
             ],
             'status'   => 'required',
             //'roles'=>'required_if:status,==,ACTIVE',

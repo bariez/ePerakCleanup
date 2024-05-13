@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,11 +12,11 @@ return new class extends Migration
      */
     public function up()
     {
-        if(Schema::hasColumn('profil_produk', 'fk_kampung')) {
+        if (Schema::hasColumn('profil_produk', 'fk_kampung')) {
             return;
         }
         Schema::table('profil_produk', function (Blueprint $table) {
-             $table->integer('fk_kampung')->after('id')->nullable();
+            $table->integer('fk_kampung')->after('id')->nullable();
         });
     }
 
@@ -28,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        if(Schema::hasColumn('profil_produk', 'fk_kampung')) {
+        if (Schema::hasColumn('profil_produk', 'fk_kampung')) {
             return;
         }
 

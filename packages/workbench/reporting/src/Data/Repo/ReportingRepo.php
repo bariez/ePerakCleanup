@@ -1,154 +1,145 @@
-<?php 
+<?php
+
 namespace Workbench\Reporting\Data\Repo;
 
-use Illuminate\Http\Request;
+use App\Providers\AuditLog;
+use Auth;
+use Carbon\Carbon;
+use DB;
+use Event;
+use File;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
-use Carbon\Carbon;
-use File;
-use DB;
-use Auth;
-use Event;
-
-use App\Providers\AuditLog;
-use Workbench\Site\Model\Lookup\Users;
-use Workbench\Site\Model\Lookup\AclRoleUser;
 use Workbench\Site\Model\Lookup\AclRoles;
-
+use Workbench\Site\Model\Lookup\AclRoleUser;
+use Workbench\Site\Model\Lookup\Users;
 
 /**
- *  
- *
  * @laravolt reporting
  * @author apip
  **/
 class ReportingRepo
 {
-	/**
-	 * undocumented function
-	 *
-	 * @return void
-	 * @author 
-	 **/
-	public function resultAjax($request)
-	{
-		$name = data_get($request, 'nama'); 	// nama
-		$jawa = data_get($request, 'jawatan'); 	// jawatan
-		$role = data_get($request, 'role'); 	// role
-		$dept = data_get($request, 'dept'); 	// dept
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author
+     **/
+    public function resultAjax($request)
+    {
+        $name = data_get($request, 'nama'); 	// nama
+        $jawa = data_get($request, 'jawatan'); 	// jawatan
+        $role = data_get($request, 'role'); 	// role
+        $dept = data_get($request, 'dept'); 	// dept
 
-		// dd($name, $jawa, $role, $dept);exit;
+        // dd($name, $jawa, $role, $dept);exit;
 
-		$data = Users::with('user_role.acl_roles')
-					 ->where(function ($query) use ($name) 
-					 	{
-					 		if($name != 'nama')
-					 			$query->where('name','like', '%' . $name . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where(function ($query) use ($jawa) 
-					 	{
-					 		if($jawa != 'jawatan')
-					 			$query->where('jawatan','like', '%' . $jawa . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where(function ($query) use ($dept) 
-					 	{
-					 		if($dept != 'dept')
-					 			$query->where('jabatan','like', '%' . $dept . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where('status', 'INACTIVE')
-					 ->whereHas('user_role', function ($query) use ($role) 
-					 	{
-					 		if($role != 'role')
-					 			$query->where('role_id', '=', $role);
-					 		else
-					 			$query;
-					 	})
-					 ->orderBy('created_at')
-					 ->get();
+        $data = Users::with('user_role.acl_roles')
+                     ->where(function ($query) use ($name) {
+                         if ($name != 'nama') {
+                             $query->where('name', 'like', '%'.$name.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where(function ($query) use ($jawa) {
+                         if ($jawa != 'jawatan') {
+                             $query->where('jawatan', 'like', '%'.$jawa.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where(function ($query) use ($dept) {
+                         if ($dept != 'dept') {
+                             $query->where('jabatan', 'like', '%'.$dept.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where('status', 'INACTIVE')
+                     ->whereHas('user_role', function ($query) use ($role) {
+                         if ($role != 'role') {
+                             $query->where('role_id', '=', $role);
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->orderBy('created_at')
+                     ->get();
 
-		// dd($data);exit;
-	
-		return $data;
-	}
+        // dd($data);exit;
 
-	public function resultPdf($request)
-	{
-		$name = data_get($request, 'nama'); 	// nama
-		$jawa = data_get($request, 'jawatan'); 	// jawatan
-		$role = data_get($request, 'role'); 	// role
-		$dept = data_get($request, 'dept'); 	// dept
+        return $data;
+    }
 
-		// dd($name, $jawa, $role, $dept);exit;
+    public function resultPdf($request)
+    {
+        $name = data_get($request, 'nama'); 	// nama
+        $jawa = data_get($request, 'jawatan'); 	// jawatan
+        $role = data_get($request, 'role'); 	// role
+        $dept = data_get($request, 'dept'); 	// dept
 
-		$data = Users::with('user_role.acl_roles')
-					 ->where(function ($query) use ($name) 
-					 	{
-					 		if($name != 'nama')
-					 			$query->where('name','like', '%' . $name . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where(function ($query) use ($jawa) 
-					 	{
-					 		if($jawa != 'jawatan')
-					 			$query->where('jawatan','like', '%' . $jawa . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where(function ($query) use ($dept) 
-					 	{
-					 		if($dept != 'dept')
-					 			$query->where('jabatan','like', '%' . $dept . '%');
-					 		else
-					 			$query;
-					 	})
-					 ->where('status', 'INACTIVE')
-					 ->whereHas('user_role', function ($query) use ($role) 
-					 	{
-					 		if($role != 'role')
-					 			$query->where('role_id', '=', $role);
-					 		else
-					 			$query;
-					 	})
-					 ->orderBy('created_at')
-					 ->get();
+        // dd($name, $jawa, $role, $dept);exit;
 
-		// dd($data);exit;
-	
-		return $data;
-	}
-	
+        $data = Users::with('user_role.acl_roles')
+                     ->where(function ($query) use ($name) {
+                         if ($name != 'nama') {
+                             $query->where('name', 'like', '%'.$name.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where(function ($query) use ($jawa) {
+                         if ($jawa != 'jawatan') {
+                             $query->where('jawatan', 'like', '%'.$jawa.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where(function ($query) use ($dept) {
+                         if ($dept != 'dept') {
+                             $query->where('jabatan', 'like', '%'.$dept.'%');
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->where('status', 'INACTIVE')
+                     ->whereHas('user_role', function ($query) use ($role) {
+                         if ($role != 'role') {
+                             $query->where('role_id', '=', $role);
+                         } else {
+                             $query;
+                         }
+                     })
+                     ->orderBy('created_at')
+                     ->get();
 
+        // dd($data);exit;
 
-// start lookup table ------------------------------------------------
+        return $data;
+    }
 
-	// plucking
-	public function roleDesc()
-	{
-		$role = AclRoles::get();
+    // start lookup table ------------------------------------------------
 
-		return $role;
-	}
-	// public function lkpDetailKategoriProduk()
-	// {
-	// 	return LkpDetail::where('fk_lkp_master', 7)
-	// 					->where('status', 1)
-	// 					->get();
-	// }
-	// public function lkpMenu()
-	// {
-	// 	return Menum::where('status', 1)
-	// 				->get();
-	// }
+    // plucking
+    public function roleDesc()
+    {
+        $role = AclRoles::get();
 
-	
-
-	
+        return $role;
+    }
+    // public function lkpDetailKategoriProduk()
+    // {
+    // 	return LkpDetail::where('fk_lkp_master', 7)
+    // 					->where('status', 1)
+    // 					->get();
+    // }
+    // public function lkpMenu()
+    // {
+    // 	return Menum::where('status', 1)
+    // 				->get();
+    // }
 } //end of class

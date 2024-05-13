@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -17,7 +18,6 @@ return [
     | balanced hosts, then separate each with a comma.
     */
     'cas_real_hosts'      => env('CAS_REAL_HOSTS', 'cas.myuniv.edu'),
-
 
     /*
     |--------------------------------------------------------------------------
@@ -143,7 +143,6 @@ return [
     */
     'cas_debug'           => env('CAS_DEBUG', storage_path('logs/cas.log')),
 
-
     /*
     |--------------------------------------------------------------------------
     | Enable Verbose error messages. Not recommended for production.
@@ -158,5 +157,5 @@ return [
     | This should only be used for developmental purposes.  getAttributes()
     | will return null in this condition.
      */
-    'cas_masquerade'      => env('CAS_MASQUERADE', '')
+    'cas_masquerade'      => env('CAS_MASQUERADE', ''),
 ];

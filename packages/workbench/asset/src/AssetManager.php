@@ -12,18 +12,21 @@ class AssetManager
      * @var string
      */
     protected $assetRegex = '/.\.(css|js)$/i';
+
     /**
      * Regex to match against a filename/url to determine if it is a CSS asset.
      *
      * @var string
      */
     protected $cssRegex = '/.\.css$/i';
+
     /**
      * Regex to match against a filename/url to determine if it is a JavaScript asset.
      *
      * @var string
      */
     protected $jsRegex = '/.\.js$/i';
+
     /**
      * Available collections.
      * Each collection is an array of assets.
@@ -32,6 +35,7 @@ class AssetManager
      * @var array
      */
     protected $collections = [];
+
     /**
      * CSS files already added.
      * Not accepted as an option of config() method.
@@ -39,6 +43,7 @@ class AssetManager
      * @var array
      */
     protected $css = [];
+
     /**
      * JavaScript files already added.
      * Not accepted as an option of config() method.
@@ -147,11 +152,11 @@ class AssetManager
             return $this;
         }
 
-        if (!$this->isRemoteLink($asset)) {
+        if (! $this->isRemoteLink($asset)) {
             $asset = $this->buildLocalLink($asset);
         }
 
-        if (!in_array($asset, $this->css)) {
+        if (! in_array($asset, $this->css)) {
             $this->css[] = $asset;
         }
 
@@ -177,11 +182,11 @@ class AssetManager
             return $this;
         }
 
-        if (!$this->isRemoteLink($asset)) {
+        if (! $this->isRemoteLink($asset)) {
             $asset = $this->buildLocalLink($asset);
         }
 
-        if (!in_array($asset, $this->js)) {
+        if (! in_array($asset, $this->js)) {
             $this->js[] = $asset;
         }
 
@@ -200,7 +205,7 @@ class AssetManager
      */
     public function css($attributes = null)
     {
-        if (!$this->css) {
+        if (! $this->css) {
             return '';
         }
 
@@ -208,11 +213,11 @@ class AssetManager
         $attributes = (array) $attributes;
         unset($attributes['href']);
 
-        if (!array_key_exists('type', $attributes)) {
+        if (! array_key_exists('type', $attributes)) {
             $attributes['type'] = 'text/css';
         }
 
-        if (!array_key_exists('rel', $attributes)) {
+        if (! array_key_exists('rel', $attributes)) {
             $attributes['rel'] = 'stylesheet';
         }
 
@@ -239,7 +244,7 @@ class AssetManager
      */
     public function js($attributes = null)
     {
-        if (!$this->js) {
+        if (! $this->js) {
             return '';
         }
 
@@ -247,7 +252,7 @@ class AssetManager
         $attributes = (array) $attributes;
         unset($attributes['src']);
 
-        if (!array_key_exists('type', $attributes)) {
+        if (! array_key_exists('type', $attributes)) {
             $attributes['type'] = 'text/javascript';
         }
 
@@ -314,7 +319,7 @@ class AssetManager
             $html[] = $key.'="'.htmlentities($value, ENT_QUOTES, 'UTF-8', false).'"';
         }
 
-        return !empty($html) ? ' '.implode(' ', $html) : '';
+        return ! empty($html) ? ' '.implode(' ', $html) : '';
     }
 
     /**

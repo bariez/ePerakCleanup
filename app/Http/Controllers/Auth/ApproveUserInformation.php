@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -11,6 +10,7 @@ class ApproveUserInformation extends Mailable
 {
     use Queueable;
     use SerializesModels;
+
     public $user;
 
     public $dataemail;
@@ -25,16 +25,13 @@ class ApproveUserInformation extends Mailable
     {
         $this->dataemail = $dataemail;
 
-        if($dataemail['status']=='BLOCKED'){
-            $subjek='Permohonan Penggunaan Sistem e-Perak Tidak Diluluskan';
-
-        }else{
-            $subjek='Permohonan Penggunaan Sistem e-Perak Telah Diluluskan';
-
+        if ($dataemail['status'] == 'BLOCKED') {
+            $subjek = 'Permohonan Penggunaan Sistem e-Perak Tidak Diluluskan';
+        } else {
+            $subjek = 'Permohonan Penggunaan Sistem e-Perak Telah Diluluskan';
         }
 
-         $this->subject($subjek);
-      
+        $this->subject($subjek);
     }
 
     /**
@@ -44,9 +41,6 @@ class ApproveUserInformation extends Mailable
      */
     public function build()
     {
-
-    
-        
-          return $this->view('site::email.emailuser');
+        return $this->view('site::email.emailuser');
     }
 }

@@ -20,5 +20,5 @@ return [
     'except'   => [
         'auth/logout',
         '_debugbar/*',
-    ]
+    ],
 ];

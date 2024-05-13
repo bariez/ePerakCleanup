@@ -18,7 +18,7 @@ class ServiceProvider extends BaseServiceProvider
 
     public function boot()
     {
-        $config = collect(config("laravolt.asset"));
+        $config = collect(config('laravolt.asset'));
         foreach ($config as $groupName => $groupConfig) {
             $this->bootAssetsManagerInstance($groupName, (array) $groupConfig);
         }

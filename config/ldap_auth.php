@@ -97,7 +97,7 @@ return [
         // Suitable when using ActiveDirectory.
         // Adldap\Laravel\Scopes\UpnScope::class,
 
-            // Only allows users with a uid to authenticate.
+        // Only allows users with a uid to authenticate.
         // Suitable when using OpenLDAP.
         // Adldap\Laravel\Scopes\UidScope::class,
 

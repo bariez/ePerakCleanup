@@ -21,11 +21,10 @@ class ProfileController extends Controller
 
     public function update(Update $request): RedirectResponse
     {
-       
         auth()->user()->update($request->validated());
 
         // return redirect()->back()->withSuccess(__('Profil Telah dikemaskini') ?? '');
 
-         return redirect::to('/dashboard/admin')->withSuccess(__('Profil Telah dikemaskini'));
+        return redirect::to('/dashboard/admin')->withSuccess(__('Profil Telah dikemaskini'));
     }
 }

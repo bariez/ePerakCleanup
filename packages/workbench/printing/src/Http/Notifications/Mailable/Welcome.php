@@ -2,11 +2,11 @@
 
 namespace Workbench\Site\Http\Notifications\Mailable;
 
-use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Queue\SerializesModels;
 
 class Welcome extends Notification implements ShouldQueue
 {
@@ -27,7 +27,6 @@ class Welcome extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-
         return (new MailMessage)
             ->greeting('Bonjour '.$this->user->name)
             ->line('Nous vous remercions de votre inscription.')
@@ -35,5 +34,4 @@ class Welcome extends Notification implements ShouldQueue
             ->line('Mail: '.$this->user->email)
             ->line('Password: '.$this->user->password);
     }
-
 }

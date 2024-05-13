@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('notis', function (Blueprint $table) 
-        {
+        Schema::table('notis', function (Blueprint $table) {
             $table->text('ringkasan')->after('tajuk')->nullable();
             $table->string('tarikh_notis')->after('kategori')->nullable();
             //

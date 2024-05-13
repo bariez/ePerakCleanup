@@ -3,18 +3,19 @@
 namespace Workbench\Site\Model\Lookup;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravolt\Suitable\AutoFilter;
 use Laravolt\Suitable\AutoSearch;
 use Laravolt\Suitable\AutoSort;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfilKemudahan extends Model
 {
     use AutoFilter;
     use AutoSearch;
     use AutoSort;
+
     // use HasFactory;
     use Notifiable;
 
@@ -23,31 +24,33 @@ class ProfilKemudahan extends Model
      */
     use SoftDeletes;
 
-   protected $dates = ['deleted_at'];
-   protected $table = 'profil_kemudahan';
+    protected $dates = ['deleted_at'];
+
+    protected $table = 'profil_kemudahan';
     // protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone','jabatan','jawatan','kategori','notel','email_verified_at'];
 
-public function kampung()
-{
-    return $this->belongsTo('Workbench\Site\Model\Lookup\Kampung','fk_kampung');
-}
-public function katkemudahan()
-{
-     return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail','KatKemudahan');
-}
-public function jeniskemudahan()
-{
-     return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail','JenisKemudahan');
-}
-public function unit()
-{
-     return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail','Unit');
-}
+    public function kampung()
+    {
+        return $this->belongsTo('Workbench\Site\Model\Lookup\Kampung', 'fk_kampung');
+    }
 
-public function lkpdetail()
-{
-     return $this->hasOne('Workbench\Site\Model\Lookup\LkpDetail','id','KatKemudahan');
-}
+    public function katkemudahan()
+    {
+        return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail', 'KatKemudahan');
+    }
 
-    
+    public function jeniskemudahan()
+    {
+        return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail', 'JenisKemudahan');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo('Workbench\Site\Model\Lookup\LkpDetail', 'Unit');
+    }
+
+    public function lkpdetail()
+    {
+        return $this->hasOne('Workbench\Site\Model\Lookup\LkpDetail', 'id', 'KatKemudahan');
+    }
 }

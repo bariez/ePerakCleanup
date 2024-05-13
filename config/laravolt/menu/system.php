@@ -2,7 +2,7 @@
 
 return [
 
-        'Laman Utama' => [
+    'Laman Utama' => [
         'order' => 1,
         'menu' => [
             '- LAMAN UTAMA' => [
@@ -12,12 +12,10 @@ return [
                 'permissions' => [\App\Enums\Permission::MANAGE_FRONT_END],
             ],
 
-
         ],
     ],
 
-
- 'Dashboard' => [
+    'Dashboard' => [
         'order' => 2,
         'menu' => [
             ' - DASHBOARD' => [
@@ -30,13 +28,10 @@ return [
         ],
     ],
 
-    'Peta Lokasi' =>
-    [
+    'Peta Lokasi' => [
         'order' => 8,
-        'menu' =>
-        [
-            '- LOKASI' =>
-            [
+        'menu' => [
+            '- LOKASI' => [
                 'route' => 'location::location.indexGis',
                 'active' => 'location/*',
                 'icon' => 'map-marker',
@@ -44,7 +39,6 @@ return [
             ],
         ],
     ],
-
 
     'System' => [
         'order' =>3,
@@ -55,7 +49,7 @@ return [
                 'icon' => 'user-friends',
                 'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_USER],
             ],
-             '- KELULUSAN PENGGUNA' => [
+            '- KELULUSAN PENGGUNA' => [
                 'route' => 'site::users.approveindex',
                 'active' => 'site/approveindex/*',
                 'icon' => 'user-friends',
@@ -83,7 +77,7 @@ return [
         ],
     ],
 
-     'Pengurusan Kamus Data' => [
+    'Pengurusan Kamus Data' => [
         'order' => 4,
         'menu' => [
             '- KAMUS DATA' => [
@@ -93,8 +87,6 @@ return [
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
 
-
-
             // 'Workflow' => [
             //     'route' => 'workflow::definitions.index',
             //     'active' => 'workflow/definitions/*',
@@ -103,7 +95,7 @@ return [
             // ],
         ],
     ],
-       'Pengurusan Sistem' => [
+    'Pengurusan Sistem' => [
         'order' => 5,
         'menu' => [
             '- PARLIMEN' => [
@@ -118,55 +110,55 @@ return [
                 'icon' => 'university',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - DAERAH' => [
+            ' - DAERAH' => [
                 'route' => 'site::daerah.index',
                 'active' => 'site/daerah/*',
                 'icon' => 'archway',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - MUKIM' => [
+            ' - MUKIM' => [
                 'route' => 'site::mukim.index',
                 'active' => 'site/mukim/*',
                 'icon' => 'warehouse',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - KAMPUNG' => [
+            ' - KAMPUNG' => [
                 'route' => 'site::kampung.index',
                 'active' => 'site/kampung/*',
                 'icon' => 'home',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - LOGO' => [
+            ' - LOGO' => [
                 'route' => 'site::frontendmanage.getLogoList',
                 'active' => 'site/logo/*',
                 'icon' => 'shapes',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - BANNER' => [
+            ' - BANNER' => [
                 'route' => 'site::frontendmanage.getBannerList',
                 'active' => 'site/banner/*',
                 'icon' => 'flag',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - NOTIS' => [
+            ' - NOTIS' => [
                 'route' => 'site::frontendmanage.getNotisList',
                 'active' => 'site/notis/*',
                 'icon' => 'newspaper',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - HUBUNGI KAMI' => [
+            ' - HUBUNGI KAMI' => [
                 'route' => 'site::frontendmanage.getHubungiList',
                 'active' => 'site/hubungi/*',
                 'icon' => 'phone',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - SOALAN LAZIM' => [
+            ' - SOALAN LAZIM' => [
                 'route' => 'site::frontendmanage.getSoalanList',
                 'active' => 'site/soalan/*',
                 'icon' => 'question',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-             ' - KATEGORI PRODUK' => [
+            ' - KATEGORI PRODUK' => [
                 'route' => 'site::frontendmanage.getProductIconList',
                 'active' => 'site/katprod/*',
                 'icon' => 'tags',
@@ -185,8 +177,6 @@ return [
             //     'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             // ],
 
-
-
             // 'Workflow' => [
             //     'route' => 'workflow::definitions.index',
             //     'active' => 'workflow/definitions/*',
@@ -195,7 +185,7 @@ return [
             // ],
         ],
     ],
-      'Maklumat Kampung' => [
+    'Maklumat Kampung' => [
         'order' => 6,
         'menu' => [
             ' - CARIAN KAMPUNG' => [
@@ -205,8 +195,6 @@ return [
                 'permissions' => [\App\Enums\Permission::MANAGE_DATA_ENTRY],
             ],
 
-
-
             // 'Workflow' => [
             //     'route' => 'workflow::definitions.index',
             //     'active' => 'workflow/definitions/*',
@@ -216,20 +204,16 @@ return [
         ],
     ],
 
-    'Laporan' =>
-    [
+    'Laporan' => [
         'order' => 7,
-        'menu' =>
-        [
-            ' - LAPORAN PENGGUNA TIDAK AKTIF' =>
-            [
+        'menu' => [
+            ' - LAPORAN PENGGUNA TIDAK AKTIF' => [
                 'route' => 'reporting::reporting.getUserLoginIndex',
                 'active' => 'reporting/userlogin/*',
                 'icon' => 'archive',
                 'permissions' => [\App\Enums\Permission::MANAGE_LAPORAN],
             ],
-            '- LAPORAN STATISTIK' =>
-            [
+            '- LAPORAN STATISTIK' => [
                 'route' => 'reporting::reporting.getStatistic',
                 'active' => 'reporting/statistic/*',
                 'icon' => 'archive',
@@ -237,6 +221,5 @@ return [
             ],
         ],
     ],
-
 
 ];

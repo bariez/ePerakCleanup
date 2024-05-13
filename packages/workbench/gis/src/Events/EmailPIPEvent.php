@@ -1,11 +1,13 @@
 <?php
+
 namespace Workbench\Site\Events;
+
 use DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 use Workbench\Site\Model\Project;
 
 class EmailPIPEvent extends Mailable
@@ -34,7 +36,7 @@ class EmailPIPEvent extends Mailable
         // $email = $value->email;
         $email = 'izzat@3fresources.com';
 
-        $data = DB::table('vw_project_email')->where('status_email','=',null)->get();
+        $data = DB::table('vw_project_email')->where('status_email', '=', null)->get();
 
         $i = 1;
         $j = 1;
@@ -42,74 +44,67 @@ class EmailPIPEvent extends Mailable
         $l = 1;
 
         foreach ($data as $key_result => $value_result) {
-            $target_cod = "";
+            $target_cod = '';
             $target_cod_exist = 0;
-            $completion_date = "";
-            $id = "";
-            $project_no = "";
-            $developer_name = "";
-            $developer_email = "";
-            $id = "";
-            
+            $completion_date = '';
+            $id = '';
+            $project_no = '';
+            $developer_name = '';
+            $developer_email = '';
+            $id = '';
+
             foreach ($value_result as $key_sub_result => $value_sub_result) {
-                if($key_sub_result == 'Target FiTCD/ COD Date'){
-                    if($value_sub_result){
-                     
+                if ($key_sub_result == 'Target FiTCD/ COD Date') {
+                    if ($value_sub_result) {
                         $target_cod = date_create(date('Y-m-d', strtotime(str_replace('/', '-', $value_sub_result))));
 
-                        $target_cod_exist = 1;   
+                        $target_cod_exist = 1;
                     }
                 }
-                if($key_sub_result == 'Completion Date'){
+                if ($key_sub_result == 'Completion Date') {
                     $completion_date = date_create(date('Y-m-d', strtotime(str_replace('/', '-', $value_sub_result))));
                 }
-                if($key_sub_result == 'Id'){
+                if ($key_sub_result == 'Id') {
                     $id = $value_sub_result;
                 }
-                if($key_sub_result == 'Project No'){
+                if ($key_sub_result == 'Project No') {
                     $project_no = $value_sub_result;
                 }
-                if($key_sub_result == 'Developer Name'){
+                if ($key_sub_result == 'Developer Name') {
                     $developer_name = $value_sub_result;
                 }
-                if($key_sub_result == 'Developer PIC Email'){
+                if ($key_sub_result == 'Developer PIC Email') {
                     $developer_email = $value_sub_result;
                 }
-                if($key_sub_result == 'Id'){
+                if ($key_sub_result == 'Id') {
                     $id = $value_sub_result;
                 }
-
-
             }
 
             $curr_date = date_create(date('Y-m-d'));
-            
-            if($target_cod_exist){
-                if($completion_date != ""){
-                    $diff_date=date_diff($target_cod,$completion_date);
-                    $diff = $diff_date->format("%R%a");
-                    
 
-                }else{
-
-                    $diff_date=date_diff($target_cod,$curr_date);
-                    $diff = $diff_date->format("%R%a");
-                    
+            if ($target_cod_exist) {
+                if ($completion_date != '') {
+                    $diff_date = date_diff($target_cod, $completion_date);
+                    $diff = $diff_date->format('%R%a');
+                } else {
+                    $diff_date = date_diff($target_cod, $curr_date);
+                    $diff = $diff_date->format('%R%a');
                 }
 
-                if((int)$diff >= 90){
-                    $color_arr[$id] = "#FF0000";
-                    $color_font[$id] = "white";
-                    
-                    $valuedata = array(
+                if ((int) $diff >= 90) {
+                    $color_arr[$id] = '#FF0000';
+                    $color_font[$id] = 'white';
+
+                    $valuedata = [
                         'project_no' => $project_no,
                         'developer_name' => $developer_name,
                         'developer_email' => $developer_email,
-                        'header' => "Project Completion Date is overdue",
-                        'background_color' =>  "#FF0000",
-                        'color' => "white"
-                        
-                    );
+                        'header' => 'Project Completion Date is overdue',
+                        'background_color' =>  '#FF0000',
+                        'color' => 'white',
+
+                    ];
 
                     $email = $developer_email;
 
@@ -117,40 +112,36 @@ class EmailPIPEvent extends Mailable
 
                     // if($i == 2){
 
-                        $header = "Project Completion Date is overdue";
+                    $header = 'Project Completion Date is overdue';
 
-                         Mail::send('site::email.overdue',$valuedata, function($message) use($email,$header){
-                                     $message->from('admindgms@tnb.gov.my', $header);
-                                     $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
-                                     // $message->bcc('izzat@3fresources.com');
-                                     $message->to($email)->subject($header);
-                                     });
+                    Mail::send('site::email.overdue', $valuedata, function ($message) use ($email, $header) {
+                        $message->from('admindgms@tnb.gov.my', $header);
+                        $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
+                        // $message->bcc('izzat@3fresources.com');
+                        $message->to($email)->subject($header);
+                    });
 
+                    $update = Project::where('id', '=', $id)->first();
+                    $update->status_email = 1;
 
-                        $update = Project::where('id','=',$id)->first();
-                        $update->status_email = 1;
-
-                        $update->save();
+                    $update->save();
                     // }
 
-
-
-                    $i++;   
-                    
-                }else if((int)$diff > 0 && (int)$diff < 30){
-                    $color_arr[$id] = "#FF8C00";
-                    $color_font[$id] = "#339";
+                    $i++;
+                } elseif ((int) $diff > 0 && (int) $diff < 30) {
+                    $color_arr[$id] = '#FF8C00';
+                    $color_font[$id] = '#339';
                     // array_push($color_arr,"#FF8C00");
 
-                    $valuedata = array(
+                    $valuedata = [
                         'project_no' => $project_no,
                         'developer_name' => $developer_name,
                         'developer_email' => $developer_email,
-                        'header' => "Project Completion Date less than 30 day’s",
-                        'background_color' =>  "#FF8C00",
-                        'color' => "#339"
-                        
-                    );
+                        'header' => 'Project Completion Date less than 30 day’s',
+                        'background_color' =>  '#FF8C00',
+                        'color' => '#339',
+
+                    ];
 
                     $email = $developer_email;
 
@@ -158,118 +149,109 @@ class EmailPIPEvent extends Mailable
 
                     // if($j == 2){
 
-                    $header = "Project Completion Date less than 30 day’s";
+                    $header = 'Project Completion Date less than 30 day’s';
 
-                     Mail::send('site::email.less_than_30',$valuedata, function($message) use($email,$header){
-                                 $message->from('admindgms@tnb.gov.my', $header);
-                                 $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
-                                 // $message->bcc('izzat@3fresources.com');
-                                 $message->to($email)->subject($header);
-                                 });
+                    Mail::send('site::email.less_than_30', $valuedata, function ($message) use ($email, $header) {
+                        $message->from('admindgms@tnb.gov.my', $header);
+                        $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
+                        // $message->bcc('izzat@3fresources.com');
+                        $message->to($email)->subject($header);
+                    });
 
-                        $update = Project::where('id','=',$id)->first();
-                        $update->status_email = 1;
+                    $update = Project::where('id', '=', $id)->first();
+                    $update->status_email = 1;
 
-                        $update->save();
+                    $update->save();
                     // }
 
-                    $j++;                       
-                    
-                }else if((int)$diff >= 30 && (int)$diff < 60){
-                    $color_arr[$id] = "#FFFF00";
-                    $color_font[$id] = "#339";
+                    $j++;
+                } elseif ((int) $diff >= 30 && (int) $diff < 60) {
+                    $color_arr[$id] = '#FFFF00';
+                    $color_font[$id] = '#339';
                     // array_push($color_arr,"#FFFF00");
 
-                    $valuedata = array(
+                    $valuedata = [
                         'project_no' => $project_no,
                         'developer_name' => $developer_name,
                         'developer_email' => $developer_email,
-                        'header' => "Project Completion Date less than 60 day’s",
-                        'background_color' =>  "#FF8C00",
-                        'color' => "#339"
-                        
-                    );
+                        'header' => 'Project Completion Date less than 60 day’s',
+                        'background_color' =>  '#FF8C00',
+                        'color' => '#339',
+
+                    ];
 
                     $email = $developer_email;
 
                     // dump($valuedata);
-                    
+
                     // if($k == 2){
 
-                    $header = "Project Completion Date less than 60 day’s";
+                    $header = 'Project Completion Date less than 60 day’s';
 
-                     Mail::send('site::email.less_than_60',$valuedata, function($message) use($email,$header){
-                                 $message->from('admindgms@tnb.gov.my', $header);
-                                 $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
-                                 // $message->bcc('izzat@3fresources.com');
-                                 $message->to($email)->subject($header);
-                                 });
+                    Mail::send('site::email.less_than_60', $valuedata, function ($message) use ($email, $header) {
+                        $message->from('admindgms@tnb.gov.my', $header);
+                        $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
+                        // $message->bcc('izzat@3fresources.com');
+                        $message->to($email)->subject($header);
+                    });
 
-                        $update = Project::where('id','=',$id)->first();
-                        $update->status_email = 1;
+                    $update = Project::where('id', '=', $id)->first();
+                    $update->status_email = 1;
 
-                        $update->save();
+                    $update->save();
                     // }
 
-                    $k++;                       
-                    
-                }else if((int)$diff >= 60 && (int)$diff < 90){
-                    $color_arr[$id] = "#FFFF99";
-                    $color_font[$id] = "#339";
+                    $k++;
+                } elseif ((int) $diff >= 60 && (int) $diff < 90) {
+                    $color_arr[$id] = '#FFFF99';
+                    $color_font[$id] = '#339';
                     // array_push($color_arr,"#FFFF99");
 
-                    $valuedata = array(
+                    $valuedata = [
                         'project_no' => $project_no,
                         'developer_name' => $developer_name,
                         'developer_email' => $developer_email,
-                        'header' => "Project Completion Date less than 90 day’s",
-                        'background_color' =>  "#FFFF99",
-                        'color' => "#339"
-                        
-                    );
+                        'header' => 'Project Completion Date less than 90 day’s',
+                        'background_color' =>  '#FFFF99',
+                        'color' => '#339',
+
+                    ];
 
                     $email = $developer_email;
 
                     // dump($valuedata);
 
                     // if($l == 2){
-                    $header = "Project Completion Date less than 90 day’s";
+                    $header = 'Project Completion Date less than 90 day’s';
 
-                     Mail::send('site::email.less_than_90',$valuedata, function($message) use($email,$header){
-                                 $message->from('admindgms@tnb.gov.my', $header);
-                                 $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
-                                 // $message->bcc('izzat@3fresources.com');
-                                 $message->to($email)->subject($header);
-                                 });
+                    Mail::send('site::email.less_than_90', $valuedata, function ($message) use ($email, $header) {
+                        $message->from('admindgms@tnb.gov.my', $header);
+                        $message->cc('syarifah.syahidatul@tnb.com.my', 'fadzliyanaar@tnb.com.my');
+                        // $message->bcc('izzat@3fresources.com');
+                        $message->to($email)->subject($header);
+                    });
 
-                        $update = Project::where('id','=',$id)->first();
-                        $update->status_email = 1;
+                    $update = Project::where('id', '=', $id)->first();
+                    $update->status_email = 1;
 
-                        $update->save();
+                    $update->save();
                     // }
 
                     $l++;
-                    
-                }else if((int)$diff <= 0){
-                    $color_arr[$id] = "";
-                    $color_font[$id] = "#339";
+                } elseif ((int) $diff <= 0) {
+                    $color_arr[$id] = '';
+                    $color_font[$id] = '#339';
                     // array_push($color_arr,"#fff");
-
-                    
-                } 
-            }else{
-                    $color_arr[$id] = "";
-                    $color_font[$id] = "#339";
-
+                }
+            } else {
+                $color_arr[$id] = '';
+                $color_font[$id] = '#339';
             }
         }
-
 
         dump($i);
         dump($j);
         dump($k);
         dump($l);
-
-       
     }
 }

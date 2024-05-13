@@ -2,22 +2,22 @@
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Controllers\Auth\Logout;
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
         'prefix' => 'auth',
-       // 'middleware' => 'guest'//ni kalau redirect terus login
+        // 'middleware' => 'guest'//ni kalau redirect terus login
     ],
     function (Router $router) {
         $router->get('login', [LoginController::class, 'show'])->name('auth::login.show');
         $router->post('login', [LoginController::class, 'store'])->name('auth::login.store');
-       
+
         // Password Reset Routes...
         $router->get('forgot', [ForgotPasswordController::class, 'show'])->name('auth::forgot.show');
         $router->post('forgot', [ForgotPasswordController::class, 'store'])->name('auth::forgot.store');
@@ -31,16 +31,14 @@ Route::group(
     }
 );
 
-
 Route::group(
     [
         'prefix' => 'auth',
-        'middleware' => 'auth'
+        'middleware' => 'auth',
     ],
     function (Router $router) {
         $router->any('logout', Logout::class)->name('auth::logout');
-        $router->get('addlog/{userid}', [Logout::class,'addlog'])->name('auth::addlog');
-
+        $router->get('addlog/{userid}', [Logout::class, 'addlog'])->name('auth::addlog');
 
         if (config('laravolt.platform.features.verification')) {
             $router->get('/verify-email', [\App\Http\Controllers\Auth\VerificationController::class, 'show'])

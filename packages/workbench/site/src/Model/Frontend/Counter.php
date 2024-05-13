@@ -1,16 +1,15 @@
-<?php 
+<?php
+
 namespace Workbench\Site\Model\Frontend;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravolt\Suitable\AutoFilter;
 use Laravolt\Suitable\AutoSearch;
 use Laravolt\Suitable\AutoSort;
-use Illuminate\Database\Eloquent\Model;
 
 /**
- *
- * @package 
  * @author afif
  **/
 class Counter extends Model
@@ -23,15 +22,17 @@ class Counter extends Model
     // use SoftDeletes;
 
     protected $table = 'counter';
+
     protected $guarded = ['id'];
+
     protected $primaryKey = 'id';
+
     protected $dates = ['deleted_at'];
 
     /**
      * undocumented function
      *
      * @return void
-     * @author 
+     * @author
      **/
-
-} // END class  
+} // END class

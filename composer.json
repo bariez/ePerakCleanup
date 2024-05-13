@@ -29,6 +29,7 @@
         "stolz/assets": "^0.2.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.9",
         "mockery/mockery": "^1.5",
         "phpunit/phpunit": "^8.0",
         "spatie/laravel-web-tinker": "^1.5"
@@ -88,6 +89,7 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
             "@php artisan preset laravolt"
-        ]
+        ],
+        "format": "@php vendor/bin/php-cs-fixer fix"
     }
 }

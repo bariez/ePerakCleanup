@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\AuditLog as audit;
 use App\Providers\AuditLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use App\Models\AuditLog as audit;
 
 class AddAuditTrail
 {
@@ -27,12 +27,12 @@ class AddAuditTrail
      */
     public function handle(AuditLog $event)
     {
-      $add_audit= new audit;
-      $add_audit->fk_user=$event->fk_user;
-      $add_audit->record_id=$event->record_id;
-      $add_audit->Activities=$event->Activities;
-      $add_audit->Old_value=$event->old_value;
-      $add_audit->New_value=$event->new_value;
-      $add_audit->save();
+        $add_audit = new audit;
+        $add_audit->fk_user = $event->fk_user;
+        $add_audit->record_id = $event->record_id;
+        $add_audit->Activities = $event->Activities;
+        $add_audit->Old_value = $event->old_value;
+        $add_audit->New_value = $event->new_value;
+        $add_audit->save();
     }
 }

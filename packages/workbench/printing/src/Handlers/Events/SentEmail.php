@@ -1,10 +1,10 @@
 <?php
+
 namespace Workbench\Site\Handlers\Events;
 
-use Workbench\Site\Events\SampleEvent;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use Illuminate\Queue\InteractsWithQueue;
+use Workbench\Site\Events\SampleEvent;
 use Workbench\Site\Http\Notifications\SampleMailer;
 
 class SentEmail
@@ -27,6 +27,5 @@ class SentEmail
      */
     public function handle(SampleEvent $event)
     {
-        
     }
 }

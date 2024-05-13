@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 class LoginRequest extends FormRequest
 {
     protected $maxAttempts = 5;
+
     protected $decaySeconds = 60;
 
     /**
@@ -24,8 +25,8 @@ class LoginRequest extends FormRequest
         return [
             'email' => 'required|string|email',
             'password' => 'required|string',
-           // 'g-recaptcha-response' => 'required|captcha',
-           
+            // 'g-recaptcha-response' => 'required|captcha',
+
         ];
     }
 
@@ -39,14 +40,11 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
 
-
         // $this->ensureIsNotRateLimited();
 
-        if (!Auth::attempt($this->only('email', 'password') + ['status' => 'ACTIVE'], $this->filled('remember'))) {//password x betul
+        if (! Auth::attempt($this->only('email', 'password') + ['status' => 'ACTIVE'], $this->filled('remember'))) {//password x betul
 
-          
             // RateLimiter::hit($this->throttleKey(), $this->decaySeconds);
-
 
             throw ValidationException::withMessages(
                 [
@@ -54,11 +52,8 @@ class LoginRequest extends FormRequest
                 ]
             );
 
-           // return 0;
-
+            // return 0;
         }
-
-
 
         // RateLimiter::clear($this->throttleKey());
     }
@@ -103,5 +98,4 @@ class LoginRequest extends FormRequest
     {
         return Str::lower($this->input('email')).'|'.$this->ip();
     }
-    
 }

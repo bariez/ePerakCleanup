@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Workbench\Dashboard\Http\Controllers\DashboardController;
@@ -13,10 +14,9 @@ Route::group(
     ],
 
     function () {
-
         Route::get('/admin', 'DashboardController@indexadmin')->name('dashboard.indexadmin');
         Route::get('/admin2', 'DashboardController@indexadmin2')->name('dashboard.indexadmin2');
-         Route::get('/admin3', 'DashboardController@indexadmin3')->name('dashboard.indexadmin3');
+        Route::get('/admin3', 'DashboardController@indexadmin3')->name('dashboard.indexadmin3');
         Route::get('/admindaerah/{menu}', 'DashboardController@admindaerah')->name('dashboard.admindaerah');
         Route::get('/table/{type}', 'DashboardDOController@getTableChart')->name('dashboard.getTableChart');
         Route::get('/mukimname/{mukim_id}', 'DashboardDOController@getMukim')->name('dashboard.getMukim');
@@ -84,13 +84,9 @@ Route::group(
         Route::get('/exportdetailkemudahan/{filetype}/{daerahid}/{type}', 'DashboardController@exportdetailkemudahan')->name('exportdetailkemudahan');
         Route::get('/exportjenisrumah/{filetype}/{daerahid}/{type}', 'DashboardController@exportjenisrumah')->name('exportjenisrumah');
         Route::get('/exportstatusmilikan/{filetype}/{daerahid}/{type}', 'DashboardController@exportstatusmilikan')->name('exportstatusmilikan');
-         Route::get('/exportdetailkemudahanasas/{filetype}/{daerahid}/{type}/{kemudahan}', 'DashboardController@exportdetailkemudahanasas')->name('exportdetailkemudahanasas');
-         Route::get('/detailage', 'DashboardController@detailage')->name('dashboard.detailage');
-          Route::get('/exportdetailage/{filetype}/{daerahid}/{type}', 'DashboardController@exportdetailage')->name('exportdetailage');
-
-
-
-
+        Route::get('/exportdetailkemudahanasas/{filetype}/{daerahid}/{type}/{kemudahan}', 'DashboardController@exportdetailkemudahanasas')->name('exportdetailkemudahanasas');
+        Route::get('/detailage', 'DashboardController@detailage')->name('dashboard.detailage');
+        Route::get('/exportdetailage/{filetype}/{daerahid}/{type}', 'DashboardController@exportdetailage')->name('exportdetailage');
     }
 );
 
@@ -103,15 +99,12 @@ Route::group(
     ],
 
     function () {
-
         Route::get('/index', 'LocationController@indexGis')->name('location.indexGis');
         Route::get('/ajaxindex', 'LocationController@ajaxIndex')->name('location.ajaxIndex');
         Route::get('/admindaerah', 'DashboardController@admindaerahlocation')->name('location.admindaerahlocation');
         Route::get('/topmanage', 'DashboardController@topmanagelocation')->name('location.topmanagelocation');
-
     }
 );
-
 
 // Route::group(
 //     [
@@ -127,6 +120,3 @@ Route::group(
 
 //     }
 // );
-
-
-

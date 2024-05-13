@@ -3,13 +3,13 @@
 namespace Workbench\Site\Model\Lookup;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravolt\Suitable\AutoFilter;
 use Laravolt\Suitable\AutoSearch;
 use Laravolt\Suitable\AutoSort;
-use Illuminate\Database\Eloquent\Model;
 
-class   VwKemudahanAsas extends \Laravolt\Platform\Models\User
+class VwKemudahanAsas extends \Laravolt\Platform\Models\User
 {
     use AutoFilter;
     use AutoSearch;
@@ -20,8 +20,6 @@ class   VwKemudahanAsas extends \Laravolt\Platform\Models\User
     /**
      * @var string[]
      */
-  
-   protected $table = 'vw_kemudahan_asas';
+    protected $table = 'vw_kemudahan_asas';
     // protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone','jabatan','jawatan','kategori','notel','email_verified_at'];
-
 }

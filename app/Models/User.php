@@ -13,6 +13,7 @@ class User extends \Laravolt\Platform\Models\User
     use AutoFilter;
     use AutoSearch;
     use AutoSort;
+
     // use HasFactory;
     use Notifiable;
 
@@ -21,14 +22,14 @@ class User extends \Laravolt\Platform\Models\User
      */
     protected $hidden = ['password', 'remember_token'];
 
-    protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone','jabatan','jawatan','kategori','notel','email_verified_at','Ulasan','Daerah','Mukim'];
+    protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone', 'jabatan', 'jawatan', 'kategori', 'notel', 'email_verified_at', 'Ulasan', 'Daerah', 'Mukim'];
 
-
-     public function getPermalinkAttribute()
+    public function getPermalinkAttribute()
     {
         return route('site::users.edit', $this->id);
     }
-      public function getApprovelinkAttribute()
+
+    public function getApprovelinkAttribute()
     {
         return route('site::users.approve', $this->id);
     }
@@ -57,9 +58,7 @@ class User extends \Laravolt\Platform\Models\User
     //         }else{
     //           $result = "Tiada Status";
 
-
     //         }
     //         return $result;
     // }
-
 }

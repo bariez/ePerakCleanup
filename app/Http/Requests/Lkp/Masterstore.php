@@ -27,8 +27,7 @@ class Masterstore extends FormRequest
             'name'     => 'required|max:255',
             'mainlookup' => 'required',
             'status'   => 'required',
-       
+
         ];
-        
     }
 }

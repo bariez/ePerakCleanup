@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Workbench\Printing\Http\Controllers\PrintingController;
@@ -11,12 +12,9 @@ Route::group(
     ],
 
     function () {
-
-    Route::get('/', 'PrintingController@index')->name('printing.index');
-      
+        Route::get('/', 'PrintingController@index')->name('printing.index');
     }
 );
-
 
 // Route::group(
 //     [
@@ -26,12 +24,9 @@ Route::group(
 //         'middleware' => ['guest','web'],
 //     ],
 //     function () {
-        
+
 //         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
 //         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-       
+
 //     }
 // );
-
-
-

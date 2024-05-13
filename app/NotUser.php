@@ -13,17 +13,14 @@ class NotUser extends Model
      */
     protected $table = 'push_subscriptions';
 
-
     /**
      * undocumented function
      *
      * @return void
-     * @author 
+     * @author
      **/
     // public function desc()
     // {
-    //     return $this->hasOne('Portal\Ppj\Model\Urole','user_id','id');  
+    //     return $this->hasOne('Portal\Ppj\Model\Urole','user_id','id');
     // }
-
-
 }

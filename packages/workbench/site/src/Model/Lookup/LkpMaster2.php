@@ -19,20 +19,16 @@ class LkpMaster2 extends \Laravolt\Platform\Models\User
     /**
      * @var string[]
      */
-  
-   protected $table = 'lkp_master';
+    protected $table = 'lkp_master';
     // protected $fillable = ['name', 'email', 'username', 'password', 'status', 'timezone','jabatan','jawatan','kategori','notel','email_verified_at'];
 
-public function scopeWhereLike($query, $column, $value)
-{
-    return $query->where($column, 'like', '%'.$value.'%');
-}
+    public function scopeWhereLike($query, $column, $value)
+    {
+        return $query->where($column, 'like', '%'.$value.'%');
+    }
 
-public function scopeOrWhereLike($query, $column, $value)
-{
-    return $query->orWhere($column, 'like', '%'.$value.'%');
-}
-
-
-    
+    public function scopeOrWhereLike($query, $column, $value)
+    {
+        return $query->orWhere($column, 'like', '%'.$value.'%');
+    }
 }

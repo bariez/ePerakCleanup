@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 use App\Models\LkpKodJenisRemit;
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class JenisRemitSeeder extends Seeder
 {
@@ -13,17 +13,16 @@ class JenisRemitSeeder extends Seeder
      */
     public function run()
     {
+        LkpKodJenisRemit::truncate();
 
-         LkpKodJenisRemit::truncate();
-
-         DB::table('lkp_kod_jenis_remit')->insert([
+        DB::table('lkp_kod_jenis_remit')->insert([
             [
-            	'code' => 'J1',
-            	'description' => 'TUNAI',
-            	'description_eng' => 'CASH',
-            	'status' => 1,
-            	'created_at' => Carbon::now(),
-            	'updated_at' => Carbon::now()
+                'code' => 'J1',
+                'description' => 'TUNAI',
+                'description_eng' => 'CASH',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             //  [
             // 	'code' => 'J2',
@@ -42,15 +41,14 @@ class JenisRemitSeeder extends Seeder
             // 	'updated_at' => Carbon::now()
             // ],
             [
-            	'code' => 'J2',
-            	'description' => 'PINDAHAN WANG',
-            	'description_eng' => 'MONEY TRANSFER',
-            	'status' => 1,
-            	'created_at' => Carbon::now(),
-            	'updated_at' => Carbon::now()
-            ]
+                'code' => 'J2',
+                'description' => 'PINDAHAN WANG',
+                'description_eng' => 'MONEY TRANSFER',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
 
-
-           ]);
+        ]);
     }
 }

@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Auth\AccountInformation;
 use App\Models\User;
+use App\Providers\AuditLog;
 use App\Providers\RouteServiceProvider;
+use App\Rules\WhiteListEmail;
+use Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Mail;
-use App\Http\Controllers\Auth\AccountInformation;
 use Workbench\Site\Model\Lookup\AclRoleUser;
-use Event;
-use App\Providers\AuditLog;
-use App\Rules\WhiteListEmail;
 
 class RegistrationController extends Controller
 {
@@ -39,22 +39,18 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'email' => ['required','string','email','max:255','unique:users', new WhiteListEmail],
-                 'password' => [
-                     'required',
-                     'regex:/^(?=.*[A-Z])(?=.*\d).*$|^(?=.*[@\].])(?=.*\d).*$|^(?=.*[@\].])(?=.*[A-Z]).*$|^[A-Z]$|^[A-Z]{3,}$/',
-                     'min:8',
-                     'confirmed',
-                   ],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new WhiteListEmail],
+                'password' => [
+                    'required',
+                    'regex:/^(?=.*[A-Z])(?=.*\d).*$|^(?=.*[@\].])(?=.*\d).*$|^(?=.*[@\].])(?=.*[A-Z]).*$|^[A-Z]$|^[A-Z]{3,}$/',
+                    'min:8',
+                    'confirmed',
+                ],
                 'jabatan' => 'required|string|max:255',
                 'notel' => 'required|numeric',
-
-
 
             ],
             [
@@ -65,126 +61,58 @@ class RegistrationController extends Controller
                 'email.regex' => 'Email Salah Format!',
                 'email.unique'=> 'Email Telah Wujud!',
 
-
-
             ]
-      //        [
-      //     'notel.integer' => 'Sila masukan nombor !',
-
-
-      // ]
         );
 
+        $user = User::create(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'status' => 'PENDING',
+                'jabatan' => $request->jabatan,
+                'jawatan' => $request->jawatan,
+                'notel' => $request->notel,
+                'email_verified_at' => date('Y-m-d h:i:s'),
+            ]
+        );
 
+        $getemailadmin = AclRoleUser::with('user')
+                  ->where('role_id', 1)->get();
 
-            $user = User::create(
-                [
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'status' => 'PENDING',
-                    'jabatan' => $request->jabatan,
-                    'jawatan' => $request->jawatan,
-                    'notel' => $request->notel,
-                    'email_verified_at' => date('Y-m-d h:i:s')
-                ]
-                );
-
-
-    $getemailadmin=AclRoleUser::with('user')
-                  ->where('role_id',1)->get();
-
-    //email ke admin
-
-    foreach($getemailadmin as $emailto){
-
-        $dataemail = array(
+        foreach ($getemailadmin as $emailto) {
+            $dataemail = [
                 'name'=>$request->name,
                 'email' => $request->email,
                 'jabatan' => $request->jabatan,
                 'jawatan' => $request->jawatan,
-                'notel' => $request->notel
+                'notel' => $request->notel,
 
-              );
+            ];
 
+            try {
+                Mail::send('site::email/emailnewuser', $dataemail, function ($message) use ($name, $email) {
+                    $message->from('eperak.gov.my', 'Pemberitahuan');
 
-     // try {//asal
-
-
-
-
-     //     Mail::to(data_get($emailto,'user.email'))->send(new AccountInformation($dataemail));
-
-     //   } catch (\Exception $e) {
-
-     //        $activities='Hantar email Permohonan Baru Gagal Dihantar';
-     //         Event::dispatch(new AuditLog('','',$activities,'',$e));
-
-     //    }//asal
-
-  try {
-
-        Mail::send('site::email/emailnewuser', $dataemail, function($message)use($name,$email)
-          {
-            $message->from('eperak.gov.my', 'Pemberitahuan');
-
-            $message->to($emailto->email)->subject('Perlu Kelulusan Pengguna');
-
-
-
-
-          });
-
-
-       } catch (\Exception $e) {
-
-            $activities='Hantar email Permohonan Baru Gagal Dihantar';
-             Event::dispatch(new AuditLog('','',$activities,'',$e));
-
+                    $message->to($emailto->email)->subject('Perlu Kelulusan Pengguna');
+                });
+            } catch (\Exception $e) {
+                $activities = 'Hantar email Permohonan Baru Gagal Dihantar';
+                Event::dispatch(new AuditLog('', '', $activities, '', $e));
+            }
         }
 
-   //email ke user
-}
+        try {
+            Mail::send('site::email/emailnotifyuser', $dataemail, function ($message) use ($name, $email) {
+                $message->from('eperak.gov.my', 'Pemberitahuan');
 
-     try {
-
-        // Mail::to($request->email)->send(new NotifyUserNewRegis($dataemail)); asal
-
-          Mail::send('site::email/emailnotifyuser', $dataemail, function($message)use($name,$email)
-          {
-            $message->from('eperak.gov.my', 'Pemberitahuan');
-
-            $message->to($request->email)->subject('Perlu Kelulusan Pengguna');
-
-
-
-
-          });
-
-       } catch (\Exception $e) {
-
-            $activities='Hantar email Permohonan Baru Gagal Dihantar';
-             Event::dispatch(new AuditLog('','',$activities,'',$e));
-
+                $message->to($request->email)->subject('Perlu Kelulusan Pengguna');
+            });
+        } catch (\Exception $e) {
+            $activities = 'Hantar email Permohonan Baru Gagal Dihantar';
+            Event::dispatch(new AuditLog('', '', $activities, '', $e));
         }
-
-
-
-
-
-
-
-        // if (config('laravolt.platform.features.verification') === false) {
-        //     $user->markEmailAsVerified();
-        // }
-
-       // event(new Registered($user));
-
-       // return redirect(RouteServiceProvider::HOME)->with('success', __('Your account successfully created'));
-
-
 
         return redirect('/auth/register')->with('success', __('Permohonan telah dihantar untuk kelulusan'));
-    // return redirect::to('/auth/register')->withSuccess(__('Permohonan telah dihantar untuk kelulusan'));
     }
 }

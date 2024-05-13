@@ -31,22 +31,16 @@ class ForgotPasswordController extends Controller
     {
         $request->validate(
 
-           
-         ['email' => ['required', 'email', 'exists:users']
+            ['email' => ['required', 'email', 'exists:users'],
 
+            ],
 
-
-        ],
-
-        [
+            [
 
                 'email.required' => 'Email wajib diisi!',
                 'email.exists' => 'Email telah wujud!',
 
-                
-               
             ]
-
 
         );
 

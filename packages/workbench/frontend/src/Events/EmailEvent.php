@@ -1,17 +1,20 @@
 <?php
+
 namespace Workbench\Site\Events;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EmailEvent extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $data;
+
     public $activitylist;
+
     public $id;
 
     /**
@@ -19,7 +22,7 @@ class EmailEvent extends Mailable
      *
      * @return void
      */
-    public function __construct($data,$activitylist,$id)
+    public function __construct($data, $activitylist, $id)
     {
         //get data here to use below
     }
@@ -31,15 +34,10 @@ class EmailEvent extends Mailable
      */
     public function build()
     {
-             
-            return $this
+        return $this
             ->subject('Makluman Kemaskini Aktiviti Semakan HR')
             ->cc('elatihan.ppj@outlook.com')
             ->bcc(env('EMAIL_CC'))
             ->markdown('site::emails.default');
-        
-        
-
-       
     }
 }

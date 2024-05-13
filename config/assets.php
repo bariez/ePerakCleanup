@@ -103,7 +103,7 @@ return [
          * Set to true to use the default compression level.
          * Set an integer between 0 (no compression) and 9 (maximum compression) to choose compression level.
          *
-         * @var bool|integer
+         * @var bool|int
          */
         //'pipeline_gzip' => false,
 
@@ -131,13 +131,13 @@ return [
         'collections' => [
         ],
 
-        /**
-         * Preload assets.
-         * Here you may set which assets (CSS files, JavaScript files or collections)
-         * should be loaded by default even if you don't explicitly add them on run time.
-         *
-         * @var array
-         */
+    /**
+     * Preload assets.
+     * Here you may set which assets (CSS files, JavaScript files or collections)
+     * should be loaded by default even if you don't explicitly add them on run time.
+     *
+     * @var array
+     */
         //'autoload' => array('jquery-cdn'),
 
     ], // End of default group

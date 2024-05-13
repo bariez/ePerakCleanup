@@ -2,9 +2,9 @@
 
 namespace Workbench\Site;
 
-use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use App\Enums\Permission;
 use DB;
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Workbench\Asset\AssetManager;
 
 /**
@@ -23,23 +23,22 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected $defer = false;
 
-   /**
+    /**
      * Register the service provider.
      *
      * @see http://laravel.com/docs/master/providers#the-register-method
      * @return void
      */
     protected $listen = [
-        
+
         \Workbench\Site\Events\EmailEvent::class => [
-            \Workbench\Site\Handlers\Events\SentEmail::class
+            \Workbench\Site\Handlers\Events\SentEmail::class,
         ],
     ];
 
-
     public function register()
     {
-        if ((!$this->app->runningInConsole()) || $this->app->runningUnitTests()) {
+        if ((! $this->app->runningInConsole()) || $this->app->runningUnitTests()) {
             $this->registerAssets();
         }
     }
@@ -56,12 +55,11 @@ class ServiceProvider extends BaseServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'site');
         $this->menu();
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-
     }
 
     protected function registerAssets()
     {
-        if (!$this->app->bound('laravolt.asset.group.laravolt')) {
+        if (! $this->app->bound('laravolt.asset.group.laravolt')) {
             $this->app->singleton(
                 'laravolt.asset.group.laravolt',
                 function () {
@@ -85,13 +83,10 @@ class ServiceProvider extends BaseServiceProvider
         //     ->data('icon', 'clipboard list')
         //     ->active('index/*')
 
-
         //$menu->add(__('Dashboard Tindakan'), url('dashboard/list/5'))
         //     ->data('icon', 'grid layout')
         //     ->active('dashboard/list/5')
         //     ->active('appl/views/*')
         //     ->data('permission', Permission::DASHBOARD_TINDAKAN);
-
-       
     }
 }

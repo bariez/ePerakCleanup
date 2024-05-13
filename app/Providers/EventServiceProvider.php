@@ -13,9 +13,9 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
-          AuditLog::class => [
+        AuditLog::class => [
             AddAuditTrail::class,
-        ]
+        ],
     ];
 
     /**

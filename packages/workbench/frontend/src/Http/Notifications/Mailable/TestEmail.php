@@ -3,11 +3,12 @@
 namespace Workbench\Site\Http\Notifications\Mailable;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\SerializesModels;
+
 // use Orchestra\Contracts\Memory\Provider;
 
 class TestEmail extends Mailable
@@ -26,10 +27,10 @@ class TestEmail extends Mailable
 
         $mailMessage = new MailMessage;
 
-        $mailMessage->subject(" : Kemaskini Maklumat Akaun Email");
+        $mailMessage->subject(' : Kemaskini Maklumat Akaun Email');
         // $mailMessage->title(" : Kemaskini Maklumat Akaun Email");
-        $mailMessage->level('warning'); 
-        $mailMessage->greeting('Hi' . ', Tuan / Puan');
+        $mailMessage->level('warning');
+        $mailMessage->greeting('Hi'.', Tuan / Puan');
         $mailMessage->line('Maklumat Akaun Email Bagi Berikut Perlu Dikemaskini');
         $mailMessage->line('<b>ID Pengguna</b> : ');
         $mailMessage->line('<b>Kata Laluan</b> : ');
@@ -37,8 +38,6 @@ class TestEmail extends Mailable
         // $mailMessage->actionText(handles('ecuti::/auth/login'));
 
         $this->content = $mailMessage->toArray();
-
-
     }
 
     /**
@@ -49,7 +48,7 @@ class TestEmail extends Mailable
     public function build()
     {
         return $this->from('portaladmin@ppj.gov.my')
-                    ->subject(data_get($this->content,'subject'))
+                    ->subject(data_get($this->content, 'subject'))
                     ->view('ecuti::emails.layouts.simple')
                     ->with($this->content);
     }

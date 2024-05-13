@@ -1,12 +1,11 @@
 <?php
 
 use App\Http\Controllers\Home;
+
 // use Workbench\Frontend\Http\Controllers\FrontendController;
 
 // Route::redirect('/', 'auth/login');
 Route::get('/', '\Workbench\Frontend\Http\Controllers\FrontendController@index')->name('index');
-
-
 
 Route::middleware(['auth', 'verified'])
     ->group(

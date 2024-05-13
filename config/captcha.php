@@ -16,6 +16,6 @@ return [
         'lang' => app()->getLocale(),
     ],
     'attributes' => [
-        'theme' => 'light'
+        'theme' => 'light',
     ],
 ];
