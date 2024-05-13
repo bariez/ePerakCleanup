@@ -2,13 +2,13 @@
 
 namespace Workbench\Site\Http\Controllers;
 
+use App\Events\AuditLog;
 use App\Http\Controllers\Auth\ApproveUserInformation;
 use App\Http\Requests\Account\Store;
 use App\Http\Requests\Account\Update;
 use App\Http\Requests\Lkp\Masterstore;
 use App\Mail\StatusAccept;
 use App\Mail\StatusReject;
-use App\Events\AuditLog;
 use Carbon\Carbon;
 use Curl;
 use DB;

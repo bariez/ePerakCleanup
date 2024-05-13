@@ -12,8 +12,11 @@ class DefaultMail extends Mailable
     use Queueable, SerializesModels;
 
     public $title;
+
     public $message;
+
     public $url = null;
+
     public $attachment = null;
 
     /**
@@ -26,8 +29,7 @@ class DefaultMail extends Mailable
         $message,
         $url = null,
         $attachment = null
-    )
-    {
+    ) {
         $this->title = $title;
         $this->message = $message;
         $this->url = $url;

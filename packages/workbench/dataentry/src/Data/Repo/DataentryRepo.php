@@ -933,28 +933,24 @@ class DataentryRepo
                   if ($parlimen != '0') {
                       $query->where('fk_parlimen', '=', $parlimen);
                   } else {
-                      $query;
                   }
               })
               ->where(function ($query) use ($dun) {
                   if ($dun != '0') {
                       $query->where('fk_dun', '=', $dun);
                   } else {
-                      $query;
                   }
               })
               ->where(function ($query) use ($daerah) {
                   if ($daerah != '0') {
                       $query->where('fk_daerah', '=', $daerah);
                   } else {
-                      $query;
                   }
               })
               ->where(function ($query) use ($mukim) {
                   if ($mukim != '0') {
                       $query->where('fk_mukim', '=', $mukim);
                   } else {
-                      $query;
                   }
               })
               ->where(function ($query) use ($cat) {
@@ -973,7 +969,6 @@ class DataentryRepo
                   if ($kampung != '0') {
                       $query->where('id', '=', $kampung);
                   } else {
-                      $query;
                   }
               })
               ->get();

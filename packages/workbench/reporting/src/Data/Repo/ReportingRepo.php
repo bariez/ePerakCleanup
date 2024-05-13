@@ -42,21 +42,18 @@ class ReportingRepo
                          if ($name != 'nama') {
                              $query->where('name', 'like', '%'.$name.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where(function ($query) use ($jawa) {
                          if ($jawa != 'jawatan') {
                              $query->where('jawatan', 'like', '%'.$jawa.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where(function ($query) use ($dept) {
                          if ($dept != 'dept') {
                              $query->where('jabatan', 'like', '%'.$dept.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where('status', 'INACTIVE')
@@ -64,7 +61,6 @@ class ReportingRepo
                          if ($role != 'role') {
                              $query->where('role_id', '=', $role);
                          } else {
-                             $query;
                          }
                      })
                      ->orderBy('created_at')
@@ -89,21 +85,18 @@ class ReportingRepo
                          if ($name != 'nama') {
                              $query->where('name', 'like', '%'.$name.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where(function ($query) use ($jawa) {
                          if ($jawa != 'jawatan') {
                              $query->where('jawatan', 'like', '%'.$jawa.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where(function ($query) use ($dept) {
                          if ($dept != 'dept') {
                              $query->where('jabatan', 'like', '%'.$dept.'%');
                          } else {
-                             $query;
                          }
                      })
                      ->where('status', 'INACTIVE')
@@ -111,7 +104,6 @@ class ReportingRepo
                          if ($role != 'role') {
                              $query->where('role_id', '=', $role);
                          } else {
-                             $query;
                          }
                      })
                      ->orderBy('created_at')

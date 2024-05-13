@@ -2,8 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Models\AuditLog as Model;
 use App\Events\AuditLog;
+use App\Models\AuditLog as Model;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

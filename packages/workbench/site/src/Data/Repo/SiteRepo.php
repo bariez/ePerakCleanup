@@ -490,14 +490,12 @@ class SiteRepo
                   if ($user != '0') {
                       $query->where('fk_user', '=', $user);
                   } else {
-                      $query;
                   }
               })
               ->where(function ($query) use ($datefrom, $dateto, $daterange) {
                   if ($datefrom != '0' && $dateto != '0') {
                       $query->whereBetween('created_at', $daterange);
                   } else {
-                      $query;
                   }
               })
               ->whereHas('users.user_role', function ($query) use ($kat) {
