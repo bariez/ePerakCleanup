@@ -77,7 +77,6 @@ class RegistrationController extends Controller
 
 
 
-        Auth::login(
             $user = User::create(
                 [
                     'name' => $request->name,
@@ -89,8 +88,8 @@ class RegistrationController extends Controller
                     'notel' => $request->notel,
                     'email_verified_at' => date('Y-m-d h:i:s')
                 ]
-            )
-        );
+                );
+
 
     $getemailadmin=AclRoleUser::with('user')
                   ->where('role_id',1)->get();
