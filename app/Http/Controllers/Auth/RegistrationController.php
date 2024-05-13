@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\AccountInformation;
 use Workbench\Site\Model\Lookup\AclRoleUser;
 use Event;
 use App\Providers\AuditLog;
-
+use App\Rules\WhiteListEmail;
 
 class RegistrationController extends Controller
 {
@@ -44,11 +44,7 @@ class RegistrationController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|regex:/(.*)@*.gov\.my/i|unique:users|',
-                // 'email' => 'required|string|email|max:255|regex:/(.*)@gov\.my/i|unique:users|',
-                // 'password' => 'required|string|confirmed|min:8',
-                // 'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&.~`^()-_+={}:;<>])[A-Za-z\d@$!%*#?&.~`^()-_+={}:;<>]{8,}$/',
-                //'password' => 'required|string|confirmed|min:8|regex:/^(?=.*[a-z0-9])[a-z0-9!@#$%&*.]{8,}$/i',
+                'email' => ['required','string','email','max:255','unique:users', new WhiteListEmail],
                  'password' => [
                      'required',
                      'regex:/^(?=.*[A-Z])(?=.*\d).*$|^(?=.*[@\].])(?=.*\d).*$|^(?=.*[@\].])(?=.*[A-Z]).*$|^[A-Z]$|^[A-Z]{3,}$/',
