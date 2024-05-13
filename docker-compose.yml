@@ -1,40 +1,18 @@
-version: '3.7'
+version: "3.2"
 services:
-  web:
-    container_name: virtual-library-web
-    restart: always
-    build:
-      context: ./
-      dockerfile: docker/web.dockerfile
-    volumes:
-      - './:/var/www'
+  sql-server-db:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    platform: linux/arm64/v8
     ports:
-      - '${WEB_HOST_PORT:-8080}:80'
+      - '${DB_PORT:-1433}:1433'
     networks:
-      - ppsdm-app-network
-  app:
-    container_name: virtual-library-app
-    restart: always
-    build:
-      context: ./
-      dockerfile: docker/app.dockerfile
-    volumes:
-      - './:/var/www'
-    networks:
-      - ppsdm-app-network
-  db:
-    container_name: virtual-library-db
-    restart: always
-    image: 'postgres:10.10'
+      - backend
     environment:
-      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-postgres}'
-      POSTGRES_USER: '${POSTGRES_USER:-postgres}'
-      POSTGRES_DB: '${POSTGRES_DB:-virtual-library}'
-      PGDATA: /var/lib/postgresql/data/virtual-library
-    ports:
-      - '${POSTGRESQL_HOST_PORT:-5434}:5432'
-    networks:
-      - ppsdm-app-network
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: "StrongPassword1903@@"
+      MSSQL_PID: "Developer"
+    volumes:
+      - ./storage/docker:/var/opt/mssql/backup
 networks:
-  ppsdm-app-network:
-    external: true
+  backend:
+    driver: bridge
