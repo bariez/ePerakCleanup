@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Providers\AuditLog;
+use App\Events\AuditLog;
 use Event;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;

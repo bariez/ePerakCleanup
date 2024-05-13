@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\AuditLog;
+use App\Listeners\AddAuditTrail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -12,7 +14,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-
         AuditLog::class => [
             AddAuditTrail::class,
         ],

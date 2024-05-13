@@ -6,7 +6,7 @@ use App\Imports\AhliIsiRumahImport;
 use App\Imports\KetuaIsiRumahImport;
 use App\Mail\StatusAccept;
 use App\Mail\StatusReject;
-use App\Providers\AuditLog;
+use App\Events\AuditLog;
 use Carbon\Carbon;
 use Curl;
 use DB;

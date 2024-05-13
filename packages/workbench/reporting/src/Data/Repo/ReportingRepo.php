@@ -2,7 +2,7 @@
 
 namespace Workbench\Reporting\Data\Repo;
 
-use App\Providers\AuditLog;
+use App\Events\AuditLog;
 use Auth;
 use Carbon\Carbon;
 use DB;

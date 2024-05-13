@@ -23,7 +23,7 @@
         "laravel/sail": "^1.18",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.8",
-        "laravolt/laravolt": "^4.2.11",
+        "laravolt/laravolt": "^4.2",
         "maatwebsite/excel": "*",
         "nunomaduro/collision": "^5.11",
         "stolz/assets": "^0.2.0"

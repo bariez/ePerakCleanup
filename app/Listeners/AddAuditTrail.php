@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
-use App\Models\AuditLog as audit;
-use App\Providers\AuditLog;
+use App\Models\AuditLog as Model;
+use App\Events\AuditLog;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -27,7 +27,7 @@ class AddAuditTrail
      */
     public function handle(AuditLog $event)
     {
-        $add_audit = new audit;
+        $add_audit = new Model;
         $add_audit->fk_user = $event->fk_user;
         $add_audit->record_id = $event->record_id;
         $add_audit->Activities = $event->Activities;

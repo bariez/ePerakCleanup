@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\AccountInformation;
 use App\Models\User;
-use App\Providers\AuditLog;
+use App\Events\AuditLog;
 use App\Providers\RouteServiceProvider;
 use App\Rules\WhiteListEmail;
 use Event;
