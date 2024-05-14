@@ -155,7 +155,7 @@
 										<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
 											<div class="accordion-body">
 												<div class="content-single">
-													<p class="capitalall" id ="ayat" style="text-align: justify;"> 
+													<p class="capitalall" id ="ayat" style="text-align: justify;">
 														{{ data_get($data, 'Sejarah') }}
 													</p><br/><br/>
 													<h4 class="capitalall" style="margin-top: 20px; margin-left: 20px">Populasi dan Statistik Penduduk</h4>
@@ -448,7 +448,7 @@
 
 <script type="text/javascript">
 
-    function back() 
+    function back()
     {
         window.location.href = "/info";
     }
@@ -998,7 +998,7 @@
 
 		var bueaty = fixCapitalsNode (div_ayat);
 
-		document.getElementById('ayat').text(bueaty);
+		document.getElementById('ayat').textContent = bueaty;
 	});
 
 	function fixCapitalsText (text)
@@ -1024,7 +1024,7 @@
 			{
 				sentenceStart = true;
 			}
-		
+
 			result += ch;
 		}
 
@@ -1032,7 +1032,7 @@
 	}
 
 	function fixCapitalsNode (node)
-	{	
+	{
 		// console.log(node);
 		// console.log(node.nodeType);
 		if (node.nodeType == 3 || node.nodeType == 4) // Text or CDATA
