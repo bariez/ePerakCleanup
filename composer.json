@@ -26,6 +26,7 @@
         "laravolt/laravolt": "^4.2",
         "maatwebsite/excel": "*",
         "nunomaduro/collision": "^5.11",
+        "predis/predis": "^2.2",
         "stolz/assets": "^0.2.0"
     },
     "require-dev": {
