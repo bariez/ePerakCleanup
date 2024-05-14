@@ -3,23 +3,24 @@
     const latKampung = {!! $latKampung !!};
     // console.log(longKampung + "    -----   " + latKampung);
 
- /*   require(["esri/Map",
-        "esri/views/MapView",
-        "esri/layers/MapImageLayer",
-        "esri/widgets/Legend",
-        "esri/widgets/Expand",
+    /*   require(["esri/Map",
+           "esri/views/MapView",
+           "esri/layers/MapImageLayer",
+           "esri/widgets/Legend",
+           "esri/widgets/Expand",
+           "esri/widgets/BasemapGallery",
+           "esri/widgets/LayerList",
+           "esri/widgets/Search",
+           "esri/Graphic",
+           "esri/symbols/SimpleFillSymbol"
+       ], (Map, MapView, MapImageLayer, Legend, Expand, BasemapGallery, LayerList, Search, Graphic, SimpleFillSymbol) => {*/
+    require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer",
         "esri/widgets/BasemapGallery",
         "esri/widgets/LayerList",
-        "esri/widgets/Search",
-        "esri/Graphic",
-        "esri/symbols/SimpleFillSymbol"
-    ], (Map, MapView, MapImageLayer, Legend, Expand, BasemapGallery, LayerList, Search, Graphic, SimpleFillSymbol) => {*/
-		require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer",
-        "esri/widgets/BasemapGallery",
-        "esri/widgets/LayerList",
         "esri/Graphic",
         "esri/widgets/Legend",
-        "esri/widgets/Expand", "esri/widgets/Search"], function(Map, MapView, FeatureLayer, BasemapGallery, LayerList, Graphic, Legend, Expand, Search) {
+        "esri/widgets/Expand", "esri/widgets/Search"
+    ], function(Map, MapView, FeatureLayer, BasemapGallery, LayerList, Graphic, Legend, Expand, Search) {
 
         /*****************************************************************
          * Create a MapImageLayer instance pointing to a Map Service
@@ -41,26 +42,17 @@
             type: "class-breaks", // autocasts as new ClassBreaksRenderer()
             field: "ID_KG",
             normalizationField: "ID_KG",
-            classBreakInfos: [
-                {
+            classBreakInfos: [{
                 minValue: 0.75,
                 maxValue: 1.0,
                 symbol: mapKampung,
-                }
-            ]
+            }]
         };
 
-        const urlGis = "{{ env('URL_GIS') }}";
-        urlKampungGis = urlGis.replace("VARMAP","{{ $kampungdata->url_gis}}");
-        // console.log(urlKampungGis);
-
-      
         const featureLayer = new FeatureLayer({
-		   url: "https://mygdispatial.perak.gov.my/server/rest/services/Hosted/Kampung_Perak/FeatureServer/0/query",
-          outFields: ["*"], // used by queryFeaturesA1_BO_0001
-		  definitionExpression: "UPPER(ID_KG)=UPPER('{{ $kampungdata->IdKampung}}')",
-        
-        
+            url: "https://mygdispatial.perak.gov.my/server/rest/services/Hosted/Kampung_Perak/FeatureServer/0/query",
+            outFields: ["*"], // used by queryFeaturesA1_BO_0001
+            definitionExpression: "UPPER(ID_KG)=UPPER('{{ $kampungdata->IdKampungBaru }}')",
         });
 
         /*****************************************************************
@@ -69,7 +61,7 @@
 
         const map = new Map({
             basemap: "gray-vector",
-         //   layers: [mapLayer]
+            //   layers: [mapLayer]
         });
 
         const view = new MapView({
@@ -194,9 +186,10 @@
 
         view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-right");
 
-      //  map.add(mapLayer);
+        //  map.add(mapLayer);
 
- map.add(featureLayer);
+        map.add(featureLayer);
+
         function getData(feature) {
             // console.log(feature.graphic.attributes);
             var data = {!! $datagis !!};
@@ -205,23 +198,23 @@
             for (let i = 0; i < data.length; i++) {
                 if (data[i].IdKampungBaru == $.trim(feature.graphic.attributes.ID_KG)) {
                     // console.log("sini");
-                    html =  "<table> " +
-                            "<tr> " +
-                            "<td>Mukim</td> " +
-                            "<td>: </td> " +
-                            "<td>" + data[i].mukim.NamaMukim + "</td> " +
-                            "</tr> " +
-                            "<tr> " +
-                            "<td>Daerah</td> " +
-                            "<td>: </td> " +
-                            "<td>" + data[i].daerah.NamaDaerah + "</td> " +
-                            "</tr> " +
-                            "<tr> " +
-                            "<td>Jumlah KIR</td> " +
-                            "<td>: </td> " +
-                            "<td>" + data[i].kircount + "</td> " +
-                            "</tr> " +
-                            "</table>";
+                    html = "<table> " +
+                        "<tr> " +
+                        "<td>Mukim</td> " +
+                        "<td>: </td> " +
+                        "<td>" + data[i].mukim.NamaMukim + "</td> " +
+                        "</tr> " +
+                        "<tr> " +
+                        "<td>Daerah</td> " +
+                        "<td>: </td> " +
+                        "<td>" + data[i].daerah.NamaDaerah + "</td> " +
+                        "</tr> " +
+                        "<tr> " +
+                        "<td>Jumlah KIR</td> " +
+                        "<td>: </td> " +
+                        "<td>" + data[i].kircount + "</td> " +
+                        "</tr> " +
+                        "</table>";
                 }
 
             }
@@ -230,27 +223,33 @@
         }
 
     });
-
 </script>
 
 <div class="sidebar-list-job">
     <div class="section-box wow animate__animated animate__fadeIn mt-10">
         <div class="container">
-            <div><h4> Peta : </h4></div>
+            <div>
+                <h4> Peta : </h4>
+            </div>
             <br />
 
             <div class="dropdown dropstart" style="float: right;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px;">
-                    <svg width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px;">
+                    <svg width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
                     </svg>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                     <li style="padding: 10px; white-space: nowrap;">
-                        <svg width="16" height="16" fill="currentColor" class="bi bi-circle-fill" viewBox="0 0 16 16" style="color: rgb(188, 26, 183)">
-                            <circle cx="8" cy="8" r="8"/>
+                        <svg width="16" height="16" fill="currentColor" class="bi bi-circle-fill"
+                            viewBox="0 0 16 16" style="color: rgb(188, 26, 183)">
+                            <circle cx="8" cy="8" r="8" />
                         </svg>
-                        <b style="margin-left: 5px;margin-right: 5px;font-weight: bolder;font-size: smaller;"> Ketua Isi Rumah </b>
+                        <b style="margin-left: 5px;margin-right: 5px;font-weight: bolder;font-size: smaller;"> Ketua Isi
+                            Rumah </b>
                     </li>
                 </ul>
             </div>
