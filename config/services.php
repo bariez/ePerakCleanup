@@ -44,4 +44,8 @@ return [
         ],
     ],
 
+    'arcgis' => [
+        'wfs_endpoint' => env('ARCGIS_WFS_ENDPOINT'),
+    ],
+
 ];
