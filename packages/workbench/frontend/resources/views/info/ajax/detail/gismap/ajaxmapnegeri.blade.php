@@ -51,7 +51,7 @@
         const featureLayer = new FeatureLayer({
             url: "https://mygdispatial.perak.gov.my/server/rest/services/Hosted/Kampung_Perak/FeatureServer/0/query",
             outFields: ["*"],
-            definitionExpression: "UPPER(ID_KG)=UPPER('{{ $kampungdata->IdKampungBaru }}')",
+            definitionExpression: "UPPER(ID_KG)=UPPER('{{ trim($kampungdata->IdKampungBaru) }}')",
         });
 
         /*****************************************************************
