@@ -4,9 +4,9 @@ namespace Workbench\Site\Model\Lookup;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-use Laravolt\Suitable\AutoFilter;
-use Laravolt\Suitable\AutoSearch;
-use Laravolt\Suitable\AutoSort;
+use Laravolt\Support\Traits\AutoFilter;
+use Laravolt\Support\Traits\AutoSearch;
+use Laravolt\Support\Traits\AutoSort;
 
 class LkpMaster2 extends \Laravolt\Platform\Models\User
 {

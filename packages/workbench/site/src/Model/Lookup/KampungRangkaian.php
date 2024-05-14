@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-use Laravolt\Suitable\AutoFilter;
-use Laravolt\Suitable\AutoSearch;
-use Laravolt\Suitable\AutoSort;
+use Laravolt\Support\Traits\AutoFilter;
+use Laravolt\Support\Traits\AutoSearch;
+use Laravolt\Support\Traits\AutoSort;
 
 class KampungRangkaian extends Model
 {
