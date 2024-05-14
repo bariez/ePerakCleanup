@@ -180,6 +180,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        Barryvdh\Debugbar\ServiceProvider::class,
+
         Workbench\Dashboard\ServiceProvider::class,
         Workbench\Dataentry\ServiceProvider::class,
         Workbench\Frontend\ServiceProvider::class,
