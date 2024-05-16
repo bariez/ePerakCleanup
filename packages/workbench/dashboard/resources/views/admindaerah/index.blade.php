@@ -185,7 +185,7 @@
 </div>
 
 <div class="ui container-fluid content__body p-3" id="result4">
-  
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader1"></div>
@@ -202,7 +202,7 @@
         </div>
 
       </div>
-    
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader3"></div>
@@ -220,9 +220,9 @@
         </div>
 
       </div>
-  
 
-      
+
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader5"></div>
@@ -242,7 +242,7 @@
       </div>
 
 
-      
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader7"></div>
@@ -640,7 +640,7 @@
         $('#resultchart2').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -759,7 +759,7 @@
         $('#resultchart5').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -797,7 +797,7 @@
         $('#resultchart6').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -1412,7 +1412,7 @@
                   sum += Number(data);
                 });
 
-               
+
               let percentage =  value / sum * 100;
             return percentage.toFixed(2) + "%";
           },

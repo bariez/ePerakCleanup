@@ -1,11 +1,11 @@
 <style type="text/css">
-    @media print 
+    @media print
     {
-        @page 
-        { 
+        @page
+        {
             size: auto;
             /*width: 75%;*/
-            margin: 0; 
+            margin: 0;
             margin-bottom: -100px;
         }
         body
@@ -34,12 +34,12 @@
     <div class="ui container-fluid" id="result3" style="display: none; padding: 0rem 2rem">
         <div class="ui buttons right floated" id="divaccordion2">
             <a href="javascript:;"  class="ui red button" onclick="document.title='LAPORAN STATISTIK PETEMPATAN {{ date('d-M-Y') }}'; window.print();" title="PDF"><b>&nbsp;Cetak&nbsp;</b></a>
-        </div> 
+        </div>
         <div id="divaccordion2">
             <br><br><br>
         </div>
         <div id="resultcountpetempatan">
-          
+
         </div>
     </div>
 
@@ -51,19 +51,19 @@
                 <div class="card">
                     <div class="ui active loader loader4_2" id=""></div>
                     <div class="content resultchart4_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader18_2" id=""></div>
                     <div class="content resultchart18_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail kemudahan asas -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail pemilikan rumah mengikut daerah print -->
@@ -71,19 +71,19 @@
                 <div class="card ">
                     <div class="ui active loader loader25_2" id=""></div>
                     <div class="content resultchart25_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader21_2" id=""></div>
                     <div class="content resultchart21_2" id="" style="display: none">
-                    
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail pemilikan rumah mengikut daerah -->
-        
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail pendapatan penduduk mengikut daerah print -->
@@ -91,19 +91,19 @@
                 <div class="card">
                     <div class="ui active loader loader8_2" id=""></div>
                     <div class="content resultchart8_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader10_2" id=""></div>
                     <div class="content resultchart10_2" id="" style="display: none">
-                      
-                    </div>  
+
+                    </div>
                 </div>
             </div>
         <!-- end chart n detail pendapatan penduduk mengikut daerah -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail umur mengikut daerah print -->
@@ -111,33 +111,33 @@
                 <div class="card">
                     <div class="ui active loader loader26_2" id=""></div>
                     <div class="content resultchart26_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader27_2" id=""></div>
                     <div class="content resultchart27_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail umur mengikut daerah -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
-        
+
         <!-- chart n detail jenis rumah print -->
             <div class="ui two stackable cards raised" style="margin-top: 0px;" id="divrumahtype">
                 <div class="card ">
                     <div class="ui active loader loader2_2" id=""></div>
                     <div class="content resultchart2_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader22" id=""></div>
                     <div class="content resultchart22_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -148,19 +148,19 @@
                 <div class="card ">
                     <div class="ui active loader loader23_2" id=""></div>
                     <div class="content resultchart23_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader24_2" id=""></div>
                     <div class="content resultchart24_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail jenis rumah mengikut daerah -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail kemudahan awam n infra print -->
@@ -168,13 +168,13 @@
                 <div class="card">
                     <div class="ui active loader loader3_2" id=""></div>
                     <div class="content resultchart3_2" id="" style="display: none">
-                    
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader17_2" id=""></div>
                     <div class="content resultchart17_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -185,19 +185,19 @@
                 <div class="card">
                     <div class="ui active loader loader19_2" id=""></div>
                     <div class="content resultchart19_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader20_2" id=""></div>
                     <div class="content resultchart20_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail kemudahan awam n infra mengikut daerah -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail status kerja print -->
@@ -205,13 +205,13 @@
                 <div class="card">
                     <div class="ui active loader loader5_2" id=""></div>
                     <div class="content resultchart5_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader11_2" id=""></div>
                     <div class="content resultchart11_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -222,19 +222,19 @@
                 <div class="card">
                     <div class="ui active loader loader9_2" id=""></div>
                     <div class="content resultchart9_2" id="" style="display: none">
-                      
+
                     </div>
-                </div> 
+                </div>
                 <div class="card">
                     <div class="ui active loader loader12_2" id=""></div>
                     <div class="content resultchart12_2" id="" style="display: none">
-                      
+
                     </div>
-                </div> 
+                </div>
             </div>
         <!-- end chart n detail status kerja mengikut daerah -->
 
-        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important"> 
+        <div id="divtitle" style="page-break-before:always; display: none; padding-top: 1rem !important">
         </div>
 
         <!-- chart n detail taraf perkahwinan print -->
@@ -242,13 +242,13 @@
                 <div class="card">
                     <div class="ui active loader loader6_2" id=""></div>
                     <div class="content resultchart6_2" id="" style="display: none">
-                    
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader13_2" id=""></div>
                     <div class="content resultchart13_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -259,13 +259,13 @@
                 <div class="card">
                     <div class="ui active loader loader15_2" id=""></div>
                     <div class="content resultchart15_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader16_2" id=""></div>
                     <div class="content resultchart16_2" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -285,13 +285,13 @@
                 <div class="card ">
                     <div class="ui active loader loader2_1" id=""></div>
                     <div class="content resultchart2_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader22" id=""></div>
                     <div class="content resultchart22_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -302,13 +302,13 @@
                 <div class="card ">
                     <div class="ui active loader loader23_1" id=""></div>
                     <div class="content resultchart23_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader24_1" id=""></div>
                     <div class="content resultchart24_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -319,13 +319,13 @@
                 <div class="card">
                     <div class="ui active loader loader3_1" id=""></div>
                     <div class="content resultchart3_1" id="" style="display: none">
-                    
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader17_1" id=""></div>
                     <div class="content resultchart17_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -336,13 +336,13 @@
                 <div class="card">
                     <div class="ui active loader loader19_1" id=""></div>
                     <div class="content resultchart19_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader20_1" id=""></div>
                     <div class="content resultchart20_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -353,13 +353,13 @@
                 <div class="card">
                     <div class="ui active loader loader5_1" id=""></div>
                     <div class="content resultchart5_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader11_1" id=""></div>
                     <div class="content resultchart11_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -370,15 +370,15 @@
                 <div class="card">
                     <div class="ui active loader loader9_1" id=""></div>
                     <div class="content resultchart9_1" id="" style="display: none">
-                      
+
                     </div>
-                </div> 
+                </div>
                 <div class="card">
                     <div class="ui active loader loader12_1" id=""></div>
                     <div class="content resultchart12_1" id="" style="display: none">
-                      
+
                     </div>
-                </div> 
+                </div>
             </div>
         <!-- end chart n detail status kerja mengikut daerah -->
 
@@ -387,13 +387,13 @@
                 <div class="card">
                     <div class="ui active loader loader6_1" id=""></div>
                     <div class="content resultchart6_1" id="" style="display: none">
-                    
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader13_1" id=""></div>
                     <div class="content resultchart13_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -404,13 +404,13 @@
                 <div class="card">
                     <div class="ui active loader loader15_1" id=""></div>
                     <div class="content resultchart15_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader16_1" id=""></div>
                     <div class="content resultchart16_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -421,13 +421,13 @@
                 <div class="card">
                     <div class="ui active loader loader4_1" id=""></div>
                     <div class="content resultchart4_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader18_1" id=""></div>
                     <div class="content resultchart18_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -438,31 +438,31 @@
                 <div class="card ">
                     <div class="ui active loader loader25_1" id=""></div>
                     <div class="content resultchart25_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader21_1" id=""></div>
                     <div class="content resultchart21_1" id="" style="display: none">
-                    
+
                     </div>
                 </div>
             </div>
         <!-- end chart n detail pemilikan rumah -->
-        
+
         <!-- chart n detail pendapatan penduduk mengikut daerah -->
             <div class="ui two stackable cards raised" style="margin-top: 0px;">
                 <div class="card">
                     <div class="ui active loader loader8_1" id=""></div>
                     <div class="content resultchart8_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader10_1" id=""></div>
                     <div class="content resultchart10_1" id="" style="display: none">
-                      
-                    </div>  
+
+                    </div>
                 </div>
             </div>
         <!-- end chart n detail pendapatan penduduk mengikut daerah -->
@@ -472,13 +472,13 @@
                 <div class="card">
                     <div class="ui active loader loader26_1" id=""></div>
                     <div class="content resultchart26_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
                 <div class="card">
                     <div class="ui active loader loader27_1" id=""></div>
                     <div class="content resultchart27_1" id="" style="display: none">
-                      
+
                     </div>
                 </div>
             </div>
@@ -507,7 +507,7 @@
                 </tr>
             </thead>
             <tbody id="table-chart5">
-              
+
             </tbody>
         </table>
     </div>
@@ -515,7 +515,7 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function() 
+    $(document).ready(function()
     {
         $("#printpie").click(function()
         {
@@ -530,14 +530,14 @@
         valmukim = 0;
         valcat_petempatan = 0;
         valkampung = 0;
-       
+
         $.ajax(
         {
             type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
             datatype: 'json',
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 // block("tab-content");
                 // //document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
@@ -545,7 +545,7 @@
                 $('#loading').show();
             },
 
-            success: function(data) 
+            success: function(data)
             {
                 // unblock("tab-content");
                 $('#loading').hide();
@@ -556,7 +556,7 @@
         search();
     });
 
-    function showdetailkerja() 
+    function showdetailkerja()
     {
         $('#detailStatusKerja').modal(
         {
@@ -564,7 +564,7 @@
         }).modal('show');
     }
 
-    function search() 
+    function search()
     {
         valparlimen = 0;
         valdun = 0;
@@ -578,14 +578,14 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/countpetempatan/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 block("tab-content");
                 $('#loading').show();
 
                 document.getElementById('result3').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 unblock("tab-content");
                 $('#loading').hide();
@@ -601,18 +601,18 @@
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/countdata/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
-            
-            beforeSend: function() 
+
+            beforeSend: function()
             {
 
             },
-            success: function(data) 
+            success: function(data)
             {
-                if (data == 0) 
+                if (data == 0)
                 {
                     $('#result4').hide();
-                } 
-                else 
+                }
+                else
                 {
                     $('#result4').show();
                 }
@@ -668,25 +668,25 @@
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart25/')}}",
-            
-            beforeSend: function() 
+
+            beforeSend: function()
             {
                 $('.loader25').show();
                 $('#result4').show();
 
                 // document.getElementById('resultchart25').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_jenis = "";
                 var lengthdata = "";
 
-                if (data.arr_jenis.length == 0) 
+                if (data.arr_jenis.length == 0)
                 {
                     $('#result4').hide();
-                } 
-                else 
+                }
+                else
                 {
                     $('#result4').show();
                 }
@@ -717,13 +717,13 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart2/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader2').show();
 
                 // document.getElementById('resultchart2').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -742,7 +742,7 @@
                 $('.resultchart22_2').show();
                 //document.getElementById('resultchart1').innerHTML = data;
 
-                // console.log(data.arr_jenis.length);
+                //
 
                 arr_jenis = data.arr_jenis;
                 arr_data = data.arr_data;
@@ -774,7 +774,7 @@
                 htc5 +='</tr>'
                 htc5 +='</thead>'
                 htc5 +='<tbody id="table-chart5">'
-            
+
                 if(lengthdata != 0)
                 {
                     for(var i=0; i<paparan.length; i++)
@@ -826,13 +826,13 @@
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart3/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
-            
-            beforeSend: function() 
+
+            beforeSend: function()
             {
                 $('.loader3').show();
                 // document.getElementById('resultchart3').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -862,7 +862,7 @@
                 var paparan = arr_jenis.toString().split(",");
                 var sum = 0;
 
-               
+
                 htc5 += '<table class="ui very basic collapsing celled table" style="width:100%; font-size: 12px; padding-top: 10px">';
                 htc5 +='<thead>'
                 htc5 +='<tr>'
@@ -936,12 +936,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart4/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader4').show();
                 // document.getElementsByClassName('resultchart4').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -963,7 +963,7 @@
                 arr_label = data.arr_label;
                 arr_ya = data.arr_ya;
                 arr_tidak = data.arr_tidak;
-                
+
                 getBarKemudahan2(arr_jenis, arr_data, lengthdata, arr_label, arr_ya, arr_tidak);
 
                 $('#divasas').hide();
@@ -977,13 +977,13 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart5/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader5').show();
                 $('.loader11').show();
                 // document.getElementById('resultchart5').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1029,7 +1029,7 @@
                 htc5 +='</tr>'
                 htc5 +='</thead>'
                 htc5 +='<tbody id="table-chart5">'
-                
+
                 if(lengthdata != 0)
                 {
                     for(var i=0; i<paparan.length; i++)
@@ -1077,12 +1077,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart5all/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader9').show();
                 // document.getElementById('resultchart9').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1095,7 +1095,7 @@
                 $('.loader9_2').hide();
                 $('.resultchart9_1').show();
                 $('.resultchart9_2').show();
-                
+
                 arr_data = data.arr_data;
                 arr_label = data.arr_label;
                 arr_jenis = data.arr_jenis;
@@ -1109,20 +1109,20 @@
             } //end sucsess chart9
         }); //end ajax chart9
         //--------------------------------------------end getchart9-----------------//
-    
+
         //-------------------------------------------start getchart6----------------//
         $.ajax(
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart6/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader6').show();
                 $('.loader13').show();
                 // document.getElementById('resultchart6').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1149,7 +1149,7 @@
 
                 var paparan = arr_jenis.toString().split(",");
                 var sum = 0;
-               
+
                 htc5 += '<table class="ui very basic collapsing celled table" style="width:100%; font-size: 12px; padding-top: 10px">';
                 htc5 +='<thead>'
                 htc5 +='<tr>'
@@ -1258,7 +1258,7 @@
     //        var paparan = arr_status.toString().split(",");
     //             var sum = 0;
 
-               
+
     //                htc5 += '<table class="ui very basic collapsing celled table" style="width:100%; font-size: 12px; padding-top: 10px">';
     //                 htc5 +='<thead>'
     //                 htc5 +='<tr>'
@@ -1298,8 +1298,8 @@
     //                 htc5 +='</tbody>'
     //                 htc5 += '</table>';
 
-                    
-                  
+
+
     //             }
     //             else
     //             {
@@ -1329,12 +1329,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart26/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('#loader26').show();
                 // document.getElementById('resultchart26').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1368,12 +1368,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart27/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader27').show();
                 // document.getElementById('resultchart27').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1428,19 +1428,19 @@
     // }); //end ajax chart1
 
     //-------------------------------------------end getchar8----------------//
-        
+
         //-------------------------------------------getchart8-----------------------//
         $.ajax(
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart8all/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader8').show();
                 // document.getElementById('resultchart8').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1473,12 +1473,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart10/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader10').show();
                 // document.getElementById('resultchart10').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1495,19 +1495,19 @@
         }); //end ajax chart1
 
     //-------------------------------------------end getchart10----------------//
-        
+
         //-------------------------------------------getchart12-----------------------//
         $.ajax(
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart12/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader12').show();
                 // document.getElementById('resultchart10').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1529,12 +1529,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart15/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader15').show();
                 // document.getElementById('resultchart15').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1566,12 +1566,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart16/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader16').show();
                 // document.getElementById('resultchart16').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1594,13 +1594,13 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart19/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader19').show();
 
                 // document.getElementById('resultchart19').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1631,13 +1631,13 @@
         {
             type: "GET",
             url: "{{ URL::to('/dashboard/chart20/')}}",
-            
-            beforeSend: function() 
+
+            beforeSend: function()
             {
                 $('.loader20').show();
                 // document.getElementById('resultchart20').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1649,9 +1649,9 @@
                 $('.loader20_2').hide();
                 $('.resultchart20_1').show();
                 $('.resultchart20_2').show();
-        
+
             } //end sucsess chart12
-        
+
         }); //end ajax chart12
         //-------------------------------------------end getchart20----------------//
 
@@ -1661,13 +1661,13 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart23/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader23').show();
-                
+
                 // document.getElementById('resultchart23').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
                 var arr_data = "";
                 var arr_status = "";
@@ -1679,7 +1679,7 @@
                 $('.loader23_2').hide();
                 $('.resultchart23_1').show();
                 $('.resultchart23_2').show();
-                
+
                 arr_data = data.arr_data;
                 arr_label = data.arr_label;
                 arr_jenis = data.arr_jenis;
@@ -1699,13 +1699,13 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart24/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader24').show();
 
                 // document.getElementById('resultchart24').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1729,12 +1729,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart21/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader21').show();
                 // document.getElementById('resultchart21').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1757,12 +1757,12 @@
             type: "GET",
             url: "{{ URL::to('/dashboard/chart18/')}}",
 
-            beforeSend: function() 
+            beforeSend: function()
             {
                 $('.loader18').show();
                 // document.getElementById('resultchart18_1').style.display = "none";
             },
-            success: function(data) 
+            success: function(data)
             {
 
                 var arr_data = "";
@@ -1914,13 +1914,13 @@
 
   // }
 
-        function getBarStatusMilik(arr_data, arr_label, arr_jenis,arr_all_data) 
+        function getBarStatusMilik(arr_data, arr_label, arr_jenis,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctx = document.getElementById("myBarChart_"+ii).getContext('2d');
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -1930,7 +1930,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -1944,7 +1944,7 @@
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -1994,13 +1994,13 @@
         }
 
 
-        function getPieJenisRumah(arr_jenis, arr_data, lengthdata, jumjenisrumah) 
+        function getPieJenisRumah(arr_jenis, arr_data, lengthdata, jumjenisrumah)
         {
             for(var i = 1; i < 3; i++)
             {
                 var ctxpie = $(".myPieChart2_"+i);
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2009,7 +2009,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2046,7 +2046,7 @@
                                     sum += Number(data);
                                 });
                                 let percentage =  value / sum * 100;
-              
+
                                 return percentage.toFixed(2) + "%";
                             },
                             color: '#fff',
@@ -2078,7 +2078,7 @@
                                     dataArr.map(data => {
                                         sum += Number(data);
                                     });
-                                    
+
                                     let percentage =  value / sum * 100;
 
                                     return label + ": " + valueformat;
@@ -2100,13 +2100,13 @@
             }
         }
 
-        function getPieKemudahan(arr_jenis, arr_data, lengthdata, jumkemudahan) 
+        function getPieKemudahan(arr_jenis, arr_data, lengthdata, jumkemudahan)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctxpie = $("#myPieKemudahan_"+ii);
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2115,7 +2115,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2152,11 +2152,11 @@
                                 // const percentage = value / total * 100
                                 let sum = 0;
                                 let dataArr = ctxpie.chart.data.datasets[0].data;
-                                
+
                                 dataArr.map(data => {
                                     sum += Number(data);
                                 });
-                                
+
                                 let percentage =  value / sum * 100;
 
                                 return percentage.toFixed(2) + "%";
@@ -2184,7 +2184,7 @@
 
                                     if (!label)
                                         label = 'Unknown'
-                                    
+
                                     let sum = 0;
                                     let dataArr = context.chart.data.datasets[0].data;
 
@@ -2220,7 +2220,7 @@
             {
                 var ctxBarChart = $(".myBarChart2_"+zz);
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2229,8 +2229,8 @@
                     ];
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
-                
-                    for (var i = 0; i < count; i++) 
+
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2239,7 +2239,7 @@
                     return data;
                 }
 
-                if (lengthdata == 0) 
+                if (lengthdata == 0)
                 {
                     var optionsBar = {
                         plugins: {
@@ -2263,8 +2263,8 @@
                     };
 
                     var barChartData = '';
-                } 
-                else 
+                }
+                else
                 {
                     var optionsBar = {
                         scales: {
@@ -2329,13 +2329,13 @@
         }
 
 
-        function getPieKerja(arr_jenis, arr_data, lengthdata, jumjeniskerja) 
+        function getPieKerja(arr_jenis, arr_data, lengthdata, jumjeniskerja)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctxpie = $("#myPieKerja_"+ii);
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2344,7 +2344,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2391,11 +2391,11 @@
                     },
                 };
 
-                if (lengthdata == 0) 
+                if (lengthdata == 0)
                 {
                     var chartDatapie = ''
-                } 
-                else 
+                }
+                else
                 {
                     var chartDatapie = {
                         labels: arr_jenis,
@@ -2444,13 +2444,13 @@
             }
         }
 
-        function getPieKahwin(arr_jenis, arr_data, lengthdata, jumjeniskerja) 
+        function getPieKahwin(arr_jenis, arr_data, lengthdata, jumjeniskerja)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctxpie = $("#myPieKahwin_"+ii);
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2458,7 +2458,7 @@
                     ];
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         data.push(colors[i]);
                     }
@@ -2649,7 +2649,7 @@
   //       ],
   //        ["#ab7277", "#324a80", "#467680", "#6badd5", "#7e637a", "#5b285c", "#c52b49", "#486eab", "#5c4547", "#d69fbf"
   //       ],
-  
+
   //     ];
 
   //     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -2726,7 +2726,7 @@
 
   // }
 
-        function getBarPendapatan(arr_data, arr_label, arr_jenis,jumgaji,arr_all_data) 
+        function getBarPendapatan(arr_data, arr_label, arr_jenis,jumgaji,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
@@ -2737,7 +2737,7 @@
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -2748,7 +2748,7 @@
                     })
                 }
 
-                var myChart = new Chart(ctx, 
+                var myChart = new Chart(ctx,
                 {
                     type: 'bar',
                     data: barChartData,
@@ -2787,13 +2787,13 @@
             }
         }
 
-        function getBarKerja(arr_data, arr_label, arr_jenis,jumjeniskerja,arr_all_data) 
+        function getBarKerja(arr_data, arr_label, arr_jenis,jumjeniskerja,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctx = document.getElementById("myBarKerja_"+ii).getContext('2d');
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2803,7 +2803,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2817,7 +2817,7 @@
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -2865,7 +2865,7 @@
             }
         }
 
-        function getBarTarafKahwin(arr_data, arr_label, arr_jenis, arr_all_data) 
+        function getBarTarafKahwin(arr_data, arr_label, arr_jenis, arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
@@ -2875,7 +2875,7 @@
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -2923,14 +2923,14 @@
                 });
             }
         }
-    
-        function getBarKemudahanAwam(arr_data, arr_label, arr_jenis,arr_all_data) 
+
+        function getBarKemudahanAwam(arr_data, arr_label, arr_jenis,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 var ctx = document.getElementById("myBarKemudahanAwam_"+ii).getContext('2d');
 
-                function getRandomColorEachData(count) 
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -2940,7 +2940,7 @@
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
 
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -2949,13 +2949,13 @@
                     return data;
                 }
 
-                var barChartData = 
+                var barChartData =
                 {
                     labels: arr_label,
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -3004,15 +3004,15 @@
             }
         }
 
-        function getBarJenisRumah(arr_data, arr_label, arr_jenis,arr_all_data) 
+        function getBarJenisRumah(arr_data, arr_label, arr_jenis,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
                 // var ctx = document.getElementsByClassName("myBarJenisRumah_"+i)[0].getContext('2d');
                 var ctx = document.getElementById("myBarJenisRumah_"+ii).getContext('2d');
                 // var ctx = $(".myBarJenisRumah"+i).getContext('2d');
-                
-                function getRandomColorEachData(count) 
+
+                function getRandomColorEachData(count)
                 {
                     var data = [];
                     var arr_color = [
@@ -3021,7 +3021,7 @@
                     ];
 
                     var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
-                    for (var i = 0; i < count; i++) 
+                    for (var i = 0; i < count; i++)
                     {
                         // data.push(getRandomColor());
                         data.push(colors[i]);
@@ -3030,13 +3030,13 @@
                     return data;
                 }
 
-                var barChartData = 
+                var barChartData =
                 {
                     labels: arr_label,
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(
@@ -3047,7 +3047,7 @@
                     })
                 }
 
-                var myChart = new Chart(ctx, 
+                var myChart = new Chart(ctx,
                 {
                     type: 'bar',
                     data: barChartData,
@@ -3087,7 +3087,7 @@
         }
 
 
-        function myBarUmurDaerah(arr_data, arr_label, arr_jenis,arr_all_data) 
+        function myBarUmurDaerah(arr_data, arr_label, arr_jenis,arr_all_data)
         {
             for(var ii = 1; ii < 3; ii++)
             {
@@ -3098,7 +3098,7 @@
                     datasets: []
                 };
 
-                for (var i = 0; i < arr_all_data.length; i++) 
+                for (var i = 0; i < arr_all_data.length; i++)
                 {
                     // console.log(arr_all_data[i][1]['background']);
                     barChartData.datasets.push(

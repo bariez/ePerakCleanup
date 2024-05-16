@@ -19,7 +19,7 @@
                 <h3 class="ui header m-t-xs">
           DASHBOARD PENGHULU MUKIM - {{data_get($mukim,'NamaMukim')}}
         </h3>
-    </div> 
+    </div>
 
 </div>
 <br>
@@ -47,7 +47,7 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text" id="pilihmukim">Sila Pilih</div>
                                 <div class="menu" id="selectmukim">
-                                 
+
                                 </div>
                             </div>
                      </div>
@@ -83,13 +83,13 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text" id="pilihmukim">Sila Pilih</div>
                                 <div class="menu" id="selectmukim">
-                                 
+
                                 </div>
                             </div>
                      </div>
                      @endif
-                  
-                    
+
+
                  </div>
                <div class="two fields">
                      <div class="field">
@@ -110,11 +110,11 @@
                                 <div class="default text" id="pilihdun">Sila Pilih</div>
                                 <div class="menu" id="selectdun">
                                 </div>
-                               
+
                             </div>
                      </div>
                  </div>
-            
+
 
                  <div class="two fields">
                      <div class="field">
@@ -138,14 +138,14 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text" id="pilihkampung">Sila Pilih</div>
                                 <div class="menu" id="selectkampung">
-                                  
+
                             </div>
                             </div>
                      </div>
                  </div>
-           
 
-               </form>  
+
+               </form>
 
                  <div class="ui divider section"></div>
                      <div class="ui buttons right floated">
@@ -156,7 +156,7 @@
                         </button>
                     </div>
                     <br/><br/><br/>
-                         
+
         </div>
       </div>
     </div>
@@ -168,11 +168,11 @@
                         <div class="bar">
                             <div class="progress">Sila Tunggu Sebentar</div>
                         </div>
-                
+
                 </div>
             </div>
         </div>
-  
+
     </div> -->
     <br>
 <div class="ui container-fluid content__body" id="result3" style="display: none; padding: 0rem 2rem">
@@ -182,7 +182,7 @@
 
 
 <div class="ui container-fluid content__body p-3" id="result4">
-  
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader1"></div>
@@ -199,7 +199,7 @@
         </div>
 
       </div>
-    
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader3"></div>
@@ -217,9 +217,9 @@
         </div>
 
       </div>
-  
 
-      
+
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader5"></div>
@@ -239,7 +239,7 @@
       </div>
 
 
-      
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader7"></div>
@@ -266,7 +266,7 @@
 
 <script type="text/javascript">
 
-  $(document).ready(function() 
+  $(document).ready(function()
   {
 
     $('.ui.accordion')
@@ -298,8 +298,8 @@
         if(role==2){
 
 
-         $.ajax({ 
-            type: "GET", 
+         $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/mukim/')}}"+"/"+valdaerahuser,
             datatype : 'json',
 
@@ -311,16 +311,16 @@
                $('#selectmukim').html('');
                $('#loading').show();
                $('#result2').hide();
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#selectmukim').html(data);
-           
+
 
            }
 
@@ -330,8 +330,8 @@
            }
 
 
-         $.ajax({ 
-            type: "GET", 
+         $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/parlimenKampung/')}}"+"/"+valdaerahuser+"/"+valmukimuser,
             datatype : 'json',
 
@@ -353,16 +353,16 @@
                }
                $('#kampung').val(0);
 
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#selectparlimen').html(data);
-           
+
 
            }
 
@@ -400,7 +400,7 @@
        var daerah=$('#daerah').val();
        var mukim=$('#mukim').val();
     }
-       
+
 
        if(daerah==''){
         valdaerah=0;
@@ -408,7 +408,7 @@
          valdaerah=daerah;
 
        }
-      
+
 
       if(mukim==''){
         valmukim=0;
@@ -437,8 +437,8 @@
        }
 
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+valparlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
@@ -450,22 +450,22 @@
                $('#loading').show();
                $('#result2').hide();
                $('#kampung').val(0);
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#selectkampung').html(data);
-           
+
 
            }
 
 
           });
-      
+
 
     search();
 
@@ -476,7 +476,7 @@ function search(){
 
         valparlimen=0;
         valdun=0;
-      
+
        var daerah="{{$daerahuser}}";
 
        if(daerah==''){
@@ -512,8 +512,8 @@ function search(){
 
        }
 
-      $.ajax({ 
-            type: "GET", 
+      $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/countpetempatan/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -522,11 +522,11 @@ function search(){
               $('#loading').show();
 
                document.getElementById('result3').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
@@ -540,17 +540,17 @@ function search(){
           });
 
 
-         $.ajax({ 
-            type: "GET", 
+         $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/countdata/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
             {
-             
-             
+
+
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
                 if(data==0){
                   $('#result4').hide();
@@ -565,8 +565,8 @@ function search(){
 
 
 //-------------------------------------------getchart1----------------------------//
-      $.ajax({ 
-            type: "GET", 
+      $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart1/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -574,16 +574,16 @@ function search(){
 
               $('#loader1').show();
               $('#result4').show();
-             
+
 
 
                document.getElementById('resultchart1').style.display = "none";
-               
-               
+
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -592,7 +592,7 @@ function search(){
               $('#result4').show();
 
              $('#loader1').hide();
-             
+
              //document.getElementById('result3').style.display = "show";
              $('#resultchart1').show();
              //document.getElementById('resultchart1').innerHTML = data;
@@ -603,7 +603,7 @@ function search(){
               arr_status = data.arr_status;
               lengthdata= data.arr_status.length;
 
-              $("#resultchart1").html('<canvas id="myBarChart" height="300" width="580"></canvas></div>'); 
+              $("#resultchart1").html('<canvas id="myBarChart" height="300" width="580"></canvas></div>');
                getBarStatusMilik(arr_data,arr_status,lengthdata);
          }//end sucsess chart1
 
@@ -612,8 +612,8 @@ function search(){
 
 //-------------------------------------------end getchart1-------------------------//
 //-------------------------------------------start getchart2-----------------//
-     $.ajax({ 
-            type: "GET", 
+     $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart2/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -621,11 +621,11 @@ function search(){
               $('#loader2').show();
 
                document.getElementById('resultchart2').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -636,14 +636,14 @@ function search(){
              $('#resultchart2').show();
              //document.getElementById('resultchart1').innerHTML = data;
 
-             console.log(data.arr_jenis.length);
+
 
               arr_jenis = data.arr_jenis;
               arr_data = data.arr_data;
               lengthdata= data.arr_jenis.length;
               jumjenisrumah=data.jumjenisrumah;
 
-              $("#resultchart2").html('<canvas id="myPieChart" height="300" width="580"></canvas></div>'); 
+              $("#resultchart2").html('<canvas id="myPieChart" height="300" width="580"></canvas></div>');
                getPieJenisRumah(arr_jenis,arr_data,lengthdata,jumjenisrumah);
          }//end sucsess chart1
 
@@ -651,8 +651,8 @@ function search(){
           });//end ajax chart1
 //--------------------------------------------end getchart2-------------------//
 //-------------------------------------------start getchart3----------------------//
-     $.ajax({ 
-            type: "GET", 
+     $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart3/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -660,11 +660,11 @@ function search(){
               $('#loader3').show();
 
                document.getElementById('resultchart3').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -682,7 +682,7 @@ function search(){
               lengthdata= data.arr_jenis.length;
               jumkemudahan=data.jumkemudahan;
 
-              $("#resultchart3").html('<canvas id="myPieKemudahan" height="350" width="580"></canvas></div>'); 
+              $("#resultchart3").html('<canvas id="myPieKemudahan" height="350" width="580"></canvas></div>');
                getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan);
          }//end sucsess chart1
 
@@ -690,8 +690,8 @@ function search(){
           });//end ajax chart1
 //--------------------------------------------end getchart3-------------------//
 //-------------------------------------------start getchart4-----------------//
-     $.ajax({ 
-            type: "GET", 
+     $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart4/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -699,11 +699,11 @@ function search(){
               $('#loader4').show();
 
                document.getElementById('resultchart4').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -724,9 +724,9 @@ function search(){
               arr_label=data.arr_label;
               arr_ya=data.arr_ya;
               arr_tidak=data.arr_tidak;
-             
 
-              $("#resultchart4").html('<canvas id="myBarChart2" height="330" width="580"></canvas></div>'); 
+
+              $("#resultchart4").html('<canvas id="myBarChart2" height="330" width="580"></canvas></div>');
                getBarKemudahan2(arr_jenis,arr_data,lengthdata,arr_label,arr_ya,arr_tidak);
          }//end sucsess chart1
 
@@ -734,8 +734,8 @@ function search(){
           });//end ajax chart1
 //--------------------------------------------end getchart4-------------------//
 //-------------------------------------------start getchart5-----------------//
-     $.ajax({ 
-            type: "GET", 
+     $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart5/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -743,11 +743,11 @@ function search(){
               $('#loader5').show();
 
                document.getElementById('resultchart5').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -758,14 +758,14 @@ function search(){
              $('#resultchart5').show();
              //document.getElementById('resultchart1').innerHTML = data;
 
-             console.log(data.arr_jenis.length);
+
 
               arr_jenis = data.arr_jenis;
               arr_data = data.arr_data;
               lengthdata= data.arr_jenis.length;
               jumjeniskerja=data.jumjeniskerja;
 
-              $("#resultchart5").html('<canvas id="myPieKerja" height="350" width="580"></canvas></div>'); 
+              $("#resultchart5").html('<canvas id="myPieKerja" height="350" width="580"></canvas></div>');
                getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja);
          }//end sucsess chart5
 
@@ -773,8 +773,8 @@ function search(){
           });//end ajax chart5
 //--------------------------------------------end getchart5-------------------//
 //-------------------------------------------start getchart6-----------------//
-     $.ajax({ 
-            type: "GET", 
+     $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart6/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -782,11 +782,11 @@ function search(){
               $('#loader6').show();
 
                document.getElementById('resultchart6').style.display = "none";
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
@@ -797,14 +797,14 @@ function search(){
              $('#resultchart6').show();
              //document.getElementById('resultchart1').innerHTML = data;
 
-             console.log(data.arr_jenis.length);
+
 
               arr_jenis = data.arr_jenis;
               arr_data = data.arr_data;
               lengthdata= data.arr_jenis.length;
               jumjeniskawin=data.jumjeniskawin;
 
-              $("#resultchart6").html('<canvas id="myPieKahwin" height="350" width="580"></canvas>'); 
+              $("#resultchart6").html('<canvas id="myPieKahwin" height="350" width="580"></canvas>');
                getPieKahwin(arr_jenis,arr_data,lengthdata,jumjeniskawin);
          }//end sucsess chart6
 
@@ -813,8 +813,8 @@ function search(){
 //--------------------------------------------end getchart6-------------------//
 
 //-------------------------------------------getchart7------------------------//
-      $.ajax({ 
-            type: "GET", 
+      $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart7/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -823,17 +823,17 @@ function search(){
               $('#loader7').show();
 
                document.getElementById('resultchart7').style.display = "none";
-     
+
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
               var lengthdata="";
 
              $('#loader7').hide();
-             
+
              //document.getElementById('result3').style.display = "show";
              $('#resultchart7').show();
              //document.getElementById('resultchart1').innerHTML = data;
@@ -844,7 +844,7 @@ function search(){
               arr_status = data.arr_status;
               lengthdata= data.arr_status.length;
 
-              $("#resultchart7").html('<canvas id="myBarUmur" height="350" width="580"></canvas></div>'); 
+              $("#resultchart7").html('<canvas id="myBarUmur" height="350" width="580"></canvas></div>');
                getBarUmur(arr_data,arr_status,lengthdata);
          }//end sucsess chart1
 
@@ -853,8 +853,8 @@ function search(){
 
 //-------------------------------------------end getchart7-----------------//
 //-------------------------------------------getchart8-----------------------//
-      $.ajax({ 
-            type: "GET", 
+      $.ajax({
+            type: "GET",
              url: "{{ URL::to('/dashboard/chart8/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
             beforeSend: function ()
@@ -863,17 +863,17 @@ function search(){
               $('#loader8').show();
 
                document.getElementById('resultchart8').style.display = "none";
-     
+
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
               var arr_data="";
               var arr_status="";
               var lengthdata="";
 
              $('#loader8').hide();
-             
+
              //document.getElementById('result3').style.display = "show";
              $('#resultchart8').show();
              //document.getElementById('resultchart1').innerHTML = data;
@@ -884,7 +884,7 @@ function search(){
               arr_status = data.arr_status;
               lengthdata= data.arr_status.length;
 
-              $("#resultchart8").html('<canvas id="myBarPendapatan" height="350" width="580"></canvas></div>'); 
+              $("#resultchart8").html('<canvas id="myBarPendapatan" height="350" width="580"></canvas></div>');
                getBarPendapatan(arr_data,arr_status,lengthdata);
          }//end sucsess chart8
 
@@ -919,7 +919,7 @@ function search(){
        var chartOptions = {
                    tooltips: {
                               callbacks: {
-                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`, 
+                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
                                   title: () => null,
                               }
                           },
@@ -939,7 +939,7 @@ function search(){
                 legend: {
                     display: false,
                 },
-      
+
             }
       };
 
@@ -956,7 +956,7 @@ function search(){
                       data: arr_data,
                       backgroundColor: getRandomColorEachDatamyBarChart(lengthdata),
                       borderColor: "transparent",
-                  
+
                   }]
         };
 
@@ -966,11 +966,11 @@ function search(){
 
          var config = {
          type: "bar",
-   
+
          // Chart Options
          options: chartOptions,
-   
-         
+
+
          data: chartData
       };
 
@@ -1001,7 +1001,7 @@ function search(){
 
 
        var chartOptionspie = {
-            
+
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -1019,7 +1019,7 @@ function search(){
                   //  display: 'auto',
                   //   },
                   datalabels: {
-                 
+
                       formatter: (value, ctxpie) => {
                         // const datapoints = ctxpie.chart.data.datasets[0].data
                         //  const total = jumjenisrumah
@@ -1054,7 +1054,7 @@ function search(){
                               callbacks: {
                                   label: function(context) {
 
-                              
+
                                       let label = context.label;
                                       let value = context.raw;
                                        let valueformat = context.formattedValue;
@@ -1073,16 +1073,16 @@ function search(){
                                   }
                               }
                            }
-                      
+
                       }]
         };
 
          var configpie = {
         type: 'doughnut',
-   
+
          // Chart Options
          options: chartOptionspie,
-   
+
          data: chartDatapie,
           plugins: [ChartDataLabels],
       };
@@ -1113,7 +1113,7 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
             }
 
        var chartOptionspie = {
-            
+
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -1167,7 +1167,7 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
                                       let label = context.label;
                                       let valueformat = context.formattedValue;
                                       let value = context.raw;
-                                      
+
 
                                       if (!label)
                                           label = 'Unknown'
@@ -1183,16 +1183,16 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
                                   }
                               }
                            }
-                      
+
                       }]
         };
 
          var configpie = {
          type: 'doughnut',
-   
+
          // Chart Options
          options: chartOptionspie,
-   
+
          data: chartDatapie,
           plugins: [ChartDataLabels],
       };
@@ -1238,7 +1238,7 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
                 legend: {
                     display: true,
                 },
-      
+
             }
 
            };
@@ -1273,7 +1273,7 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
                 legend: {
                     display: true,
                 },
-      
+
             }
       };
 
@@ -1303,10 +1303,10 @@ function getPieKemudahan(arr_jenis,arr_data,lengthdata,jumkemudahan)
 
        var config = {
          type: "bar",
-   
+
          // Chart Options
          options: optionsBar,
-   
+
          data: barChartData
       };
 
@@ -1322,7 +1322,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
         function getRandomColorEachData(count) {
             var data =[];
-                      var arr_color = [          
+                      var arr_color = [
                          ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
                          ],
                           ];
@@ -1337,7 +1337,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
             }
 
        var chartOptionspie = {
-            
+
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -1372,7 +1372,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                           sum += Number(data);
                         });
 
-                       
+
                       let percentage =  value / sum * 100;
                       return percentage.toFixed(2) + "%";
                       },
@@ -1426,10 +1426,10 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
          var configpie = {
          type: 'pie',
-   
+
          // Chart Options
          options: chartOptionspie,
-   
+
          data: chartDatapie,
           plugins: [ChartDataLabels],
       };
@@ -1443,7 +1443,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
         function getRandomColorEachData(count) {
             var data =[];
-                      var arr_color = [  
+                      var arr_color = [
                      ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
                       ],
                           ];
@@ -1457,7 +1457,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
             return data;
             }
        var chartOptionspie = {
-            
+
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -1537,10 +1537,10 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
          var configpie = {
          type: 'pie',
-   
+
          // Chart Options
          options: chartOptionspie,
-   
+
          data: chartDatapie,
           plugins: [ChartDataLabels],
       };
@@ -1572,7 +1572,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
        var chartOptions = {
                    tooltips: {
                               callbacks: {
-                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`, 
+                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
                                   title: () => null,
                               }
                           },
@@ -1592,7 +1592,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                 legend: {
                     display: false,
                 },
-      
+
             }
       };
 
@@ -1607,7 +1607,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                           data: arr_data,
                           backgroundColor: getRandomColorEachData(lengthdata),
                           borderColor: "transparent",
-                      
+
                       }]
         };
 
@@ -1616,10 +1616,10 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
          var config = {
          type: "bar",
-   
+
          // Chart Options
          options: chartOptions,
-   
+
          data: chartData
       };
 
@@ -1650,7 +1650,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
        var chartOptions = {
                    tooltips: {
                               callbacks: {
-                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`, 
+                                  label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
                                   title: () => null,
                               }
                           },
@@ -1670,7 +1670,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                 legend: {
                     display: false,
                 },
-      
+
             }
       };
 
@@ -1686,19 +1686,19 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                               data: arr_data,
                               backgroundColor: getRandomColorEachData(lengthdata),
                               borderColor: "transparent",
-                          
+
                           }]
             };
 
 
      }
-         
+
          var config = {
          type: "bar",
-   
+
          // Chart Options
          options: chartOptions,
-   
+
          data: chartData
       };
 
@@ -1933,9 +1933,9 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
      $('#kampung').val(0);
 
 
-         
-       $.ajax({ 
-            type: "GET", 
+
+       $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/dun/')}}"+"/"+id,
             datatype : 'json',
 
@@ -1948,18 +1948,18 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                $('#result2').hide();
                $('#result3').hide();
                $('#result4').hide();
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
             unblock("tab-content");
              $('#loading').hide();
              $('#result3').hide();
              $('#result4').hide();
              $('#selectdun').html(data);
-           
+
 
            }
 
@@ -1997,7 +1997,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
          valdaerah=daerah;
 
        }
-      
+
 
       if(mukim==''){
         valmukim=0;
@@ -2028,8 +2028,8 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
 
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+parlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
@@ -2041,17 +2041,17 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                $('#selectkampung').html('');
                $('#kampung').val(0);
                //$('#loading').show();
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
             // $('#loading').hide();
 
              unblock("tab-content");
              $('#selectkampung').html(data);
-           
+
 
            }
 
@@ -2066,10 +2066,10 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
     // $('#parlimendun').hide();
 
-    
-         
-       $.ajax({ 
-            type: "GET", 
+
+
+       $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/mukim/')}}"+"/"+id,
             datatype : 'json',
 
@@ -2087,18 +2087,18 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                $('#dun').val(0);
                $('#mukim').val(0);
                $('#kampung').val(0);
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
             unblock("tab-content");
              $('#loading').hide();
              $('#result3').hide();
              $('#result4').hide();
              $('#selectmukim').html(data);
-           
+
 
            }
 
@@ -2118,8 +2118,8 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
 
 
-           $.ajax({ 
-            type: "GET", 
+           $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/parlimenKampung/')}}"+"/"+id+"/"+valmukim,
             datatype : 'json',
 
@@ -2141,16 +2141,16 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                $('#mukim').val(0);
                $('#kampung').val(0);
 
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#selectparlimen').html(data);
-           
+
 
            }
 
@@ -2182,7 +2182,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
          valdaerah=daerah;
 
        }
-      
+
         var cat_petempatan=$('#cat_petempatan').val();
 
       if(cat_petempatan==''){
@@ -2206,8 +2206,8 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
 
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+valparlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
@@ -2220,17 +2220,17 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
                $('#mukim').val(0);
                $('#kampung').val(0);
               // $('#loading').show();
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
            // $('#loading').hide();
 
 
              $('#selectkampung').html(data);
-           
+
 
            }
 
@@ -2245,7 +2245,7 @@ function getPieKerja(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
 
 function kampungdun(id){
-    
+
        $('#kampung').val(0);
 
       var role="{{data_get($roleuser,'role_id')}}";
@@ -2280,7 +2280,7 @@ function kampungdun(id){
          var mukim=$('#mukim').val();
 
        }
-       
+
 
        if(daerah==''){
         valdaerah=0;
@@ -2288,7 +2288,7 @@ function kampungdun(id){
          valdaerah=daerah;
 
        }
-      
+
 
       if(mukim==''){
         valmukim=0;
@@ -2315,7 +2315,7 @@ function kampungdun(id){
          valdun=dun;
 
        }
-      
+
 
      var cat_petempatan=$('#cat_petempatan').val();
 
@@ -2337,8 +2337,8 @@ function kampungdun(id){
 
 
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+valparlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
@@ -2352,18 +2352,18 @@ function kampungdun(id){
                $('#result3').hide();
                $('#result4').hide();
                $('#kampung').val(0);
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#result3').hide();
              $('#result4').hide();
              $('#selectkampung').html(data);
-           
+
 
            }
 
@@ -2372,7 +2372,7 @@ function kampungdun(id){
     };
 
     function kampungmukim(id){
-    
+
 
         $('#parlimen').val(0);
         $('#dun').val(0);
@@ -2413,7 +2413,7 @@ function kampungdun(id){
          var mukim=id;
 
        }
-       
+
 
        if(daerah==''){
         valdaerah=0;
@@ -2421,7 +2421,7 @@ function kampungdun(id){
          valdaerah=daerah;
 
        }
-      
+
 
       if(mukim==''){
         valmukim=0;
@@ -2431,8 +2431,8 @@ function kampungdun(id){
        }
 
 
-          $.ajax({ 
-            type: "GET", 
+          $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/parlimenKampung/')}}"+"/"+valdaerah+"/"+valmukim,
             datatype : 'json',
 
@@ -2454,18 +2454,18 @@ function kampungdun(id){
                $('#mukim').val(0);
                $('#kampung').val(0);
 
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#result3').hide();
              $('#result4').hide();
              $('#selectparlimen').html(data);
-           
+
 
            }
 
@@ -2491,7 +2491,7 @@ function kampungdun(id){
        }
 
 
-    
+
 
       var kampung=$('#kampung').val();
 
@@ -2515,14 +2515,14 @@ function kampungdun(id){
 
 
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+valparlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
             beforeSend: function ()
             {
-                
+
                 block("tab-content");
                 document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
                $('#selectkampung').html('');
@@ -2531,11 +2531,11 @@ function kampungdun(id){
                $('#result3').hide();
                $('#result4').hide();
                $('#kampung').val(0);
-               
+
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
                unblock("tab-content");
                $('#loading').hide();
@@ -2544,7 +2544,7 @@ function kampungdun(id){
 
 
              $('#selectkampung').html(data);
-           
+
 
            }
 
@@ -2553,7 +2553,7 @@ function kampungdun(id){
 };
 
     function kampungpenempatan(id){
-    
+
 
        var parlimen=$('#parlimen').val();
        $('#kampung').val(0);
@@ -2590,7 +2590,7 @@ function kampungdun(id){
          valdun=dun;
 
        }
-       
+
          if(role==2 ){//
         var daerah=valdaerahuser;
          var mukim=$('#mukim').val();
@@ -2604,7 +2604,7 @@ function kampungdun(id){
          var mukim=$('#mukim').val();
 
        }
-      
+
 
        if(daerah==''){
         valdaerah=0;
@@ -2612,7 +2612,7 @@ function kampungdun(id){
          valdaerah=daerah;
 
        }
-     
+
 
       if(mukim==''){
         valmukim=0;
@@ -2638,8 +2638,8 @@ function kampungdun(id){
 
        }
 
-        $.ajax({ 
-            type: "GET", 
+        $.ajax({
+            type: "GET",
             url: "{{ URL::to('dataentry/kampung/')}}"+"/"+valparlimen+"/"+valdun+"/"+valdaerah+"/"+valmukim+"/"+valcat_petempatan+'/'+valkampung,
             datatype : 'json',
 
@@ -2655,15 +2655,15 @@ function kampungdun(id){
                $('#kampung').val(0);
 
             },
-            
-            success: function(data){ 
+
+            success: function(data){
 
              unblock("tab-content");
              $('#loading').hide();
              $('#result3').hide();
              $('#result4').hide();
              $('#selectkampung').html(data);
-           
+
 
            }
 

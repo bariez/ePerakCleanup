@@ -26,10 +26,10 @@
     width: 1170px;
   }*/
 
-@page { 
-    size: auto; 
-    margin: 0; 
-} 
+@page {
+    size: auto;
+    margin: 0;
+}
 
 /*#myBarChart{
 
@@ -54,7 +54,7 @@ display: none;
 }
 /*   .canvas_container {
         max-width: 100%;
-        padding-bottom: 50%;  Canvas is 2000x1000, this will set the height to 50% of width 
+        padding-bottom: 50%;  Canvas is 2000x1000, this will set the height to 50% of width
         position: relative;
     }*/
     #myBarChart{
@@ -358,7 +358,7 @@ aside{
   <div class="ui segments panel">
     <div class="ui segment p-3"> -->
 <div class="ui container-fluid content__body p-3" id="result4">
-  
+
       <div class="ui two stackable cards raised">
         <div class="card ">
           <div class="ui active loader" id="loader1"></div>
@@ -375,7 +375,7 @@ aside{
         </div>
 
       </div>
-    
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader3"></div>
@@ -393,9 +393,9 @@ aside{
         </div>
 
       </div>
-  
 
-      
+
+
       <div class="ui two stackable cards raised">
         <div class="card">
           <div class="ui active loader" id="loader5"></div>
@@ -454,7 +454,7 @@ aside{
 
        $("#printpie").click(function(){
     print_pie();
-     
+
      });
 
     $('.ui.accordion')
@@ -725,7 +725,7 @@ aside{
         $('#resultchart2').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -844,7 +844,7 @@ aside{
         $('#resultchart5').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -882,7 +882,7 @@ aside{
         $('#resultchart6').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_jenis.length);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;
@@ -989,7 +989,7 @@ aside{
 
         ["#915F78", "#ECB496"
         ],
-       
+
 
       ];
 
@@ -1639,7 +1639,7 @@ aside{
                   sum += Number(data);
                 });
 
-               
+
               let percentage =  value / sum * 100;
             return percentage.toFixed(2) + "%";
           },
@@ -1680,7 +1680,7 @@ aside{
                   sum += Number(data);
                 });
 
-               
+
               let percentage =  value / sum * 100;
               return label + ": " + valueformat;
               }
