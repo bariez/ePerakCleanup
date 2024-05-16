@@ -803,7 +803,7 @@ aside{
         $('#resultchart4').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_status.length);
+
 
         arr_jenis = data.arr_status;
         arr_data = data.arr_data;
@@ -922,7 +922,7 @@ aside{
         $('#resultchart7').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_status.length);
+
 
         arr_data = data.arr_data;
         arr_status = data.arr_status;
@@ -961,7 +961,7 @@ aside{
         $('#resultchart8').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.arr_status.length);
+
 
         arr_data = data.arr_data;
         arr_status = data.arr_status;
