@@ -67,7 +67,7 @@ class Menu extends BaseMenu
         foreach ($this->callbacks as $callback) {
             call_user_func($callback, $sidebar);
         }
-        dd($sidebar);
+
         $items = $sidebar->all()->map(function (Item $item) {
             $item->data('is-parent', $item->hasChildren() || (! $item->hasChildren() && ! ($item->link->path['url'] ?? true)));
 

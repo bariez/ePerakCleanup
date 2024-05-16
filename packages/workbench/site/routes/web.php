@@ -100,31 +100,3 @@ Route::group(
         Route::get('/exportauditlog/{type}/{user}/{datefrom}/{dateto}/{kat}', 'SiteController@exportauditlog')->name('exportauditlog');
     }
 );
-
-///start contoh TOT
-
-// Route::get('/', function()
-// {
-//    return View::make('pages.home');
-// });
-// Route::get('/about', function()
-// {
-//    return View::make('pages.contact');
-// });
-
-//end contoh tot
-
-// Route::group(
-//     [
-//         'namespace'  => '\Workbench\Site\Http\Controllers',
-//         'prefix'     => '',
-//         'as'         => 'site::',
-//         'middleware' => ['guest','web'],
-//     ],
-//     function () {
-
-//         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
-//         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-
-//     }
-// );

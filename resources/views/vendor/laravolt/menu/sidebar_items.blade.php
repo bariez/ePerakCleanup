@@ -2,9 +2,8 @@
 
 use App\Models\User;
 
-$pendding = User::where('status', 'PENDING')->count();
+$pending = User::where('status', 'PENDING')->count();
 
-$id = 5;
 ?>
 
 <div class="ui accordion sidebar__accordion m-b-1" data-role="sidebar-accordion">
@@ -18,8 +17,9 @@ $id = 5;
 
                 @if ($item->title == '- KELULUSAN PENGGUNA')
                     <span>
-                        <font style="font-size:12px;">{{ $item->title }}</font><span>
-                            <div class="ui primary inverted basic label">{{ $pendding }}</div>
+                        <font style="font-size:12px;">{{ $item->title }}</font>
+                        <span>
+                            <div class="ui primary inverted basic label">{{ $pending }}</div>
                         @else
                             <span>
                                 <font style="font-size:12px;">{{ $item->title }}</font>

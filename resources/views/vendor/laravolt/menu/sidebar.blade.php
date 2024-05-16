@@ -86,7 +86,7 @@ $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->with('acl_role
                             @include('laravolt::menu.sidebar_items', ['items' => $item->children()])
                         @else
                             <div class="ui accordion sidebar__accordion">
-                                <a class="title empty {{ \Laravolt\Platform\Services\SidebarMenu::setActiveParent($item->children(), $item->isActive) }}"
+                                <a class="title empty {{ \App\Laravolt\Platform\Services\SidebarMenu::setActiveParent($item->children(), $item->isActive) }}"
                                     href="{{ $item->url() }}">
                                     <i class="left icon {{ $item->data('icon') }}"></i>
                                     <span>{{ $item->title }}</span>
