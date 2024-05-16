@@ -72,7 +72,7 @@
         {!! Asset::group('laravolt')->js() !!}
 
         /*@livewireStyles*/
-        <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER') }}{{ mix('js/app.js') }}"></script></head><style type="text/css">#actionbar {
+        <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER') }}{{ mix('js/app.js') }}"></script><style type="text/css">#actionbar {
             background: url('{{ env('BASEFOLDER') }}/action_bar2.jpg') !important;
             /*background:#8BBCCC!important;*/
             background-repeat: no-repeat !important;
@@ -271,7 +271,7 @@
         }
     </script>
 
-
+</head>
 
 <body data-theme="{{ config('laravolt.ui.theme') }}" class="{{ $bodyClass ?? '' }} @yield('body.class')">
 
