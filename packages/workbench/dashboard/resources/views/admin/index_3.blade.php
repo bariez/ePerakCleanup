@@ -763,7 +763,7 @@ aside{
         $('#resultchart3').show();
         //document.getElementById('resultchart1').innerHTML = data;
 
-        console.log(data.jumkemudahan);
+
 
         arr_jenis = data.arr_jenis;
         arr_data = data.arr_data;

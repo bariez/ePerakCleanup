@@ -850,7 +850,7 @@
                 $('.resultchart3_2').show();
                 $('.resultchart17_1').show();
                 $('.resultchart17_2').show();
-                // console.log(data.jumkemudahan);
+                //
 
                 arr_jenis = data.arr_jenis;
                 arr_data = data.arr_data;
