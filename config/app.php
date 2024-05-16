@@ -242,13 +242,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Asset' => Workbench\Asset\AssetFacade::class,
-
-        // 'Captcha' => '\Buzz\LaravelGoogleCaptcha\CaptchaFacade',
-        // 'Captcha' => Buzz\LaravelGoogleCaptcha\CaptchaFacade',
-
+        'Debugbar' => \Barryvdh\Debugbar\Facades\Debugbar::class,
     ],
 
 ];

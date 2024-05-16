@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.4",
         "asbiin/laravel-webauthn": "*",
-        "barryvdh/laravel-debugbar": "^3.7",
         "barryvdh/laravel-dompdf": "^0.8.7",
         "bensampo/laravel-enum": "*",
         "buzz/laravel-google-captcha": "^2.3",
@@ -30,6 +29,7 @@
         "stolz/assets": "^0.2.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.7",
         "friendsofphp/php-cs-fixer": "^3.9",
         "mockery/mockery": "^1.5",
         "phpunit/phpunit": "^8.0",
