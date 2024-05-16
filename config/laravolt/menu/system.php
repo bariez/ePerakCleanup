@@ -11,7 +11,6 @@ return [
                 'icon' => 'home',
                 'permissions' => [\App\Enums\Permission::MANAGE_FRONT_END],
             ],
-
         ],
     ],
 
@@ -86,13 +85,6 @@ return [
                 'icon' => 'stream',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-
-            // 'Workflow' => [
-            //     'route' => 'workflow::definitions.index',
-            //     'active' => 'workflow/definitions/*',
-            //     'icon' => 'code-branch',
-            //     'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_WORKFLOW],
-            // ],
         ],
     ],
     'Pengurusan Sistem' => [
@@ -164,27 +156,9 @@ return [
                 'icon' => 'tags',
                 'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
             ],
-            //  'Menu' => [
-            //     'route' => 'site::frontendmanage.getMenuList',
-            //     'active' => 'site/menu/*',
-            //     'icon' => 'list',
-            //     'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
-            // ],
-            //  'Page' => [
-            //     'route' => 'site::frontendmanage.getPageList',
-            //     'active' => 'site/page/*',
-            //     'icon' => 'file',
-            //     'permissions' => [\App\Enums\Permission::MANAGE_SYSTEM],
-            // ],
-
-            // 'Workflow' => [
-            //     'route' => 'workflow::definitions.index',
-            //     'active' => 'workflow/definitions/*',
-            //     'icon' => 'code-branch',
-            //     'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_WORKFLOW],
-            // ],
         ],
     ],
+
     'Maklumat Kampung' => [
         'order' => 6,
         'menu' => [
@@ -194,25 +168,27 @@ return [
                 'icon' => 'search',
                 'permissions' => [\App\Enums\Permission::MANAGE_DATA_ENTRY],
             ],
+
             ' - INFO KAMPUNG' => [
                 'route' => 'frontend.infoKampungKetua',
                 'active' => 'frontend/infoKampungKetua/*',
                 'icon' => 'tags',
                 'permissions' => [\App\Enums\Permission::MANAGE_KAMPUNG],
             ],
+
             ' - KEMASKINI MAKLUMAT ASAS' => [
                 'route' => 'dataentry::editKampung.menukampungEdit',
                 'active' => 'dataentry/editKampung/*',
                 'icon' => 'tags',
                 'permissions' => [\App\Enums\Permission::MANAGE_KAMPUNG],
             ],
+            ' - KEMASKINI MAKLUMAT ISI RUMAH' => [
+                'route' => 'dataentry::editIsiRumah.menukampungEditIsi',
+                'active' => 'dataentry/editKampung/*',
+                'icon' => 'tags',
+                'permissions' => [\App\Enums\Permission::MANAGE_KAMPUNG],
+            ],
 
-            // 'Workflow' => [
-            //     'route' => 'workflow::definitions.index',
-            //     'active' => 'workflow/definitions/*',
-            //     'icon' => 'code-branch',
-            //     'permissions' => [\Laravolt\Platform\Enums\Permission::MANAGE_WORKFLOW],
-            // ],
         ],
     ],
 
