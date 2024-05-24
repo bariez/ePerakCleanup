@@ -76,7 +76,7 @@
                                     <div class="menu" >
                                         <div class="item" data-value=""  onclick="mukim(0)">Sila Pilih</div>
                                         @foreach($daerah as $key => $value)
-                                            @continue( data_get($value, 'id') )
+                                            @continue( empty(data_get($value, 'id')) )
                                             <div class="item" data-value="{{$value->id}}" onclick="mukim({{$value->id}})">{{$value->NamaDaerah}}</div>
                                         @endforeach
                                     </div>
