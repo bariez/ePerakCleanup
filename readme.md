@@ -1,6 +1,36 @@
-# eperakv7
-#installation : 
+# ePerak
 
-#-1 make sure public/laravolt is latest (copy from public/laravolts to laravolt/)
-#-2 in IIS setting, use this web.config (make sure site is configure as primary)
-cp .example.web.config to public/web.config
+## Installation
+
+Point document root to `public/` directory.
+
+```env
+cp .env.example .env
+```
+
+## Configuration
+
+On Windows, logs / compiled views need to be in Windows Temporary directory.
+
+To set that, you can configure in `.env` file:
+
+```env
+VIEW_COMPILED_PATH="C:\\Windows\\Temp\\eperak\\views\\"
+LOG_DAILY_PATH="C:\\Windows\\Temp\\eperak\\logs\\laravel.log"
+```
+
+## Deployment
+
+Open up Git Bash, then navigate to project directory:
+
+```bash
+cd /c/inetpub/wwwroot/eperakCleanup
+```
+
+then get latest codes:
+
+```bash
+git pull origin master
+```
+
+Any additional steps should be run separately.
