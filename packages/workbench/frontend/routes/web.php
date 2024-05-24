@@ -1,22 +1,6 @@
 <?php
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Workbench\Frontend\Http\Controllers\FrontendController;
-
-Route::group(
-    [
-        'namespace'  => '\Workbench\Frontend\Http\Controllers',
-        'prefix'     => 'frontend',
-        'middleware' => ['web'],
-    ],
-
-    function () {
-
-        // Route::get('/', 'FrontendController@index')->name('frontend.index');
-        // Route::get('/homepage', 'FrontendController@index')->name('frontend.index');
-    }
-);
 
 Route::group(
     [
@@ -104,7 +88,7 @@ Route::group(
     }
 );
 
-// management -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// management
 Route::group(
     [
         'namespace'  => '\Workbench\Frontend\Http\Controllers',

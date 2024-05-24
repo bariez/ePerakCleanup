@@ -1,10 +1,6 @@
 <?php
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Workbench\Dashboard\Http\Controllers\DashboardController;
-use Workbench\Dashboard\Http\Controllers\DashboardDOController;
-use Workbench\Dashboard\Http\Controllers\LocationController;
 
 Route::group(
     [

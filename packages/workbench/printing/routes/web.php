@@ -15,18 +15,3 @@ Route::group(
         Route::get('/', 'PrintingController@index')->name('printing.index');
     }
 );
-
-// Route::group(
-//     [
-//         'namespace'  => '\Workbench\Site\Http\Controllers',
-//         'prefix'     => '',
-//         'as'         => 'site::',
-//         'middleware' => ['guest','web'],
-//     ],
-//     function () {
-
-//         Route::get('/', ['uses' => 'DashboardController@index', 'as' => 'dashboard.index']);
-//         Route::get('/pages/{id}', ['uses' => 'PageController@view', 'as' => 'pages.view']);
-
-//     }
-// );
