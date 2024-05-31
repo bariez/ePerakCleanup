@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\MenuServiceProvider;
+
 return [
 
     /*
@@ -192,6 +194,7 @@ return [
         Workbench\Site\ServiceProvider::class,
         Workbench\Asset\ServiceProvider::class,
 
+        App\Providers\MenuServiceProvider::class,
     ],
 
     /*
