@@ -60,6 +60,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "support/helpers.php"
         ]
     },
     "autoload-dev": {

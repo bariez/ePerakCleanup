@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\MenuServiceProvider;
+
 return [
 
     /*
@@ -181,6 +183,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
         Barryvdh\Debugbar\ServiceProvider::class,
 
         Workbench\Dashboard\ServiceProvider::class,
@@ -192,6 +195,7 @@ return [
         Workbench\Site\ServiceProvider::class,
         Workbench\Asset\ServiceProvider::class,
 
+        App\Providers\MenuServiceProvider::class,
     ],
 
     /*
