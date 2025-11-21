@@ -59,8 +59,8 @@
         }
     </style>
     <div id="actionbar" class="ui two column grid p-2">
-        <div class="column middle aligned">
-            <h3 class="ui header m-t-xs">
+        <div class="column middle aligned" >
+            <h3 class="ui header m-t-xs" style="color:black" >
                 Paparan Makumat Ketua Isi Rumah
             </h3>
         </div>
@@ -376,20 +376,28 @@
                         <tbody>
                             <tr>
                                 <td align="center">
-                                    @if (data_get($ketuaisirumah, 'rumah.Gambar_path') == '')
-                                        <a target="_blank" href="{{ URL::asset('logo.png') }}"><img
-                                                src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:200px">
-                                        </a>
-                                    @elseif(file_exists(public_path(data_get($ketuaisirumah, 'rumah.Gambar_path'))))
-                                        <a target="_blank" href="{!! URL::to(data_get($ketuaisirumah, 'rumah.Gambar_path')) !!}"><img
-                                                src="{!! URL::to(data_get($ketuaisirumah, 'rumah.Gambar_path')) !!}" alt="ePerak" style="width:200px">
-                                        </a>
-                                    @else
-                                        <a target="_blank" href="{{ URL::asset('logo.png') }}"><img
-                                                src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:200px">
-                                        </a>
-                                    @endif
-                                </td>
+                             @php
+                                $gambarPath = data_get($ketuaisirumah, 'rumah.Gambar_path');
+                                
+                                // 1. NORMALISASI LALUAN: Buang awalan 'storage/' jika wujud
+                                if ($gambarPath && strpos($gambarPath, 'storage/') === 0) {
+                                    $gambarPath = substr($gambarPath, 8); // Buang 8 karakter ('storage/')
+                                }
+
+                                // 2. Tentukan URL Penuh
+                                // Jika laluan wujud dan bermula dengan /uploads/ (format public/uploads)
+                                if ($gambarPath && strpos($gambarPath, '/uploads/') === 0) {
+                                    $urlGambar = asset($gambarPath); 
+                                } else {
+                                    // Laluan default
+                                    $urlGambar = URL::asset('logo.png');
+                                }
+                            @endphp
+
+    <a target="_blank" href="{{ $urlGambar }}">
+        <img src="{{ $urlGambar }}" alt="Gambar Rumah" style="width:200px">
+    </a>
+</td>
                             </tr>
                         </tbody>
                     </table>
@@ -511,7 +519,7 @@
                                         </div>
                                     </h5>
                                 </td>
-                                <td>{{ data_get($ketuaisirumah, 'rumah.Status') }}</td>
+                                <td>{{ data_get($ketuaisirumah, 'rumah.StatusSemak') }}</td>
 
 
                             </tr>

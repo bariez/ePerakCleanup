@@ -9,12 +9,14 @@ Route::group(
         'middleware' => ['web'],
     ],
 
+
     function () {
 
         // design ---------------------
         Route::get('/demo/{no}', 'FrontendController@getDemo')->name('frontend.getDemo');
         // end design -----------------
 
+        //return view('main');
         Route::get('/news', 'FrontendController@getNewsList')->name('frontend.getNewsList');
         Route::post('/news/search', 'FrontendController@postNewsFilter')->name('frontend.postNewsFilter');
         Route::get('/news/searchresult', 'FrontendController@getNewsFilterList')->name('frontend.getNewsFilterList'); // /{page}
@@ -49,7 +51,7 @@ Route::group(
 
         // section 1 mapgis
         Route::get('/info/ajax/detail/map/{idkampung}', 'FrontendController@getAjaxMap')->name('frontend.getAjaxMap');
-
+       
         // section 2
         // accordion 1 sejarah  ------------------
 

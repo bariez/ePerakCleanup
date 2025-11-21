@@ -44,9 +44,9 @@ class Home extends Controller
             return redirect::to('/dashboard/ketuakampung');
         }
 
-        if ($user->hasRole('KETUA KAMPUNG') == true) {
-            return redirect::to('/dashboard/ketuakampung');
-        }
+    //    if ($user->hasRole('KETUA KAMPUNG') == true) {
+    //        return redirect::to('/dashboard/ketuakampung');
+       // }
     }
 
     public function indexhome()

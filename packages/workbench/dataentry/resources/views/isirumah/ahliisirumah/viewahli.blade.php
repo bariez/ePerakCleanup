@@ -11,7 +11,7 @@
   </style>
 <div id="actionbar" class="ui two column grid p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
-                <h3 class="ui header m-t-xs">
+                <h3 class="ui header m-t-xs" style="color:black">
           Paparan Maklumat Ahli Isi Rumah
         </h3>
     </div> 
@@ -138,7 +138,7 @@
               <td>
                 <h5 class="ui image header">
                   <div class="content" style="font-style: unset">
-                     <span id="spanlabel"><i class="dollar sign icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Pendapatan Isi Rumah</b></span>
+                     <span id="spanlabel"><i class="dollar sign icon"></i></span><span id="spanlabel" style="font-size: 14px !important;font-weight: normal !important;padding-left:10px"><b>Pendapatan</b></span>
                 </div>
               </h5></td><td>{{number_format(data_get($ahliisirumah,'Pendapatan'), 2) }}</td>
                <td  width="25%">

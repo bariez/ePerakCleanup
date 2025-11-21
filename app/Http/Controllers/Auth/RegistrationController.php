@@ -51,6 +51,7 @@ class RegistrationController extends Controller
                 ],
                 'jabatan' => 'required|string|max:255',
                 'notel' => 'required|numeric',
+                'Tujuan' => 'nullable|string|max:255',
 
             ],
             [
@@ -73,6 +74,7 @@ class RegistrationController extends Controller
                 'jabatan' => $request->jabatan,
                 'jawatan' => $request->jawatan,
                 'notel' => $request->notel,
+                'Tujuan' => $request->Tujuan,
                 'email_verified_at' => date('Y-m-d h:i:s'),
             ]
         );
@@ -87,6 +89,7 @@ class RegistrationController extends Controller
                 'jabatan' => $request->jabatan,
                 'jawatan' => $request->jawatan,
                 'notel' => $request->notel,
+                'Tujuan'=> $request->Tujuan,
 
             ];
 

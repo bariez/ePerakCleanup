@@ -50,7 +50,7 @@
 
     <div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0">
         <div class="column middle aligned">
-            <h3 class="ui header m-t-xs">
+            <h3 class="ui header m-t-xs" style="color:black">
                 Tambah Makumat Ketua Isi Rumah
             </h3>
         </div>
@@ -62,38 +62,34 @@
     <br>
 
     <div class="ui attached segment">
-        {!! form()->open()->post()->action(route('dataentry::searchkampung.saveketuarumah'))->attribute('id', 'formstruk')->multipart()->horizontal() !!}
-        <input type="hidden" name="idkampung" id="idkampung" value="{{ $idkampung }}">
-        <input type="hidden" name="wn" id="wn" value="">
-        <h4 class="ui header" style="color:black" align="center">{{ data_get($infokampung, 'NamaKampung') }}</h4>
-        <h4 class="ui dividing header" style="color:black">Profil Ketua Isi Rumah</h4>
-        <div class="two fields">
-            <div class="field">
-                <label>Nama Pemilik / Ketua Rumah<font color="red">*</font></label>
-                <input type="text" name="name" id="name" onchange="this.setCustomValidity('')"
-                    oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
-            </div>
-            <div class="field">
-                <label>Jenis Pengenalan<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="typepengenalan" id="typepengenalan" value="{{ old('jantina') }}"
-                        onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') "
-                        required="required">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                        <div class="item" data-value="" value="0">Sila Pilih</div>
-                        @foreach ($jenispengenalan as $key => $value)
-                            <div class="item" data-value="{{ $value->id }}" onclick="warga({{ $value->id }})">
-                                {{ $value->description }}</div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-
+  {!! form()->open()->post()->action(route('dataentry::searchkampung.saveketuarumah'))->attribute('id', 'formstruk')->multipart()->horizontal() !!}
+  <input type="hidden" name="idkampung" id="idkampung" value="{{$idkampung}}">
+  <input type="hidden" name="wn" id="wn" value="">
+   <h4 class="ui header" style="color:black" align="center">{{data_get($infokampung,'NamaKampung')}}</h4>
+ <h4 class="ui dividing header" style="color:black">Profil Ketua Isi Rumah</h4>
+  <div class="two fields">
+    <div class="field">
+      <label>Nama Pemilik / Ketua Rumah<font color="red">*</font></label>
+      <input type="text" name="name" id="name" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
+    </div>
+    <div class="field">
+      <label>Jenis Pengenalan<font color="red">*</font></label>
+      <div class="ui fluid search selection dropdown">
+        <input type="hidden" name="typepengenalan" id="typepengenalan" value="{{ old('jantina') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
+        <i class="dropdown icon"></i>
+        <div class="default text">Sila Pilih</div>
+        <div class="menu">
+          <div class="item" data-value="" value="0">Sila Pilih</div>
+          @foreach($jenispengenalan as $key => $value)
+          <div class="item" data-value="{{$value->id}}" onclick="warga({{$value->id}})">{{$value->description}}</div>
+          @endforeach
         </div>
+      </div>
+    </div>
+
+  </div>
         <div class="two fields">
-            <div class="field" id="divnoic">
+                <div class="field" id="divnoic">
                 <label>No. Kad Pengenalan<font color="red">*</font></label>
                 <input max="14" name="noic" id="noic" type="text"
                     onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"
@@ -123,7 +119,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="field" id="jantinaauto">
                 <label id="labeljantinaauto">Jantina<font color="red">*</font></label>
                 <input type="text" id="jauto" name="jauto" readonly="readonly">
@@ -131,6 +127,7 @@
 
 
         </div>
+        
         <div class="two fields" id="divnoicnotes">
             <div class="field">
                 (Sila masukkan No. Kad Pengenalan (cth: 98xxxxxxxxxx). (Tanpa "-" atau jarak))
@@ -148,6 +145,7 @@
                 <label>&nbsp;</label>
             </div>
         </div>
+    
         <div class="two fields">
             <div class="field" id="tlahircal">
                 <label id="labellahir">Tarikh Lahir<font color="red">*</font></label>
@@ -557,13 +555,13 @@
                     <label>Status Semakan<font color="red">*</font></label>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="status" tabindex="0" class="hidden" value="1">
+                            <input type="radio" name="Status1" tabindex="0" class="hidden" value="1">
                             <label>Telah disemak</label>
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui radio checkbox">
-                            <input type="radio" name="status" tabindex="0" class="hidden" value="0" checked>
+                            <input type="radio" name="Status1" tabindex="0" class="hidden" value="0" checked>
                             <label>Belum disemak</label>
                         </div>
                     </div>

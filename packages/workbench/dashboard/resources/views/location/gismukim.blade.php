@@ -1,3 +1,40 @@
+@php
+    // Get user's mukim
+    $userMukim = auth()->user()->Mukim ?? null;
+    $allowedKampungIds = [];
+    
+    if ($userMukim) {
+        try {
+            $kampungResults = DB::select("
+                SELECT IdKampungBaru 
+                FROM kampung 
+                WHERE fk_mukim = ?
+            ", [$userMukim]);
+            
+            // Extract just the IDs into an array
+            $rawIds = array_column($kampungResults, 'IdKampungBaru');
+
+            // Filter out empty/null values and reindex the array
+            $allowedKampungIds = array_values(array_filter($rawIds, function($id) {
+                return !empty(trim($id));
+            }));
+            
+            // Debug: Log the results
+            \Log::info("Kampung filtering debug:", [
+                'user_mukim' => $userMukim,
+                'raw_results_count' => count($kampungResults),
+                'raw_ids_count' => count($rawIds),
+                'filtered_ids_count' => count($allowedKampungIds),
+                'sample_ids' => array_slice($allowedKampungIds, 0, 5)
+            ]);
+            
+        } catch (\Exception $e) {
+            \Log::error("Kampung query failed for mukim {$userMukim}: " . $e->getMessage());
+            $allowedKampungIds = [];
+        }
+    }
+@endphp
+
 <script>
     $( document ).ready(function(){
         document.title='PETA LOKASI';
@@ -6,6 +43,200 @@
     const longKampung = {!! $longKampung !!};
     const latKampung = {!! $latKampung !!};
     // console.log(longKampung + "    -----   " + latKampung);
+
+    const userId = {!! json_encode(auth()->user()->id ?? null) !!};
+    const userDaerah = {!! json_encode(auth()->user()->Daerah ?? null) !!};
+    const userMukim = {!! json_encode(auth()->user()->Mukim ?? null) !!};
+    let allowedKampungIds = {!! json_encode($allowedKampungIds ?? []) !!};
+    
+    if (allowedKampungIds && typeof allowedKampungIds === 'object' && !Array.isArray(allowedKampungIds)) {
+        console.log("Converting object to array...");
+        allowedKampungIds = Object.values(allowedKampungIds);
+        console.log("Converted to array:", allowedKampungIds);
+    }
+
+    // Enhanced debug logging
+    console.log("=== FIXED KAMPUNG DEBUG INFO ===");
+    console.log("User Mukim:", userMukim);
+    console.log("Allowed Kampung IDs Type:", typeof allowedKampungIds);
+    console.log("Is Array:", Array.isArray(allowedKampungIds));
+    console.log("Allowed Kampung IDs Array:", allowedKampungIds);
+    console.log("Array Length:", allowedKampungIds ? allowedKampungIds.length : 'undefined');
+    
+    if (allowedKampungIds && allowedKampungIds.length > 0) {
+        console.log("✅ Sample IDs:", allowedKampungIds.slice(0, 5));
+        console.log("✅ All IDs:", allowedKampungIds);
+    } else {
+        console.log("❌ No kampung IDs available");
+    }
+    console.log("===========================");
+
+    // FIXED: Function to apply kampung filtering
+    function applyKampungFiltering(mapLayer) {
+        const kampungLayer = mapLayer.sublayers.find(layer => layer.id === 22);
+        
+        if (!kampungLayer) {
+            console.warn('❌ Kampung layer (ID 22) not found');
+            return;
+        }
+
+        console.log("🔍 Applying kampung filtering...");
+        console.log("Kampung layer found:", kampungLayer.title);
+
+        // Check if we have valid kampung IDs array
+        if (allowedKampungIds && Array.isArray(allowedKampungIds) && allowedKampungIds.length > 0) {
+            // Filter out empty/null/undefined values
+            const validKampungIds = allowedKampungIds.filter(id => {
+                return id !== null && id !== undefined && id !== '' && String(id).trim() !== '';
+            });
+            
+            console.log("📊 Total IDs received:", allowedKampungIds.length);
+            console.log("📊 Valid IDs after filtering:", validKampungIds.length);
+            console.log("📊 Valid IDs sample:", validKampungIds.slice(0, 10));
+            
+            if (validKampungIds.length > 0) {
+                // Create SQL IN clause with allowed kampung IDs
+                const kampungFilter = validKampungIds.map(id => `'${String(id).trim()}'`).join(',');
+                const definitionExpression = `ID_KG IN (${kampungFilter})`;
+                
+                // Apply the filter to the layer
+                kampungLayer.definitionExpression = definitionExpression;
+                kampungLayer.visible = true;
+                
+                console.log("✅ SUCCESS: Kampung layer filtered!");
+                console.log("   - Filtered to:", validKampungIds.length, "kampung");
+                console.log("   - Filter expression length:", definitionExpression.length);
+                console.log("   - Expression preview:", definitionExpression.substring(0, 150) + "...");
+                console.log("   - Layer visible:", kampungLayer.visible);
+                
+                // Test by logging a few sample filter parts
+                console.log("   - Sample filter parts:", kampungFilter.split(',').slice(0, 5));
+                
+            } else {
+                console.log("⚠️ All kampung IDs are empty - trying mukim fallback");
+                
+                // Try fallback filtering by mukim
+                const fallbackExpression = `MUKIM = '${userMukim}' OR mukim_id = '${userMukim}' OR fk_mukim = '${userMukim}'`;
+                kampungLayer.definitionExpression = fallbackExpression;
+                kampungLayer.visible = true;
+                
+                console.log("   - Fallback expression:", fallbackExpression);
+                console.log("   - Layer visible:", kampungLayer.visible);
+            }
+        } else {
+            // No access or invalid data
+            kampungLayer.definitionExpression = "1=0"; // Hide all features
+            kampungLayer.visible = false;
+            
+            console.log("❌ No valid kampung access - layer hidden");
+            console.log("   - Reason: allowedKampungIds is", typeof allowedKampungIds, "with length", allowedKampungIds?.length);
+        }
+        
+        // Additional debug: Check if definition expression was applied
+        console.log("🔍 Final layer state:");
+        console.log("   - Definition Expression:", kampungLayer.definitionExpression);
+        console.log("   - Visible:", kampungLayer.visible);
+        console.log("   - Opacity:", kampungLayer.opacity);
+    }
+
+    async function debugGISFieldNames(mapLayer) {
+    console.log("🔍 DEBUGGING GIS LAYER FIELD NAMES AND VALUES");
+    
+    const kampungLayer = mapLayer.sublayers.find(layer => layer.id === 22);
+    if (!kampungLayer) {
+        console.log("❌ Kampung layer not found");
+        return;
+    }
+    
+    try {
+        // Query the kampung layer to see actual field names and values
+        const query = kampungLayer.createQuery();
+        query.where = "1=1"; // Get all features
+        query.outFields = ["*"]; // Get all fields
+        query.returnGeometry = false;
+        query.num = 100; // Limit to first 20 records for debugging
+        
+        console.log("📡 Querying GIS layer for field names and sample data...");
+        
+        const results = await kampungLayer.queryFeatures(query);
+        
+        console.log("📊 GIS Query Results:");
+        console.log("   - Total features found:", results.features.length);
+        
+        if (results.features.length > 0) {
+            // Show field names
+            const firstFeature = results.features[0];
+            const fieldNames = Object.keys(firstFeature.attributes);
+            
+            console.log("🏷️ Available field names in GIS layer:");
+            fieldNames.forEach(field => {
+                console.log(`   - ${field}`);
+            });
+            
+            // Show sample data for potential ID fields
+            console.log("🔍 Sample values for potential ID fields:");
+            
+            const potentialIdFields = fieldNames.filter(field => 
+                field.toLowerCase().includes('id') || 
+                field.toLowerCase().includes('kg') ||
+                field.toLowerCase().includes('kampung') ||
+                field.toLowerCase().includes('kod')
+            );
+            
+            console.log("🎯 Potential ID fields found:", potentialIdFields);
+            
+            // Show first 5 records for each potential ID field
+            results.features.slice(0, 5).forEach((feature, index) => {
+                console.log(`📝 Record ${index + 1}:`);
+                potentialIdFields.forEach(field => {
+                    console.log(`   ${field}: "${feature.attributes[field]}"`);
+                });
+                console.log("---");
+            });
+            
+            // Check if our expected kampung IDs exist in any field
+            console.log("🔍 Checking if our database IDs exist in GIS data:");
+            const ourKampungIds = ['080403001','080403002','080403003','080403004','080403005','080403006','080403007','080403008','080403009'];
+            
+            potentialIdFields.forEach(field => {
+                console.log(`🔍 Checking field: ${field}`);
+                const fieldValues = results.features.map(f => String(f.attributes[field] || '').trim());
+                const matches = ourKampungIds.filter(ourId => fieldValues.includes(ourId));
+                console.log(`   - Matches found: ${matches.length}/${ourKampungIds.length}`);
+                if (matches.length > 0) {
+                    console.log(`   - Matching values: ${matches.join(', ')}`);
+                }
+            });
+            
+            // Test different filter expressions
+            console.log("🧪 Testing alternative filter expressions:");
+            
+            // Test with different field names
+            const testFields = ['ID_KG', 'IdKampung', 'IdKampungBaru', 'IDKAMPUNG', 'id_kg', 'kod_kampung', 'KOD_KAMPUNG'];
+            
+            for (const testField of testFields) {
+                if (fieldNames.includes(testField)) {
+                    const testQuery = kampungLayer.createQuery();
+                    testQuery.where = `${testField} IN ('080403001','080403002','080403003')`;
+                    testQuery.returnCountOnly = true;
+                    
+                    try {
+                        const testResult = await kampungLayer.queryFeatures(testQuery);
+                        console.log(`   - ${testField}: ${testResult.features.length} matches`);
+                    } catch (error) {
+                        console.log(`   - ${testField}: Query failed - ${error.message}`);
+                    }
+                }
+            }
+            
+        } else {
+            console.log("❌ No features found in kampung layer");
+        }
+        
+    } catch (error) {
+        console.error("❌ Error debugging GIS layer:", error);
+    }
+}
 
     require(["esri/Map",
         "esri/views/MapView",
@@ -38,8 +269,7 @@
             type: "class-breaks", // autocasts as new ClassBreaksRenderer()
             field: "ID_KG",
             normalizationField: "ID_KG",
-            classBreakInfos: [
-                {
+            classBreakInfos: [{
                 minValue: 0.75,
                 maxValue: 1.0,
                 symbol: mapKampung,
@@ -49,7 +279,7 @@
 
         const urlGis = "{{ env('URL_GIS') }}";
         urlMukimGis = urlGis.replace("VARMAP","{{ $kampungdata->mukim->url_gis}}");
-        // console.log(urlMukimGis);
+         //console.log(urlMukimGis);
 
         const mapLayer = new MapImageLayer({
             url: urlMukimGis,
@@ -299,7 +529,7 @@
                       {
                     id: 23,
                     title: "Sempadan Pilihanraya (Parlimen)",
-                    visible: true,
+                    visible: false,
                     popupTemplate: {
                         title: "{NAM}",
                         content: "<table>" +
@@ -314,7 +544,7 @@
                  {
                     id: 24,
                     title: "Sempadan Pilihanraya (Dun)",
-                    visible: true,
+                    visible: false,
                     popupTemplate: {
                         title: "{NAM}",
                         content: "<table>" +
@@ -358,7 +588,7 @@
                     },
                 },
                  {
-                    id: 0,
+                    id: 22,
                     title: "Sempadan Kampung Negeri Perak",
                     visible: true,
                     opacity: 0.5,
@@ -463,54 +693,148 @@
         /*****************************************************************
                              START KETUA ISI RUMAH
         *****************************************************************/
+let pointGraphicsArray = []; //Edit 20/8/2025
 
-        <?php
+<?php
+foreach ($datalocation as $key => $value ){
+?>
+// Create a symbol for drawing the point
+markerSymbol = {
+    type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+    color: [188, 26, 183],
+    outline: {
+        // autocasts as new SimpleLineSymbol()
+        color: [255, 255, 255],
+        width: 0.5
+    },
+    size: 8
+};
 
-        $pointGraphic = "";
+// First create a point geometry (this is the location of the Titanic)
+point = {
+    type: "point", // autocasts as new Point()
+    longitude: {{ $value->Longitud }},
+    latitude: {{ $value->Latitud }}
+};
 
-        foreach ($datalocation as $key => $value ){
-        ?>
-        // Create a symbol for drawing the point
-        markerSymbol = {
-            type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-            color: [188, 26, 183],
-            outline: {
-                // autocasts as new SimpleLineSymbol()
-                color: [255, 255, 255],
-                width: 0.5
-            },
-            size: 8
-        };
+// Create a graphic and add the geometry and symbol to it
+pointGraphic = new Graphic({
+    geometry: point,
+    symbol: markerSymbol,
+    popupTemplate: {
+        // autocasts as new PopupTemplate()
+        title: "Ketua Isi Rumah",
+        content: "<table>" +
+            "<tr> " +
+            "<td>Nama</td> " +
+            "<td>: </td> " +
+            "<td>{{ $value->Nama }}</td> " +
+            "</tr> " +
+            "</table>"
+    }
+});
 
-        // First create a point geometry (this is the location of the Titanic)
-        point = {
-            type: "point", // autocasts as new Point()
-            longitude: {{ $value->Longitud }},
-            latitude: {{ $value->Latitud }}
-        };
+view.graphics.add(pointGraphic);
+pointGraphicsArray.push(pointGraphic);
+//console.log(view.zoom);
+<?php
+}
+?>
 
-        // Create a graphic and add the geometry and symbol to it
-        pointGraphic = new Graphic({
-            geometry: point,
-            symbol: markerSymbol,
-            popupTemplate: {
-                // autocasts as new PopupTemplate()
-                title: "Ketua Isi Rumah",
-                content: "<table>" +
-                    "<tr> " +
-                    "<td>Nama</td> " +
-                    "<td>: </td> " +
-                    "<td>{{ $value->Nama }}</td> " +
-                    "</tr> " +
-                    "</table>"
+function togglePointsVisibility() {
+    const currentZoom = view.zoom;
+    
+    if (currentZoom >= 13) {
+        // Show points when zoom level is 16 or higher
+        pointGraphicsArray.forEach(graphic => {
+            if (!view.graphics.includes(graphic)) {
+                view.graphics.add(graphic);
+            }
+        });
+    } else {
+        // Hide points when zoom level is below 16
+        pointGraphicsArray.forEach(graphic => {
+            view.graphics.remove(graphic);
+        });
+    }
+}
+
+        view.when(() => {
+            console.log("🎯 Map view loaded - applying kampung filtering...");
+            
+            try {
+                applyKampungFiltering(mapLayer);
+                togglePointsVisibility();
+                
+                console.log("✅ Map initialization complete!");
+                console.log(`📊 User "${userMukim}" has access to ${allowedKampungIds ? allowedKampungIds.length : 0} kampung`);
+                
+                // ADD THIS: Debug GIS field names after a short delay
+                setTimeout(() => {
+                    debugGISFieldNames(mapLayer);
+                }, 3000);
+                
+            } catch (error) {
+                console.error('❌ Error during map initialization:', error);
             }
         });
 
-        view.graphics.add(pointGraphic);
+// ALSO ADD THIS FUNCTION TO TEST DIFFERENT FIELD NAMES MANUALLY
+// You can call this from the browser console: testDifferentFieldNames()
 
-        <?php
+window.testDifferentFieldNames = async function() {
+    console.log("🧪 MANUAL FIELD NAME TESTING");
+    
+    const kampungLayer = mapLayer.sublayers.find(layer => layer.id === 22);
+    const testIds = ['080403001','080403002','080403003'];
+    
+    // List of possible field names to test
+    const possibleFieldNames = [
+        'ID_KG', 'IdKampung', 'IdKampungBaru', 'IDKAMPUNG', 'id_kg', 
+        'kod_kampung', 'KOD_KAMPUNG', 'KAMPUNG_ID', 'kampung_id',
+        'ID_KAMPUNG', 'KodKampung', 'kodkampung', 'KODKAMPUNG',
+        'OBJECTID', 'FID', 'kampung_code', 'KAMPUNG_CODE'
+    ];
+    
+    console.log("Testing field names:", possibleFieldNames);
+    
+    for (const fieldName of possibleFieldNames) {
+        try {
+            const testExpression = `${fieldName} IN ('${testIds.join("','")}')`;
+            kampungLayer.definitionExpression = testExpression;
+            
+            // Wait a moment for the layer to update
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Check if any features are visible now
+            const query = kampungLayer.createQuery();
+            query.where = "1=1";
+            query.returnCountOnly = true;
+            
+            const result = await kampungLayer.queryFeatures(query);
+            
+            console.log(`✅ ${fieldName}: ${result.features.length} features visible`);
+            
+            if (result.features.length > 0) {
+                console.log(`🎯 FOUND WORKING FIELD: ${fieldName}`);
+                console.log(`   Expression: ${testExpression}`);
+                return fieldName; // Return the working field name
+            }
+            
+        } catch (error) {
+            console.log(`❌ ${fieldName}: Failed - ${error.message}`);
         }
-        ?>
+    }
+    
+    console.log("❌ No working field name found");
+    
+    // Reset to original expression
+    const originalExpression = "ID_KG IN ('080403001','080403002','080403003','080403004','080403005','080403006','080403007','080403008','080403009', '080803002')";
+    kampungLayer.definitionExpression = originalExpression;
+    
+    return null;
+};
+    
 
         /*****************************************************************
                              END KETUA ISI RUMAH
@@ -522,8 +846,9 @@
     });
 
     function getData(feature) {
-    // console.log(feature.graphic.attributes);
+        //console.log(feature.graphic.attributes);
         var data = {!! $datagis !!};
+        //console.log({!!json_encode($datagis)!!});
         var html = "";
 
         for (let i = 0; i < data.length; i++) {

@@ -50,7 +50,7 @@
 
     <div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0">
         <div class="column middle aligned">
-            <h3 class="ui header m-t-xs">
+            <h3 class="ui header m-t-xs" style="color:black">
                 Kemaskini Makumat Ketua Isi Rumah
             </h3>
         </div>
@@ -74,7 +74,7 @@
         <h4 class="ui dividing header" style="color:black">Profil Ketua Isi Rumah</h4>
         <div class="two fields">
             <div class="field">
-                <label>Nama Pemilik / Ketua Rumah<font color="red">*</font></label>
+                <label>Nama Ketua Rumah<font color="red">*</font></label>
                 <input type="text" name="name" id="name" onchange="this.setCustomValidity('')"
                     oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required"
                     value="{{ data_get($ketuaisirumah, 'Nama') }}">
@@ -673,46 +673,36 @@
 
         </div>
 
-
-        <h4 class="ui dividing header" style="color:black">Status Semakan</h4>
-        <div class="two fields">
-            <div class="field">
-                <div class="inline fields">
-                    <label>Status Semakan<font color="red">*</font> &nbsp;&nbsp;</label>
-                    <div class="field">
+<h4 class="ui dividing header" style="color:black">Status Semakan</h4>
+<div class="two fields">
+   <div class="field">
                         <div class="ui radio checkbox">
-                            @if (data_get($ketuaisirumah, 'rumah.Status') == 1)
-                                <input type="radio" name="status" tabindex="0" class="hidden" value="1"
-                                    checked="checked">
+                            @if (data_get($ketuaisirumah, 'rumah.StatusSemak') == 1)
+                                <input type="radio" name="StatusSemak" tabindex="0" class="hidden" value="1"
+                                    required="required" checked="checked">
                             @else
-                                <input type="radio" name="status" tabindex="0" class="hidden" value="1"
+                                <input type="radio" name="StatusSemak" tabindex="0" class="hidden" value="1"
                                     required="required">
                             @endif
 
                             <label>Telah disemak</label>
                         </div>
                     </div>
-                    <div class="field">
+                   <div class="field">
                         <div class="ui radio checkbox">
-                            @if (data_get($ketuaisirumah, 'rumah.Status') == 0)
-                                <input type="radio" name="status" tabindex="0" class="hidden" value="0"
+                            @if (data_get($ketuaisirumah, 'rumah.StatusSemak') == 0)
+                                <input type="radio" name="StatusSemak" tabindex="0" class="hidden" value="0"
                                     checked="checked">
                             @else
-                                <input type="radio" name="status" tabindex="0" class="hidden" value="0">
+                                <input type="radio" name="StatusSemak" tabindex="0" class="hidden" value="0">
                             @endif
                             <label>Belum disemak</label>
                         </div>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="field">
+                     <div class="field">
 
             </div>
-
-
-        </div>
+</div>
 
         <div align="right">
             <button type="submit" class="ui button primary" id="addbutton" name="hantar"

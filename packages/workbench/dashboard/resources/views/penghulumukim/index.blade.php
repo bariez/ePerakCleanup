@@ -16,7 +16,7 @@
 
 <div id="actionbar" class="ui two column grid content__body p-3" >
     <div class="column middle aligned">
-                <h3 class="ui header m-t-xs">
+                <h3 class="ui header m-t-xs" style="color:black">
           DASHBOARD PENGHULU MUKIM - {{data_get($mukim,'NamaMukim')}}
         </h3>
     </div>
@@ -690,7 +690,7 @@ function search(){
           });//end ajax chart1
 //--------------------------------------------end getchart3-------------------//
 //-------------------------------------------start getchart4-----------------//
-     $.ajax({
+  /**   $.ajax({
             type: "GET",
              url: "{{ URL::to('/dashboard/chart4/')}}?parlimen="+valparlimen+"&dun="+valdun+"&daerah="+valdaerah+"&mukim="+valmukim+"&catpetempatan="+valcat_petempatan+"&kampung="+valkampung,
 
@@ -716,7 +716,7 @@ function search(){
              $('#resultchart4').show();
              //document.getElementById('resultchart1').innerHTML = data;
 
-
+             console.log(data.arr_status.length);
 
               arr_jenis = data.arr_status;
               arr_data = data.arr_data;
@@ -731,7 +731,7 @@ function search(){
          }//end sucsess chart1
 
 
-          });//end ajax chart1
+          });//end ajax getchart1-------------------------  **/
 //--------------------------------------------end getchart4-------------------//
 //-------------------------------------------start getchart5-----------------//
      $.ajax({

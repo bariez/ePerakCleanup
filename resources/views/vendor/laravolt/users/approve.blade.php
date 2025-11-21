@@ -35,6 +35,7 @@
       {!! form()->text('jabatan')->label('Jabatan / Agensi')->readonly() !!}
       {!! form()->text('jawatan')->label('Jawatan')->readonly() !!}
       {!! form()->text('notel')->label(__('No.Tel'))->readonly() !!}
+      {!! form()->text('Tujuan')->label(__('Tujuan'))->readonly() !!}
 
       <!--  {!! form()->dropdown('status', $statuses)->label(__('laravolt::users.status')) !!} -->
 

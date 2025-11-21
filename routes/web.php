@@ -13,6 +13,7 @@ Route::middleware(['auth', 'verified'])
         function () {
             Route::get('/home', Home::class)->name('home');
             Route::get('/indexhome', Home::class)->name('indexhome');
+            
         }
     );
 

@@ -31,7 +31,7 @@ img:hover {
 
 <div id="actionbar" class="ui two column grid  p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
-        <h3 class="ui header m-t-xs">
+        <h3 class="ui header m-t-xs" style="color:black">
           Maklumat Mukim
         </h3>
     </div> 
@@ -83,7 +83,18 @@ Senarai Mukim
                           </tbody>
                  
                     </table>
-                
+                <!-- Footer for last updated date -->
+        <div class="footer">
+           <p id="last-updated">
+             Tarikh Akhir Kemaskini: 
+             @if($mukim->isNotEmpty() && $mukim->last()->updated_at)
+                {{ \Carbon\Carbon::parse($mukim->last()->updated_at)->locale('ms')->isoFormat('D MMMM YYYY (dddd), H:mm:ss') }}
+                @else
+                     Tiada Kemaskini
+                 @endif
+</p>
+        </div>
+
                 </div>
               </div>
 

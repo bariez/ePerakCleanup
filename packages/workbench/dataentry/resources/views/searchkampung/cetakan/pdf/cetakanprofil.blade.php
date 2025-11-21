@@ -210,6 +210,7 @@ table, td, th {
         <th>BIL.</th>
         <th>NAMA PROJEK</th>
         <th>STATUS</th>
+        <th>TAHUN</th>
         <th>LOKASI</th>
     </tr>
 </thead>
@@ -220,6 +221,7 @@ table, td, th {
          <td>{{$i}}</td>
          <td>{{data_get($data,'NamaProjek')}}</td>
          <td>{{data_get($data,'jenisprojek.description')}}</td>
+         <td>{{data_get($data,'Tahun')}}</td>
          <td>{{data_get($data,'Lokasi')}}</td>
           
      </tr>

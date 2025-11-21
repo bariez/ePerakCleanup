@@ -3,7 +3,7 @@
 @section('content')
 <div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
-                <h3 class="ui header m-t-xs">
+                <h3 class="ui header m-t-xs" style="color:black">
           Maklumat Ahli Isi Rumah
         </h3>
     </div> 

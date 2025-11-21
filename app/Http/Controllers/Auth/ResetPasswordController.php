@@ -8,29 +8,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use App\Providers\RouteServiceProvider;
 
 class ResetPasswordController extends Controller
 {
     /**
-     * Display the password reset view.
-     *
-     * @return \Illuminate\Contracts\View\View
+     * Papar borang reset katalaluan.
      */
     public function show(Request $request, string $token = null)
     {
-        return view('auth.reset', ['token' => $token]);
+        return view('auth.reset', [
+            'token' => $token,
+            'email' => $request->email,
+        ]);
     }
 
-    /**
-     * Handle an incoming new password request.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     *
-     * @return \Illuminate\Http\RedirectResponse
+  /**
+     * Simpan katalaluan baru pengguna.
+     * TUKAR DARI 'store' KEPADA 'reset' DI SINI
      */
-    public function store(Request $request)
+    public function reset(Request $request)
     {
         $request->validate(
             [
@@ -38,39 +35,31 @@ class ResetPasswordController extends Controller
                 'email' => 'required|email',
                 'password' => 'required|string|confirmed|min:8',
             ],
-
             [
-
-                'password.min' => 'Panjang kata laluan 8 karakter!',
+                'password.min' => 'Panjang kata laluan mesti 8 karakter!',
                 'password.required' => 'Katalaluan wajib diisi!',
                 'email.required' => 'Email wajib diisi!',
-
             ]
         );
 
-        // Here we will attempt to reset the user's password. If it is successful we
-        // will update the password on an actual user model and persist it to the
-        // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
             function ($user) use ($request) {
-                $user->forceFill(
-                    [
-                        'password' => Hash::make($request->password),
-                        'remember_token' => Str::random(60),
-                    ]
-                )->save();
+                $user->forceFill([
+                    'password' => Hash::make($request->password),
+                    'remember_token' => Str::random(60),
+                ])->save();
 
                 event(new PasswordReset($user));
             }
         );
 
-        // If the password was successfully reset, we will redirect the user back to
-        // the application's home authenticated view. If there is an error we can
-        // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-            ? redirect()->route('auth::login.show')->with('status', __($status))
-            : back()->withInput($request->only('email'))
-                ->withErrors(['email' => __($status)]);
+        if ($status == Password::PASSWORD_RESET) {
+            return redirect('/auth/login')
+                ->with('status', 'Katalaluan anda telah berjaya ditetapkan semula!');
+        }
+
+        return back()->withInput($request->only('email'))
+            ->withErrors(['email' => __($status)]);
     }
 }

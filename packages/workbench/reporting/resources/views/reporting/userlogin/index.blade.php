@@ -8,7 +8,7 @@
 
 	<div id="actionbar" class="ui two column grid content__body p-1">
 	    <div class="column middle aligned">
-	        <h3 class="ui header m-t-xs">
+	        <h3 class="ui header m-t-xs" style="color:black">
 	            LAPORAN PENGGUNA TIDAK AKTIF 
 	        </h3>
 	    </div>
@@ -27,7 +27,7 @@
 					<div class="one wide field"></div>
 
 					<div class="seven wide field">
-						<div class="ui form">
+						<div class="ui form"> 
 
 							<div class="fields">
 								<div class="three wide field">

@@ -30,16 +30,16 @@
           </div>
           <div class="field">
             <label>Nama Ahli<font color="red">*</font></label>
-            <input type="text"  name="nama" id="nama" required="required" value="{{ old('nama') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
+            <input type="text"  name="nama" id="nama" required="required" value="{{ old('nama') }}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
           </div>
            <div class="field">
             <label>No.Kad Pengenalan<font color="red">*</font></label>
-            <input type="text"  name="nokp" id="nokp" required="required" value="{{ old('nokp') }}" onkeyup="this.value=this.value.replace(/[^\d]/,'')" onKeyPress="if(this.value.length==12) return false;" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
+            <input type="text"  name="nokp" id="nokp" required="required" value="{{ old('nokp') }}" onkeyup="this.value=this.value.replace(/[^\d]/,'')" onKeyPress="if(this.value.length==12) return false;" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
           </div>
            <div class="field">
               <label>Jawatan<font color="red">*</font></label>
                 <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="jawatan" id="jawatan" value="{{ old('jawatan') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
+                    <input type="hidden" name="jawatan" id="jawatan" value="{{ old('jawatan') }}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
                     <i class="dropdown icon"></i>
                     <div class="default text">Sila Pilih</div>
                     <div class="menu">
@@ -52,7 +52,7 @@
               </div>
                <div class="field">
 	            <label>Biro<font color="red">*</font></label>
-	            <input type="text"  name="biro" id="biro" required="required" value="{{ old('biro') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
+	            <input type="text"  name="biro" id="biro" required="required" value="{{ old('biro') }}" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
 	          </div>
              <div class="field">
             <label>No. Telefon<font color="red">*</font>(Sila masukkan format nombor sahaja. Tanpa "-" atau jarak. Contoh: 0123456789))</label>

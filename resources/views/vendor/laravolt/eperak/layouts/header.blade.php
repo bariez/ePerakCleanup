@@ -131,12 +131,12 @@
 												</ul>
 											</li>
 											<li class="signin">
-												<a href="/contactus" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
+												<a href="/eperak/contactus" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/hubungi3.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25">
 												</a>
 											</li>
 											<li class="signin">
-												<a href="/faq" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
+												<a href="/eperak/faq" style="text-decoration: none; padding: 3px; padding-top: 10px; padding-right: 5px;">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/faq3.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25">
 												</a>
 											</li>
@@ -322,7 +322,7 @@
 							<!-- <ul class="main-menu d-none d-sm-block"> -->
 							<ul class="main-menu d-none d-lg-block">
 								<li class="">
-									<a class="active" href="/" id="mainmenu" style="font-weight: 900; padding-right: 7px !important; padding-left: 0px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a class="active" href="/eperak" id="mainmenu" style="font-weight: 900; padding-right: 7px !important; padding-left: 0px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										LAMAN UTAMA
 									</a>
 								</li>
@@ -332,7 +332,7 @@
 									</a>
 								</li>
 								<li class="">
-									<a href="info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="/eperak/info" id="infomenu" style="font-weight: 900; padding-left: 7px !important; padding-right: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										INFO PETEMPATAN
 									</a>
 								</li>
@@ -357,7 +357,7 @@
 									</a>
 								</li>
 								<li class="signin">
-									<a href="contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
+									<a href="/eperak/contactus" id="contactus" style="text-decoration: none; font-weight: 900; padding-right: 7px !important; padding-left: 7px !important; color: white; font-size: 14.5px; text-shadow: 0 0 5px #000000;">
 										HUBUNGI KAMI
 										<!-- <img src=" asset('theme/assets/imgs/theme/perak/hubungi.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25"> -->
 									</a>

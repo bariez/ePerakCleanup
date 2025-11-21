@@ -128,7 +128,7 @@
         /*****************************************************************
                              START KETUA ISI RUMAH
         *****************************************************************/
-
+        const kirGraphics = [];
         <?php
 
         $pointGraphic = "";
@@ -136,7 +136,7 @@
         foreach ($kirkampung as $key => $value ){
         ?>
         // Create a symbol for drawing the point
-        markerSymbol = {
+        let markerSymbol = {
             type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
             color: [188, 26, 183],
             outline: {
@@ -148,14 +148,14 @@
         };
 
         // First create a point geometry (this is the location of the Titanic)
-        point = {
+        let point = {
             type: "point", // autocasts as new Point()
             longitude: {{ $value->Longitud }},
             latitude: {{ $value->Latitud }}
         };
 
         // Create a graphic and add the geometry and symbol to it
-        pointGraphic = new Graphic({
+        let pointGraphic = new Graphic({
             geometry: point,
             symbol: markerSymbol,
             popupTemplate: {
@@ -172,7 +172,7 @@
         });
 
         view.graphics.add(pointGraphic);
-
+        kirGraphics.push(pointGraphic);
         <?php
         }
         ?>
@@ -182,7 +182,7 @@
         *****************************************************************/
 
         // Add the expand instance to the ui
-        view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-right");
+        view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-left");
 
         map.add(featureLayer);
 
@@ -253,8 +253,9 @@
             <br />
             <br />
 
-            <div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;">
-                <div id="viewDiv"></div>
+            <!--div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;"> -->
+             <div id="viewDiv" class="claro" style="width:100%; height:600px; border:1px solid #000;">   
+                <!--div id="viewDiv"></div>-->
             </div>
         </div>
     </div>

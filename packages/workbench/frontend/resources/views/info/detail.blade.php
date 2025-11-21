@@ -96,7 +96,7 @@
 									<div class="avatar-sidebar" style="vertical-align: middle;">
 										<div style="float: right !important" class="mr-10 ml-10">
 											<center>
-												<a href="/dataentry/searchkampung/cetakprofil/1/{{ data_get($data, 'id') }}" target="_blank">
+												<a href="/eperak/dataentry/searchkampung/cetakprofil/1/{{ data_get($data, 'id') }}" target="_blank">
 													<img alt="e-Perak" src="{{ asset('theme/assets/imgs/theme/perak/download.png') }}" style="height: 50px !important" /><br>
 													<span class="sidebar-website-text">Muat Turun</span>
 												</a>
@@ -152,12 +152,14 @@
 												Sejarah
 											</button>
 										</h2>
+
 										<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
 											<div class="accordion-body">
 												<div class="content-single">
-													<p class="capitalall" id ="ayat" style="text-align: justify;">
+													<p class="capitalall" style="justify-content: space-between" >
 														{{ data_get($data, 'Sejarah') }}
 													</p><br/><br/>
+
 													<h4 class="capitalall" style="margin-top: 20px; margin-left: 20px">Populasi dan Statistik Penduduk</h4>
 													<span style="margin-top: 20px; margin-left: 20px; margin-bottom: 10px; margin-right: 20px">
 														<div class="row mr-20 ml-20" style="">
@@ -450,7 +452,7 @@
 
     function back()
     {
-        window.location.href = "/info";
+        window.location.href = "/eperak/info";
     }
 
 	$(document).ready(function()

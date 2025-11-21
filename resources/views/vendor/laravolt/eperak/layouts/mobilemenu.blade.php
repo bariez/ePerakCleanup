@@ -71,25 +71,25 @@
 									<nav>
 										<ul class="mobile-menu font-heading">
 											<li class="">
-												<a class="active" href="/">LAMAN UTAMA</a>
+												<a class="active" href="/eperak">LAMAN UTAMA</a>
 											</li>
 											<li class="">
-												<a href="/info">INFO PETEMPATAN</a>
+												<a href="/eperak/info">INFO PETEMPATAN</a>
 											</li>
 
 											@foreach($page as $key => $pages)
 												<li class="">
-													<a href="/page/{{ data_get($pages, 'menum.id') }}">
+													<a href="/eperak/page/{{ data_get($pages, 'menum.id') }}">
 														{{ data_get($pages, 'menum.nama') }}
 													</a>
 												</li>
 											@endforeach
 
 											<li class="has-children">
-												<a href="/contactus" style="">
+												<a href="/eperak/contactus" style="">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/hubungi.png') }}" alt="Hubungi Kami" title="Hubungi Kami" width="25" height="25">
 												</a>
-												<a href="/faq" style="">
+												<a href="/eperak/faq" style="">
 													<img src="{{ asset('theme/assets/imgs/theme/perak/faq.png') }}" alt="Soalan Lazim" title="Soalan Lazim" width="25" height="25">&nbsp;&nbsp;
 												</a>
 												<a href="#">
@@ -120,15 +120,15 @@
 
 										@auth
 											<div class="btn-group" role="group" aria-label="Basic example">
-												<a href="/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
+												<a href="/eperak/home" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">
 													{{ data_get($roleuser, 'acl_roles.name') }}
 												</a>
-                                                <a href="/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
+                                                <a href="/eperak/auth/addlog/{{(auth()->user()->id)}}" class="btn btn-light btn-shadow hover-up" style="color: #432712">LOG KELUAR</a>
 											</div>
 										@else
 											<div class="btn-group" role="group" aria-label="Basic example">
-												<a href="/auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
-												<a href="/auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
+												<a href="/eperak/auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
+												<a href="/eperak/auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
 												<!-- <button type="button" class="btn btn-outline-light btn-shadow hover-up">Daftar</button> -->
 											</div>
 										@endauth

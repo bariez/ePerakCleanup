@@ -18,6 +18,7 @@ class Mukim extends Model
     // use HasFactory;
     use Notifiable;
 
+    public $timestamps = true;
     /**
      * @var string[]
      */

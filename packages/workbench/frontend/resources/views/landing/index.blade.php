@@ -2,9 +2,82 @@
 
 @section('content')
 <!-- start-------------------------------------------------------------------------------------------------------- -->
+<!-- Kandungan utama di sini -->
+  
+
+    <!-- Menggunakan push untuk style -->
+    @push('style')
+        <style type="text/css">
+            /* Styling untuk popup */
+            .popup-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            .popup-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                max-width: 400px;
+                width: 80%;
+            }
+            .close-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+            button {
+                margin-top: 15px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    @endpush
+
+    <!-- Menggunakan push untuk script -->
+    @push('script')
+        <script type="text/javascript">
+            // JavaScript untuk menutup popup
+            document.addEventListener('DOMContentLoaded', function () {
+                var popup = document.getElementById('infoPopup');
+                popup.style.display = 'flex';  // Popup akan muncul apabila halaman dibuka
+
+                var closePopupBtn = document.getElementById('closePopupBtn');
+                var closePopupX = document.getElementById('closePopup');
+
+                closePopupBtn.addEventListener('click', function () {
+                    popup.style.display = 'none';
+                });
+
+                closePopupX.addEventListener('click', function () {
+                    popup.style.display = 'none';
+                });
+            });
+        </script>
+    @endpush
+
+
 
 @push('style')
 <style type="text/css">
+
 	.autosizing
 	{
 		height: auto;
@@ -44,6 +117,19 @@
     }
 </style>
 @endpush
+
+ <!-- Popup Modal -->
+    @if($popupShown)
+    <div id="infoPopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-btn" id="closePopup">&times;</span>
+            <h4>Panduan Pengguna</h4>
+            <p>Sila klik Info Petempatan untuk mendapatkan maklumat kampung Negeri Perak</p>
+            <!--p>Sila pastikan anda membaca dan memahami maklumat ini.</p>-->
+            <button id="closePopupBtn">Tutup</button>
+        </div>
+    </div>
+    @endif
 
 	<!-- banner start -->
 	    <section class="section-box" style="padding-top: 0px">
@@ -666,8 +752,33 @@
 <!-- end ---------------------------------------------------------------------------------------------------------- -->
 @endsection
 
+
 @push('script')
+
 <script type="text/javascript">
+
+document.addEventListener('DOMContentLoaded', function () {
+    var popup = document.getElementById('infoPopup');
+    console.log("Popup shown: " + localStorage.getItem('popupShown'));
+
+    // Memastikan popup hanya muncul sekali
+    if (!localStorage.getItem('popupShown')) {
+        console.log("Popup is showing!");
+        popup.style.display = 'flex';  
+        localStorage.setItem('popupShown', 'true'); 
+    }
+
+    var closePopupBtn = document.getElementById('closePopupBtn');
+    var closePopupX = document.getElementById('closePopup');
+
+    closePopupBtn.addEventListener('click', function () {
+        popup.style.display = 'none';
+    });
+
+    closePopupX.addEventListener('click', function () {
+        popup.style.display = 'none';
+    });
+});
 
 	$(document).ready(function ()
     {

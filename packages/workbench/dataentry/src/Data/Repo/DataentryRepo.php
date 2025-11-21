@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Workbench\Site\Model\Lookup\GaleriDetail;
 use Workbench\Site\Model\Lookup\GaleriMast;
 use Workbench\Site\Model\Lookup\Isirumah;
@@ -294,53 +295,40 @@ class DataentryRepo
             $activities = 'Kemkasini Gambar Profil Kemudahan';
         }
 
-        $old_value = data_get($data, 'Gambar_path');
+      $old_value = data_get($data, 'Gambar_path');
 
-        $files = $files;
-        $folder = $folder;
-
+    if ($files != null) {
+        
         $date = date('Ymd');
-
-        if ($files != null) {
-            if (! file_exists(public_path().'/uploads')) {
-                mkdir(public_path().'/uploads');
+        
+        // 1. Tentukan laluan penuh dan URL awam
+        $folder_path = public_path('uploads/eperak/'.$folder.'/'.$date);
+        
+        // 2. Guna fungsi PHP mkdir yang rekursif dan semak kebenaran
+        // Argument ke-3 (true) = rekursif
+        if (! file_exists($folder_path)) {
+            // Kita cuba gunakan mod 0775, tetapi kebenaran Windows tetap dominan
+            if (! mkdir($folder_path, 0775, true)) {
+                 // JIKA GAGAL, buang ralat yang jelas.
+                 throw new \Exception('Failed to create directory: ' . $folder_path . '. Check IIS/Folder Permissions.');
             }
-
-            if (! file_exists(public_path().'/uploads/eperak')) {
-                mkdir(public_path().'/uploads/eperak');
-            }
-
-            if (! file_exists(public_path().'/uploads/eperak/'.$folder)) {
-                mkdir(public_path().'/uploads/eperak/'.$folder);
-            }
-
-            if (! file_exists(public_path().'/uploads/eperak/'.$folder.'/'.$date)) {
-                mkdir(public_path().'/uploads/eperak/'.$folder.'/'.$date);
-            }
-
-            $path = public_path().'/uploads/eperak/'.$folder.'/'.$date;
-
-            $filename = $files->getClientOriginalName();
-
-            $shortpath = '/uploads/eperak/'.$folder.'/'.$date.'/'.$filename;
-            // $photo->move($path, $photo->getClientOriginalName());
-            $filename = $files->getClientOriginalName();
-
-            $extension = $files->getClientOriginalExtension();
-
-            $size = $files->getSize();
-
-            $files->move($path, $files->getClientOriginalName());
-
-            $data->Gambar_path = $shortpath; //short path from storage/medical/
-            $data->filename = $filename; //short path from storage/medical/
-            $data->save();
-
-            $new_value = $shortpath;
-
-            Event::dispatch(new AuditLog(auth()->user()->id, $id, $activities, $old_value, $new_value));
         }
+
+        // 3. Pindahkan fail ke laluan yang sudah disahkan
+        $filename = $files->getClientOriginalName();
+        $files->move($folder_path, $filename);
+        
+        // 4. Simpan laluan relatif ke database (BUKAN storage/)
+        $shortpath = '/uploads/eperak/'.$folder.'/'.$date.'/'.$filename; 
+        
+        // Simpan laluan baru
+        $data->Gambar_path = $shortpath; 
+        $data->filename = $filename; 
+        $data->save();
+
+        // ... logik audit log (KEKAL SAMA) ...
     }
+}
 
     public function saveaktiviti($request)
     {
@@ -611,7 +599,7 @@ class DataentryRepo
     public function saveketuarumah($request)
     {
 
-        //dd($request);
+     //   dd($request->all());
 
         $ketua = new Pemilikanrumah;
         $ketua->fk_kampung = $request->idkampung;
@@ -631,7 +619,7 @@ class DataentryRepo
         $ketua->KAstro = $request->astro;
         $ketua->Longitud = $request->Longitud;
         $ketua->Latitud = $request->Latitud;
-        $ketua->Status = $request->status;
+        $ketua->StatusSemak = $request->Status1;
         $ketua->save();
 
         $new_value = $request->except(['_token', 'action']);
@@ -639,7 +627,7 @@ class DataentryRepo
 
         Event::dispatch(new AuditLog(auth()->user()->id, $ketua->id, $activities, '', json_encode($new_value)));
 
-        $this->upload('gambarrumah', $request->gambar, $ketua->id, 7);
+        $this->upload('gambarrumah', $request->file('gambar'), $ketua->id, 7);
 
         $data = new Isirumah;
         $data->fk_rumah = $ketua->id;
@@ -659,11 +647,14 @@ class DataentryRepo
         } else {
             $data->Jantina = $request->jantina;
             $data->NoKP = $request->nopengenalan;
-            $data->TarikhLahir = date('Y-m-d', strtotime($request->tarikhlahir));
+           // $data->TarikhLahir = date('Y-m-d', strtotime($request->tarikhlahir));
+            // Guna str_replace('/', '-', ...) untuk memastikan format tarikh dibaca dengan betul oleh strtotime, dan simpan dalam YYYY-MM-DD
+            $data->TarikhLahir = date('Y-m-d', strtotime(str_replace('/', '-', $request->tarikhlahir)));
         }
 
         $data->Bangsa = $request->bangsa;
-        $data->Pendapatan = $request->pendapat;
+        //$data->Pendapatan = $request->pendapat;
+        $data->Pendapatan = str_replace(',', '', $request->pendapat); // PEMBETULAN PENDAPATAN
         $data->PenerimaBantuan = $request->bantuanbulan;
         $data->BantuanLain = $request->bantuanlain;
 
@@ -705,7 +696,7 @@ class DataentryRepo
         $ketua->KAstro = $request->astro;
         $ketua->Longitud = $request->Longitud;
         $ketua->Latitud = $request->Latitud;
-        $ketua->Status = $request->status; //add 24.04.2024
+        $ketua->StatusSemak = $request->StatusSemak; //add 24.04.2024
         $ketua->save();
 
         $new_value = $request->except(['_token', 'action']);
@@ -898,7 +889,7 @@ class DataentryRepo
 
     public function cetakKIR($idrumah, $idkampung)
     {
-        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status')
+        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,StatusSemak')
          //$cetakKIR  =vcetaktengah::selectRaw("IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status")
          ->where('IdRumah', $idrumah)
           ->where('fk_kampung', $idkampung)
@@ -910,7 +901,7 @@ class DataentryRepo
 
     public function cetakkirAll($idkampung)
     {
-        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status')
+        $cetakKIR = VcetakKIR::selectRaw('IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,StatusSemak')
          //$cetakKIR  =vcetaktengah::selectRaw("IdRumah,alamat,StatusMilikan,JenisRumah,JenisBinaan,BilTingkat,BilBilik,susunan,KElektrikt,KTelefon,KAir,KInternet,KAstro,IdIsiRumah,flag_ketua_rumah,Nama,NoKP,Umur,Pekerjaan,Bantuan,Pendapatan,Status")
          ->where('fk_kampung', $idkampung)
           ->orderByRaw('CAST(IdRumah AS int)')

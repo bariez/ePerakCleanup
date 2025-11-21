@@ -5,6 +5,9 @@
     const latKampung = {!! $latKampung !!};
     // console.log(longKampung + "    -----   " + latKampung);
 
+        //console.log("Kampung Data:", @json($kampungdata));
+        const id_kg = "{{ $kampungdata->IdKampungBaru ?? '' }}";
+    console.log("Nilai ID_KG (IdKampungBaru):", id_kg);
     /* require(["esri/Map",
          "esri/views/MapView",
          "esri/layers/MapImageLayer",
@@ -30,7 +33,7 @@
          * Define sublayers with visibility for each layer in Map Service.
          *****************************************************************/
 
-        const mapKampung = {
+        /**const mapKampung = {
             type: "simple-fill", // autocasts as new SimpleFillSymbol()
             color: "#04C2B7",
             style: "solid",
@@ -49,13 +52,53 @@
                 maxValue: 1.0,
                 symbol: mapKampung,
             }]
-        };
+        };**/
+// Semak nilai dari Laravel
+      const id_kg = "{{ $kampungdata->IdKampungBaru ?? '' }}";
+console.log("Nilai ID_KG (Laravel):", id_kg);
+console.log('ID_KG:', id_kg, 'Expression:', `ID_KG = '${id_kg}'`);
 
-        const featureLayer = new FeatureLayer({
-            url: "{{ config('services.arcgis.wfs_endpoint') }}",
-            outFields: ["*"],
-            definitionExpression: "UPPER(ID_KG)=UPPER('{{ trim($kampungdata->IdKampungBaru) }}')",
-        });
+const featureLayer = new FeatureLayer({
+  url: "https://mygdispatial.perak.gov.my/server/rest/services/Sempadan_Kampung/FeatureServer",
+  outFields: ["*"],
+  //definitionExpression: `ID_KG = '${id_kg}'`,  // <-- BETUL sekarang!
+  renderer: {
+    type: "simple",
+    symbol: {
+      type: "simple-fill",
+      color: [4, 194, 183, 0.3],
+      outline: { color: "white", width: 2 }
+    }
+  },
+        popupTemplate: {
+        title: "{NamaKampung}",
+        content: [
+            {
+                type: "fields",
+                fieldInfos: [
+                    { fieldName: "Daerah", label: "Daerah" },
+                    { fieldName: "Mukim", label: "Mukim" },
+                    { fieldName: "NamaKampung", label: "Nama Kampung" },
+                ]
+            }
+        ]
+    },
+    labelsVisible: true,
+    labelingInfo: [{
+        labelExpressionInfo: {
+            expression: "$feature.NamaKampung"
+        },
+        symbol: {
+            type: "text",
+            color: "black",
+            font: {
+                size: 10,
+                weight: "bold"
+            }
+        },
+        labelPlacement: "center-center"
+    }]
+});
 
         /*****************************************************************
          * Add the layer to a map
@@ -71,6 +114,10 @@
             map: map,
             zoom: 13,
             center: [longKampung, latKampung]
+        });
+
+        view.when(() => {
+        map.add(featureLayer); // Pastikan FeatureLayer ditambah selepas peta siap
         });
 
         const searchWidget = new Search({
@@ -191,39 +238,26 @@
 
         //  map.add(mapLayer);
 
-        map.add(featureLayer);
+       // map.add(featureLayer);
 
-        function getData(feature) {
-            // console.log(feature.graphic.attributes);
-            var data = {!! $datagis !!};
-            var html = "";
+function getData(feature) {
+    const data = {!! $datagis !!};
+    const idKg = feature.graphic?.attributes?.ID_KG ?? '';
+    let html = "<p>Data tidak dijumpai.</p>";
 
-            for (let i = 0; i < data.length; i++) {
-                if (data[i].IdKampungBaru == $.trim(feature.graphic.attributes.ID_KG)) {
-                    // console.log("sini");
-                    html = "<table> " +
-                        "<tr> " +
-                        "<td>Mukim</td> " +
-                        "<td>: </td> " +
-                        "<td>" + data[i].mukim.NamaMukim + "</td> " +
-                        "</tr> " +
-                        "<tr> " +
-                        "<td>Daerah</td> " +
-                        "<td>: </td> " +
-                        "<td>" + data[i].daerah.NamaDaerah + "</td> " +
-                        "</tr> " +
-                        "<tr> " +
-                        "<td>Jumlah KIR</td> " +
-                        "<td>: </td> " +
-                        "<td>" + data[i].kircount + "</td> " +
-                        "</tr> " +
-                        "</table>";
-                }
-
-            }
-
-            return html;
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].IdKampungBaru === idKg.trim()) {
+            html = "<table> " +
+                "<tr><td>Mukim</td><td>: </td><td>" + (data[i].mukim?.NamaMukim ?? '-') + "</td></tr>" +
+                "<tr><td>Daerah</td><td>: </td><td>" + (data[i].daerah?.NamaDaerah ?? '-') + "</td></tr>" +
+                "<tr><td>Jumlah KIR</td><td>: </td><td>" + (data[i].kircount ?? '-') + "</td></tr>" +
+                "</table>";
+            break;
         }
+    }
+
+    return html;
+}
 
     });
 </script>
@@ -260,8 +294,9 @@
             <br />
             <br />
 
-            <div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;">
-                <div id="viewDiv"></div>
+            <!--div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;">-->
+                <div id="viewDiv" class="claro" style="width:100%; height:600px; border:1px solid #000;">
+                <!--div id="viewDiv"></div>-->
             </div>
         </div>
     </div>

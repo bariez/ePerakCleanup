@@ -31,7 +31,7 @@ img:hover {
 
 <div id="actionbar" class="ui two column grid  p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
-        <h3 class="ui header m-t-xs">
+        <h3 class="ui header m-t-xs" style="color:black">
           Maklumat Daerah
         </h3>
     </div> 
@@ -84,6 +84,19 @@ Senarai Daerah
                  </tbody>
                     </table>
                 
+                     <!-- Footer for last updated date -->
+        <div class="footer">
+            <!--p>Paparan 1 hingga 10 daripada 13 jumlah data</p>-->
+            <p id="last-updated">
+                Tarikh Akhir Kemaskini: 
+                @if(!empty($daerah) && $daerah->last())
+                    {{ \Carbon\Carbon::parse($data->updated_at)->locale('ms')->isoFormat(' D MMMM YYYY (dddd), H:mm:ss') }}
+                @else
+                    Tiada Kemaskini
+                @endif
+            </p>
+        </div>
+
                 </div>
               </div>
 
@@ -107,7 +120,11 @@ Senarai Daerah
                         "previous":   "Sebelumnya"
                     },
                  }
+
+
              });
+
+
 
               });
   </script>

@@ -145,6 +145,7 @@ class SiteController extends Controller
             'jabatan' => $attributes['jabatan'],
             'jawatan' => $attributes['jawatan'],
             'notel' => $attributes['notel'],
+            'Tujuan' => $attributes['Tujuan'],
             'status'=> $attributes['status'],
             'ulasan'=> '',
             'roleuser'=>data_get($roleuser, 'name'),
@@ -237,6 +238,20 @@ class SiteController extends Controller
                 }
             }
 
+             // Kemaskini tarikh dan masa akhir kemaskini untuk Daerah
+        $daerah = Daerah::find($updateuser->Daerah);
+        if ($daerah) {
+            $daerah->updated_at = Carbon::now();  // Kemas kini dengan masa semasa
+            $daerah->save();  // Simpan perubahan
+        }
+
+        // Kemaskini tarikh dan masa akhir kemaskini untuk Mukim
+        $mukim = Mukim::find($updateuser->Mukim);
+        if ($mukim) {
+            $mukim->updated_at = Carbon::now();  // Kemas kini dengan masa semasa
+            $mukim->save();  // Simpan perubahan
+        }
+
             $updateuser->save();
 
             $new_value = $request->except(['_token', 'action']);
@@ -328,6 +343,7 @@ class SiteController extends Controller
                 'jabatan' => data_get($updateuser, 'jabatan'),
                 'jawatan' => data_get($updateuser, 'jawatan'),
                 'notel' => data_get($updateuser, 'notel'),
+                'Tujuan' => data_get($updateuser, 'Tujuan'),
                 'status'=> $request->status,
                 'ulasan'=> $request->ulasan,
                 'roleuser'=>data_get($roleuser, 'name'),

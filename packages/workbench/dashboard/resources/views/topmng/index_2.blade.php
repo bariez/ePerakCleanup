@@ -382,7 +382,7 @@
         $.ajax(
         {
             type: "GET",
-            url: "{{ URL::to('dashboard/showcardstat')}}",
+            url: "{{ URL::to('/dashboard/showcardstat')}}",
             datatype: 'json',
 
             beforeSend: function() 
@@ -403,7 +403,7 @@
         $.ajax(
         {
             type: "GET",
-            url: "{{ URL::to('dashboard/showcarian')}}",
+            url: "{{ URL::to('/dashboard/showcarian')}}",
             datatype: 'json',
 
             beforeSend: function() 
@@ -442,7 +442,7 @@
         $('#loading').show();
         $('#contentdashboard').hide();
 
-        window.location.href = "/location/topmanage";
+        window.location.href = "/eperak/location/topmanage";
     }
 
 </script>

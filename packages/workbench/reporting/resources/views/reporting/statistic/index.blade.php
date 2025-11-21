@@ -197,7 +197,7 @@
 
 <div id="actionbar" class="ui two column grid  p-1">
     <div class="column middle aligned">
-        <h3 class="ui header m-t-xs">
+        <h3 class="ui header m-t-xs" style="color:black">
             LAPORAN STATISTIK PENDUDUK
         </h3>
     </div>

@@ -42,7 +42,7 @@ table, td, th {
 <br>
 <div align="center"><b>MAKLUMAT KETUA ISI RUMAH & AHLI ISI RUMAH </b></div>
 <br>
-<div align="center"><b>{{$namakmapung}}</b></div>
+<div align="center"><b>{{$namakampung}}</b></div>
 <br>
 <div align="center"><b>MAKLUMAT RUMAH</b></div>
 <br>
@@ -75,6 +75,7 @@ table, td, th {
     <td style="text-align: center;" width="30%"><b>PEKERJAAN</b></b></td>
     <td style="text-align: center;" width="30%"><b>BANTUAN</b></td>
     <td style="text-align: center;" width="30%"><b>PENDAPATAN</b></td>
+    
 </tr>
   <?php $i=1; ?>
  @forelse($data as $key =>$data)
@@ -137,6 +138,7 @@ table, td, th {
          <td style="text-align: center;" width="30%">
           {{number_format(data_get($data,'Pendapatan'),2)}}
          </td>
+         
        </tr>
        @else
          <tr>

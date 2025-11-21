@@ -31,11 +31,11 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-        href="{{ env('BASEFOLDER') }}{{ mix('semantic/semantic.min.css', 'laravolt') }}" />
+        href="{{ env('BASEFOLDER','') }}{{ mix('semantic/semantic.min.css', 'laravolt') }}" />
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-        href="{{ env('BASEFOLDER') }}{{ mix('css/all.css', 'laravolt') }}" />
+        href="{{ env('BASEFOLDER','') }}{{ mix('css/all.css', 'laravolt') }}" />
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-        href="{{ env('BASEFOLDER') }}{{ mix('css/app.css') }}" />
+        href="{{ env('BASEFOLDER','') }}{{ mix('css/app.css') }}" />
     <link rel="icon" href="{{ URL::asset('logo.png') }}" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="{{ asset('DataTables/datatables.min.css') }}" />
 
@@ -47,14 +47,14 @@
     {!! Asset::group('laravolt')->css() !!}
     {!! Asset::css() !!}
 
-    <script data-turbolinks-track="reload" src="{{ env('BASEFOLDER') }}{{ mix('js/vendor.js', 'laravolt') }}"></script>
+    <script data-turbolinks-track="reload" src="{{ env('BASEFOLDER','') }}{{ mix('js/vendor.js', 'laravolt') }}"></script>
     <script type="text/javascript" src="{{ asset('DataTables/datatables.min.js') }}"></script>
 
     <script>
         $.fn.calendar.settings.text = @json(form_calendar_text());
     </script>
 
-    <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER') }}{{ mix('js/platform.js', 'laravolt') }}">
+    <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER','') }}{{ mix('js/platform.js', 'laravolt') }}">
     </script>
     <!--     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
@@ -72,7 +72,7 @@
         {!! Asset::group('laravolt')->js() !!}
 
         /*@livewireStyles*/
-        <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER') }}{{ mix('js/app.js') }}"></script><style type="text/css">#actionbar {
+        <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER','') }}{{ mix('js/app.js') }}"></script><style type="text/css">#actionbar {
             background: url('{{ env('BASEFOLDER') }}/action_bar2.jpg') !important;
             /*background:#8BBCCC!important;*/
             background-repeat: no-repeat !important;

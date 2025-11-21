@@ -17,7 +17,7 @@ class Handler extends ExceptionHandler
             ? response()->json(['message' => $exception->getMessage()], 401)
             : redirect()
                 ->guest($exception->redirectTo() ?? route('auth::login.show'))
-                ->with('warning', __('Silakan login terlebih dahulu') ?? '');
+                ->with('warning', __('Silakan log masuk terlebih dahulu') ?? '');
     }
 
     /**
@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
         if ($e instanceof TokenMismatchException) {
             return back()->with(
                 'error',
-                __('Kami mendeteksi tidak ada aktivitas cukup lama, silakan kirim ulang form.')
+                __('Sistem mendapati tiada aktiviti di buat, sila log masuk semula.')
             );
         }
 

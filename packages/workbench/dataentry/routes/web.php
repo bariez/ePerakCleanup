@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Workbench\Dataentry\Http\Controllers\DataentryController;
 
 Route::group(
     [

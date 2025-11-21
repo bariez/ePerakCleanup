@@ -21,7 +21,7 @@ final class Permission extends Enum
 
     const MANAGE_GIS = 'laravolt::manage-app-gis';
 
-    const MANAGE_LAPORAN = 'laravolt::manage-app-laporan';
+   const MANAGE_LAPORAN = 'laravolt::manage-app-laporan';
 
     const MANAGE_KAMPUNG = 'laravolt::manage-app-kampung';
 }

@@ -28,8 +28,8 @@ class User extends \Laravolt\Platform\Models\User
     protected $fillable = [
         'name', 'email', 'username', 'password',
         'status', 'timezone', 'jabatan', 'jawatan',
-        'kategori', 'notel', 'email_verified_at',
-        'Ulasan', 'Daerah', 'Mukim', 'Kampung',
+        'kategori', 'notel', 'Tujuan', 'email_verified_at',
+        'Ulasan', 'Daerah', 'Mukim', 'Kampung', 'updated_at'
     ];
 
     public function getPermalinkAttribute()

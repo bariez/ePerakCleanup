@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}" data-font-size="{{ config('laravolt.ui.font_size') }}" style="font-size: 13px">
 <head>
-   
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta charset="UTF-8"/>
     <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
@@ -17,9 +17,9 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-          href="{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/all.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/app.css') }}"/>
+          href="{{env('BASEFOLDER')}}{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
+    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{env('BASEFOLDER')}}{{ mix('css/all.css', 'laravolt') }}"/>
+    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{env('BASEFOLDER')}}{{ mix('css/app.css') }}"/>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
      <link rel="icon" type="image/png" href="{{ asset('logo.png') }}">
 
@@ -187,7 +187,7 @@
                              @endif
                             </div>
                             <div class="column right aligned">
-                                 <a themed href="/" class="link"><font color="#000"><b>Laman Utama <i class="home icon"></i></b></font></a>
+                                 <a themed href="/eperak" class="link"><font color="#000"><b>Laman Utama <i class="home icon"></i></b></font></a>
                             </div>
                         </div>
                     </div>
@@ -232,6 +232,44 @@
 
 {!! Asset::js() !!}
 @stack('script')
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function show(a) {
+        var x = document.getElementById(a);
+        var c = x.nextElementSibling;
+
+        if (x.getAttribute('type') == "password") {
+            c.removeAttribute("class");
+            c.setAttribute("class", "eye icon");
+            x.removeAttribute("type");
+            x.setAttribute("type", "text");
+        } else {
+            x.removeAttribute("type");
+            x.setAttribute('type', 'password');
+            c.removeAttribute("class");
+            c.setAttribute("class", "eye slash icon");
+        }
+    }
+</script>
+
+@if (session('status'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            title: 'Berjaya!',
+            text: "{{ session('status') }}",
+            icon: 'success',
+            confirmButtonColor: '#ffc33d',
+            confirmButtonText: '<b style="color: #000;">OK</b>',
+            background: '#fff',
+            width: '400px'
+        });
+    });
+</script>
+@endif
+
 @stack('body')
 </body>
 </html>

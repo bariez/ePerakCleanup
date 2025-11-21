@@ -18,25 +18,25 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-          href="{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/all.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/app.css') }}"/>
+          href="{{ env('BASEFOLDER', '') }}{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
+    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/all.css', 'laravolt') }}"/>
+    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/app.css') }}"/>
     <link rel="icon" href="{{ URL::asset('logo.png') }}" type="image/x-icon"/>
 
     @stack('style')
     @stack('head')
     {!! Asset::group('laravolt')->css() !!}
     {!! Asset::css() !!}
-    <script data-turbolinks-track="reload" src="{{ mix('js/vendor.js', 'laravolt') }}"></script>
+    <script data-turbolinks-track="reload" src="{{ env('BASEFOLDER', '') }}{{ mix('js/vendor.js', 'laravolt') }}"></script>
 
     <script>
         $.fn.calendar.settings.text = @json(form_calendar_text());
     </script>
 
-    <script defer data-turbolinks-track="reload" src="{{ mix('js/platform.js', 'laravolt') }}"></script>
+    <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER', '') }}{{ mix('js/platform.js', 'laravolt') }}"></script>
     {!! Asset::group('laravolt')->js() !!}
 
-    <script defer data-turbolinks-track="reload" src="{{ mix('js/app.js') }}"></script>
+    <script defer data-turbolinks-track="reload" src="{{ env('BASEFOLDER', '') }}{{ mix('js/app.js') }}"></script>
 </head>
 <style type="text/css">
 .layout--auth.is-modern .x-auth {
@@ -100,7 +100,7 @@
             <font  color="#000"><b>Tiada Akaun e-Perak? </b></font><a themed href="{{ route('auth::registration.show') }}" class="link"><font   color="#000" style="font-size: small"><b>Daftar disini <i class="pen icon"></i></b></font></a>
         </div>
              <div class="column right aligned">
-             <a themed href="/" class="link"><font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font></a>
+             <a themed href="/eperak" class="link"><font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font></a>
         </div>
     </div>
 </div>

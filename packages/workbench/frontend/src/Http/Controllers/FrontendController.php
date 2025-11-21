@@ -37,7 +37,20 @@ class FrontendController extends Controller
     {
         // dd('sini');
 
+        // Semak jika pengguna sudah pernah melihat popup
+    if (!session()->has('popup_shown')) {
+        session(['popup_shown' => true]);
+        $popupShown = true; // Popup hanya akan muncul jika belum dilihat
+    } else {
+        $popupShown = false;// Popup tidak akan muncul jika sudah dilihat
+    }
+         // Jika popup ditutup, padamkan status sesi popup_shown
+    if (request()->has('popupClosed')) {
+        session()->forget('popup_shown'); // Resetkan sesi popup
+    }
+
         // return view('dashboard::dashboard.index');
+        // Mendapatkan data untuk banner, notis, aktiviti, dll.
         $banner = $this->repos->feBanner();
         $notis = collect($this->repos->feNotis('landing'));
         $aktiviti = $this->repos->feAktiviti('list');
@@ -50,7 +63,7 @@ class FrontendController extends Controller
         // latest edit
         $editdate = $this->repos->findDateLatest();
 
-        return view('frontend::landing.index', compact('banner', 'notis', 'aktiviti', 'lkpproduk', 'icon', 'counter', 'editdate'));
+        return view('frontend::landing.index', compact('banner', 'notis', 'aktiviti', 'lkpproduk', 'icon', 'counter', 'editdate', 'popupShown'));
     }
 
     public function getNewsList(Request $request)

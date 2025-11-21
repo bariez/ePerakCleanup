@@ -2,7 +2,7 @@
 @section('content')
 <div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
     <div class="column middle aligned">
-                <h3 class="ui header m-t-xs">
+                <h3 class="ui header m-t-xs" style="color:black">
        {{data_get($data_kampung,'NamaKampung')}}
         </h3>
     </div> 
@@ -14,7 +14,7 @@
 <div class="ui two stackable cards raised">
   <div class="card">
    <div class="image" align="center" style="background-color: white">
-        <a class="header" href="/dataentry/searchkampung/editkampung/{{$id}}/{{$tabmain}}/{{$tabdetail}}/{{$iddetail}}"><img src="/rumah.png" style="width:300px;height:300px"></a>
+        <a class="header" href="/eperak/dataentry/searchkampung/editkampung/{{$id}}/{{$tabmain}}/{{$tabdetail}}/{{$iddetail}}"><img src="/rumah.png" style="width:300px;height:300px"></a>
       </div>
       <div class="content" align="center">
         <a class="header" href="/dataentry/searchkampung/editkampung/{{$id}}/{{$tabmain}}/{{$tabdetail}}/{{$iddetail}}">Maklumat Asas</a>
@@ -22,7 +22,7 @@
   </div>
   <div class="card">
           <div class="image" align="center" style="background-color: white">
-            <a class="header" href="/dataentry/searchkampung/isirumah/ketuaisirumah/{{$id}}"><img src="/isirumah.png" style="width:300px;height:300px"></a>
+            <a class="header" href="/eperak/dataentry/searchkampung/isirumah/ketuaisirumah/{{$id}}"><img src="/isirumah.png" style="width:300px;height:300px"></a>
         
       </div>
       <div class="content" align="center">

@@ -327,7 +327,7 @@
                                     "</table>"
                     },
                 },
-                {
+               {
                     id: 25,
                     title: "Sempadan Mukim",
                     visible: true,
@@ -388,7 +388,7 @@
          *****************************************************************/
 
         const map = new Map({
-            basemap: "gray-vector",
+            basemap: "imagery",
             layers: [mapLayer]
         });
 

@@ -3,6 +3,7 @@
     const latKampung = {!! $latKampung !!};
     // console.log(longKampung + "    -----   " + latKampung);
 
+    console.log("Kampung Data:", @json($kampungdata));
     /*   require(["esri/Map",
            "esri/views/MapView",
            "esri/layers/MapImageLayer",
@@ -54,6 +55,8 @@
             outFields: ["*"],
             definitionExpression: "UPPER(ID_KG)=UPPER('{{ trim($kampungdata->IdKampungBaru) }}')",
         });
+
+        
 
         /*****************************************************************
          * Add the layer to a map

@@ -17,10 +17,10 @@
             --app-login-background: url('{{ url(config('laravolt.ui.login_background')) }}');
         }
     </style>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
-          href="{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/all.css', 'laravolt') }}"/>
-    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ mix('css/app.css') }}"/>
+   <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
+ href="{{ env('BASEFOLDER', '') }}{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
+<link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/all.css', 'laravolt') }}"/>
+<link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/app.css') }}"/>
     <link rel="icon" href="{{ URL::asset('logo.png') }}" type="image/x-icon"/>
 
     @stack('style')
@@ -88,11 +88,43 @@
     {!! form()->email('email')->label(__('Emel<html><font color="red">*</font></html>')) !!}<!-- 
     {!! form()->password('password')->label(__('Katalaluan')) !!}
  --> <div class="field">
-        <label>Kata Laluan<html><font color="red">*</font></html></label>(*Sila masukkan gabungan abjad, nombor & aksara khas.Panjang kata laluan 8 karakter.)
-        <input type="password" name="password" id="password">
+    <label>Kata Laluan <span style="color:red">*</span></label>
+    <small style="display:block; margin-bottom: 5px; color: grey;">
+        (*Sila masukkan gabungan abjad, nombor & aksara khas. Panjang kata laluan 8 karakter.)
+    </small>
+    
+    <div class="ui right icon input"> 
+        <input type="password" name="password" id="input_password" placeholder="Kata Laluan" required>
+        <i class="eye slash link icon" onclick="togglePassword('input_password', this)"></i>
     </div>
+</div>
 
-    {!! form()->password('password_confirmation')->label(__('Mengesahkan kata laluan anda<html><font color="red">*</font></html>')) !!}
+<div class="field">
+    <label>Mengesahkan Kata Laluan <span style="color:red">*</span></label>
+    
+    <div class="ui right icon input">
+        <input type="password" name="password_confirmation" id="input_confirmation" placeholder="Kata Laluan" required>
+        <i class="eye slash link icon" onclick="togglePassword('input_confirmation', this)"></i>
+    </div>
+</div>
+
+<script>
+    function togglePassword(fieldId, iconElement) {
+        var input = document.getElementById(fieldId);
+        
+        if (input.type === "password") {
+            // Tukar jadi text (nampak password)
+            input.type = "text";
+            // Tukar ikon jadi mata terbuka (buang slash)
+            iconElement.classList.remove("slash");
+        } else {
+            // Tukar jadi password (bintang/titik)
+            input.type = "password";
+            // Tukar ikon jadi mata tertutup (tambah slash)
+            iconElement.classList.add("slash");
+        }
+    }
+</script>
       <div class="field">
         <label>Jabatan / Agensi<font color="red">*</font></label>
         <input type="text" name="jabatan" id="jabatan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="{{ old('jabatan') }}">
@@ -104,8 +136,13 @@
 
 
     <div class="field">
-        <label>No.Tel<html><font color="red">*</font></html></label>(*Sila masukkan format nombor sahaja. Tanpa "-" atau jarak. Contoh: 0123456789))
+        <label>No.Tel<html><font color="red">*</font></html></label>(*Sila masukkan format nombor sahaja. Tanpa "-" atau jarak. Contoh: 0123456789)
         <input type="text" name="notel" id="notel" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required="required" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " onKeyPress="if(this.value.length==12) return false;"  value="{{ old('notel') }}">
+    </div>
+
+     <div class="field">
+        <label>Tujuan Permohonan ID Pengguna<font color="red">*</font></label> (*Sila nyatakan tujuan permohonan ID Pengguna)
+        <input type="text" name="Tujuan" id="Tujuan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="">
     </div>
 
     <div class="field action">
@@ -126,7 +163,7 @@
                 </div>
             </div>
             <div class="column right aligned">
-                <a themed href="/" class="link">
+                <a themed href="/eperak" class="link">
                     <font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font>
                 </a>
             </div>

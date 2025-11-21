@@ -337,7 +337,7 @@
                             "</table>"
                     },
                 },
-                {
+                /**{
                     id: 25,
                     title: "Sempadan Mukim",
                     visible: true,
@@ -351,7 +351,7 @@
                             "</tr> " +
                             "</table>"
                     },
-                },
+                },**/
                 {
                     id: 26,
                     title: "Sempadan Daerah",

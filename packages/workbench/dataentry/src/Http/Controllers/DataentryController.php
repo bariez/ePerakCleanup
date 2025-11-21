@@ -272,8 +272,37 @@ class DataentryController extends Controller
         $iddetail = $iddetail;
         $jawatan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 26)->get();
 
-        $pentadbiran = ProfilPentadbiran::with('kampung', 'jawatan')
-                        ->where('fk_kampung', $id)->get();
+        // Edit 18/11/2025 Kita guna 'join' supaya boleh check nama jawatan (Pengerusi/SU/dll) dalam table lkp_detail
+$pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
+    ->join('lkp_detail', 'profil_pentadbiran.jawatan', '=', 'lkp_detail.id')
+    ->with('kampung', 'jawatan')
+    ->where('profil_pentadbiran.fk_kampung', $id)
+    ->orderByRaw("
+        CASE 
+            -- Jawatan Tertinggi
+            WHEN lkp_detail.description LIKE '%PENGERUSI%' THEN 1
+            WHEN lkp_detail.description LIKE '%SETIAUSAHA%' THEN 2
+            WHEN lkp_detail.description LIKE '%BENDAHARI%' THEN 3
+            
+            -- Susunan Ahli Biasa (Kita set manual supaya turutan betul)
+            -- Pastikan ejaan SAMA SEBIJIK dengan dalam database (Huruf Besar/Kecil)
+            WHEN lkp_detail.description = 'AHLI BIASA' THEN 4
+            WHEN lkp_detail.description = 'AHLI BIASA 1' THEN 5
+            WHEN lkp_detail.description = 'AHLI BIASA 2' THEN 6
+            WHEN lkp_detail.description = 'AHLI BIASA 3' THEN 7
+            WHEN lkp_detail.description = 'AHLI BIASA 4' THEN 8
+            WHEN lkp_detail.description = 'AHLI BIASA 5' THEN 9
+            WHEN lkp_detail.description = 'AHLI BIASA 6' THEN 10
+            WHEN lkp_detail.description = 'AHLI BIASA 7' THEN 11
+            WHEN lkp_detail.description = 'AHLI BIASA 8' THEN 12
+            WHEN lkp_detail.description = 'AHLI BIASA 9' THEN 13
+            WHEN lkp_detail.description = 'AHLI BIASA 10' THEN 14
+                        
+            -- Jawatan lain-lain jatuh ke bawah sekali
+            ELSE 99 
+        END ASC
+    ")
+    ->get();
 
         $data_pentadbiran = ProfilPentadbiran::with('kampung', 'jawatan')
                              ->where('id', $iddetail)->first();
@@ -900,12 +929,12 @@ class DataentryController extends Controller
         } else {//pdf
 
             $data = $this->repos->cetakKIR($idrumah, $idkampung);
-            $namakamapung = Kampung::find($idkampung);
+            $namakampung = Kampung::find($idkampung);
 
             $data = [
 
                 'data' => $data,
-                'namakmapung'=>  data_get($namakamapung, 'NamaKampung'),
+                'namakampung'=>  data_get($namakampung, 'NamaKampung'),
 
                 'title'=>'MAKLUMAT KETUA ISI RUMAH & AHLI ISI RUMAH',
 
@@ -917,6 +946,7 @@ class DataentryController extends Controller
 
             return $pdf->download('cetakan_KIR.pdf');
             //return $pdf->stream('cetakan_KIR.pdf');
+
         }
     }
 
@@ -932,11 +962,11 @@ class DataentryController extends Controller
         } else {//pdf
 
             $data = $this->repos->cetakkirAll($idkampung);
-            $namakamapung = Kampung::find($idkampung);
+            $namakampung = Kampung::find($idkampung);
 
             $data = [
                 'data' => $data,
-                'namakmapung'=> data_get($namakamapung, 'NamaKampung'),
+                'namakampung'=> data_get($namakampung, 'NamaKampung'),
                 'title'=>'MAKLUMAT KETUA ISI RUMAH & AHLI ISI RUMAH',
             ];
 
@@ -982,9 +1012,9 @@ class DataentryController extends Controller
         $biltingkat = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 13)->get();
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
-        $Status = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
+        $StatusSemak = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
 
-        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'Status', 'infokampung'));
+        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'StatusSemak', 'infokampung'));
     }
 
     public function saveketuarumah(Request $request)
@@ -1014,12 +1044,12 @@ class DataentryController extends Controller
         $biltingkat = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 13)->get();
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
-        $Status = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
+        $StatusSemak = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
 
         $filexists = file_exists(public_path(data_get($ketuaisirumah, 'rumah.Gambar_path')));
 
         return view('dataentry::isirumah.ketuaisirumah.editketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'Status', 'filexists', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'filexists', 'infokampung'));
     }
 
     public function editketuarumah(Request $request)
@@ -1049,10 +1079,10 @@ class DataentryController extends Controller
         $biltingkat = LkpDetail::find(data_get($ketuaisirumah, 'rumah.BilTingkat'));
         $bilbilik = LkpDetail::find(data_get($ketuaisirumah, 'rumah.BilBilik'));
         $jenispengenalan = LkpDetail::find(data_get($ketuaisirumah, 'JenisPengenalan'));
-        $Status = LkpDetail::find(data_get($ketuaisirumah, 'Status'));
+        $StatusSemak = LkpDetail::find(data_get($ketuaisirumah, 'StatusSemak'));
 
         return view('dataentry::isirumah.ketuaisirumah.viewketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'Status', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'infokampung'));
     }
 
     public function ahliisirumah($idkampung, $idrumah)

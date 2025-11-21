@@ -52,7 +52,7 @@
 
     <div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0">
         <div class="column middle aligned">
-            <h2 class="ui header m-t-xs">
+            <h2 class="ui header m-t-xs" style="color:black">
                 Maklumat Ketua Isi Rumah
             </h2>
         </div>
@@ -127,10 +127,20 @@
                             @endif
                             <a href="{!! URL::to('dataentry/searchkampung/cetakkir/1/' . $idkampung . '/' . data_get($data, 'rumah.IdRumah')) !!}" data-tooltip="Cetakan" data-position="bottom center"><i
                                     class="print icon"></i></a>
-                            @if (data_get($ketuaisirumah, 'rumah.Status') == 0)
-                                <a href="" data-tooltip="Status Kemaskini" data-position="bottom center"><i
-                                        class="check icon" style="color:black"></i></a>
-                            @endif
+                            @php
+    // Ambil status semak (Default kepada 0 jika tiada data)
+    $statusSemak = data_get($data, 'rumah.StatusSemak', 0);
+@endphp
+
+@if ($statusSemak == 1)
+    <a href="#" style="cursor: default;" data-tooltip="Telah Dikemaskini" data-position="top center">
+        <i class="check circle icon" style="color: #21ba45; font-size: 1.3em;"></i>
+    </a>
+@else
+    <a href="#" style="cursor: help;" data-tooltip="Belum Dikemaskini" data-position="top center">
+        <i class="times circle icon" style="color: #db2828; font-size: 1.3em;"></i>
+    </a>
+@endif
                         </td>
                     </tr>
 
@@ -143,6 +153,53 @@
 
 
         </table>
+        @php
+        $latestTimestamp = 0; // Kita guna timestamp (nombor) untuk perbandingan tepat
+
+        foreach($ketuaisirumah as $row) {
+            // 1. Semak Tarikh Ketua Isi Rumah
+            if($row->updated_at){
+                $ts = \Carbon\Carbon::parse($row->updated_at)->timestamp;
+                if($ts > $latestTimestamp) $latestTimestamp = $ts;
+            }
+
+            // 2. Semak Tarikh Rumah (Jika ada perubahan pada info rumah)
+            // Menggunakan data_get untuk elak error jika relation tiada
+            $rumahUpdate = data_get($row, 'rumah.updated_at');
+            if($rumahUpdate){
+                $ts = \Carbon\Carbon::parse($rumahUpdate)->timestamp;
+                if($ts > $latestTimestamp) $latestTimestamp = $ts;
+            }
+
+            // 3. Semak Semua Ahli Isi Rumah
+            $ahliList = data_get($row, 'rumah.ahliIsiRumah');
+            if($ahliList){
+                foreach($ahliList as $ahli){
+                    if($ahli->updated_at){
+                        $ts = \Carbon\Carbon::parse($ahli->updated_at)->timestamp;
+                        if($ts > $latestTimestamp) $latestTimestamp = $ts;
+                    }
+                }
+            }
+        }
+    @endphp
+
+    <div style="margin-top: 15px; padding: 10px; background-color: #f9fafb; border: 1px solid rgba(34,36,38,.15); border-radius: 4px;">
+        <h5 class="ui header" style="margin:0; color: #666;">
+            <i class="info circle icon"></i>
+            Status Terkini:
+            <span style="font-weight: normal; font-size: 13px;">
+                Kemaskini data terakhir dalam senarai ini adalah pada : 
+                <strong style="color: #2185d0;">
+                    @if($latestTimestamp > 0)
+                        {{ \Carbon\Carbon::createFromTimestamp($latestTimestamp)->format('d/m/Y h:i A') }}
+                    @else
+                        - Tiada Rekod -
+                    @endif
+                </strong>
+            </span>
+        </h5>
+    </div>
 
     </div>
 
