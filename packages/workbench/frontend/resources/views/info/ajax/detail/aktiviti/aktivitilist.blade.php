@@ -130,7 +130,7 @@
 										<div class="row">
 
 				                            <div class="text-end">
-				                                <a href="/info/{{ data_get($kampung, 'id') }}" class="btn btn-secondary">Kembali</a>
+				                                <a href="/eperak/info/{{ data_get($kampung, 'id') }}" class="btn btn-secondary">Kembali</a>
 				                            </div>
 
 										</div>

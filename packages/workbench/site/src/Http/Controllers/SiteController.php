@@ -375,6 +375,38 @@ class SiteController extends Controller
        // }
     }
 
+   // Tambah function ini di bahagian paling bawah class SiteController
+    public function destroyPending($id)
+    {
+        // 1. Debugging: Jika kod sampai sini, skrin akan jadi putih dan tulis "Berjaya masuk..."
+        // Jika delete berjaya nanti, boleh padam baris dd() ini.
+        // dd("Berjaya masuk controller! ID: " . $id); 
+        //dd('BERJAYA SAMPAI! ID ialah: ' . $id); // <--- TAMBAH INI
+        try {
+            $user = \Laravolt\Platform\Models\User::find($id);
+
+            if (!$user) {
+                return redirect()->back()->withError('Data pengguna tidak dijumpai.');
+            }
+
+            // Simpan audit log
+            $old_value = json_encode($user);
+            
+            // Lakukan proses delete
+            // Jika repository anda ada method delete, guna repository. 
+            // Jika tak pasti, guna direct model delete seperti di bawah:
+            $user->delete(); 
+            
+            // Rekod Audit Log
+            \Event::dispatch(new \App\Events\AuditLog(auth()->user()->id, $id, 'Padam Permohonan (Pending)', $old_value, 'Deleted'));
+
+            return redirect()->back()->withSuccess('Permohonan pengguna berjaya dipadam.');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Ralat: ' . $e->getMessage());
+        }
+    }
+
     public function lookupindex()
     {
         $datamaster = LkpMaster::selectRaw("lkp_master.id,lkp_master.name,a.name as parent_name,CASE

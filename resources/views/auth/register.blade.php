@@ -1,198 +1,332 @@
 <!DOCTYPE html>
+
 <html lang="{{ config('app.locale') }}" data-font-size="{{ config('laravolt.ui.font_size') }}" style="font-size: 14px">
+
 <head>
+
     <title>{{ $title ?? '' }} | {{ config('app.name') }}</title>
 
+
+
     <meta charset="UTF-8"/>
+
     <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1"/>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
     <meta name="turbolinks-cache-control" content="no-cache">
+
     <meta name="turbolinks-enabled" content="{{ config('laravolt.platform.features.turbolinks') }}">
+
+
 
     @stack('meta')
 
+
+
     <style>
+
         :root {
+
             --app-accent-color: var(--{{ config('laravolt.ui.color') }});
+
             --app-login-background: url('{{ url(config('laravolt.ui.login_background')) }}');
+
         }
+
     </style>
+
    <link rel="stylesheet" type="text/css" data-turbolinks-track="reload"
+
  href="{{ env('BASEFOLDER', '') }}{{ mix('semantic/semantic.min.css', 'laravolt') }}"/>
+
 <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/all.css', 'laravolt') }}"/>
+
 <link rel="stylesheet" type="text/css" data-turbolinks-track="reload" href="{{ env('BASEFOLDER', '') }}{{ mix('css/app.css') }}"/>
+
     <link rel="icon" href="{{ URL::asset('logo.png') }}" type="image/x-icon"/>
 
+
+
     @stack('style')
+
     @stack('head')
+
     {!! Asset::group('laravolt')->css() !!}
+
     {!! Asset::css() !!}
+
     <script data-turbolinks-track="reload" src="{{ mix('js/vendor.js', 'laravolt') }}"></script>
 
+
+
     <script>
+
         $.fn.calendar.settings.text = @json(form_calendar_text());
+
     </script>
 
+
+
     <script defer data-turbolinks-track="reload" src="{{ mix('js/platform.js', 'laravolt') }}"></script>
+
     {!! Asset::group('laravolt')->js() !!}
 
+
+
     <script defer data-turbolinks-track="reload" src="{{ mix('js/app.js') }}"></script>
+
 </head>
+
 <style type="text/css">
+
 .layout--auth.is-modern .x-auth {
+
     background: #ffffffde;
+
 }
+
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
  .x-auth {
 
+
+
     width:100% !important;
-}
-    
-}
-.layout--auth.is-modern {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    width: 100%;
-    max-width: 100%;
-    min-height: 100vh;
-    align-items: center;
-    padding-top: 10vh;
 
 }
+
+    
+
+}
+
+.layout--auth.is-modern {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1 1 auto;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    min-height: 100vh;
+
+    align-items: center;
+
+    padding-top: 10vh;
+
+
+
+}
+
 </style>
+
+
 
 <body data-theme="{{ config('laravolt.ui.theme') }}" class="{{ $bodyClass ?? '' }} @yield('body.class')">
 
+
+
 <div class="layout--auth is-{!! config('laravolt.ui.login_layout') !!}" style="background-image: url('{{ asset('kuning2.png') }}');background-size:100% 100%; padding-top: 2vh;padding-bottom: 1vh">
+
      <!--    <div class="layout--auth__container" > -->
+
         <div class="x-auth" style="width: 50%">
+
            
+
                 <div class="x-auth__content" style="padding-right: 2vh;padding-left: 2vh;">
 
+
+
                      <div data-role="x-brand-image" class="ui image centered" style="width: 100%;">
+
                         <img src="{{asset('logo.png')}}" alt="" class="ui image tiny centered">
+
                     
+
                       
+
                 </div>
+
+
+
 
 
     <h3 style="text-align: center; font-size: 30px;">e-Perak</h3>
+
     <h3 class="ui header horizontal divider section">Daftar Pengguna</h3>
 
+
+
     {!! form()->open(route('auth::registration.store')) !!}
+
      <div class="field">
+
         <label>Nama<font color="red">*</font></label>
+
         <input type="text" name="name" id="name" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="{{ old('name') }}">
+
     </div>
+
     {!! form()->email('email')->label(__('Emel<html><font color="red">*</font></html>')) !!}<!-- 
+
     {!! form()->password('password')->label(__('Katalaluan')) !!}
+
  --> <div class="field">
-    <label>Kata Laluan <span style="color:red">*</span></label>
-    <small style="display:block; margin-bottom: 5px; color: grey;">
-        (*Sila masukkan gabungan abjad, nombor & aksara khas. Panjang kata laluan 8 karakter.)
-    </small>
-    
-    <div class="ui right icon input"> 
-        <input type="password" name="password" id="input_password" placeholder="Kata Laluan" required>
-        <i class="eye slash link icon" onclick="togglePassword('input_password', this)"></i>
-    </div>
-</div>
 
-<div class="field">
-    <label>Mengesahkan Kata Laluan <span style="color:red">*</span></label>
-    
-    <div class="ui right icon input">
-        <input type="password" name="password_confirmation" id="input_confirmation" placeholder="Kata Laluan" required>
-        <i class="eye slash link icon" onclick="togglePassword('input_confirmation', this)"></i>
-    </div>
-</div>
+        <label>Kata Laluan<html><font color="red">*</font></html></label>(*Sila masukkan gabungan abjad, nombor & aksara khas.Panjang kata laluan 8 karakter.)
 
-<script>
-    function togglePassword(fieldId, iconElement) {
-        var input = document.getElementById(fieldId);
-        
-        if (input.type === "password") {
-            // Tukar jadi text (nampak password)
-            input.type = "text";
-            // Tukar ikon jadi mata terbuka (buang slash)
-            iconElement.classList.remove("slash");
-        } else {
-            // Tukar jadi password (bintang/titik)
-            input.type = "password";
-            // Tukar ikon jadi mata tertutup (tambah slash)
-            iconElement.classList.add("slash");
-        }
-    }
-</script>
+        <input type="password" name="password" id="password">
+
+    </div>
+
+
+
+    {!! form()->password('password_confirmation')->label(__('Mengesahkan kata laluan anda<html><font color="red">*</font></html>')) !!}
+
       <div class="field">
+
         <label>Jabatan / Agensi<font color="red">*</font></label>
+
         <input type="text" name="jabatan" id="jabatan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="{{ old('jabatan') }}">
+
     </div>
+
      <div class="field">
+
         <label>Jawatan<font color="red">*</font></label>
+
         <input type="text" name="jawatan" id="jawatan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="{{ old('jawatan') }}">
+
     </div>
+
+
+
 
 
     <div class="field">
+
         <label>No.Tel<html><font color="red">*</font></html></label>(*Sila masukkan format nombor sahaja. Tanpa "-" atau jarak. Contoh: 0123456789)
+
         <input type="text" name="notel" id="notel" onkeyup="this.value=this.value.replace(/[^\d]/,'')" required="required" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " onKeyPress="if(this.value.length==12) return false;"  value="{{ old('notel') }}">
+
     </div>
+
+
 
      <div class="field">
+
         <label>Tujuan Permohonan ID Pengguna<font color="red">*</font></label> (*Sila nyatakan tujuan permohonan ID Pengguna)
+
         <input type="text" name="Tujuan" id="Tujuan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required" value="">
+
     </div>
+
+
 
     <div class="field action">
+
         <button class="ui fluid button" style="background: #ffc33d;color: #000" type="submit"><b>Daftar</b></button>
+
        
 
+
+
     </div>
+
+
 
     <div class="ui divider section"></div>
 
+
+
     <div class="ui field m-b-2">
+
         <div class="ui equal width grid">
+
             <div class="column left aligned">
+
                 <div>
+
                     <font color="#000"><b>Sudah ada Akaun e-Perak? </b></font><a themed href="{{ route('auth::login.show') }}" class="link">
+
                         <font color="#000" style="font-size: small"><b>Login Disini <i class="sign in alternate icon"></i></b></font>
+
                     </a>
+
                 </div>
+
             </div>
+
             <div class="column right aligned">
+
                 <a themed href="/eperak" class="link">
+
                     <font  color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font>
+
                 </a>
+
             </div>
+
         </div>
+
     </div>
+
     {!! form()->close() !!}
+
 <script type="text/javascript">
+
     $(document).ready(function() 
+
   {  
 
+
+
      $('#name').keyup(function() {
+
       $(this).val($(this).val().toUpperCase());
+
     });
+
      $('#jabatan').keyup(function() {
+
       $(this).val($(this).val().toUpperCase());
+
     });
+
      $('#jawatan').keyup(function() {
+
       $(this).val($(this).val().toUpperCase());
+
     });
+
+
 
  });
 
+
+
 </script>
+
                 </div>
+
         </div>
+
     </div>
 
+
+
 {!! Asset::js() !!}
+
 @stack('script')
+
 @stack('body')
+
 </body>
+
 </html>
+

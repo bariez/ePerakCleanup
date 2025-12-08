@@ -297,8 +297,7 @@
 
         <div class="two fields">
             <div class="field">
-                <label>Alamat 2<font color="red">*</font></label>
-                <input type="text" name="alamat2" id="alamat2" required="required">
+    <label>Alamat 2</label> <input type="text" name="alamat2" id="alamat2">
             </div>
             <div class="field">
                 <label>Poskod<font color="red">*</font></label>
@@ -432,12 +431,12 @@
         </div>
         <div class="two fields">
             <div class="field">
-                <label>Latitud<font color="red">*</font></label>
-                <input type="text" name="Latitud" id="Latitud" required="required">
+                <label>Latitud</label>
+                <input type="text" name="Latitud" id="Latitud">
             </div>
             <div class="field">
-                <label>Longitud<font color="red">*</font></label>
-                <input type="text" name="Longitud" id="Longitud" required="required">
+                <label>Longitud</label>
+                <input type="text" name="Longitud" id="Longitud">
             </div>
         </div>
 
@@ -961,181 +960,176 @@
 
         function warga($type) {
 
-            var warga = 106;
-            var bukanwarga = 107;
-
-
-            $('#tarikhlahirauto').val('');
-            $('#tarikhlahir').val('');
-            $('#noic').val('');
-            $('#umur').val('');
-            $('#nopengenalan').val('');
-
-            if ($type == 150) { //kad pengenalan baru
-
-                $('#tlahirauto').show();
-                $('#tlahircal').hide();
-
-                $('#jantinaauto').show();
-                $('#jantinapilih').hide();
-
-                $('#divnopengenalan').hide();
-                $('#divnopengenalannotes').hide();
-                $('#divnoic').show();
-                $('#divnoicnotes').show();
-
-                $('#noic').attr('required', true)
-
-
-
-
-
-                //$("#labellahirauto").html("Tarikh Lahir<font color='red'>*</font>");
-
-                $("#labellahirauto").append("");
-                $("#labeljantinaauto").append("");
-
-
-
-
-                $("#noic").on("keyup", function() {
-
-
-                    var noic = this.value;
-
-                    const str = this.value;
-                    const substr = str.slice(0, 6);
-
-
-
-                    let str2 = substr;
-
-                    let year = str2.substring(0, 2);
-
-                    let month = str2.substring(2, 4);
-
-                    let day = str2.substring(4, 6);
-
-                    let startyear = str2.substring(0, 1);
-
-
-
-                    if (startyear == 0 || startyear == 1 || startyear == 2) {
-
-                        var pangkal = '20';
-
-                    } else {
-                        var pangkal = '19'
-
-
-                    }
-
-                    var lahir = day + '-' + month + '-' + pangkal + year;
-
-                    var tahun = pangkal + year;
-
-                    if (day == '') {
-                        $('#tarikhlahirauto').val('');
-
-                    } else {
-                        $('#tarikhlahirauto').val(lahir);
-
-                    }
-
-
-
-
-
-                    const d = new Date();
-                    let curyear = d.getFullYear();
-
-                    var umur = curyear - parseInt(tahun)
-
-
-
-                    if (day == '') {
-                        $('#umur').val('');
-
-                    } else {
-                        $('#umur').val(umur);
-
-                    }
-
-
-                    const subst3 = str.slice(0, 12);
-
-
-
-                    let str3 = subst3;
-
-                    let last = str3.substring(11, 12);
-
-
-
-                    var number = last;
-
-
-                    if (number == '') {
-
-                        $('#jauto').val('');
-
-                    } else {
-
-                        if (number % 2 == 0) {
-
-
-                            $('#jauto').val('Perempuan');
-
-                        } else {
-                            $('#jauto').val('Lelaki');
-
-                        }
-
-
-                    }
-
-
-                });
-
-
+    // Sila tukar 999 ini kepada ID sebenar 'TIDAK BERKENAAN' dalam database anda
+    var id_tidak_berkenaan = 169; 
+    
+    // Reset nilai medan sebelum memulakan logik
+    $('#tarikhlahirauto').val('');
+    $('#tarikhlahir').val('');
+    $('#noic').val('');
+    $('#umur').val('');
+    $('#nopengenalan').val('');
+    $('#jauto').val('');
+    
+    // --- SENARIO 1: KAD PENGENALAN BARU (Auto Kira) ---
+    if ($type == 150) { 
+        
+        // Paparkan medan Auto (Text), Sorokkan medan Manual (Calendar/Dropdown)
+        $('#tlahirauto').show();
+        $('#tlahircal').hide();
+        
+        $('#jantinaauto').show();
+        $('#jantinapilih').hide();
+
+        // Paparkan ruang No IC
+        $('#divnopengenalan').hide();
+        $('#divnopengenalannotes').hide();
+        $('#divnoic').show();
+        $('#divnoicnotes').show();
+
+        // Wajibkan No IC
+        $('#noic').attr('required', true);
+
+        // Kunci medan Umur & Warganegara (sebab auto dari IC)
+        $('#umur').prop('readonly', true);
+        $('input[name="warga"]').prop('disabled', true);
+        
+        // Set Default Warganegara = Ya
+        $("#warga").prop("checked", true);
+        $("#wn").val(1);
+
+        // Label Semula
+        $("#labellahirauto").html("Tarikh Lahir<font color='red'>*</font>");
+        $("#labeljantinaauto").html("Jantina<font color='red'>*</font>");
+
+        // --- LOGIK PENGIRAAN DARI NO KAD PENGENALAN ---
+        $("#noic").off("keyup").on("keyup", function() {
+            var noic = this.value;
+            const str = this.value;
+            const substr = str.slice(0, 6);
+            let str2 = substr;
+            let year = str2.substring(0, 2);
+            let month = str2.substring(2, 4);
+            let day = str2.substring(4, 6);
+            let startyear = str2.substring(0, 1);
+
+            // Tentukan Tahun (19xx atau 20xx)
+            if (startyear == 0 || startyear == 1 || startyear == 2) {
+                var pangkal = '20';
             } else {
-
-                $('#tlahirauto').hide();
-                $('#tlahircal').show();
-                $("#labellahir").html("Tarikh Lahir<font color='red'>*</font>");
-                $('#jantinaauto').hide();
-                $('#jantinapilih').show();
-                $("#labeljantina").html("Jantina<font color='red'>*</font>")
-
-                $('#divnopengenalan').show();
-                $('#divnopengenalannotes').show();
-                $('#divnoic').hide();
-                $('#divnoicnotes').hide();
-
-                $('#noic').attr('required', false)
-
-
-
-
-
-
+                var pangkal = '19';
             }
 
+            var lahir = day + '/' + month + '/' + pangkal + year; // Format paparan
+            var tahun = pangkal + year;
 
-            if ($type == 152) { //paspport
-
-                $("#nonewarga").prop("checked", true);
-                $("#wn").val(0);
-
+            // Masukkan Tarikh Lahir Auto
+            if (day == '') {
+                $('#tarikhlahirauto').val('');
             } else {
-
-                $("#warga").prop("checked", true);
-                $("#wn").val(1);
-
-
+                $('#tarikhlahirauto').val(lahir);
             }
 
+            // Kira Umur Auto
+            const d = new Date();
+            let curyear = d.getFullYear();
+            var umur = curyear - parseInt(tahun);
 
+            if (day == '') {
+                $('#umur').val('');
+            } else {
+                $('#umur').val(umur);
+            }
+
+            // Tentukan Jantina Auto
+            let last = str.substring(11, 12);
+            if (last == '') {
+                $('#jauto').val('');
+            } else {
+                if (last % 2 == 0) {
+                    $('#jauto').val('Perempuan');
+                     // Update hidden input jantina jika perlu (id field jantina dropdown)
+                    $('#jantina').val(2); // Contoh ID perempuan
+                } else {
+                    $('#jauto').val('Lelaki');
+                    $('#jantina').val(1); // Contoh ID lelaki
+                }
+            }
+        });
+
+    } 
+    // --- SENARIO 2: TIDAK BERKENAAN (Manual Sepenuhnya) ---
+    else if ($type == id_tidak_berkenaan) {
+        
+        // Paparkan medan Manual (Calendar/Dropdown), Sorokkan Auto
+        $('#tlahirauto').hide();
+        $('#tlahircal').show(); // Guna Calendar
+        
+        $('#jantinaauto').hide();
+        $('#jantinapilih').show(); // Guna Dropdown
+
+        // Sorokkan semua input Nombor Pengenalan (sebab Tidak Berkenaan)
+        $('#divnopengenalan').hide();
+        $('#divnopengenalannotes').hide();
+        $('#divnoic').hide();
+        $('#divnoicnotes').hide();
+
+        // Buang 'required' pada medan nombor
+        $('#noic').attr('required', false);
+        $('#nopengenalan').attr('required', false);
+
+        // BENARKAN EDIT UMUR (PENTING!)
+        $('#umur').prop('readonly', false); 
+        
+        // BENARKAN PILIH WARGANEGARA
+        $('input[name="warga"]').prop('disabled', false);
+        $('input[name="warga"]').prop('checked', false); // Reset pilihan
+        $("#wn").val('');
+
+        // Label Semula
+        $("#labellahir").html("Tarikh Lahir<font color='red'>*</font>");
+        $("#labeljantina").html("Jantina<font color='red'>*</font>");
+
+        // Tambah fungsi change pada radio button warganegara untuk update hidden value
+        $('input[name="warga"]').change(function(){
+            $("#wn").val($(this).val());
+        });
+
+    } 
+    // --- SENARIO 3: LAIN-LAIN (Passport / Tentera / Polis) ---
+    else {
+        
+        // Manual date & gender, tapi ada No Pengenalan
+        $('#tlahirauto').hide();
+        $('#tlahircal').show();
+        $('#jantinaauto').hide();
+        $('#jantinapilih').show();
+
+        $('#divnopengenalan').show();
+        $('#divnopengenalannotes').show();
+        $('#divnoic').hide();
+        $('#divnoicnotes').hide();
+
+        $('#noic').attr('required', false);
+        // $('#nopengenalan').attr('required', true); // Diubah: Tidak wajib mengikut request anda sebelum ini
+
+        // Kunci Umur (Auto kira dari calendar, tapi boleh readonly kalau nak paksa guna calendar)
+        // Di sini saya set readonly true supaya user guna calendar, tapi terpulang.
+        $('#umur').prop('readonly', true); 
+
+        $("#labellahir").html("Tarikh Lahir<font color='red'>*</font>");
+        $("#labeljantina").html("Jantina<font color='red'>*</font>");
+
+        if ($type == 152) { // PASSPORT
+            $("#nonewarga").prop("checked", true);
+            $("#wn").val(0);
+            $('input[name="warga"]').prop('disabled', true);
+        } else { 
+            $("#warga").prop("checked", true);
+            $("#wn").val(1);
+            $('input[name="warga"]').prop('disabled', true);
         }
+    }
+}
     </script>
 @endpush

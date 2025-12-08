@@ -546,19 +546,120 @@ $pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
         }
     }
 
-    public function saveaktiviti(Request $request)
-    {
-        $saveaktiviti = $this->repos->saveaktiviti($request);
+ public function saveaktiviti(Request $request)
+{
+    // 1. SIMPAN DATA UTAMA AKTIVITI
+    $aktiviti = new ProfilAktiviti(); 
+    
+    $aktiviti->fk_kampung = $request->idkampung;
+    $aktiviti->Tahun = $request->tahun;
+    
+    // Column yang betul berdasarkan semakan SQL tadi
+    $aktiviti->Peringkat = $request->peringkat; 
+    $aktiviti->Kategori = $request->jenisaktiviti; 
+    
+    $aktiviti->NamaAktiviti = strtoupper($request->aktiviti);
+    $aktiviti->Penganjur = strtoupper($request->penganjur);
+    $aktiviti->Keterangan = strtoupper($request->keterangan);
+    
+    // [PERUBAHAN UTAMA]
+    // Baris '$aktiviti->status = 1;' TELAH DIBUANG 100% DI SINI
+    // Kerana database anda tiada column 'status'
+    
+    $aktiviti->save(); // Save data utama
 
-        return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
+    // 2. PROSES GAMBAR (MULTIPLE UPLOAD)
+    if($request->hasFile('gambar')) {
+        
+        foreach($request->file('gambar') as $file) {
+            
+            // Rename fail
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            
+            // Pindah ke folder
+            $destinationPath = public_path('/uploads/aktiviti');
+            $file->move($destinationPath, $filename);
+            
+            // Simpan ke table anak (profil_aktiviti_gambar)
+            // Pastikan table ini wujud. Jika belum, sql insert ini akan gagal senyap (try-catch)
+            try {
+                DB::table('profil_aktiviti_gambar')->insert([
+                    'fk_profil_aktiviti' => $aktiviti->id,
+                    'path_gambar' => '/uploads/aktiviti/' . $filename,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            } catch (\Exception $e) {
+                // Abaikan jika table belum wujud
+            }
+
+            // UPDATE GAMBAR UTAMA (Untuk sistem lama)
+            // Ambil gambar pertama sahaja sebagai thumbnail
+            if(empty($aktiviti->Gambar_path)) {
+                $aktiviti->Gambar_path = '/uploads/aktiviti/' . $filename;
+                $aktiviti->filename = $filename; 
+                $aktiviti->save();
+            }
+        }
     }
 
-    public function editaktiviti(Request $request)
-    {
-        $editaktiviti = $this->repos->editaktiviti($request);
+    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')
+        ->withSuccess(__('Data telah berjaya dikemaskini'));
+}
 
-        return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')->withSuccess(__('Data telah berjaya dikemaskini'));
+   public function editaktiviti(Request $request)
+{
+    // 1. CARI DATA AKTIVITI
+    $aktiviti = ProfilAktiviti::find($request->iddetail);
+    
+    if($aktiviti) {
+        // 2. KEMASKINI DATA UTAMA
+        $aktiviti->Tahun = $request->tahun;
+        $aktiviti->Peringkat = $request->peringkat; 
+        $aktiviti->Kategori = $request->jenisaktiviti; 
+        
+        $aktiviti->NamaAktiviti = strtoupper($request->aktiviti);
+        $aktiviti->Penganjur = strtoupper($request->penganjur);
+        $aktiviti->Keterangan = strtoupper($request->keterangan);
+        
+        $aktiviti->save();
+
+        // 3. PROSES GAMBAR BARU (MULTIPLE UPLOAD)
+        // Jika pengguna upload gambar baru, kita tambah ke table profil_aktiviti_gambar
+        if($request->hasFile('gambar')) {
+            
+            foreach($request->file('gambar') as $file) {
+                
+                // Rename fail
+                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path('/uploads/aktiviti');
+                $file->move($destinationPath, $filename);
+                
+                // Simpan ke table anak (profil_aktiviti_gambar)
+                try {
+                    DB::table('profil_aktiviti_gambar')->insert([
+                        'fk_profil_aktiviti' => $aktiviti->id,
+                        'path_gambar' => '/uploads/aktiviti/' . $filename,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                } catch (\Exception $e) {
+                    // Skip jika table tak wujud
+                }
+
+                // OPTIONAL: Jika gambar utama kosong, isi dengan gambar baru pertama
+                if(empty($aktiviti->Gambar_path)) {
+                    $aktiviti->Gambar_path = '/uploads/aktiviti/' . $filename;
+                    $aktiviti->filename = $filename;
+                    $aktiviti->save();
+                }
+            }
+        }
     }
+
+    return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')
+        ->withSuccess(__('Data telah berjaya dikemaskini'));
+}
 
     public function deleteaktiviti($deleteaktiviti, $idkampung)
     {

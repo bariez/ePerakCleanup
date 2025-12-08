@@ -8,7 +8,7 @@
 
 
 	@if( count($data) >= 3)
-		<a href="/info/{{ data_get($request, 'idkampung') }}/listaktiviti" class="btn btn-default btn-find mb-25" style="float: right">Senarai Aktiviti</a>
+		<a href="/eperak/info/{{ data_get($request, 'idkampung') }}/listaktiviti" class="btn btn-default btn-find mb-25" style="float: right">Senarai Aktiviti</a>
 		<br><br><br><br>
 		<center>
 			<div class="box-swiper" style="width: 75%; margin-top: -20px">

@@ -3,6 +3,7 @@
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Workbench\Site\Http\Controllers\SiteController;
+use App\Http\Controllers\UserController;
 
 Route::group(
     [
@@ -98,5 +99,13 @@ Route::group(
         Route::get('/auditlog/searchlog', 'SiteController@searchlog')->name('searchlog');
         Route::get('/auditlog/users/{idrole}', 'SiteController@searchusers')->name('searchusers');
         Route::get('/exportauditlog/{type}/{user}/{datefrom}/{dateto}/{kat}', 'SiteController@exportauditlog')->name('exportauditlog');
+        //8/12/2025 (delete kelulusan pengguna)
+        // KOD BARU (Guna POST)
+        // Dalam routes/web.php
+
+
     }
 );
+// Buka routes/web.php, pergi ke baris paling bawah, dan tampal ini:
+Route::post('/site/users/delete/{id}', [SiteController::class, 'destroyPending'])
+    ->name('users.delete.pending');
