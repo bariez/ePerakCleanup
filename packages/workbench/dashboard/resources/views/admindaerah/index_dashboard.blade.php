@@ -1109,14 +1109,14 @@
         $('#contentstatistic').hide();
         $('#contentcarian').hide();
 
-        window.location.href = "/location/admindaerah";
+        window.location.href = "/eperak/location/admindaerah";
     }
 
     function showcarian()
     {
         $.ajax({
             type: "GET",
-            url: "{{ URL::to('dashboard/showcarian')}}",
+            url: "{{ URL::to('/eperak/dashboard/showcarian')}}",
             datatype: 'json',
 
             beforeSend: function() 
@@ -1151,7 +1151,7 @@
         $('#contentstatistic').hide();
         $('#contentcarian').hide();
 
-        window.location.href = "/dashboard/admindaerah/1";
+        window.location.href = "eperak/dashboard/admindaerah/1";
     }
 
     function select2(idselect)
@@ -1168,7 +1168,7 @@
         $('#loading').show();
         $('#contentstatistic').hide();
 
-        window.location.href = "/";
+        window.location.href = "/eperak/";
     }
 
     function pdfclick()

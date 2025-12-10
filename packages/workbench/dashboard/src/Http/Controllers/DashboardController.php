@@ -3609,5 +3609,86 @@ if(data_get($roleuser,'role_id')==10){
 
     }
 
+    public function mapIndex()
+    {
+        $user = auth()->user();
+        
+        // Dapatkan Role ID pengguna semasa
+        $roleUser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+        $roleId = data_get($roleUser, 'role_id');
 
+        // -----------------------------------------------------------
+        // CONFIG FIELD ARCGIS (SILA UBAH IKUT NAMA COLUMN DI MAPSERVER ANDA)
+        // -----------------------------------------------------------
+        $col_daerah  = "KOD_DAERAH"; // Contoh nama column dalam ArcGIS untuk Daerah
+        $col_mukim   = "KOD_MUKIM";  // Contoh nama column dalam ArcGIS untuk Mukim
+        $col_kampung = "ID_KG";      // Contoh nama column dalam ArcGIS untuk Kampung
+
+        // -----------------------------------------------------------
+        // DEFAULT: SOROK SEMUA (Security First)
+        // -----------------------------------------------------------
+        $whereDaerah  = "1=0"; 
+        $whereMukim   = "1=0";
+        $whereKampung = "1=0";
+
+        // -----------------------------------------------------------
+        // LOGIK PENAPISAN MENGIKUT ROLE
+        // -----------------------------------------------------------
+
+        // 1. ADMIN / PENGURUSAN TERTINGGI (Role ID 1 - Contoh)
+        if ($roleId == 1) { 
+            $whereDaerah  = "1=1"; // Papar Semua
+            $whereMukim   = "1=1"; // Papar Semua
+            $whereKampung = "1=1"; // Papar Semua
+        }
+        
+        // 2. PEGAWAI DAERAH (Role ID 2)
+        elseif ($roleId == 2) { 
+            // Dapatkan Kod Daerah pengguna. 
+            // Jika dalam DB user simpan ID (1,2,3), tapi GIS guna Kod (01,02,03),
+            // anda perlu tarik data dari table Daerah dulu.
+            // Contoh: $kodDaerah = Daerah::find($user->Daerah)->KodDaerah;
+            
+            $kodDaerah = data_get($user, 'Daerah'); // Asingkan logic jika perlu mapping
+
+            // Lihat Daerah sendiri sahaja
+            $whereDaerah  = "$col_daerah = '$kodDaerah'";
+            // Lihat semua Mukim dalam Daerah tersebut
+            $whereMukim   = "$col_daerah = '$kodDaerah'"; 
+            // Lihat semua Kampung dalam Daerah tersebut
+            $whereKampung = "$col_daerah = '$kodDaerah'";
+        }
+
+        // 3. PENGHULU MUKIM (Role ID 3)
+        elseif ($roleId == 3) { 
+            $kodMukim = data_get($user, 'Mukim');
+
+            $whereDaerah  = "1=0"; // Tak perlu tengok layer daerah
+            // Lihat Mukim sendiri sahaja
+            $whereMukim   = "$col_mukim = '$kodMukim'";
+            // Lihat semua Kampung dalam Mukim tersebut
+            $whereKampung = "$col_mukim = '$kodMukim'";
+        }
+
+        // 4. KETUA KAMPUNG (Role ID 10)
+        elseif ($roleId == 10) { 
+            $idKampung = data_get($user, 'Kampung');
+
+            $whereDaerah  = "1=0";
+            $whereMukim   = "1=0";
+            // Lihat Kampung sendiri sahaja
+            $whereKampung = "$col_kampung = '$idKampung'";
+        }
+
+        // Data tambahan untuk dropdown/chart jika perlu (Salin dari method lain)
+        $parlimen = Parlimen::where('status', 1)->get();
+        $dun      = Dun::where('status', 1)->get();
+        
+        // Hantar variable whereClause ke View
+        return view('dashboard::map.index', compact(
+            'parlimen', 'dun', 
+            'whereDaerah', 'whereMukim', 'whereKampung'
+        ));
+    }
+    
 }

@@ -51,10 +51,9 @@
         };
 
         const featureLayer = new FeatureLayer({
-            url: "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer/",
+            url: "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer/22",
             outFields: ["*"],
-            // Guna LIKE dan % untuk abaikan space di depan atau belakang
-            definitionExpression: "UPPER(MUKIM) LIKE UPPER('%{{ $namaMukimMap }}%')",
+            definitionExpression: "UPPER(ID_KG)=UPPER('{{ trim($kampungdata->IdKampungBaru) }}')",
         });
 
         

@@ -96,5 +96,7 @@ Route::group(
         Route::get('/ajaxindex', 'LocationController@ajaxIndex')->name('location.ajaxIndex');
         Route::get('/admindaerah', 'DashboardController@admindaerahlocation')->name('location.admindaerahlocation');
         Route::get('/topmanage', 'DashboardController@topmanagelocation')->name('location.topmanagelocation');
+        // Contoh Route
+Route::get('/dashboard/peta', 'DashboardController@mapIndex')->name('dashboard.map.index');
     }
 );

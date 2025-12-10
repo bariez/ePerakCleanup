@@ -46,6 +46,7 @@
         };
 
         const mapLayer = new MapImageLayer({
+            //url: "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer",
             url: "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer",
             sublayers: [{
                     id: 1,
@@ -327,58 +328,30 @@
                                     "</table>"
                     },
                 },
-               {
+                // LAYER MUKIM (ID 25)
+              {
                     id: 25,
                     title: "Sempadan Mukim",
                     visible: true,
-                    popupTemplate: {
-                        title: "{MUKIM}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>MUKIM</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{MUKIM}</td> " +
-                                    "</tr> " +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
+                    definitionExpression: "{!! $whereMukim !!}", // <--- DARI CONTROLLER
+                    popupTemplate: { ... }
                 },
+                // LAYER DAERAH (ID 26)
                 {
                     id: 26,
                     title: "Sempadan Daerah",
                     visible: true,
-                    popupTemplate: {
-                        title: "{DAERAH}",
-                        content:    "<table>" +
-                                    "<tr> " +
-                                    "<td>Daerah</td> " +
-                                    "<td>: </td> " +
-                                    "<td>{DAERAH}</td> " +
-                                    "</tr> " +
-                                    "</table>"
-                    },
+                    definitionExpression: "{!! $whereDaerah !!}", // <--- DARI CONTROLLER
+                    popupTemplate: { ... }
                 },
+               // LAYER KAMPUNG (ID 22)
                 {
                     id: 22,
                     title: "Sempadan Kampung",
-                    visible: false,
-                    opacity: 0.5,
+                    visible: true,
+                    definitionExpression: "{!! $whereKampung !!}", // <--- DARI CONTROLLER
                     renderer: renderer,
-                    popupTemplate: {
-                        title: "{NAMA} {ID_KG}",
-                        content: getData,
-                        fieldInfos: [{
-                                fieldName: "{NAMA}"
-                            },
-                            {
-                                fieldName: "{ID_KG}"
-                            },
-                        ]
-                    },
+                    popupTemplate: { ... }
                 },
 
             ]

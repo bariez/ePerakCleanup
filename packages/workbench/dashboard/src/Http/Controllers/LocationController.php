@@ -26,7 +26,7 @@ class LocationController extends Controller
         $this->paging = $paging;
     }
 
-    public function ajaxIndex(Request $request)
+   public function ajaxIndex(Request $request)
     {
         $data = $this->repos->jumlahkirGis($request);
         $datalocation = $this->repos->locationGis($request);
@@ -35,7 +35,6 @@ class LocationController extends Controller
         $datagis = $data['pemilikanrumah'];
 
         $latKampung = $data['lat'];
-
         $longKampung = $data['long'];
 
         $user = auth()->user();
@@ -44,10 +43,27 @@ class LocationController extends Controller
 
         if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
             return view('dashboard::location.gisadmin', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata'));
+        
         } elseif ($roleuser->role_id == '2') { // PDaerah
             return view('dashboard::location.gisdaerah', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata'));
+        
         } elseif ($roleuser->role_id == '3') { // Pmukim
-            return view('dashboard::location.gismukim', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata'));
+            
+            // --- KOD BARU BERMULA DI SINI ---
+            
+            // 1. Dapatkan info mukim daripada table 'dbo.mukim' berdasarkan ID pengguna
+            $mukimInfo = DB::table('dbo.mukim') 
+                            ->where('id', $user->fk_mukim)
+                            ->first();
+
+            // 2. Ambil column 'NamaMukim' (Pastikan ejaan column sama dengan database SQL anda)
+            // Jika data tak jumpa, letak string kosong ''
+            $namaMukimMap = $mukimInfo ? $mukimInfo->NamaMukim : '';
+
+            // --- KOD BARU TAMAT DI SINI ---
+
+            // 3. Tambah 'namaMukimMap' dalam compact() supaya boleh dibaca di View/Javascript nanti
+            return view('dashboard::location.gismukim', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata', 'namaMukimMap'));
         }
     }
 

@@ -13,73 +13,82 @@
         </div>
     </div>
 </div>
-  
 
-        @push('style')
-        <style type="text/css">
-            /* Styling untuk popup */
-            .popup-overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-            }
-            .popup-content {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                text-align: center;
-                max-width: 400px;
-                width: 80%;
-            }
-            .close-btn {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                font-size: 20px;
-                cursor: pointer;
-            }
-            button {
-                margin-top: 15px;
-                padding: 10px 20px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-            button:hover {
-                background-color: #0056b3;
-            }
-        </style>
-    @endpush
 
-        @push('script')
-        <script type="text/javascript">
-            // JavaScript untuk menutup popup
-            document.addEventListener('DOMContentLoaded', function () {
-                var popup = document.getElementById('infoPopup');
-                popup.style.display = 'flex';  // Popup akan muncul apabila halaman dibuka
+    @push('style')
+    {{-- MULA: Tambah Google Font 'Poppins' --}}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {{-- TAMAT: Tambah Google Font 'Poppins' --}}
+    <style type="text/css">
+        /* Styling untuk popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 80%;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-                var closePopupBtn = document.getElementById('closePopupBtn');
-                var closePopupX = document.getElementById('closePopup');
+        /* MULA: Override Font Family untuk 'Poppins' */
+        html, body {
+            font-family: 'Poppins', sans-serif !important;
+        }
+        /* TAMAT: Override Font Family */
+    </style>
+@endpush
 
-                closePopupBtn.addEventListener('click', function () {
-                    popup.style.display = 'none';
-                });
+    @push('script')
+    <script type="text/javascript">
+        // JavaScript untuk menutup popup
+        document.addEventListener('DOMContentLoaded', function () {
+            var popup = document.getElementById('infoPopup');
+            popup.style.display = 'flex'; // Popup akan muncul apabila halaman dibuka
 
-                closePopupX.addEventListener('click', function () {
-                    popup.style.display = 'none';
-                });
+            var closePopupBtn = document.getElementById('closePopupBtn');
+            var closePopupX = document.getElementById('closePopup');
+
+            closePopupBtn.addEventListener('click', function () {
+                popup.style.display = 'none';
             });
-        </script>
-    @endpush
+
+            closePopupX.addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+        });
+    </script>
+@endpush
 
 
 @push('style')
@@ -228,7 +237,7 @@
 </style>
 @endpush
 
-      @if($popupShown)
+    @if($popupShown)
     <div id="infoPopup" class="popup-overlay">
         <div class="popup-content">
             <span class="close-btn" id="closePopup">&times;</span>
@@ -288,7 +297,7 @@
                                             <div class="col-xl-12 col-md-12 mx-auto">
                                                 <div class="contact-from-area padding-20-row-col">
                                                     <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".1s"
-                                                         style="color: white; text-shadow: 2px 2px #000000;">
+                                                            style="color: white; text-shadow: 2px 2px #000000;">
                                                     </h4>
                                                     </div>
                                             </div>
@@ -329,12 +338,12 @@
                                                 <div class="col-xl-12 col-md-12 mx-auto">
                                                     <div class="contact-from-area padding-20-row-col">
                                                         <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".1s"
-                                                             style="color: white; text-shadow: 2px 2px #000000;">
-                                                             <div class="hover-up">
-                                                                 <a href="news?page=1" style="color: white" class="" title="Senarai Berita e-Perak">BERITA</a>
-                                                             </div>
-                                                        </h4>
-                                                        </div>
+                                                               style="color: white; text-shadow: 2px 2px #000000;">
+                                                               <div class="hover-up">
+                                                                   <a href="news?page=1" style="color: white" class="" title="Senarai Berita e-Perak">BERITA</a>
+                                                               </div>
+                                                         </h4>
+                                                     </div>
 
                                                          </div>
                                             </div>
@@ -361,51 +370,52 @@
                                                                         data-wow-delay=".5s" 
                                                                         onclick="location.href = '/news/{{ data_get($notiss, 'id') }}';"
                                                                         style="cursor: pointer">
-                                        <div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
-                                                            <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
+                                                <div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
+                                                                    <div class="text-center card-grid-2-image">
+                                                                    <a href="javascript:;">
                                                                                                         <figure>
 
+                                                                                                        
                                                                                                             @if( data_get($notiss, 'path') )
                                                                                                                 @if( file_exists( public_path( data_get($notiss, 'path') ) ) )
-                                                                <img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                                                                    style="height: 200px !important">
+                                                                                                                    <img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                        style="height: 200px !important">
                                                                                                                 @else
-                                                                <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                    style="height: 50% !important; width: 50% !important">
+                                                                                                                    <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                        style="height: 50% !important; width: 50% !important">
                                                                                                                 @endif
                                                                                                             @else
-                                                               <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                   style="height: 50% !important; width: 50% !important">
+                                                                                                                <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                        style="height: 50% !important; width: 50% !important">
                                                                                                             @endif
 
                                                                                                         </figure>
                                                                                                     </a>
-                                                                                                </div>
-                                                                <div class="card-block-info" style="padding-top: 5px; padding-bottom: 5px"><h6 class="">
-                                                                <a href="javascript:;">
-                                                                    {{ data_get($notiss, 'tajuk') }}
+                                                                                                    </div>
+                                                                        <div class="card-block-info" style="padding-top: 5px; padding-bottom: 5px"><h6 class="">
+                                                                        <a href="javascript:;">
+                                                                            {{ data_get($notiss, 'tajuk') }}
                                                                                                         </a>
-                                                                                                </h6>
-                                                                                                <div class="row">
-                                                            <a href="javascript:;" class="">
+                                                                                                        </h6>
+                                                                                                        <div class="row">
+                                                                    <a href="javascript:;" class="">
                                                                                                             <span>
-                                                                                                        {{ data_get($notiss, 'ringkasan') }}
+                                                                                                            {{ data_get($notiss, 'ringkasan') }}
                                                                                                             </span>
                                                                                                         </a>
-                                                                                                </div>
-                                                                                                <div class="card-2-bottom mt-30 mb-30">
-                                                                                                    <div class="row ml-0">
-                                                                                                        <span class="card-calender">{{ data_get($notiss, 'tarikh_notis') }}</span>
                                                                                                         </div>
-                                                                                                </div>
-                                                                                                </div>
+                                                                        <div class="card-2-bottom mt-30 mb-30">
+                                                                            <div class="row ml-0">
+                                                                                <span class="card-calender">{{ data_get($notiss, 'tarikh_notis') }}</span>
+                                                                                </div>
+                                                                        </div>
+                                                                        </div>
                                                                                             </div>
-                                                                                        </div>
                                                                                     </div>
+                                                                            </div>
 
                                                             @endforeach
-                                                             </div>
+                                                        </div>
                                                     </div>
                                                     <div class="swiper-button-next" id="next-notis"></div>
                                                     <div class="swiper-button-prev" id="prev-notis"></div>
@@ -415,17 +425,17 @@
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
-
-
-
                         </div>
                         @else
                         @endif
                     </div>
             </div>
         </section>
-    <section class="section-box">  <div class="container">
+    <section class="section-box"> 
+            <div class="container">
                 <div class="autosizing">
                     <div class="row">
 
@@ -438,12 +448,12 @@
                                                     <div class="col-xl-12 col-md-12 mx-auto">
                                                         <div class="contact-from-area padding-20-row-col">
                                                             <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".2s"
-                                                                 style="color: white; text-shadow: 2px 2px #000000;">
-                                                                 <div class="hover-up">
-                                                                     <a class="" href="activity?page=1" style="color: white"  title="Senarai Aktiviti e-Perak">AKTIVITI</a>
-                                                                 </div>
-                                                            </h4>
-                                                            </div>
+                                                                    style="color: white; text-shadow: 2px 2px #000000;">
+                                                                   <div class="hover-up">
+                                                                       <a class="" href="activity?page=1" style="color: white" title="Senarai Aktiviti e-Perak">AKTIVITI</a>
+                                                                   </div>
+                                                             </h4>
+                                                             </div>
                                                     </div>
                                                 </div>
                                             </section>
@@ -451,59 +461,59 @@
                                     </div>
                                 </div>
                                 <div class="sidebar-shadow shadow-lg mt-10 wow animate__animated animate__fadeInUp" data-wow-delay=".5s" style="padding-top: 0px !important; padding-bottom: 0px !important"> <div class="sidebar-heading">
-                                         <div class="avatar-sidebar">
-                                             </div>
-                                        </div>
+                                             <div class="avatar-sidebar">
+                                                     </div>
+                                                 </div>
 
-                                        <div class="sidebar-list-job" style="border-top: 0px; padding-top: 0px; margin-top: 0px">  <ul>
-                                                @foreach($aktiviti->take(3) as $key => $aktivitis)
-                                                    <li>
-                                                        <div class="sidebar-text-info">
+                                                 <div class="sidebar-list-job" style="border-top: 0px; padding-top: 0px; margin-top: 0px"> <ul>
+                                                            @foreach($aktiviti->take(3) as $key => $aktivitis)
+                                                                <li>
+                                                                    <div class="sidebar-text-info">
 
-                                                            <div class="row hover-up"  onclick="location.href = '/eperak/activity/{{ data_get($aktivitis, 'id') }}';" style="cursor: pointer">
-                                                                <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                                                                        <div class="row hover-up" onclick="location.href = '/eperak/activity/{{ data_get($aktivitis, 'id') }}';" style="cursor: pointer">
+                                                                            <div class="col-lg-4 col-md-4 col-sm-4 col-4">
 
-                                                                    @if( data_get($aktivitis, 'Gambar_path') )
-                                                                        @if( file_exists( public_path( data_get($aktivitis, 'Gambar_path') ) ) )
-                                                                            <a href="javascript:;">
-                                                                                <img src="{!! URL::to(data_get($aktivitis, 'Gambar_path')) !!}"
-                                                                                    alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                    title="{{ data_get($aktivitis, 'NamaAktiviti') }}" 
-                                                                                    style="width: 160px; height: 115px; object-fit: cover;">
-                                                                            </a>
-                                                                        @else
-                                                                            <a href="javascript:;">
-                                                                                <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($aktivitis, 'NamaAktiviti') }}" title="{{ data_get($aktivitis, 'NamaAktiviti') }}" style="width: 100px">
-                                                                            </a>
-                                                                        @endif
-                                                                    @else
-                                                                        <a href="javascript:;">
-                                                                            <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($aktivitis, 'NamaAktiviti') }}" title="{{ data_get($aktivitis, 'NamaAktiviti') }}" style="width: 100px">
-                                                                        </a>
-                                                                    @endif
+                                                                                @if( data_get($aktivitis, 'Gambar_path') )
+                                                                                    @if( file_exists( public_path( data_get($aktivitis, 'Gambar_path') ) ) )
+                                                                                        <a href="javascript:;">
+                                                                                            <img src="{!! URL::to(data_get($aktivitis, 'Gambar_path')) !!}"
+                                                                                                alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                title="{{ data_get($aktivitis, 'NamaAktiviti') }}" 
+                                                                                                style="width: 160px; height: 115px; object-fit: cover;">
+                                                                                        </a>
+                                                                                    @else
+                                                                                        <a href="javascript:;">
+                                                                                            <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($aktivitis, 'NamaAktiviti') }}" title="{{ data_get($aktivitis, 'NamaAktiviti') }}" style="width: 100px">
+                                                                                        </a>
+                                                                                    @endif
+                                                                                @else
+                                                                                    <a href="javascript:;">
+                                                                                        <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($aktivitis, 'NamaAktiviti') }}" title="{{ data_get($aktivitis, 'NamaAktiviti') }}" style="width: 100px">
+                                                                                    </a>
+                                                                                @endif
 
-                                                                </div>
+                                                                            </div>
 
-                                                                <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                                                                    <strong class="small-heading pt-0 mb-10">
-                                                                        <a href="javascript:;">
-                                                                            {{ data_get($aktivitis, 'NamaAktiviti') }}
-                                                                        </a>
-                                                                    </strong>
-                                                                    <span class="text-description"><i class="fi fi-rr-paper-plane"></i>
-                                                                        <span class="ml-5">{{ data_get($aktivitis, 'kategori.description') }}</span>
-                                                                    </span>
-                                                                    <span class="text-description"><i class="fi fi-rr-marker"></i>
-                                                                        <span class="ml-5">{{ data_get($aktivitis, 'kampung.NamaKampung') }}</span>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
+                                                                            <div class="col-lg-8 col-md-8 col-sm-8 col-8">
+                                                                                <strong class="small-heading pt-0 mb-10">
+                                                                                    <a href="javascript:;">
+                                                                                        {{ data_get($aktivitis, 'NamaAktiviti') }}
+                                                                                    </a>
+                                                                                </strong>
+                                                                                <span class="text-description"><i class="fi fi-rr-paper-plane"></i>
+                                                                                    <span class="ml-5">{{ data_get($aktivitis, 'kategori.description') }}</span>
+                                                                                </span>
+                                                                                <span class="text-description"><i class="fi fi-rr-marker"></i>
+                                                                                    <span class="ml-5">{{ data_get($aktivitis, 'kampung.NamaKampung') }}</span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
 
-                                                        </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                 </div>
                                 </div>
                             </div>
                         <div class="col-lg-6 col-md-12 col-sm-12 col-12 mt-5 wow animate__animated animate__fadeInUp pb-70" data-wow-delay=".5s">
@@ -515,10 +525,10 @@
                                                 <div class="col-xl-12 col-md-12 mx-auto">
                                                     <div class="contact-from-area padding-20-row-col">
                                                         <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".2s"
-                                                             style="color: white; text-shadow: 2px 2px #000000;">
-                                                             <span style="color: white">PRODUK TEMPATAN</span>
-                                                        </h4>
-                                                        </div>
+                                                               style="color: white; text-shadow: 2px 2px #000000;">
+                                                               <span style="color: white">PRODUK TEMPATAN</span>
+                                                         </h4>
+                                                         </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -526,92 +536,92 @@
                                 </div>
                             </div>
                             <div class="mt-10 wow animate__animated animate__fadeInUp" data-wow-delay=".5s" style="padding-top: 0px !important; padding-bottom: 0px !important"> <div class="sidebar-heading">
-                                        <div class="avatar-sidebar">
+                                                 <div class="avatar-sidebar">
+                                                     </div>
                                              </div>
-                                    </div>
 
-                                    <div class="section-box wow animate__animated animate__fadeIn wow animate__animated animate__fadeInUp" data-wow-delay=".7s"> <div class="container">
-                                            <center>
-                                                <div class="box-swiper" style="width: 100%">
-                                                    <div class="swiper-container swiper-group-2">
-                                                        <div class="swiper-wrapper"> @foreach($lkpproduk->take(2) as $key => $lkpproduks)
+                                             <div class="section-box wow animate__animated animate__fadeIn wow animate__animated animate__fadeInUp" data-wow-delay=".7s"> <div class="container">
+                                                     <center>
+                                                         <div class="box-swiper" style="width: 100%">
+                                                             <div class="swiper-container swiper-group-2">
+                                                                 <div class="swiper-wrapper"> @foreach($lkpproduk->take(2) as $key => $lkpproduks)
 
-                                                             <div class="swiper-slide">
-                                                                 <div class="card-grid-3 hover-up" style="border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                                     <div class="text-center card-grid-3-image">
-                                                                         <a href="/eperak/product/{{ $lkpproduks->id }}?page=1">
-                                                                             <figure style="padding: 25px">
+                                                                     <div class="swiper-slide">
+                                                                         <div class="card-grid-3 hover-up" style="border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                                             <div class="text-center card-grid-3-image">
+                                                                                 <a href="/eperak/product/{{ $lkpproduks->id }}?page=1">
+                                                                                     <figure style="padding: 25px">
 
-                                                                                 @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
-                                                                                     <img src="{!! URL::to(data_get($icons, 'path')) !!}"
-                                                                                            alt="{{ data_get($icons, 'filename') }}" 
-                                                                                            style="width: 40%">
-                                                                                 @empty
-                                                                                     <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-                                                                                            alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                            style="width: 40%">
-                                                                                 @endforelse
+                                                                                         @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
+                                                                                             <img src="{!! URL::to(data_get($icons, 'path')) !!}"
+                                                                                                     alt="{{ data_get($icons, 'filename') }}" 
+                                                                                                     style="width: 40%">
+                                                                                         @empty
+                                                                                             <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
+                                                                                                     alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                     style="width: 40%">
+                                                                                         @endforelse
 
-                                                                             </figure>
-                                                                         </a>
+                                                                                     </figure>
+                                                                                 </a>
+                                                                             </div>
+                                                                             <div class="card-block-info">
+                                                                                 <h5 class="heading-md">
+                                                                                     <a href="/eperak/product/{{ $lkpproduks->id }}?page=1" style="font-weight: bolder">
+                                                                                         {{ data_get($lkpproduks, 'description') }}
+                                                                                     </a>
+                                                                                 </h5>
+                                                                                 </div>
+                                                                         </div>
                                                                      </div>
-                                                                     <div class="card-block-info">
-                                                                         <h5 class="heading-md">
-                                                                             <a href="/eperak/product/{{ $lkpproduks->id }}?page=1" style="font-weight: bolder">
-                                                                                 {{ data_get($lkpproduks, 'description') }}
-                                                                             </a>
-                                                                         </h5>
-                                                                                                    </div>
+
+                                                                 @endforeach
+
                                                                  </div>
                                                              </div>
 
-                                                         @endforeach
+                                                             <div class="swiper-container swiper-group-2">
+                                                                 <div class="swiper-wrapper mt-15"> @foreach($lkpproduk->skip(2) as $key => $lkpproduks)
 
-                                                         </div>
-                                                    </div>
+                                                                     <div class="swiper-slide">
+                                                                         <div class="card-grid-3 hover-up" style="border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                                             <div class="text-center card-grid-3-image">
+                                                                                 <a href="/eperak/product/{{ $lkpproduks->id }}?page=1">
+                                                                                     <figure style="padding: 25px">
 
-                                                    <div class="swiper-container swiper-group-2">
-                                                        <div class="swiper-wrapper mt-15"> @foreach($lkpproduk->skip(2) as $key => $lkpproduks)
+                                                                                         @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
+                                                                                             <img src="{!! URL::to(data_get($icons, 'path')) !!}"
+                                                                                                     alt="{{ data_get($icons, 'filename') }}" 
+                                                                                                     style="width: 40%">
+                                                                                         @empty
+                                                                                             <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
+                                                                                                     alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                     style="width: 40%">
+                                                                                         @endforelse
 
-                                                             <div class="swiper-slide">
-                                                                 <div class="card-grid-3 hover-up" style="border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                                     <div class="text-center card-grid-3-image">
-                                                                         <a href="/eperak/product/{{ $lkpproduks->id }}?page=1">
-                                                                             <figure style="padding: 25px">
-
-                                                                                 @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
-                                                                                     <img src="{!! URL::to(data_get($icons, 'path')) !!}"
-                                                                                            alt="{{ data_get($icons, 'filename') }}" 
-                                                                                            style="width: 40%">
-                                                                                 @empty
-                                                                                     <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-                                                                                            alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                            style="width: 40%">
-                                                                                 @endforelse
-
-                                                                             </figure>
-                                                                         </a>
+                                                                                     </figure>
+                                                                                 </a>
+                                                                             </div>
+                                                                             <div class="card-block-info">
+                                                                                 <h5 class="heading-md">
+                                                                                     <a href="/eperak/product/{{ $lkpproduks->id }}?page=1" style="font-weight: bolder">
+                                                                                         {{ data_get($lkpproduks, 'description') }}
+                                                                                     </a>
+                                                                                 </h5>
+                                                                                 </div>
+                                                                         </div>
                                                                      </div>
-                                                                     <div class="card-block-info">
-                                                                         <h5 class="heading-md">
-                                                                             <a href="/eperak/product/{{ $lkpproduks->id }}?page=1" style="font-weight: bolder">
-                                                                                 {{ data_get($lkpproduks, 'description') }}
-                                                                             </a>
-                                                                         </h5>
-                                                                                                    </div>
+
+                                                                 @endforeach
+
                                                                  </div>
                                                              </div>
-
-                                                         @endforeach
-
+                                                             <div class="swiper-button-next" id="next-produk" style="margin-top: -20px"></div>
+                                                             <div class="swiper-button-prev" id="prev-produk" style="margin-top: -20px"></div>
                                                          </div>
-                                                    </div>
-                                                    <div class="swiper-button-next" id="next-produk" style="margin-top: -20px"></div>
-                                                    <div class="swiper-button-prev" id="prev-produk" style="margin-top: -20px"></div>
-                                                </div>
-                                            </center>
-                                        </div>
-                                    </div>
+                                                     </center>
+                                                 </div>
+                                             </div>
                                 </div>
                             </div>
                         </div>
@@ -625,117 +635,117 @@
 
                         <div class="section-box wow animate__animated animate__fadeIn mt-10">
                             <center>
-                                    <div class="box-swiper" style="width: 95%">
-                                        <div class="swiper-container swiper-group-5">
-                                            <div class="swiper-wrapper pb-70 pt-5">
+                                        <div class="box-swiper" style="width: 95%">
+                                            <div class="swiper-container swiper-group-5">
+                                                <div class="swiper-wrapper pb-70 pt-5">
 
-                                                <div class="swiper-slide autosizinghyperlink" onclick="show1()" style="cursor: pointer">
-                                                    <div class="card-grid-2 hover-up h-100"
-                                                        style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                        <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
-                                                                <figure class="">
-                                                                    <img alt="" src="{{ asset('theme/assets/imgs/theme/perak/logo-malaysia.jpg') }}" style="width: 50%" title="Portal Kerajaan Malaysia"/>
-                                                                </figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-block-info" style="padding: 0px !important">
-                                                            <h6 class="mt-5 heading-md">
-                                                                <a href="javascript:;" class="portal-link-style">
-                                                                    Portal Kerajaan Malaysia
-                                                                </a>
-                                                            </h6>
+                                                    <div class="swiper-slide autosizinghyperlink" onclick="show1()" style="cursor: pointer">
+                                                        <div class="card-grid-2 hover-up h-100"
+                                                             style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                             <div class="text-center card-grid-2-image">
+                                                                 <a href="javascript:;">
+                                                                     <figure class="">
+                                                                         <img alt="" src="{{ asset('theme/assets/imgs/theme/perak/logo-malaysia.jpg') }}" style="width: 50%" title="Portal Kerajaan Malaysia"/>
+                                                                     </figure>
+                                                                 </a>
+                                                             </div>
+                                                             <div class="card-block-info" style="padding: 0px !important">
+                                                                 <h6 class="mt-5 heading-md">
+                                                                     <a href="javascript:;" class="portal-link-style">
+                                                                         Portal Kerajaan Malaysia
+                                                                     </a>
+                                                                 </h6>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="swiper-slide autosizinghyperlink" onclick="show2()" style="cursor: pointer">
-                                                    <div class="card-grid-2 hover-up h-100"
-                                                        style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                        <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
-                                                                <figure class="">
-                                                                    <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/logo-mampu.jpg') }}" style="width: 50%" title="MAMPU"/>
-                                                                </figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-block-info" style="padding: 0px !important">
-                                                            <h6 class="mt-5 heading-md">
-                                                                <a href="javascript:;" class="portal-link-style">
-                                                                    MAMPU
-                                                                </a>
-                                                            </h6>
+                                                    <div class="swiper-slide autosizinghyperlink" onclick="show2()" style="cursor: pointer">
+                                                        <div class="card-grid-2 hover-up h-100"
+                                                             style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                             <div class="text-center card-grid-2-image">
+                                                                 <a href="javascript:;">
+                                                                     <figure class="">
+                                                                         <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/logo-mampu.jpg') }}" style="width: 50%" title="MAMPU"/>
+                                                                     </figure>
+                                                                 </a>
+                                                             </div>
+                                                             <div class="card-block-info" style="padding: 0px !important">
+                                                                 <h6 class="mt-5 heading-md">
+                                                                     <a href="javascript:;" class="portal-link-style">
+                                                                         MAMPU
+                                                                     </a>
+                                                                 </h6>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="swiper-slide autosizinghyperlink" onclick="show3()" style="cursor: pointer">
-                                                    <div class="card-grid-2 hover-up h-100"
-                                                        style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                        <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
-                                                                <figure class="">
-                                                                    <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/logo-mdec.jpg') }}" style="width: 50%" title="Malaysia Digital Economy Corporation"/>
-                                                                </figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-block-info" style="padding: 0px !important">
-                                                            <h6 class="mt-5 heading-md">
-                                                                <a href="javascript:;" class="portal-link-style">
-                                                                    Malaysia Digital Economy Corporation
-                                                                </a>
-                                                            </h6>
+                                                    <div class="swiper-slide autosizinghyperlink" onclick="show3()" style="cursor: pointer">
+                                                        <div class="card-grid-2 hover-up h-100"
+                                                             style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                             <div class="text-center card-grid-2-image">
+                                                                 <a href="javascript:;">
+                                                                     <figure class="">
+                                                                         <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/logo-mdec.jpg') }}" style="width: 50%" title="Malaysia Digital Economy Corporation"/>
+                                                                     </figure>
+                                                                 </a>
+                                                             </div>
+                                                             <div class="card-block-info" style="padding: 0px !important">
+                                                                 <h6 class="mt-5 heading-md">
+                                                                     <a href="javascript:;" class="portal-link-style">
+                                                                         Malaysia Digital Economy Corporation
+                                                                     </a>
+                                                                 </h6>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="swiper-slide autosizinghyperlink" onclick="show4()" style="cursor: pointer">
-                                                    <div class="card-grid-2 hover-up h-100"
-                                                        style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                        <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
-                                                                <figure class="">
-                                                                    <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/favicon-perak.png') }}" style="width: 12%" title="Portal Rasmi Perak"/>
-                                                                </figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-block-info" style="padding: 0px !important">
-                                                            <h6 class="mt-5 heading-md">
-                                                                <a href="javascript:;" class="portal-link-style"> 
-                                                                    Portal Rasmi Perak
-                                                                </a>
-                                                            </h6>
+                                                    <div class="swiper-slide autosizinghyperlink" onclick="show4()" style="cursor: pointer">
+                                                        <div class="card-grid-2 hover-up h-100"
+                                                             style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                             <div class="text-center card-grid-2-image">
+                                                                 <a href="javascript:;">
+                                                                     <figure class="">
+                                                                         <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/favicon-perak.png') }}" style="width: 12%" title="Portal Rasmi Perak"/>
+                                                                     </figure>
+                                                                 </a>
+                                                             </div>
+                                                             <div class="card-block-info" style="padding: 0px !important">
+                                                                 <h6 class="mt-5 heading-md">
+                                                                     <a href="javascript:;" class="portal-link-style"> 
+                                                                         Portal Rasmi Perak
+                                                                     </a>
+                                                                 </h6>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="swiper-slide autosizinghyperlink" onclick="show5()" style="cursor: pointer">
-                                                    <div class="card-grid-2 hover-up h-100"
-                                                        style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
-                                                        <div class="text-center card-grid-2-image">
-                                                            <a href="javascript:;">
-                                                                <figure class="">
-                                                                    <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/favicon-perak.png') }}" style="width: 12%" title="Portal Rasmi PerakGIS"/>
-                                                                </figure>
-                                                            </a>
-                                                        </div>
-                                                        <div class="card-block-info" style="padding: 0px !important">
-                                                            <h6 class="mt-5 heading-md">
-                                                                <a href="javascript:;" class="portal-link-style">
-                                                                    Portal Rasmi PerakGIS
-                                                                </a>
-                                                            </h6>
+                                                    <div class="swiper-slide autosizinghyperlink" onclick="show5()" style="cursor: pointer">
+                                                        <div class="card-grid-2 hover-up h-100"
+                                                             style="margin-bottom: 0px; padding: 5px; border-top-width: 1px; border-left-width: 1px; border-right-width: 1px; border-bottom-width: 10px;">
+                                                             <div class="text-center card-grid-2-image">
+                                                                 <a href="javascript:;">
+                                                                     <figure class="">
+                                                                         <img alt="jobhub" src="{{ asset('theme/assets/imgs/theme/perak/favicon-perak.png') }}" style="width: 12%" title="Portal Rasmi PerakGIS"/>
+                                                                     </figure>
+                                                                 </a>
+                                                             </div>
+                                                             <div class="card-block-info" style="padding: 0px !important">
+                                                                 <h6 class="mt-5 heading-md">
+                                                                     <a href="javascript:;" class="portal-link-style">
+                                                                         Portal Rasmi PerakGIS
+                                                                     </a>
+                                                                 </h6>
+                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
+                                                </div>
                                             </div>
+                                            <div class="swiper-button-next" id="next-pautan"></div>
+                                            <div class="swiper-button-prev" id="prev-pautan"></div>
                                         </div>
-                                        <div class="swiper-button-next" id="next-pautan"></div>
-                                        <div class="swiper-button-prev" id="prev-pautan"></div>
-                                    </div>
-                                </center>
-                            </div>
+                                    </center>
+                                </div>
 
                 </div>
             </div>
