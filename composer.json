@@ -25,6 +25,7 @@
         "laravolt/laravolt": "^4.2",
         "maatwebsite/excel": "*",
         "nunomaduro/collision": "^5.11",
+        "openai-php/client": "^0.18.0",
         "predis/predis": "^2.2",
         "stolz/assets": "^0.2.0"
     },
@@ -38,7 +39,10 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "extra": {
         "laravel": {

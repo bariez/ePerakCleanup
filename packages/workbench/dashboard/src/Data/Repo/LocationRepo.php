@@ -20,10 +20,6 @@ use Workbench\Site\Model\Lookup\VwKampungRumah;
 use Workbench\Site\Model\Lookup\VwKemudahanAwam;
 use Workbench\Site\Model\Lookup\VwKetuaIsiRumah;
 
-/**
- * @laravolt site
- * @author m.shameel@3fresources.com
- **/
 class LocationRepo
 {
     public function jumlahkirGis($request)
@@ -31,28 +27,26 @@ class LocationRepo
         $user = auth()->user();
         $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
 
-        $pemilikanrumah = VwKampungRumah::with('pemilikanrumah', 'mukim', 'daerah')
-                                        // ->skip(0)->take(10)
-                                        ->get();
+        // Ambil data pemilikan rumah
+        $pemilikanrumah = VwKampungRumah::with('pemilikanrumah', 'mukim', 'daerah')->get();
 
-        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
+        $latlong = null;
+
+        // Logic Latitude/Longitude Pusat
+        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { 
             $latlong = Pemilikanrumah::first();
         } elseif ($roleuser->role_id == '2') { // PDaerah
             $latlong = Pemilikanrumah::whereHas('kampung.mukim.daerah', function ($query) use ($user) {
                 $query->where('fk_daerah', '=', $user->Daerah);
-            })
-                                        ->with('kampung.mukim.daerah')
-                                        ->first();
-        } elseif ($roleuser->role_id == '3') { // Pmukim
+            })->with('kampung.mukim.daerah')->first();
+        } elseif ($roleuser->role_id == '3') { // PMukim
             $latlong = Pemilikanrumah::whereHas('kampung', function ($query) use ($user) {
                 $query->where('fk_mukim', '=', $user->Mukim);
-            })
-                                        ->with('kampung.mukim')
-                                        ->first();
+            })->with('kampung.mukim')->first();
         }
 
-        $lat = $latlong->Latitud;
-        $long = $latlong->Longitud;
+        $lat = $latlong ? $latlong->Latitud : 0;
+        $long = $latlong ? $latlong->Longitud : 0;
 
         return compact('pemilikanrumah', 'lat', 'long');
     }
@@ -61,15 +55,15 @@ class LocationRepo
     {
         $user = auth()->user();
         $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+        
+        $locationgis = collect(); 
 
-        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
+        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { 
             $locationgis = VwKetuaIsiRumah::get();
-        } elseif ($roleuser->role_id == '2') { // PDaerah
-            $locationgis = VwKetuaIsiRumah::where('fk_daerah', $user->Daerah)
-                            ->get();
-        } elseif ($roleuser->role_id == '3') { // Pmukim
-            $locationgis = VwKetuaIsiRumah::where('fk_mukim', $user->Mukim)
-                            ->get();
+        } elseif ($roleuser->role_id == '2') { 
+            $locationgis = VwKetuaIsiRumah::where('fk_daerah', $user->Daerah)->get();
+        } elseif ($roleuser->role_id == '3') { 
+            $locationgis = VwKetuaIsiRumah::where('fk_mukim', $user->Mukim)->get();
         }
 
         return $locationgis;
@@ -79,18 +73,15 @@ class LocationRepo
     {
         $user = auth()->user();
         $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+        
+        $kampung = null;
 
-        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
-            $kampung = Kampung::with('daerah', 'mukim')
-                        ->first();
-        } elseif ($roleuser->role_id == '2') { // PDaerah
-            $kampung = Kampung::where('fk_daerah', $user->Daerah)
-                        ->with('daerah', 'mukim')
-                        ->first();
-        } elseif ($roleuser->role_id == '3') { // Pmukim
-            $kampung = Kampung::where('fk_mukim', $user->Mukim)
-                        ->with('daerah', 'mukim')
-                        ->first();
+        if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { 
+            $kampung = Kampung::with('daerah', 'mukim')->first();
+        } elseif ($roleuser->role_id == '2') { 
+            $kampung = Kampung::where('fk_daerah', $user->Daerah)->with('daerah', 'mukim')->first();
+        } elseif ($roleuser->role_id == '3') { 
+            $kampung = Kampung::where('fk_mukim', $user->Mukim)->with('daerah', 'mukim')->first();
         }
 
         return $kampung;
@@ -101,71 +92,27 @@ class LocationRepo
         $user = auth()->user();
         $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
 
-        $lkpdetail = LkpDetail::where('fk_lkp_master', 4)
-                            ->where('status', 1)
-                            // ->where('id', 14)
-                            ->get();
-
+        $lkpdetail = LkpDetail::where('fk_lkp_master', 4)->where('status', 1)->get();
         $typekemudahan = [];
 
         foreach ($lkpdetail as $key => $value2) {
-            if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { // pentadbir sistem n Ptinggi n Dataentri
-                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)
-                                            // ->skip(0)->take(10)
-                                            ->get();
+            $kemudahamawam = collect();
 
-                foreach ($kemudahamawam as $key2 => $value3) {
-                    $typekemudahans = (object) [];
+            if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { 
+                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)->get();
+            } elseif ($roleuser->role_id == '2') { 
+                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)->where('fk_daerah', $user->Daerah)->get();
+            } elseif ($roleuser->role_id == '3') { 
+                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)->where('fk_mukim', $user->Mukim)->get();
+            }
 
-                    $typekemudahans->KatKemudahan = $value3->KatKemudahan;
-                    $typekemudahans->JenisKemudahan = $value3->JenisKemudahan;
-                    $typekemudahans->NamaKemudahan = $value3->NamaKemudahan;
-                    $typekemudahans->Latitud = $value3->Latitud;
-                    $typekemudahans->Longitud = $value3->Longitud;
-                    $typekemudahans->Description = $value3->Description;
-                    $typekemudahans->NamaMukim = $value3->NamaMukim;
-                    $typekemudahans->NamaDaerah = $value3->NamaDaerah;
-
-                    $typekemudahan[] = $typekemudahans;
-                }
-            } elseif ($roleuser->role_id == '2') { // PDaerah
-                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)
-                                                ->where('fk_daerah', $user->Daerah)
-                                                ->get();
-
-                foreach ($kemudahamawam as $key2 => $value3) {
-                    $typekemudahans = (object) [];
-
-                    $typekemudahans->KatKemudahan = $value3->KatKemudahan;
-                    $typekemudahans->JenisKemudahan = $value3->JenisKemudahan;
-                    $typekemudahans->NamaKemudahan = $value3->NamaKemudahan;
-                    $typekemudahans->Latitud = $value3->Latitud;
-                    $typekemudahans->Longitud = $value3->Longitud;
-                    $typekemudahans->Description = $value3->Description;
-                    $typekemudahans->NamaMukim = $value3->NamaMukim;
-                    $typekemudahans->NamaDaerah = $value3->NamaDaerah;
-
-                    $typekemudahan[] = $typekemudahans;
-                }
-            } elseif ($roleuser->role_id == '3') { // Pmukim
-                $kemudahamawam = VwKemudahanAwam::where('KatKemudahan', $value2->id)
-                                                ->where('fk_mukim', $user->Mukim)
-                                                ->get();
-
-                foreach ($kemudahamawam as $key2 => $value3) {
-                    $typekemudahans = (object) [];
-
-                    $typekemudahans->KatKemudahan = $value3->KatKemudahan;
-                    $typekemudahans->JenisKemudahan = $value3->JenisKemudahan;
-                    $typekemudahans->NamaKemudahan = $value3->NamaKemudahan;
-                    $typekemudahans->Latitud = $value3->Latitud;
-                    $typekemudahans->Longitud = $value3->Longitud;
-                    $typekemudahans->Description = $value3->Description;
-                    $typekemudahans->NamaMukim = $value3->NamaMukim;
-                    $typekemudahans->NamaDaerah = $value3->NamaDaerah;
-
-                    $typekemudahan[] = $typekemudahans;
-                }
+            foreach ($kemudahamawam as $key2 => $value3) {
+                $obj = (object) [];
+                $obj->KatKemudahan = $value3->KatKemudahan;
+                $obj->NamaKemudahan = $value3->NamaKemudahan;
+                $obj->Latitud = $value3->Latitud;
+                $obj->Longitud = $value3->Longitud;
+                $typekemudahan[] = $obj;
             }
         }
 

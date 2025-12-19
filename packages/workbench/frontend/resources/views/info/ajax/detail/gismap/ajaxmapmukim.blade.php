@@ -1,178 +1,288 @@
-<script>
-    // 1. Dapatkan Data dari Laravel
-    const longKampung = {!! $longKampung ?? 101.0 !!}; 
-    const latKampung  = {!! $latKampung ?? 4.5 !!};
-    
-    // Ambil ID sebagai String
-    const id_kg = "{{ trim($kampungdata->IdKampungBaru ?? '') }}"; 
+@php
+    // 1. DATA PHP - Dapatkan data dari Controller
+    $safeNamaKampung = trim($kampungdata->NamaKampung ?? $kampungdata->NAMA ?? 'Nama Kampung');
+    $safeNamaMukim   = trim($kampungdata->NamaMukim ?? ''); 
+    $safeIdKampung   = trim($kampungdata->IdKampungBaru ?? ''); 
 
-    console.log("Mencari ID:", id_kg); 
+    $upperNamaKampung = strtoupper($safeNamaKampung);
+    $upperNamaMukim   = strtoupper($safeNamaMukim);
+
+    // Koordinat Tengah
+    $centerLong = $longKampung ?? 101.0;
+    $centerLat  = $latKampung ?? 4.5;
+    $zoomLevel  = 14; 
+
+    // 2. PROSES DATA KIR KE FORMAT JSON
+    $features = [];
+    if(isset($kirkampung) && count($kirkampung) > 0) {
+        foreach($kirkampung as $key => $row) {
+            if(isset($row->Latitud) && $row->Latitud != 0 && isset($row->Longitud) && $row->Longitud != 0) {
+                $features[] = [
+                    'geometry' => [
+                        'type' => 'point',
+                        'x' => floatval($row->Longitud),
+                        'y' => floatval($row->Latitud)
+                    ],
+                    'attributes' => [
+                        'ObjectID' => $key + 1,
+                        'Nama' => $row->Nama ?? '-',
+                        'NoKP' => $row->NoKP ?? '-',
+                        'Kampung' => $upperNamaKampung
+                    ]
+                ];
+            }
+        }
+    }
+@endphp
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.24/"></script>
+
+<style>
+    #viewDiv { padding: 0; margin: 0; height: 650px; width: 100%; border: 1px solid #ccc; }
+    
+    /* Popup Style */
+    .popup-header { background-color: #003366; color: white; padding: 10px; font-weight: bold; }
+    .popup-table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+    .popup-table td { padding: 6px; border-bottom: 1px solid #eee; color: #333; }
+    .popup-table th { padding: 6px; border-bottom: 2px solid #ccc; text-align: left; color: #555; width: 100px; }
+    
+    /* Loader Print */
+    #printLoader { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; text-align: center; padding-top: 20%; font-family: Arial, sans-serif; }
+
+    /* Header & Button Layout */
+    .map-header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+    }
+    .map-title h4 { margin: 0; color: #333; font-weight: bold; }
+    
+    .btn-group-custom { display: flex; gap: 10px; }
+    
+    .btn-custom { 
+        padding: 8px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; color: white !important; 
+        display: inline-flex; align-items: center; cursor: pointer; border: none; font-size: 14px;
+        transition: background 0.3s;
+    }
+    .btn-red { background-color: #db2828; } 
+    .btn-red:hover { background-color: #d01919; }
+    
+    .btn-custom i { margin-right: 8px; }
+</style>
+
+<div id="printLoader">
+    <i class="spinner loading icon" style="font-size: 3em; margin-bottom: 20px; color: #007bff;"></i><br>
+    <h3 style="color: #333;">Menjana Cetakan Peta...</h3>
+</div>
+
+<div class="sidebar-list-job">
+    <div class="section-box wow animate__animated animate__fadeIn mt-10">
+        <div class="container">
+            
+            <div class="map-header-container">
+                <div class="map-title">
+                    <h4><i class="map icon"></i> Peta: {{ $upperNamaKampung }}</h4>
+                </div>
+                <div class="btn-group-custom">
+                    <a href="javascript:;" class="btn-custom btn-red" id="btnCetak" title="Cetak Peta Penuh">
+                        <i class="print icon"></i> Cetak Peta
+                    </a>
+                </div>
+            </div>
+
+            <div id="viewDiv" class="claro"></div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    // DATA DARI PHP KE JAVASCRIPT
+    const ID_KG_SEARCH = "{{ $safeIdKampung }}"; 
+    const NAMA_KAMPUNG = "{{ $upperNamaKampung }}";
+    const NAMA_MUKIM   = "{{ $upperNamaMukim }}";
+    const CENTER_LAT   = {{ $centerLat }};
+    const CENTER_LONG  = {{ $centerLong }};
+    const ZOOM_LVL     = {{ $zoomLevel }};
+    const KIR_DATA     = {!! json_encode($features) !!};
+
+    console.log("GIS Setup -> Kampung:", NAMA_KAMPUNG, "ID:", ID_KG_SEARCH);
 
     require([
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/layers/FeatureLayer",
-        "esri/widgets/BasemapGallery",
-        "esri/widgets/LayerList",
-        "esri/Graphic",
-        "esri/widgets/Legend",
-        "esri/widgets/Expand", 
-        "esri/widgets/Search"
-    ], function(Map, MapView, FeatureLayer, BasemapGallery, LayerList, Graphic, Legend, Expand, Search) {
+        "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer",
+        "esri/widgets/LayerList", "esri/widgets/Legend",     
+        "esri/widgets/BasemapGallery", "esri/widgets/Expand", 
+        "esri/widgets/Search", "esri/widgets/Home"
+    ], function(
+        Map, MapView, FeatureLayer, LayerList, Legend, BasemapGallery, Expand, Search, Home
+    ) {
 
-        // ---------------------------------------------------------
-        // 2. Setup Layer Sempadan
-        // ---------------------------------------------------------
-        const featureLayer = new FeatureLayer({
-            url: "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer/22",
-            outFields: ["*"],
-            
-            // --- PEMBETULAN POWER ---
-            // Gunakan 'LIKE' dan tanda '%' (Wildcard).
-            // Ini bermaksud: Cari ID_KG yang *mengandungi* nombor ini (tak kira ada spasi atau tidak)
-            definitionExpression: "ID_KG LIKE '%" + id_kg + "%'", 
-            
-            // Pastikan layer sentiasa dipaparkan tak kira zoom level
-            minScale: 0,
-            maxScale: 0,
+        const baseURL = "https://mygdispatial.perak.gov.my/server/rest/services/ePerak/Perak/MapServer";
 
+        // =========================================================
+        // 1. LAYER KAMPUNG (FILTER ID_KG)
+        // =========================================================
+        const kampungLayer = new FeatureLayer({
+            url: baseURL + "/22", 
+            title: "Sempadan Kampung",
+            outFields: ["*"], 
+            definitionExpression: "ID_KG LIKE '%" + ID_KG_SEARCH + "%'", 
+            opacity: 1,
             renderer: {
                 type: "simple",
+                symbol: { 
+                    type: "simple-fill", 
+                    color: [4, 194, 183, 0.1], // Isi Biru Muda Transparent
+                    outline: { color: [255, 140, 0, 1], width: 3, style: "dash" } // OREN PUTUS
+                } 
+            },
+            labelingInfo: [{
                 symbol: {
-                    type: "simple-fill",
-                    color: [4, 194, 183, 0.4], 
-                    outline: { color: "red", width: 3 } 
+                    type: "text", 
+                    color: "#00008B", // Biru Gelap
+                    haloColor: "white", haloSize: 2, 
+                    font: { family: "Arial", size: 12, weight: "bold" }
+                },
+                labelPlacement: "always-horizontal",
+                labelExpressionInfo: { expression: "$feature.NAMA" },
+                deconflictionStrategy: "none"
+            }],
+            popupTemplate: { 
+                title: "Info Sempadan Kampung", 
+                content: `
+                    <div class="popup-header">{NAMA}</div>
+                    <table class="popup-table">
+                        <tr><th>Nama Kg</th><td>: {NAMA}</td></tr>
+                        <tr><th>ID GIS</th><td>: {ID_KG}</td></tr>
+                    </table>
+                ` 
+            }
+        });
+
+        // =========================================================
+        // 2. LAYER KIR (TITIK PURPLE)
+        // =========================================================
+        const kirLayer = new FeatureLayer({
+            source: KIR_DATA, 
+            objectIdField: "ObjectID",
+            title: "Ketua Isi Rumah",
+            fields: [
+                { name: "ObjectID", type: "oid" },
+                { name: "Nama", type: "string" },
+                { name: "NoKP", type: "string" },
+                { name: "Kampung", type: "string" }
+            ],
+            renderer: {
+                type: "simple",
+                symbol: { 
+                    type: "simple-marker", 
+                    color: [188, 26, 183], // PURPLE
+                    size: 8, 
+                    outline: { color: "white", width: 1 } 
                 }
             },
             popupTemplate: {
-                title: "{NAMA}", 
-                content: "Kod ArcGIS: {ID_KG}<br>Nama: {NAMA}"
-            },
-            labelsVisible: true
+                title: "Info Penduduk",
+                content: `<table class="popup-table">
+                            <tr><th>NAMA</th><td>{Nama}</td></tr>
+                            <tr><th>NO KP</th><td>{NoKP}</td></tr>
+                            <tr><th>ALAMAT</th><td>{Kampung}</td></tr>
+                          </table>`
+            }
         });
 
-        // ---------------------------------------------------------
-        // 3. Setup Map
-        // ---------------------------------------------------------
-        const map = new Map({
-            basemap: "gray-vector", 
-            layers: [featureLayer] 
+        // =========================================================
+        // 3. MAP SETUP (HYBRID)
+        // =========================================================
+        const map = new Map({ 
+            basemap: "hybrid", 
+            layers: [kampungLayer, kirLayer] 
         });
 
         const view = new MapView({
             container: "viewDiv",
             map: map,
-            zoom: 10, 
-            center: [longKampung, latKampung] 
+            zoom: ZOOM_LVL,
+            center: [CENTER_LONG, CENTER_LAT],
+            popup: { dockEnabled: false, dockOptions: { buttonEnabled: false, breakpoint: false } }
         });
 
-        // ---------------------------------------------------------
-        // 4. ZOOM LOGIC
-        // ---------------------------------------------------------
+        // =========================================================
+        // 4. ZOOM & EVENTS
+        // =========================================================
         view.when(() => {
-            if(id_kg) {
-                featureLayer.when(() => {
-                    const query = featureLayer.createQuery();
-                    query.where = featureLayer.definitionExpression;
-
-                    featureLayer.queryExtent(query).then(function(response) {
-                        if (response.extent) {
-                            console.log("BERJAYA! Sempadan dijumpai menggunakan LIKE.");
-                            view.goTo(response.extent.expand(1.5));
-                        } else {
-                            console.error("MASIH GAGAL: Tiada data dijumpai walaupun guna LIKE.");
-                            console.log("Kemungkinan Layer ID 22 salah atau data tiada dalam ArcGIS.");
-                            
-                            // Fallback
-                            if (view.graphics.length > 0) view.goTo(view.graphics); 
+            setTimeout(() => {
+                kampungLayer.queryExtent().then(function(res) {
+                    if (res.extent) { 
+                        view.goTo(res.extent.expand(1.5)); 
+                    } else {
+                        if(KIR_DATA.length > 0) {
+                            view.goTo(kirLayer.fullExtent);
                         }
-                    }).catch(function(error){
-                        console.error("Ralat Query:", error);
-                    });
+                    }
                 });
-            }
+            }, 1000);
+
+            // -------------------------------------------------------------
+            // FUNGSI CETAK (LANDSCAPE + LEGEND MANUAL)
+            // -------------------------------------------------------------
+            document.getElementById("btnCetak").addEventListener("click", function() {
+                document.getElementById("printLoader").style.display = "block";
+                
+                view.takeScreenshot({ width: 2400, height: 1400, format: "jpg", quality: 95 }).then(function(screenshot) {
+                    document.getElementById("printLoader").style.display = "none";
+                    
+                    var win = window.open('', 'Cetak Peta', 'height=800,width=1200');
+                    win.document.write('<html><head><title>Peta Kampung - ' + NAMA_KAMPUNG + '</title>');
+                    win.document.write('<style>');
+                    win.document.write('@page { size: landscape; margin: 0.5cm; }');
+                    win.document.write('body { margin: 0; padding: 0; font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; min-height: 100vh; }');
+                    win.document.write('h1 { margin: 10px 0 2px 0; font-size: 24px; text-transform: uppercase; }');
+                    win.document.write('h3 { margin: 0 0 10px 0; font-size: 16px; color: #555; }');
+                    
+                    win.document.write('.map-container { width: 100%; text-align: center; border: 2px solid #333; margin-bottom: 10px; }');
+                    win.document.write('img { width: 100%; max-height: 80vh; object-fit: contain; }');
+                    
+                    win.document.write('.legend-box { display: flex; justify-content: center; gap: 20px; border: 1px solid #ccc; padding: 10px; background: #f9f9f9; width: 90%; border-radius: 5px; }');
+                    win.document.write('.legend-item { display: flex; align-items: center; font-size: 14px; font-weight: bold; }');
+                    win.document.write('.symbol { width: 24px; height: 24px; margin-right: 8px; display: inline-flex; align-items: center; justify-content: center; }');
+                    win.document.write('* { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }'); 
+                    win.document.write('</style></head><body>');
+                    
+                    win.document.write('<h1>PETA KAMPUNG: ' + NAMA_KAMPUNG + '</h1>');
+                    if(NAMA_MUKIM != "") {
+                        win.document.write('<h3>MUKIM: ' + NAMA_MUKIM + '</h3>');
+                    }
+                    
+                    win.document.write('<div class="map-container"><img src="' + screenshot.dataUrl + '"/></div>');
+                    
+                    var svgKg = '<svg width="24" height="24"><rect x="2" y="5" width="20" height="14" fill="rgba(4,194,183,0.3)" stroke="orange" stroke-width="3" stroke-dasharray="4"/></svg>';
+                    var svgKir = '<svg width="20" height="20"><circle cx="10" cy="10" r="7" fill="#bc1ab7" stroke="white" stroke-width="1"/></svg>';
+                    
+                    win.document.write('<div class="legend-box">');
+                    win.document.write('<div class="legend-item"><span class="symbol">' + svgKg + '</span> Sempadan Kampung</div>');
+                    win.document.write('<div class="legend-item"><span class="symbol">' + svgKir + '</span> Ketua Isi Rumah (KIR)</div>');
+                    win.document.write('</div>');
+                    
+                    win.document.write('</body></html>');
+                    win.document.close();
+                    win.focus();
+                    setTimeout(function(){ win.print(); }, 800);
+                });
+            });
         });
 
-        // ---------------------------------------------------------
-        // 5. Widgets & Marker
-        // ---------------------------------------------------------
-        const searchWidget = new Search({ view: view });
-        const basemapGallery = new BasemapGallery({ view: view, content: document.getElementById("bg-gallery") });
-        const layerList = new LayerList({ view: view, content: document.getElementById("layerlist") });
-        const legend = new Legend({ view: view, content: document.getElementById("legend") });
-
-        const bgExpand = new Expand({ view: view, content: basemapGallery, expandIconClass: "esri-icon-basemap", group: "bottom-right" });
-        const bgExpand2 = new Expand({ view: view, content: layerList, expandIconClass: "esri-icon-layers", group: "bottom-right" });
-        const bgExpand3 = new Expand({ view: view, content: legend, expandIconClass: "esri-icon-layer-list", group: "bottom-right" });
-
-        view.ui.add([searchWidget, bgExpand, bgExpand2, bgExpand3], "top-right");
-
-        <?php if(isset($kirkampung) && count($kirkampung) > 0) { ?>
-            <?php foreach ($kirkampung as $key => $value ){ ?>
-                var point = {
-                    type: "point", 
-                    longitude: {{ $value->Longitud ?? 0 }}, 
-                    latitude: {{ $value->Latitud ?? 0 }}
-                };
-                if(point.longitude != 0 && point.latitude != 0) {
-                    var markerSymbol = {
-                        type: "simple-marker",
-                        color: [188, 26, 183], 
-                        outline: { color: [255, 255, 255], width: 1 },
-                        size: 8
-                    };
-                    var pointGraphic = new Graphic({
-                        geometry: point,
-                        symbol: markerSymbol,
-                        popupTemplate: {
-                            title: "Ketua Isi Rumah",
-                            content: "<table><tr><td>Nama</td><td>: </td><td>{{ $value->Nama }}</td></tr></table>"
-                        }
-                    });
-                    view.graphics.add(pointGraphic);
-                }
-            <?php } ?>
-        <?php } ?>
+        // WIDGETS
+        view.ui.add(new Expand({ view: view, content: new LayerList({ view: view }), group: "top-right", expandIconClass: "esri-icon-layers" }), "top-right");
+        view.ui.add(new Expand({ 
+            view: view, content: new Legend({ view: view }), 
+            group: "top-right", expanded: false, expandIconClass: "esri-icon-layer-list", expandTooltip: "Buka Lagenda"
+        }), "top-right");
+        view.ui.add(new Expand({ view: view, content: new BasemapGallery({ view: view }), group: "top-right", expandIconClass: "esri-icon-basemap" }), "top-right");
+        view.ui.add([new Home({ view: view }), new Search({ view: view })], "top-left");
 
     });
 </script>
-
-<div class="sidebar-list-job">
-    <div class="section-box wow animate__animated animate__fadeIn mt-10">
-        <div class="container">
-            <div>
-                <h4> Peta : </h4>
-            </div>
-            <br />
-
-            <div class="dropdown dropstart" style="float: right;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                    data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px;">
-                    <svg width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill"
-                        viewBox="0 0 16 16">
-                        <path
-                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
-                    </svg>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li style="padding: 10px; white-space: nowrap;">
-                        <svg width="16" height="16" fill="currentColor" class="bi bi-circle-fill"
-                            viewBox="0 0 16 16" style="color: rgb(188, 26, 183)">
-                            <circle cx="8" cy="8" r="8" />
-                        </svg>
-                        <b style="margin-left: 5px;margin-right: 5px;font-weight: bolder;font-size: smaller;"> Ketua Isi
-                            Rumah </b>
-                    </li>
-                </ul>
-            </div>
-
-            <br />
-            <br />
-
-            <!--div id="map" class="claro" style="width:100%; height:600px; border:1px solid #000;">-->
-                <div id="viewDiv" class="claro" style="width:100%; height:600px; border:1px solid #000;">
-                <!--div id="viewDiv"></div>-->
-            </div>
-        </div>
-    </div>
-</div>
