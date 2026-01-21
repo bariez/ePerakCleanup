@@ -519,7 +519,19 @@
                                         </div>
                                     </h5>
                                 </td>
-                                <td>{{ data_get($ketuaisirumah, 'rumah.StatusSemak') }}</td>
+                                <td>
+                                     @if(data_get($ketuaisirumah, 'rumah.StatusSemak') == 1)
+                                      {{-- Saya tambah class 'large' di sini --}}
+                                      <span class="ui large green label">
+                                      <i class="check icon"></i> Telah dikemaskini
+                                         </span>
+                                          @else
+                                          {{-- Saya tambah class 'large' di sini --}}
+                                              <span class="ui large red label">
+                                                <i class="times icon"></i> Belum dikemaskini
+                                           </span>
+                                          @endif
+                                            </td>
 
 
                             </tr>

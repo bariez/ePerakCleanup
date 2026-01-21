@@ -20,7 +20,7 @@
                     	<!-- aktiviti Terkini -->
                     <!-- </h3> -->
                     <ul class="breadcrumbs">
-                        <li ><a href="/activity?page=1" style="font-size: 20px; font-weight: bold;">AKTIVITI</a></li>
+                        <li ><a href="/eperak/activity?page=1" style="font-size: 20px; font-weight: bold;">AKTIVITI</a></li>
                         <li style="font-size: 20px; font-weight: bold;">{{ data_get($aktiviti, 'NamaAktiviti') }}</li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <a href="/activity?page=1" class="btn btn-border">Kembali</a>
+                                <a href="/eperak/activity?page=1" class="btn btn-border">Kembali</a>
                             </div>
                         </div>
                     </div>

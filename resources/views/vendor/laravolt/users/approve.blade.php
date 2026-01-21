@@ -1,433 +1,713 @@
 @extends('laravolt::layout.app2')
 
+
+
 @section('content')
 
-<div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0">
-  <div class="column middle aligned">
-    <h3 class="ui header m-t-xs">
-      Kelulusan Pengguna
-    </h3>
-  </div>
-  <!--     <div class="column right aligned middle aligned">
-        <div class="item">
-    <a themed="" href="/site/users/index" class="ui basic button b-0">
-        <i class="icon long alternate left arrow"></i>
-        Kembali
-    </a>
-</div>
-    </div> -->
+<style type="text/css">
 
-</div>
+    /* 1. PENETAPAN WARNA & KONSEP MODEN */
 
-<!-- <div class="ui tabular secondary pointing menu left attached">
-            <a class="item {{ ($tab == 'account')?'active':'' }}"
-               href="{{ route('site::users.edit', $user['id']) }}">@lang('laravolt::menu.account')</a>
-            <a class="item {{ ($tab == 'password')?'active':'' }}"
-               href="{{ route('site::passwordedit', $user['id']) }}">@lang('laravolt::menu.password')</a>
-</div> -->
-<div class="ui container-fluid content__body p-3">
-  <div class="ui segments panel">
-    <div class="ui segment p-3">
-      {!! form()->bind($user)->open()->post()->action(route('site::users.approveusers', $user['id']))->horizontal() !!}
+    :root {
 
-      {!! form()->text('name')->label(__('Username'))->readonly() !!}
-      {!! form()->text('email')->label(__('Email'))->readonly() !!}
-      {!! form()->text('jabatan')->label('Jabatan / Agensi')->readonly() !!}
-      {!! form()->text('jawatan')->label('Jawatan')->readonly() !!}
-      {!! form()->text('notel')->label(__('No.Tel'))->readonly() !!}
-      {!! form()->text('Tujuan')->label(__('Tujuan'))->readonly() !!}
+        --primary-dark-blue: #0d214a; 
 
-      <!--  {!! form()->dropdown('status', $statuses)->label(__('laravolt::users.status')) !!} -->
+        --primary-blue: #1e3a8a; 
 
-      <div class="field">
-        <label>Status<font color="red">*</font></label>
-        <div class="ui fluid search selection dropdown">
-          <input type="hidden" name="status" id="status" required="required" value="{{ data_get($user,'status') }}">
-          <i class="dropdown icon"></i>
-          <div class="default text">Sila Pilih</div>
-          <div class="menu">
-            <div class="item" data-value="">Sila Pilih</div>
-            <div class="item" data-value="PENDING">DALAM PROSES</div>
-            <div class="item" data-value="ACTIVE">AKTIF</div>
-            <!--  <div class="item" data-value="INACTIVE">Tidak Aktif</div> -->
-            <div class="item" data-value="BLOCKED">TIDAK LULUS</div>
+        --soft-bg: #f8fafc;
 
-          </div>
-        </div>
-      </div>
+        --border-color: #e2e8f0;
 
-      <div class="field">
-        <label>Ulasan<font color="red" id="wajib">*</font></label>
-        <textarea id="ulasan" name="ulasan" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required"></textarea>
-      </div>
-
-
-      <div class="field" id="divcategori">
-        <label>Kategori Pengguna<font color="red">*</font></label>
-        <div class="ui fluid search selection dropdown">
-          <input type="hidden" name="role" id="role" value="{{ old('role') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-          <i class="dropdown icon"></i>
-          <div class="default text">Sila Pilih</div>
-          <div class="menu">
-            <div class="item" data-value="">Sila Pilih</div>
-            @foreach($role as $key => $value)
-            <div class="item" data-value="{{$value->id}}">{{$value->name}}</div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-
-      <div class="field" id="divpgdaerah">
-        <label>Daerah<font color="red">*</font></label>
-        <div class="ui fluid search selection dropdown">
-          <input type="hidden" name="daerah01" id="daerah01" value="{{ old('daerah01') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-          <i class="dropdown icon"></i>
-          <div class="default text">Sila Pilih</div>
-          <div class="menu">
-            <div class="item" data-value="" onclick="mukim(0)">Sila Pilih</div>
-            @foreach($daerah as $key => $value)
-            <div class="item" data-value="{{$value->id}}" onclick="mukim({{$value->id}})">{{$value->NamaDaerah}}</div>
-            @endforeach
-          </div>
-        </div>
-      </div>
-
-
-      <div class="field" id="divpgmukim">
-        <label>Daerah<font color="red">*</font></label>
-        <div class="ui fluid search selection dropdown">
-          <input type="hidden" name="daerah02" id="daerah02" value="{{ old('daerah02') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-          <i class="dropdown icon"></i>
-          <div class="default text">Sila Pilih</div>
-          <div class="menu">
-            <div class="item" data-value="" onclick="mukim(0)">Sila Pilih</div>
-            @foreach($daerah as $key => $value)
-            <div class="item" data-value="{{$value->id}}" onclick="mukim({{$value->id}})">{{$value->NamaDaerah}}</div>
-            @endforeach
-          </div>
-        </div>
-      </div>
+    }
 
 
 
-      <div class="field" id="divmukim">
-        <label>Mukim</label>
-        <div class="ui fluid search selection dropdown">
-          <input type="hidden" name="mukim" id="mukim" value="">
-          <i class="dropdown icon"></i>
-          <div class="default text" id="pilihmukim">Sila Pilih</div>
-          <div class="menu" id="selectmukim">
+    /* FIX: Kedudukan bawah Top Bar & Latar Belakang */
 
-          </div>
-        </div>
-      </div>
- <div class="field" id="divkampung">
-                          <label>Nama Kampung<font color="red">*</font></label>
-                               <div class="ui fluid search selection dropdown">
-                                <input type="hidden" name="kampung" id="kampung" value="" >
-                                <i class="dropdown icon"></i>
-                                <div class="default text" id="pilihkampung">Sila Pilih</div>
-                                <div class="menu" id="selectkampung">
-                                 
-                                </div>
-                            </div>
-                     </div>
-      <div class="ui container-fluid content__body p-3" id="loading" style="display: none;">
-        <div class="ui segments panel">
-          <div class="ui segment p-3">
-            <div class="ui blue sliding indeterminate progress">
-              <div class="bar">
-                <div class="progress">Sila Tunggu Sebentar</div>
-              </div>
-            </div>
-          </div>
-        </div>
+    .layout--app .layout__content {
 
-      </div>
+        padding-top: 85px !important; 
 
-      <!--             @if($multipleRole)
-                {!! form()->checkboxGroup('roles', $roles)->label('Kategori Pengguna<font color="red">*</font>')->addClassIf(!$roleEditable, 'disabled') !!}
-            @else
-                {!! form()->radioGroup('roles', $roles)->label('Kategori Pengguna <font color="red">*</font>')->addClassIf(!$roleEditable, 'disabled') !!}
-            @endif
+        background-color: var(--soft-bg);
+
+    }
 
 
-            @unless($roleEditable)
-                <div class="field">
-                    <label for="">&nbsp;</label>
-                    <div class="ui message m-t-0">Editing role are disabled by system configuration.</div>
+
+    /* 2. PENETAPAN FONT TAJUK (BIRU GELAP) */
+
+    .page-main-title {
+
+        color: var(--primary-dark-blue) !important;
+
+        font-weight: 800 !important;
+
+        font-size: 2.2rem !important;
+
+        margin: 0 !important;
+
+    }
+
+
+
+    .sub.header {
+
+        color: #64748b !important;
+
+        margin-top: 2px !important;
+
+    }
+
+
+
+    /* 3. KAWALAN ACTION BAR */
+
+    #actionbar {
+
+        margin-top: -10px !important;
+
+        margin-bottom: 25px !important;
+
+        padding: 0 1.5rem;
+
+        width: 100%;
+
+    }
+
+
+
+    /* 4. DESIGN KAD BORANG (PANEL) */
+
+    .ui.segments.panel {
+
+        border: none !important;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+
+        border-radius: 12px !important;
+
+        overflow: hidden;
+
+    }
+
+
+
+    .ui.segment.custom-form-header {
+
+        background: #ffffff !important;
+
+        border-bottom: 1px solid var(--border-color) !important;
+
+        padding: 18px !important;
+
+        display: flex;
+
+        align-items: center;
+
+    }
+
+
+
+    .ui.segment.custom-form-header i.icon { 
+
+        color: #fecb3a !important; /* Ikon kuning e-Perak */
+
+        margin-right: 12px !important; 
+
+    }
+
+
+
+    .ui.segment.custom-form-header h4 {
+
+        color: var(--primary-blue) !important;
+
+        margin: 0 !important;
+
+        font-weight: 700;
+
+    }
+
+
+
+    /* 5. GAYA MEDAN INPUT & LABEL */
+
+    .ui.form .field > label {
+
+        color: var(--primary-dark-blue) !important;
+
+        font-weight: 700 !important;
+
+        text-transform: uppercase;
+
+        font-size: 0.85rem;
+
+        margin-bottom: 8px !important;
+
+    }
+
+
+
+    .ui.form input[readonly], .ui.form textarea[readonly] {
+
+        background-color: #f1f5f9 !important;
+
+        border-color: #e2e8f0 !important;
+
+        color: #475569 !important;
+
+    }
+
+
+
+    /* 6. PENYELESAIAN JAWATAN PANJANG (WRAP TEXT) */
+
+    .jawatan-box {
+
+        min-height: 45px !important;
+
+        height: auto !important;
+
+        line-height: 1.4 !important;
+
+        resize: none !important;
+
+        padding: 10px !important;
+
+        white-space: normal !important;
+
+        word-wrap: break-word !important;
+
+    }
+
+
+
+    /* 7. BUTTON CUSTOM */
+
+    .btn-save {
+
+        background-color: #16a34a !important;
+
+        color: white !important;
+
+        border-radius: 8px !important;
+
+        padding: 12px 25px !important;
+
+        font-weight: bold !important;
+
+        box-shadow: 0 4px 6px rgba(22, 163, 74, 0.2);
+
+        transition: 0.3s;
+
+    }
+
+
+
+    .btn-save:hover {
+
+        background-color: #15803d !important;
+
+        transform: translateY(-1px);
+
+    }
+
+</style>
+
+
+
+<div id="actionbar" class="ui grid">
+
+    <div class="row">
+
+        <div class="eight wide column middle aligned">
+
+            <h1 class="ui header page-main-title">
+
+                <i class="user check icon" style="color: var(--primary-dark-blue);"></i>
+
+                <div class="content">
+
+                    Kelulusan Pengguna
+
+                    <div class="sub header">Semakan profil dan penetapan akses sistem</div>
+
                 </div>
-            @endif -->
 
+            </h1>
 
-      <!--  {!! form()->action(form()->submit(__('Simpan')), form()->link(__('Kembali'), route('site::users.approveindex'))) !!}
-
- -->
-      <div class="ui divider section"></div>
-      <div align="right">
-        <button type="submit" class="ui button primary" id="addbutton" name="hantar" onclick="return validateuser();">
-          Simpan
-        </button>
-        <a class="ui button" href="{!! URL::to('/site/approveindex') !!}" id="backbuttondown"><i class="material-icons left"></i><span>Kembali</span></a>
-      </div>
-
-
-
+        </div>
 
     </div>
-  </div>
+
 </div>
-{!! form()->close() !!}
+
+
+
+<div class="ui container-fluid content__body p-x-3">
+
+    <div class="ui segments panel">
+
+        <div class="ui segment custom-form-header">
+
+            <i class="address card outline icon"></i>
+
+            <h4>Maklumat Permohonan Pengguna</h4>
+
+        </div>
+
+
+
+        <div class="ui segment p-5">
+
+            {!! form()->bind($user)->open()->post()->action(route('site::users.approveusers', $user['id']))->horizontal() !!}
+
+
+
+            <div class="ui grid stackable form">
+
+                <div class="eight wide column">
+
+                    {!! form()->text('name')->label(__('Username'))->readonly() !!}
+
+                    {!! form()->text('email')->label(__('Email'))->readonly() !!}
+
+                    {!! form()->text('notel')->label(__('No. Telefon'))->readonly() !!}
+
+                </div>
+
+                <div class="eight wide column">
+
+                    {!! form()->text('jabatan')->label('Jabatan / Agensi')->readonly() !!}
+
+                    
+
+                    <div class="field">
+
+                        <label>Jawatan</label>
+
+                        <textarea name="jawatan" readonly class="jawatan-box" rows="2">{{ $user->jawatan }}</textarea>
+
+                    </div>
+
+
+
+                    {!! form()->text('Tujuan')->label(__('Tujuan Akses'))->readonly() !!}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="ui divider section"></div>
+
+
+
+            <div class="field">
+
+                <label>Status Kelulusan <font color="red">*</font></label>
+
+                <div class="ui fluid search selection dropdown">
+
+                    <input type="hidden" name="status" id="status" required="required" value="{{ data_get($user,'status') }}">
+
+                    <i class="dropdown icon"></i>
+
+                    <div class="default text">Sila Pilih Status</div>
+
+                    <div class="menu">
+
+                        <div class="item" data-value="PENDING">DALAM PROSES</div>
+
+                        <div class="item" data-value="ACTIVE">AKTIF (LULUS)</div>
+
+                        <div class="item" data-value="BLOCKED">TIDAK LULUS</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="field">
+
+                <label>Ulasan Pentadbir <font color="red" id="wajib">*</font></label>
+
+                <textarea id="ulasan" name="ulasan" rows="3" placeholder="Sila masukkan ulasan di sini..." required="required"></textarea>
+
+            </div>
+
+
+
+            <div class="field" id="divcategori">
+
+                <label>Kategori Pengguna <font color="red">*</font></label>
+
+                <div class="ui fluid search selection dropdown">
+
+                    <input type="hidden" name="role" id="role">
+
+                    <i class="dropdown icon"></i>
+
+                    <div class="default text">Sila Pilih Peranan</div>
+
+                    <div class="menu">
+
+                        @foreach($role as $value)
+
+                            <div class="item" data-value="{{$value->id}}">{{$value->name}}</div>
+
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="ui two column grid stackable">
+
+                <div class="column" id="divpgdaerah">
+
+                    <div class="field">
+
+                        <label>Daerah <font color="red">*</font></label>
+
+                        <div class="ui fluid search selection dropdown">
+
+                            <input type="hidden" name="daerah01" id="daerah01">
+
+                            <i class="dropdown icon"></i>
+
+                            <div class="default text">Pilih Daerah</div>
+
+                            <div class="menu">
+
+                                @foreach($daerah as $value)
+
+                                    <div class="item" data-value="{{$value->id}}" onclick="mukim({{$value->id}})">{{$value->NamaDaerah}}</div>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="column" id="divpgmukim">
+
+                    <div class="field">
+
+                        <label>Daerah <font color="red">*</font></label>
+
+                        <div class="ui fluid search selection dropdown">
+
+                            <input type="hidden" name="daerah02" id="daerah02">
+
+                            <i class="dropdown icon"></i>
+
+                            <div class="default text">Pilih Daerah</div>
+
+                            <div class="menu">
+
+                                @foreach($daerah as $value)
+
+                                    <div class="item" data-value="{{$value->id}}" onclick="mukim({{$value->id}})">{{$value->NamaDaerah}}</div>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="column" id="divmukim">
+
+                    <div class="field">
+
+                        <label>Mukim</label>
+
+                        <div class="ui fluid search selection dropdown">
+
+                            <input type="hidden" name="mukim" id="mukim">
+
+                            <i class="dropdown icon"></i>
+
+                            <div class="default text" id="pilihmukim">Pilih Mukim</div>
+
+                            <div class="menu" id="selectmukim"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+
+                <div class="column" id="divkampung">
+
+                    <div class="field">
+
+                        <label>Nama Kampung <font color="red">*</font></label>
+
+                        <div class="ui fluid search selection dropdown">
+
+                            <input type="hidden" name="kampung" id="kampung">
+
+                            <i class="dropdown icon"></i>
+
+                            <div class="default text" id="pilihkampung">Pilih Kampung</div>
+
+                            <div class="menu" id="selectkampung"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="loading" style="display: none; margin: 20px 0;">
+
+                <div class="ui active centered inline loader"></div>
+
+                <div class="text-center" style="color: var(--primary-blue); font-size: 0.9rem; margin-top: 5px;">Memproses data...</div>
+
+            </div>
+
+
+
+            <div class="ui divider section"></div>
+
+
+
+            <div align="right">
+
+                <button type="submit" class="ui button btn-save" id="addbutton" onclick="return validateuser();">
+
+                    <i class="save icon"></i> Simpan Kelulusan
+
+                </button>
+
+                <a class="ui button basic" href="{!! URL::to('/site/approveindex') !!}" style="border-radius: 8px; padding: 12px 25px;">
+
+                    <i class="arrow left icon"></i> Kembali
+
+                </a>
+
+            </div>
+
+
+
+            {!! form()->close() !!}
+
+        </div>
+
+    </div>
+
+</div>
+
 @endsection
 
+
+
 @push('script')
+
 <script>
-  $(document).ready(function() {
 
-    $("#divpgdaerah").hide();
-    $("#divpgmukim").hide();
-    $("#divmukim").hide();
-    $('#wajib').hide();
-    $("#divcategori").hide();
+    $(document).ready(function() {
 
-          $("#divkampung").hide();
+        // Initials hide
 
-
-    $('#ulasan').keyup(function() {
-      $(this).val($(this).val().toUpperCase());
-    });
+        $("#divpgdaerah, #divpgmukim, #divmukim, #divkampung, #divcategori, #wajib").hide();
 
 
 
-    $("#role").change(function(e) {
+        // UpperCase for Ulasan
 
-      $role = this.value;
-//alert($role);
-      if ($role == 2) { //daerah
-        $("#divpgdaerah").show();
-        $("#divpgmukim").hide();
-        $("#divmukim").hide();
-		
-          $("#divkampung").hide();
-      } else if ($role == 3) { //mukim
-        $("#divpgmukim").show();
-        $("#divmukim").show();
-        $("#divpgdaerah").hide();
-		
-          $("#divkampung").hide();
-} else if($role==10){//kampung
-          $("#divpgmukim").show();
-          $("#divmukim").show();
-          $("#divkampung").show();
-           $("#divpgdaerah").hide();
+        $('#ulasan').keyup(function() {
 
-      } else {
-        $("#divpgdaerah").hide();
-        $("#divpgmukim").hide();
-        $("#divmukim").hide();
-		  $("#divkampung").hide();
-      }
+            $(this).val($(this).val().toUpperCase());
+
+        });
 
 
-    });
 
-    $("#status").change(function(e) {
-      var status = this.value;
+        // Role Logic
 
-       $("#divpgdaerah").hide();
-        $("#divpgmukim").hide();
-        $("#divmukim").hide();
+        $("#role").change(function() {
 
-      if (status == 'BLOCKED') {
+            let role = this.value;
 
-        $('#wajib').show();
-      } else {
-        $('#wajib').hide();
+            $("#divpgdaerah, #divpgmukim, #divmukim, #divkampung").hide();
 
 
-      }
 
-      if (status == 'ACTIVE') {
-        $("#divcategori").show();
+            if (role == 2) { 
 
-      } else {
-        $("#divcategori").hide();
+                $("#divpgdaerah").show();
 
-      }
+            } else if (role == 3) { 
 
-    });
+                $("#divpgmukim, #divmukim").show();
 
-  });
+            } else if(role == 10) { 
 
-  function mukim(id) {
+                $("#divpgmukim, #divmukim, #divkampung").show();
 
-    $('#daerahmukim').show();
+            }
 
-    $('#parlimendun').hide();
+        });
 
 
-    $.ajax({
-      type: "GET",
-      url: "{{ URL::to('site/getmukim/')}}" + "/" + id,
-      datatype: 'json',
 
-      beforeSend: function() {
-        //$('div.text').html('Sila Pilih');
-        document.getElementById("pilihmukim").innerHTML = "Sila Pilih";
-        $('#selectmukim').html('');
-        $('#loading').show();
-        // $('#result2').hide();
+        // Status Logic
 
+        $("#status").change(function() {
 
-      },
+            let status = this.value;
 
-      success: function(data) {
-        $('#loading').hide();
+            $("#wajib").toggle(status === 'BLOCKED');
 
+            $("#divcategori").toggle(status === 'ACTIVE');
 
-        $('#selectmukim').html(data);
-
-
-      }
-
-
-    });
-
-
-  }
-   function kampung(id){
-
-     $('#daerahmukim').show();
-
-     $('#parlimendun').hide();
-
-      var role = document.getElementById("role").value; // added .value
-    
-         
-       $.ajax({ 
-            type: "GET", 
-            url: "{{ URL::to('site/getkampung/')}}"+"/"+id,
-            datatype : 'json',
-
-            beforeSend: function ()
-            {
-         
-               document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
-               $('#selectkampung').html('');
-
-               if(role==6){
-                $('#loading').show();
-               }
-               
-              // $('#result2').hide();
-               
-
-            },
             
-            success: function(data){ 
-              $('#loading').hide();
 
-        
-             $('#selectkampung').html(data);
-           
+            if(status !== 'ACTIVE') {
 
-           }
-
-
-          });
-
-
-     }
-
-  function validateuser() {
-
-    var status = document.getElementById("status").value; // added .value
-    var role = document.getElementById("role").value; // added .value
-    var ulasan = document.getElementById("ulasan").value; // added .value
-    var daerah01 = document.getElementById("daerah01").value;
-    var daerah02 = document.getElementById("daerah02").value;
-    var mukim = document.getElementById("mukim").value;
-
-
-    if (status == '') {
-      alert('Sila Masukan Status');
-      return false;
-
-    } else {
-
-      if (status === 'BLOCKED') {
-
-        $('#ulasan').attr('required', true)
-
-      } else {
-        $('#ulasan').attr('required', false)
-
-      }
-
-      if (status === 'ACTIVE') {
-
-        if (role == '') {
-          alert('Sila Pilih Kategori Pengguna');
-          return false;
-
-        } else {
-
-          if (role == '2') { //pentadbir daerah
-
-            if (daerah01 == '') {
-              alert('Sila Pilih Daerah');
-              return false;
-            } else {
-
-              return true;
+                $("#divpgdaerah, #divpgmukim, #divmukim, #divkampung").hide();
 
             }
 
-          } else {
+        });
 
-            if (role == '3') { //pegawai mukim
-
-              if (daerah02 == '') {
-                alert('Sila Pilih Daerah');
-                return false;
-              } else {
-
-                if (mukim == '') {
-
-                  alert('Sila Pilih Mukim');
-                  return false;
-
-                } else {
-                  return true;
-
-                }
+    });
 
 
 
-              }
+    function mukim(id) {
 
-            } else {
-              return true;
+        document.getElementById("pilihmukim").innerHTML = "Sila Pilih";
+
+        $('#selectmukim').html('');
+
+        $('#loading').show();
+
+
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ URL::to('site/getmukim/')}}" + "/" + id,
+
+            success: function(data) {
+
+                $('#loading').hide();
+
+                $('#selectmukim').html(data);
 
             }
 
+        });
 
-          }
+    }
 
+
+
+    function kampung(id) {
+
+        document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
+
+        $('#selectkampung').html('');
+
+        $('#loading').show();
+
+
+
+        $.ajax({
+
+            type: "GET",
+
+            url: "{{ URL::to('site/getkampung/')}}"+"/"+id,
+
+            success: function(data) {
+
+                $('#loading').hide();
+
+                $('#selectkampung').html(data);
+
+            }
+
+        });
+
+    }
+
+
+
+    function validateuser() {
+
+        var status = document.getElementById("status").value;
+
+        var role = document.getElementById("role").value;
+
+        var ulasan = document.getElementById("ulasan").value;
+
+
+
+        if (status == '') {
+
+            alert('Sila Masukkan Status Kelulusan');
+
+            return false;
 
         }
 
 
-      } else {
+
+        if (status === 'BLOCKED' && ulasan == '') {
+
+            alert('Sila Masukkan Ulasan untuk Status Tidak Lulus');
+
+            return false;
+
+        }
+
+
+
+        if (status === 'ACTIVE' && role == '') {
+
+            alert('Sila Pilih Kategori Pengguna');
+
+            return false;
+
+        }
+
+
 
         return true;
-      }
-
-
-
 
     }
 
-  }
 </script>
+
 @endpush

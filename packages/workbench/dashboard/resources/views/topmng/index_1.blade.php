@@ -320,7 +320,7 @@ aside{
 
       <div class="ui divider section"></div>
       <div class="ui buttons right floated">
-            <a class="ui button" href="{!! URL::to('dashboard/admin') !!}">Set Semula</a>
+            <a class="ui button" href="{!! URL::to('eperak/dashboard/admin') !!}">Set Semula</a>
             <div class="or" data-text="@"></div>
             <button class="ui button primary" onclick="search()">
                           Carian

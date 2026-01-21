@@ -1114,8 +1114,11 @@ $pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
         $StatusSemak = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
+        $kependudukanrumah = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 33)->get();
+        $keadaanrumah = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 34)->get();
+        $kategoripenempatan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 3)->get();
 
-        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'StatusSemak', 'infokampung'));
+        return view('dataentry::isirumah.ketuaisirumah.addketuaisirumah', compact('idkampung', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'jenispengenalan', 'StatusSemak', 'kependudukanrumah', 'keadaanrumah', 'kategoripenempatan', 'infokampung'));
     }
 
     public function saveketuarumah(Request $request)
@@ -1146,11 +1149,14 @@ $pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
         $bilbilik = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 14)->get();
         $jenispengenalan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 29)->get();
         $StatusSemak = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 32)->get();
+        $kependudukanrumah = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 33)->get();
+        $keadaanrumah = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 34)->get();
+        $kategoripenempatan = LkpDetail::selectRaw('id,description')->where('status', 1)->where('fk_lkp_master', 3)->get();
 
         $filexists = file_exists(public_path(data_get($ketuaisirumah, 'rumah.Gambar_path')));
 
         return view('dataentry::isirumah.ketuaisirumah.editketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'filexists', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'kependudukanrumah', 'keadaanrumah', 'kategoripenempatan', 'filexists', 'infokampung'));
     }
 
     public function editketuarumah(Request $request)
@@ -1181,9 +1187,12 @@ $pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
         $bilbilik = LkpDetail::find(data_get($ketuaisirumah, 'rumah.BilBilik'));
         $jenispengenalan = LkpDetail::find(data_get($ketuaisirumah, 'JenisPengenalan'));
         $StatusSemak = LkpDetail::find(data_get($ketuaisirumah, 'StatusSemak'));
+        $kependudukanrumah = LkpDetail::find(data_get($ketuaisirumah, 'kependudukanrumah'));
+        $keadaanrumah = LkpDetail::find(data_get($ketuaisirumah, 'keadaanrumah'));
+        $kategoripenempatan = LkpDetail::find(data_get($ketuaisirumah, 'kategoripenempatan'));
 
         return view('dataentry::isirumah.ketuaisirumah.viewketuaisirumah', compact('idisirumah',
-            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'infokampung'));
+            'ketuaisirumah', 'jantina', 'warga', 'bangsa', 'agama', 'taraf', 'statuskerja', 'bantuanbulanan', 'statusmilik', 'jenisrumah', 'binaanrumah', 'biltingkat', 'bilbilik', 'idkampung', 'jenispengenalan', 'StatusSemak', 'kependudukanrumah', 'keadaanrumah', 'kategoripenempatan','infokampung'));
     }
 
     public function ahliisirumah($idkampung, $idrumah)

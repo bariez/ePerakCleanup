@@ -266,15 +266,21 @@
 
 @endsection
 
-
 @push('script')
 
 <script type="text/javascript">
+  // -------------------------------------------------------------
+  // 1. DEFINISIKAN BASE URL DI LUAR (GLOBAL)
+  // -------------------------------------------------------------
+  // Guna helper Laravel 'url('/')' supaya dia automatik dapat URL penuh aplikasi
+  // Contoh output: https://mygdispatial.perak.gov.my/eperak
+  var baseUrl = "{{ url('/') }}";
+
   $(document).ready(function() {
 
-    $('.ui.accordion')
-      .accordion();
+    console.log("Memulakan dashboard pentadbir daerah dengan Base URL: " + baseUrl);
 
+    $('.ui.accordion').accordion();
 
     var role = "{{data_get($roleuser,'role_id')}}";
     var daerahuser = "{{$daerahuser}}";
@@ -302,7 +308,8 @@
 
         $.ajax({
           type: "GET",
-          url: "{{ URL::to('dataentry/mukim/')}}" + "/" + valdaerahuser,
+          // Guna baseUrl
+          url: baseUrl + "/dataentry/mukim/" + valdaerahuser,
           datatype: 'json',
 
           beforeSend: function() {
@@ -333,7 +340,8 @@
 
       $.ajax({
         type: "GET",
-        url: "{{ URL::to('dataentry/parlimenKampung/')}}" + "/" + valdaerahuser + "/" + valmukimuser,
+        // Guna baseUrl
+        url: baseUrl + "/dataentry/parlimenKampung/" + valdaerahuser + "/" + valmukimuser,
         datatype: 'json',
 
         beforeSend: function() {
@@ -437,7 +445,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
@@ -522,7 +531,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/countpetempatan/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/countpetempatan/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         block("tab-content");
@@ -537,7 +547,7 @@
 
         unblock("tab-content");
         $('#loading').hide();
-        document.getElementById('result3').style.display = "show";
+        document.getElementById('result3').style.display = "block"; // Changed from "show" to "block" as "show" is not valid CSS
         $('#result3').show();
         document.getElementById('resultcountpetempatan').innerHTML = data;
 
@@ -549,7 +559,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/countdata/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/countdata/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
 
@@ -573,7 +584,8 @@
     //-------------------------------------------getchart1----------------------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart1/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart1/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
 
@@ -619,7 +631,8 @@
     //-------------------------------------------start getchart2-----------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart2/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart2/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         $('#loader2').show();
@@ -657,7 +670,8 @@
     //-------------------------------------------start getchart3----------------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart3/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart3/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         $('#loader3').show();
@@ -695,7 +709,8 @@
     //-------------------------------------------start getchart4-----------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart4/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart4/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         $('#loader4').show();
@@ -738,7 +753,8 @@
     //-------------------------------------------start getchart5-----------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart5/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart5/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         $('#loader5').show();
@@ -776,7 +792,8 @@
     //-------------------------------------------start getchart6-----------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart6/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart6/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
         $('#loader6').show();
@@ -815,7 +832,8 @@
     //-------------------------------------------getchart7------------------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart7/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart7/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
 
@@ -854,7 +872,8 @@
     //-------------------------------------------getchart8-----------------------//
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('/dashboard/chart8/')}}?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dashboard/chart8/?parlimen=" + valparlimen + "&dun=" + valdun + "&daerah=" + valdaerah + "&mukim=" + valmukim + "&catpetempatan=" + valcat_petempatan + "&kampung=" + valkampung,
 
       beforeSend: function() {
 
@@ -919,8 +938,7 @@
         // [
         //   "#4B9ABB", "#9ACB34", "#EC5923", "#833D85", "#FDDA02", "#637589", "#4DA17F", "#001A9A", "#D01232", "#FFC681"
         // ]
-        ["#16747E", "#97AB38"
-        ],
+        ["#16747E", "#97AB38"],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1002,8 +1020,7 @@
     function getRandomColorEachData(count) {
       var data = [];
       var arr_color = [
-         ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-         ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1042,13 +1059,13 @@
             // const percentage = value / total * 100
             // return percentage.toFixed(2) + "%";
 
-             let sum = 0;
-              let dataArr = ctxpie.chart.data.datasets[0].data;
-              dataArr.map(data => {
-                sum += Number(data);
-              });
+            let sum = 0;
+            let dataArr = ctxpie.chart.data.datasets[0].data;
+            dataArr.map(data => {
+              sum += Number(data);
+            });
 
-              let percentage =  value / sum * 100;
+            let percentage = value / sum * 100;
             return percentage.toFixed(2) + "%";
           },
           color: '#fff',
@@ -1066,7 +1083,7 @@
         label: 'Jenis Rumah',
         data: arr_data,
         backgroundColor: getRandomColorEachData(lengthdata),
-         borderColor:'#ffff',
+        borderColor: '#ffff',
         tooltip: {
           callbacks: {
             label: function(context) {
@@ -1087,7 +1104,7 @@
 
 
 
-              let percentage =  value / sum * 100;
+              let percentage = value / sum * 100;
               return label + ": " + valueformat + ":" + percentage.toFixed(2) + "%";
             }
           }
@@ -1117,8 +1134,7 @@
     function getRandomColorEachData(count) {
       var data = [];
       var arr_color = [
-         ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-         ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1155,12 +1171,12 @@
             // const percentage = value / total * 100
             // return percentage.toFixed(2) + "%";
 
-             let sum = 0;
-              let dataArr = ctxpie.chart.data.datasets[0].data;
-              dataArr.map(data => {
-                sum += Number(data);
-              });
-              let percentage =  value / sum * 100;
+            let sum = 0;
+            let dataArr = ctxpie.chart.data.datasets[0].data;
+            dataArr.map(data => {
+              sum += Number(data);
+            });
+            let percentage = value / sum * 100;
 
 
             return percentage.toFixed(2) + "%";
@@ -1180,7 +1196,7 @@
         label: 'Kemudahan Awam & Infrastruktur',
         data: arr_data,
         backgroundColor: getRandomColorEachData(lengthdata),
-         borderColor:'#ffff',
+        borderColor: '#ffff',
         tooltip: {
           callbacks: {
             label: function(context) {
@@ -1198,7 +1214,7 @@
                 sum += Number(data);
               });
 
-               let percentage =  value / sum * 100;
+              let percentage = value / sum * 100;
               return label + ": " + valueformat + ":" + percentage.toFixed(2) + "%";
             }
           }
@@ -1297,20 +1313,20 @@
         }
       };
 
-           var barChartData = {
+      var barChartData = {
         labels: arr_jenis,
         datasets: [{
             label: "Ya",
             //backgroundColor: getRandomColorEachData(1),
-             backgroundColor: "rgb(22, 116, 126)",
-             hoverBackgroundColor: "rgb(22, 116, 126)",
+            backgroundColor: "rgb(22, 116, 126)",
+            hoverBackgroundColor: "rgb(22, 116, 126)",
             data: arr_ya
           },
           {
             label: "Tidak",
             //backgroundColor: getRandomColorEachData(1),
-             backgroundColor: "rgb(177, 182, 42)",
-             hoverBackgroundColor:"rgb(177, 182, 42)",
+            backgroundColor: "rgb(177, 182, 42)",
+            hoverBackgroundColor: "rgb(177, 182, 42)",
             data: arr_tidak
           }
         ]
@@ -1362,8 +1378,7 @@
         // [
         //   "#4B9ABB", "#9ACB34", "#EC5923", "#833D85", "#FDDA02", "#637589", "#4DA17F", "#001A9A", "#D01232", "#FFC681"
         // ]
-         ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-                ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1407,13 +1422,13 @@
             // return percentage.toFixed(2) + "%";
 
             let sum = 0;
-                let dataArr = ctxpie.chart.data.datasets[0].data
-                dataArr.map(data => {
-                  sum += Number(data);
-                });
+            let dataArr = ctxpie.chart.data.datasets[0].data
+            dataArr.map(data => {
+              sum += Number(data);
+            });
 
 
-              let percentage =  value / sum * 100;
+            let percentage = value / sum * 100;
             return percentage.toFixed(2) + "%";
           },
           color: '#fff',
@@ -1435,7 +1450,7 @@
           label: 'Status Pekerjaan',
           data: arr_data,
           backgroundColor: getRandomColorEachData(lengthdata),
-          borderColor:'#ffff',
+          borderColor: '#ffff',
           tooltip: {
             callbacks: {
               label: function(context) {
@@ -1452,8 +1467,8 @@
                   sum += Number(data);
                 });
 
-                let percentage =  value / sum * 100;
-              return label + ": " + valueformat + ":" + percentage.toFixed(2) + "%";
+                let percentage = value / sum * 100;
+                return label + ": " + valueformat + ":" + percentage.toFixed(2) + "%";
               }
             }
           }
@@ -1503,8 +1518,7 @@
         // [
         //   "#4B9ABB", "#9ACB34", "#EC5923", "#833D85", "#FDDA02", "#637589", "#4DA17F", "#001A9A", "#D01232", "#FFC681"
         // ]
-        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-        ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1546,13 +1560,13 @@
             // const percentage = value / total * 100
             // return percentage.toFixed(2) + "%";
 
-             let sum = 0;
-              let dataArr = ctxpie.chart.data.datasets[0].data;
-              dataArr.map(data => {
-                sum += Number(data);
-              });
+            let sum = 0;
+            let dataArr = ctxpie.chart.data.datasets[0].data;
+            dataArr.map(data => {
+              sum += Number(data);
+            });
 
-               let percentage =  value / sum * 100;
+            let percentage = value / sum * 100;
             return percentage.toFixed(2) + "%";
           },
           color: '#fff',
@@ -1569,7 +1583,7 @@
         label: 'Taraf Perkahwinan',
         data: arr_data,
         backgroundColor: getRandomColorEachData(lengthdata),
-         borderColor:'#ffff',
+        borderColor: '#ffff',
         tooltip: {
           callbacks: {
             label: function(context) {
@@ -1586,7 +1600,7 @@
                 sum += Number(data);
               });
 
-               let percentage =  value / sum * 100;
+              let percentage = value / sum * 100;
               return label + ": " + valueformat + ":" + percentage.toFixed(2) + "%";
             }
           }
@@ -1617,8 +1631,7 @@
       var data = [];
       var arr_color = [
 
-       ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-       ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1694,8 +1707,7 @@
     function getRandomColorEachData(count) {
       var data = [];
       var arr_color = [
-        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A",
-        ],
+        ["#16747E", "#307F70", "#4A8A62", "#649554", "#7EA046", "#97AB38", "#B1B62A", "#B1B62A", ],
       ];
 
       var colors = arr_color[Math.floor(Math.random() * arr_color.length)];
@@ -1771,200 +1783,200 @@
 
   // function getPieKahwin(arr_jenis,arr_data,lengthdata,jumjeniskerja){
 
-  //     var ctx = document.getElementById("myPieKahwin");
+  //      var ctx = document.getElementById("myPieKahwin");
 
-  //       function getRandomColor() {
-  //                 var letters = '0123456789ABCDEF'.split('');
-  //                 var color = '#';
-  //                 for (var i = 0; i < 6; i++) {
-  //                     color += letters[Math.floor(Math.random() * 16)];
-  //                 }
-  //                 return color;
-  //             }
+  //        function getRandomColor() {
+  //                  var letters = '0123456789ABCDEF'.split('');
+  //                  var color = '#';
+  //                  for (var i = 0; i < 6; i++) {
+  //                      color += letters[Math.floor(Math.random() * 16)];
+  //                  }
+  //                  return color;
+  //              }
 
-  //       function getRandomColorEachData(count) {
-  //             var data =[];
-  //             for (var i = 0; i < count; i++) {
-  //                 data.push(getRandomColor());
-  //             }
-  //             return data;
-  //             }
+  //        function getRandomColorEachData(count) {
+  //              var data =[];
+  //              for (var i = 0; i < count; i++) {
+  //                  data.push(getRandomColor());
+  //              }
+  //              return data;
+  //              }
 
-  //   var data = [61, 10, 28];
-  //   const getSuitableY = (y, yArray = [], direction) => {
-  //     let result = y;
-  //     yArray.forEach((existedY) => {
-  //       if (existedY - 14 < result && existedY + 14 > result) {
-  //         if (direction === "right") {
-  //           result = existedY + 14;
-  //         } else {
-  //           result = existedY - 14;
-  //         }
-  //       }
-  //     });
-  //     return result;
-  //   };
+  //    var data = [61, 10, 28];
+  //    const getSuitableY = (y, yArray = [], direction) => {
+  //      let result = y;
+  //      yArray.forEach((existedY) => {
+  //        if (existedY - 14 < result && existedY + 14 > result) {
+  //          if (direction === "right") {
+  //            result = existedY + 14;
+  //          } else {
+  //            result = existedY - 14;
+  //          }
+  //        }
+  //      });
+  //      return result;
+  //    };
 
-  //   const getOriginPoints = (source, center, l) => {
-  //     // console.log(source, center, l)
+  //    const getOriginPoints = (source, center, l) => {
+  //      // console.log(source, center, l)
 
-  //     let a = {x: 0, y: 0};
-  //     var dx = (center.x - source.x) / l
-  //     var dy = (center.y - source.y) / l
-  //     a.x = center.x + l * dx
-  //     a.y = center.y + l * dy
-  //     return a
-  //   };
-  //   const options = {
-  //     plugins: {
-  //       legend: {
-  //         display: true,
-  //         position: "bottom"
-  //       },
-  //     },
+  //      let a = {x: 0, y: 0};
+  //      var dx = (center.x - source.x) / l
+  //      var dy = (center.y - source.y) / l
+  //      a.x = center.x + l * dx
+  //      a.y = center.y + l * dy
+  //      return a
+  //    };
+  //    const options = {
+  //      plugins: {
+  //        legend: {
+  //          display: true,
+  //          position: "bottom"
+  //        },
+  //      },
 
-  //     layout: {
-  //       padding: {
-  //         top: 30,
-  //         left: 0,
-  //         right: 0,
-  //         bottom: 30
-  //       }
-  //     },
-  //      datalabels: {
-  //                   color: '#fff',
-  //                     }
-  //   };
-  //   const plugins = [
-  //     {
-  //       afterDraw: (chart) => {
-  //         const ctx = chart.ctx;
-  //         ctx.save();
-  //         ctx.font = "10px 'Averta Std CY'";
-  //         const leftLabelCoordinates = [];
-  //         const rightLabelCoordinates = [];
-  //         const chartCenterPoint = {
-  //           x:
-  //             (chart.chartArea.right - chart.chartArea.left) / 2 +
-  //             chart.chartArea.left,
-  //           y:
-  //             (chart.chartArea.bottom - chart.chartArea.top) / 2 +
-  //             chart.chartArea.top
-  //         };
-  //         chart.config.data.labels.forEach((label, i) => {
-  //           const meta = chart.getDatasetMeta(0);
-  //           const arc = meta.data[i];
-  //           const dataset = chart.config.data.datasets[0];
+  //      layout: {
+  //        padding: {
+  //          top: 30,
+  //          left: 0,
+  //          right: 0,
+  //          bottom: 30
+  //        }
+  //      },
+  //       datalabels: {
+  //                    color: '#fff',
+  //                      }
+  //    };
+  //    const plugins = [
+  //      {
+  //        afterDraw: (chart) => {
+  //          const ctx = chart.ctx;
+  //          ctx.save();
+  //          ctx.font = "10px 'Averta Std CY'";
+  //          const leftLabelCoordinates = [];
+  //          const rightLabelCoordinates = [];
+  //          const chartCenterPoint = {
+  //            x:
+  //              (chart.chartArea.right - chart.chartArea.left) / 2 +
+  //              chart.chartArea.left,
+  //            y:
+  //              (chart.chartArea.bottom - chart.chartArea.top) / 2 +
+  //              chart.chartArea.top
+  //          };
+  //          chart.config.data.labels.forEach((label, i) => {
+  //            const meta = chart.getDatasetMeta(0);
+  //            const arc = meta.data[i];
+  //            const dataset = chart.config.data.datasets[0];
 
-  //           // Prepare data to draw
-  //           // important point 1
-  //           const centerPoint = arc.getCenterPoint();
-  //           let color = chart.config._config.data.datasets[0].backgroundColor[i];
-  //           let labelColor = chart.config._config.data.datasets[0].backgroundColor[i];
+  //            // Prepare data to draw
+  //            // important point 1
+  //            const centerPoint = arc.getCenterPoint();
+  //            let color = chart.config._config.data.datasets[0].backgroundColor[i];
+  //            let labelColor = chart.config._config.data.datasets[0].backgroundColor[i];
 
 
-  //           const angle = Math.atan2(
-  //             centerPoint.y - chartCenterPoint.y,
-  //             centerPoint.x - chartCenterPoint.x
-  //           );
-  //           // important point 2, this point overlapsed with existed points
-  //           // so we will reduce y by 14 if it's on the right
-  //           // or add by 14 if it's on the left
-  //           let originPoint = getOriginPoints(chartCenterPoint, centerPoint, arc.outerRadius)
-  //           const point2X =
-  //             chartCenterPoint.x + Math.cos(angle) * (centerPoint.x < chartCenterPoint.x ? arc.outerRadius + 10 : arc.outerRadius + 10);
-  //           let point2Y =
-  //             chartCenterPoint.y + Math.sin(angle) * (centerPoint.y < chartCenterPoint.y ? arc.outerRadius + 15 : arc.outerRadius + 15);
+  //            const angle = Math.atan2(
+  //              centerPoint.y - chartCenterPoint.y,
+  //              centerPoint.x - chartCenterPoint.x
+  //            );
+  //            // important point 2, this point overlapsed with existed points
+  //            // so we will reduce y by 14 if it's on the right
+  //            // or add by 14 if it's on the left
+  //            let originPoint = getOriginPoints(chartCenterPoint, centerPoint, arc.outerRadius)
+  //            const point2X =
+  //              chartCenterPoint.x + Math.cos(angle) * (centerPoint.x < chartCenterPoint.x ? arc.outerRadius + 10 : arc.outerRadius + 10);
+  //            let point2Y =
+  //              chartCenterPoint.y + Math.sin(angle) * (centerPoint.y < chartCenterPoint.y ? arc.outerRadius + 15 : arc.outerRadius + 15);
 
-  //           let suitableY;
-  //           if (point2X < chartCenterPoint.x) {
-  //             // on the left
-  //             suitableY = getSuitableY(point2Y, leftLabelCoordinates, "left");
-  //           } else {
-  //             // on the right
+  //            let suitableY;
+  //            if (point2X < chartCenterPoint.x) {
+  //              // on the left
+  //              suitableY = getSuitableY(point2Y, leftLabelCoordinates, "left");
+  //            } else {
+  //              // on the right
 
-  //             suitableY = getSuitableY(point2Y, rightLabelCoordinates, "right");
+  //              suitableY = getSuitableY(point2Y, rightLabelCoordinates, "right");
+  //            }
+
+  //            point2Y = suitableY;
+
+  //            let value = dataset.data[i];
+  //            // if (dataset.polyline && dataset.polyline.formatter) {
+  //            //    value = dataset.polyline.formatter(value);
+  //            // }
+  //            let edgePointX = point2X < chartCenterPoint.x ? chartCenterPoint.x - arc.outerRadius - 10 : chartCenterPoint.x + arc.outerRadius + 10;
+
+  //            if (point2X < chartCenterPoint.x) {
+  //              leftLabelCoordinates.push(point2Y);
+  //            } else {
+  //              rightLabelCoordinates.push(point2Y);
+  //            }
+
+  //            //DRAW CODE
+  //            // first line: connect between arc's center point and outside point
+  //            ctx.lineWidth = 2;
+  //            ctx.strokeStyle = color;
+  //            ctx.beginPath();
+  //            ctx.moveTo(originPoint.x, originPoint.y);
+  //            ctx.lineTo(point2X, point2Y);
+  //            ctx.stroke();
+  //            // second line: connect between outside point and chart's edge
+  //            ctx.beginPath();
+  //            ctx.moveTo(point2X, point2Y);
+  //            ctx.lineTo(edgePointX, point2Y);
+  //            ctx.stroke();
+  //            //fill custom label
+  //            const labelAlignStyle =
+  //              edgePointX < chartCenterPoint.x ? "right" : "left";
+  //            const labelX = edgePointX < chartCenterPoint.x ? edgePointX : edgePointX + 0;
+  //            const labelY = point2Y + 7;
+  //            ctx.textAlign = labelAlignStyle;
+  //            ctx.textBaseline = "bottom";
+  //            ctx.font = "bold 12px Lato";
+  //            // ctx.fillStyle = labelColor;
+  //            ctx.fillText(value, labelX, labelY);
+  //          });
+  //          ctx.restore();
+  //        }
+  //      }
+  //    ];
+
+  //    var myChart = new Chart(ctx, {
+  //      type: 'pie',
+  //      plugins: plugins,
+  //      options: options,
+  //      data: {
+  //        labels: arr_jenis,
+  //        datasets: [{
+  //       label: 'Status Pekerjaan',
+  //       data: arr_data,
+  //        backgroundColor: getRandomColorEachData(lengthdata),
+  //       borderColor: "transparent",
+  //       tooltip: {
+  //           callbacks: {
+  //               label: function(context) {
+  //                   let label = context.label;
+  //                   let value = context.formattedValue;
+
+  //                   if (!label)
+  //                       label = 'Unknown'
+
+  //                   let sum = 0;
+  //                   let dataArr = context.chart.data.datasets[0].data;
+  //                   dataArr.map(data => {
+  //                       sum += Number(data);
+  //                   });
+
+  //                   let percentage = (value * 100 / sum).toFixed(2) + '%';
+  //                   return label + ": " + percentage;
+  //               }
   //           }
-
-  //           point2Y = suitableY;
-
-  //           let value = dataset.data[i];
-  //           // if (dataset.polyline && dataset.polyline.formatter) {
-  //           //   value = dataset.polyline.formatter(value);
-  //           // }
-  //           let edgePointX = point2X < chartCenterPoint.x ? chartCenterPoint.x - arc.outerRadius - 10 : chartCenterPoint.x + arc.outerRadius + 10;
-
-  //           if (point2X < chartCenterPoint.x) {
-  //             leftLabelCoordinates.push(point2Y);
-  //           } else {
-  //             rightLabelCoordinates.push(point2Y);
-  //           }
-
-  //           //DRAW CODE
-  //           // first line: connect between arc's center point and outside point
-  //           ctx.lineWidth = 2;
-  //           ctx.strokeStyle = color;
-  //           ctx.beginPath();
-  //           ctx.moveTo(originPoint.x, originPoint.y);
-  //           ctx.lineTo(point2X, point2Y);
-  //           ctx.stroke();
-  //           // second line: connect between outside point and chart's edge
-  //           ctx.beginPath();
-  //           ctx.moveTo(point2X, point2Y);
-  //           ctx.lineTo(edgePointX, point2Y);
-  //           ctx.stroke();
-  //           //fill custom label
-  //           const labelAlignStyle =
-  //             edgePointX < chartCenterPoint.x ? "right" : "left";
-  //           const labelX = edgePointX < chartCenterPoint.x ? edgePointX : edgePointX + 0;
-  //           const labelY = point2Y + 7;
-  //           ctx.textAlign = labelAlignStyle;
-  //           ctx.textBaseline = "bottom";
-  //           ctx.font = "bold 12px Lato";
-  //           // ctx.fillStyle = labelColor;
-  //           ctx.fillText(value, labelX, labelY);
-  //         });
-  //         ctx.restore();
   //       }
+  //   }]
+  //      }
+  //    });
+
   //     }
-  //   ];
-
-  //   var myChart = new Chart(ctx, {
-  //     type: 'pie',
-  //     plugins: plugins,
-  //     options: options,
-  //     data: {
-  //       labels: arr_jenis,
-  //       datasets: [{
-  //     label: 'Status Pekerjaan',
-  //     data: arr_data,
-  //      backgroundColor: getRandomColorEachData(lengthdata),
-  //     borderColor: "transparent",
-  //     tooltip: {
-  //         callbacks: {
-  //             label: function(context) {
-  //                 let label = context.label;
-  //                 let value = context.formattedValue;
-
-  //                 if (!label)
-  //                     label = 'Unknown'
-
-  //                 let sum = 0;
-  //                 let dataArr = context.chart.data.datasets[0].data;
-  //                 dataArr.map(data => {
-  //                     sum += Number(data);
-  //                 });
-
-  //                 let percentage = (value * 100 / sum).toFixed(2) + '%';
-  //                 return label + ": " + percentage;
-  //             }
-  //         }
-  //     }
-  // }]
-  //     }
-  //   });
-
-  //    }
 
 
   ///////////////////////--------------------------------/////////////////////////
@@ -1996,7 +2008,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/dun/')}}" + "/" + id,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/dun/" + id,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2089,7 +2102,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + parlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + parlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2128,7 +2142,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/mukim/')}}" + "/" + id,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/mukim/" + id,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2177,7 +2192,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/parlimenKampung/')}}" + "/" + id + "/" + valmukim,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/parlimenKampung/" + id + "/" + valmukim,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2205,6 +2221,8 @@
 
         unblock("tab-content");
         $('#loading').hide();
+        $('#result3').hide();
+        $('#result4').hide();
         $('#selectparlimen').html(data);
 
 
@@ -2214,7 +2232,7 @@
     });
 
 
-    var parlimen = $('#parlimen').val();
+
     if (parlimen == '') {
       valparlimen = 0;
     } else {
@@ -2264,10 +2282,12 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
+        block("tab-content");
         document.getElementById("pilihkampung").innerHTML = "Sila Pilih";
         $('#selectkampung').html('');
         $('#parlimen').val(0);
@@ -2394,7 +2414,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2487,7 +2508,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/parlimenKampung/')}}" + "/" + valdaerah + "/" + valmukim,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/parlimenKampung/" + valdaerah + "/" + valmukim,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2570,7 +2592,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2691,7 +2714,8 @@
 
     $.ajax({
       type: "GET",
-      url: "{{ URL::to('dataentry/kampung/')}}" + "/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
+      // Guna baseUrl
+      url: baseUrl + "/dataentry/kampung/" + valparlimen + "/" + valdun + "/" + valdaerah + "/" + valmukim + "/" + valcat_petempatan + '/' + valkampung,
       datatype: 'json',
 
       beforeSend: function() {
@@ -2722,3 +2746,4 @@
   };
 </script>
 @endpush
+

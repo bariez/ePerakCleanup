@@ -18,6 +18,58 @@
             width: 400px;
         }
 
+            /* 1. CSS UNTUK INTERFACE MODEN */
+        :root {
+            --primary-blue: #1e3a8a; /* Warna biru gelap korporat */
+            --bg-light: #f1f5f9;
+        }
+
+        .tab-content.raised {
+            background: var(--bg-light) !important;
+            padding: 20px !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Styling Kotak Carian */
+        .ui.accordion#divaccordion {
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+            border-radius: 8px !important;
+            background: white !important;
+        }
+
+        /* Styling Kotak Statistik (Warna Biru dalam Imej) */
+        #resultcountpetempatan .ui.segment {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+            color: white !important;
+            border-radius: 12px !important;
+            padding: 20px !important;
+            border: none !important;
+        }
+
+        /* Styling Kad Carta */
+        .ui.stackable.cards .card {
+            border-radius: 12px !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+            border: none !important;
+            padding: 15px !important;
+        }
+
+        .chart-header {
+            font-size: 1.1rem !important;
+            color: var(--primary-blue) !important;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px !important;
+            text-transform: uppercase;
+        }
+
+        @media print {
+            #actionbar, #divaccordion, .print-button { display: none !important; }
+            .card { box-shadow: none !important; border: 1px solid #ccc !important; }
+        }
+
         @media print {
             /*   @page {
             size: 330mm 427mm;
@@ -201,19 +253,21 @@
                 display: none;
             }
 
-
-
-
-
         }
     </style>
 
-    <div id="actionbar" class="ui two column grid  p-1">
+
+    <div id="actionbar" class="ui two column grid p-1">
         <div class="column middle aligned">
-            <h3 class="ui header m-t-xs">
-                DASHBOARD {{ data_get($roleuser, 'acl_roles.name') }}
-            </h3>
+            <h2 class="ui header m-t-xs" style="color: #1e3a8a !important;">
+                <i class="chart pie icon" style="color: #1e3a8a;"></i> 
+                <div class="content">
+                    DASHBOARD {{ data_get($roleuser, 'acl_roles.name') }}
+                    <div class="sub header" style="color: #64748b !important;">Paparan Statistik Geospatial & Demografi Penduduk</div>
+                </div>
+            </h2>
         </div>
+    </div>
 
     </div>
     <br>

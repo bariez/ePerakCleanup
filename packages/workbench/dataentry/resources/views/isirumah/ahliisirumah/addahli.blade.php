@@ -1,670 +1,450 @@
 @extends('laravolt::layout.app2')
 
 @section('content')
-<div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
-    <div class="column middle aligned">
-                <h3 class="ui header m-t-xs" style="color:black">
-          Maklumat Ahli Isi Rumah
-        </h3>
-    </div> 
-    <div class="column right aligned middle aligned">
+    <style type="text/css">
+        /* 1. LATAR BELAKANG & LAYOUT */
+        body { background-color: #f0f2f5; }
+        .form-layout-wrapper { max-width: 950px; margin: 20px auto; }
 
-           <a class="ui button" href="{!! URL::to('dataentry/searchkampung/isirumah/ahliisirumah/'.$idkampung.'/'.$idrumah) !!}" id="backbutton"><i class="material-icons left"></i><span>Kembali</span></a>
-    </div>
-</div>
-<br>
- <h4 class="ui top attached header">
-  Tambah Maklumat Ahli Isi Rumah - {{data_get($infokampung,'NamaKampung')}}
-</h4>
-<div class="ui attached segment">
+        /* 2. HEADER ACTION BAR */
+        #actionbar {
+            background: #fff; padding: 20px; border-radius: 8px 8px 0 0;
+            border-bottom: 2px solid #f0f0f0; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
 
-	 {!! form()->open()->post()->action(route('dataentry::searchkampung.saveahli'))->attribute('id', 'formstruk')->multipart()->horizontal() !!}
-           <input type="hidden" name="idkampung"  required="required" value="{{$idkampung}}">
-           <input type="hidden" name="idrumah"  required="required" value="{{$idrumah}}">
-           <input type="hidden" name="wn" id="wn" value="" >
+        /* 3. KONTAINER BORANG */
+        .main-form-container {
+            background: white; padding: 30px; border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); min-height: 500px;
+        }
 
-        <div class="field">
-		            <label>Nama Ahli Isi Rumah<font color="red">*</font></label>
-		            <input type="text" name="name" id="name" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
-			</div>
-            <div class="field">
-              <label>Jenis Pengenalan<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="typepengenalan" id="typepengenalan" value="{{ old('jantina') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="" value="0">Sila Pilih</div>
-                      @foreach($jenispengenalan as $key => $value)
-                       <div class="item" data-value="{{$value->id}}" onclick="warga({{$value->id}})">{{$value->description}}</div>
-                        @endforeach
+        /* 4. WARNA HEADER SEKSYEN */
+        .segment-header-blue { border-left: 5px solid #2185d0; background-color: #f0f9ff !important; padding: 15px !important; }
+        .segment-header-teal { border-left: 5px solid #00b5ad; background-color: #f0fffe !important; padding: 15px !important; }
+        /* Tambah warna lain jika perlu */
+
+        .ui.header { margin: 0 !important; font-weight: 700; }
+        label { font-weight: 600 !important; color: #444; }
+        label span.required { color: #db2828; }
+        .ui.form .field { margin-bottom: 1.5em; }
+    </style>
+
+    <div class="form-layout-wrapper">
+
+        {{-- 1. HEADER ATAS --}}
+        <div id="actionbar" class="ui grid middle aligned m-b-0">
+            <div class="eight wide column">
+                <h2 class="ui header blue">
+                    <i class="user plus icon"></i>
+                    <div class="content">
+                        Tambah Ahli Isi Rumah
+                        <div class="sub header" style="font-size: 1.3rem;"><b>{{ data_get($infokampung, 'NamaKampung') }}</b></div>
                     </div>
-                  </div>
-              </div>
-         <div class="field" id="divnoic">
-                <label>No. Kad Pengenalan<font color="red">*</font></label>
-                <input max="14" name="noic" id="noic"  type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onKeyPress="if(this.value.length==12) return false;" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
-          </div>
-          <div class="field" id="divnoicnotes">
-                <label>&nbsp;</label>
-               (Sila masukkan No. Kad Pengenalan (cth: 98xxxxxxxxxx). (Tanpa "-" atau jarak))
-          </div>
-          <div class="field" id="divnopengenalan">
-                <label>No. Tentera/No. Polis/Passport<font color="red">*</font></label>
-                <input max="14" name="nopengenalan" id="nopengenalan"  type="text" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') " required="required">
-          </div>
-           <div class="field" id="divnopengenalannotes">
-                <label>&nbsp;</label>
-               (Sila masukkan No. Kad Pengenalan (cth: 98xxxxxxxxxx)/<br>No. Perkhidmatan Tentera (cth: Txxxxx) / No. Perkhidmatan Polis (cth: RFxxxxx/RFSxxxxx/Gxxxxx))
-          </div>
-        <div class="field" id="tlahircal">
-                <label id="labellahir">Tarikh Lahir<font color="red">*</font></label>
-               <div class="ui calendar" id="standard_calendar">
-                <div class="ui input left icon">
-                  <i class="calendar icon"></i>
-                  <input type="text" id="tarikhlahir" name="tarikhlahir" readonly="readonly" required="required">
+                </h2>
+            </div>
+            <div class="eight wide column right aligned">
+                <a class="ui button basic small" href="{!! URL::to('dataentry/searchkampung/isirumah/ahliisirumah/'.$idkampung.'/'.$idrumah) !!}">
+                    <i class="arrow left icon"></i> Kembali
+                </a>
+            </div>
+        </div>
+
+        {{-- 2. BORANG --}}
+        <div class="main-form-container">
+            {!! form()->open()->post()->action(route('dataentry::searchkampung.saveahli'))->attribute('id', 'formstruk')->multipart()->horizontal() !!}
+            {{-- Nota: Action route mungkin perlu diubah ke route update jika ada, di sini saya kekalkan saveahli ikut snippet --}}
+            
+            <input type="hidden" name="idkampung" value="{{$idkampung}}">
+            <input type="hidden" name="idrumah" value="{{$idrumah}}">
+            {{-- Pastikan ada ID Ahli untuk proses update --}}
+            {{-- <input type="hidden" name="idahli" value="{{ $idahli }}"> --}} 
+            <input type="hidden" name="wn" id="wn" value="">
+
+            {{-- SEKSYEN 1: PROFIL AHLI (BIRU) --}}
+            <div class="ui segment raised p-0 m-b-2 overflow-hidden">
+                <div class="ui secondary segment segment-header-blue">
+                    <h4 class="ui header blue"><i class="user icon"></i> Profil Ahli</h4>
+                </div>
+                <div class="ui form p-4">
+                    
+                    {{-- Nama & Jenis Pengenalan --}}
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Nama Ahli <span class="required">*</span></label>
+                            <input type="text" name="name" id="name" required placeholder="NAMA PENUH" 
+                                value="{{-- Masukkan value dari DB di sini, cth: $ahli->Nama --}}"> 
+                        </div>
+                        <div class="field">
+                            <label>Jenis Pengenalan <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="typepengenalan" id="typepengenalan" value="{{-- $ahli->JenisPengenalan --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    <div class="item" data-value="">Pilih</div>
+                                    @foreach($jenispengenalan as $value)
+                                        <div class="item" data-value="{{$value->id}}" onclick="warga({{$value->id}})">{{$value->description}}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Hybrid Input (IC/Manual) --}}
+                    <div class="ui visible message blue mini">
+                        <p><i class="info circle icon"></i> Masukkan <b>No. KP</b> untuk auto-isi (Tarikh Lahir, Jantina, Umur).</p>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="field" id="divnoic">
+                            <label>No. Kad Pengenalan</label>
+                            <div class="ui left icon input">
+                                <i class="address card outline icon"></i>
+                                <input max="14" name="noic" id="noic" type="text" placeholder="Contoh: 88010101xxxx"
+                                    value="{{-- $ahli->NoKP --}}"
+                                    onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" 
+                                    onKeyPress="if(this.value.length==12) return false;">
+                            </div>
+                        </div>
+                        <div class="field" id="divnopengenalan">
+                            <label>No. Tentera/Polis/Passport <span class="required">*</span></label>
+                            <input max="14" name="nopengenalan" id="nopengenalan" type="text" value="{{-- $ahli->NoKP --}}">
+                        </div>
+
+                        <div class="field" id="jantinapilih">
+                            <label>Jantina <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="jantina" id="jantina" value="{{-- $ahli->Jantina --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    @foreach ($jantina as $value)
+                                        <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field" id="jantinaauto">
+                            <label>Jantina (Auto) <span class="required">*</span></label>
+                            <input type="text" id="jauto" name="jauto" readonly class="disabled-input" style="background: #eee;">
+                        </div>
+                    </div>
+
+                    <div class="three fields">
+                        <div class="field" id="tlahircal">
+                            <label>Tarikh Lahir <span class="required">*</span></label>
+                            <div class="ui calendar" id="standard_calendar">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" id="tarikhlahir" name="tarikhlahir" readonly placeholder="DD/MM/YYYY" 
+                                    value="{{-- $ahli->TarikhLahir --}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field" id="tlahirauto">
+                            <label>Tarikh Lahir (Auto) <span class="required">*</span></label>
+                            <input type="text" id="tarikhlahirauto" name="tarikhlahirauto" readonly style="background: #eee;" 
+                            value="{{-- $ahli->TarikhLahir --}}">
+                        </div>
+
+                        <div class="field">
+                            <label>Umur (Tahun) <span class="required">*</span></label>
+                            <input type="text" name="umur" id="umur" required>
+                        </div>
+                        
+                        <div class="field">
+                            <label>Warganegara <span class="required">*</span></label>
+                            <div style="border: 1px solid rgba(34,36,38,.15); border-radius: .28571429rem; height: 38px; display: flex; align-items: center; padding-left: 1em; background: #fff;">
+                                <div class="inline fields" style="margin: 0;">
+                                    <div class="field">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="warga" id="warga" value="1" disabled> <label>Ya</label>
+                                        </div>
+                                    </div>
+                                    <div class="field" style="padding-left: 15px;">
+                                        <div class="ui radio checkbox">
+                                            <input type="radio" name="warga" id="nonewarga" value="0" disabled> <label>Bukan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="three fields">
+                        <div class="field">
+                            <label>Bangsa <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="bangsa" id="bangsa" value="{{-- $ahli->Bangsa --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    @foreach ($bangsa as $value)
+                                        <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Agama <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="agama" id="agama" value="{{-- $ahli->Agama --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    @foreach ($agama as $value)
+                                        <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Taraf Perkahwinan <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="taraf" id="taraf" value="{{-- $ahli->TarafKahwin --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    @foreach ($taraf as $value)
+                                        <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-      </div>
-      <div class="field" id="tlahirauto">
-                <label id="labellahirauto">Tarikh Lahir<font color="red">*</font></label>
-                  <input type="text" id="tarikhlahirauto" name="tarikhlahirauto" readonly="readonly" required="required">
-      </div>
-        <div class="field">
-                <label>Umur<font color="red">*</font></label>
-                <input type="text" name="umur" id="umur" readonly="readonly" required="required">
-        </div>
-	
- 		   <div class="field" id="jantinapilih">
-              <label id="labeljantina">Jantina<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="jantina" id="jantina" value="{{ old('jantina') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($jantina as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
 
-            <div class="field" id="jantinaauto">
-                <label id="labeljantinaauto">Jantina<font color="red">*</font></label>
-                <input type="text" id="jauto" name="jauto" readonly="readonly">
-          </div>
-         <div class="field">
-               <label>Warganegara<font color="red">*</font></label>
-	      <div class="inline fields">
+            {{-- SEKSYEN 2: PEKERJAAN (TEAL) --}}
+            <div class="ui segment raised p-0 m-b-2 overflow-hidden">
+                <div class="ui secondary segment segment-header-teal">
+                    <h4 class="ui header teal"><i class="briefcase icon"></i> Maklumat Pekerjaan</h4>
+                </div>
+                <div class="ui form p-4">
+                    <div class="three fields">
+                        <div class="field">
+                            <label>Status Pekerjaan <span class="required">*</span></label>
+                            <div class="ui selection dropdown fluid">
+                                <input type="hidden" name="statuskerja" id="statuskerja" value="{{-- $ahli->StatusPekerjaan --}}">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Pilih</div>
+                                <div class="menu">
+                                    @foreach ($statuskerja as $value)
+                                        <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Pekerjaan <span class="required">*</span></label>
+                            <input type="text" name="kerja" id="kerja" required value="{{-- $ahli->Pekerjaan --}}">
+                        </div>
+                        <div class="field">
+                            <label>Pendapatan (RM) <span class="required">*</span></label>
+                            <input type="text" name="pendapat" id="pendapat" placeholder="0.00" required value="{{-- $ahli->Pendapatan --}}">
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+    <label>Penerima Bantuan <span class="required">*</span></label>
+    <div class="ui selection dropdown fluid">
+        <input type="hidden" name="bantuanbulan" id="bantuanbulan" value="{{-- $ahli->PenerimaBantuan --}}">
+        <i class="dropdown icon"></i>
+        <div class="default text">Pilih</div>
         
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="warga" id="warga" tabindex="0" class="hidden" value="1" required="required" disabled="disabled">
-            <label>Warganegara</label>
-          </div>
+        {{-- TAMBAH style="max-height: 200px; overflow-y: auto;" DI SINI --}}
+        <div class="menu" style="max-height: 1500px; overflow-y: auto;">
+            @foreach ($bantuanbulanan as $value)
+                <div class="item" data-value="{{ $value->id }}">{{ $value->description }}</div>
+            @endforeach
         </div>
-        <div class="field">
-          <div class="ui radio checkbox">
-            <input type="radio" name="warga" id="nonewarga" tabindex="0" class="hidden" value="0" disabled="disabled">
-            <label>Bukan Warganegara</label>
-          </div>
-        </div>
-      </div>
     </div>
-               <div class="field">
-              <label>Bangsa<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="bangsa" id="bangsa" value="{{ old('bangsa') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($bangsa as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
-				  <div class="field">
-              <label>Agama<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="agama" id="agama" value="{{ old('agama') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($agama as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
-              <div class="field">
-              <label>Taraf Perkahwinan<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="taraf" id="taraf" value="{{ old('taraf') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($taraf as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
-              <div class="field">
-              <label>Status Pekerjaan<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="statuskerja" id="statuskerja" value="{{ old('statuskerja') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($statuskerja as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
-   
-             <div class="field">
-		            <label>Pekerjaan<font color="red">*</font></label>
-		            <input type="text" name="kerja" id="kerja" required="required">
-			</div>
-				<div class="field">
-		            <label>Pendapatan Isi Rumah<font color="red">*</font></label>
-		            <input type="text" name="pendapat" id="pendapat" required="required">
-				</div>
-
-		 <div class="field">
-              <label>Penerima Bantuan (Bulanan)<font color="red">*</font></label>
-                <div class="ui fluid search selection dropdown">
-                    <input type="hidden" name="bantuanbulan" id="bantuanbulan" value="{{ old('bantuanbulan') }}" onchange="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Medan ini Wajib') ">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Sila Pilih</div>
-                    <div class="menu">
-                      <div class="item" data-value="">Sila Pilih</div>
-                      @foreach($bantuanbulanan as $key => $value)
-                       <div class="item" data-value="{{$value->id}}">{{$value->description}}</div>
-                        @endforeach
-                    </div>
-                  </div>
-              </div>
-				 <div class="field">
-		            <label>Bantuan Lain-Lain<font color="red" id="wajib">*</font></label>
-		            <input type="text" name="bantuanlain" id="bantuanlain" readonly="readonly" required="required">
-			</div>
-
- 				<div class="ui divider section"></div>
-		        <div align="right">
-		                    <button type="submit" class="ui button primary" id="addbutton" name="hantar" onclick="return validateahli();">
-		                        Simpan
-		                    </button>
-		                   <!--  <button class="ui button"><a href="#">Kembali</a></button>    --> 
-		                </div>
-
-
-
 </div>
- {!! form()->close() !!}
+                        <div class="field">
+                            <label>Bantuan Lain-Lain <span id="wajib" class="required">*</span></label>
+                            <input type="text" name="bantuanlain" id="bantuanlain" readonly value="{{-- $ahli->BantuanLain --}}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui center aligned basic segment">
+                <button type="submit" class="ui big primary button" id="addbutton" name="hantar" onclick="return validateahli();" style="width: 200px;">
+                    <i class="save icon"></i> SIMPAN
+                </button>
+            </div>
+
+            {!! form()->close() !!}
+        </div>
+    </div>
 @endsection
 
 @push('script')
-
 <script type="text/javascript">
-
-  $(document).ready(function() 
-  {
-
-     $('#wajib').hide();
-
-     $('#name').keyup(function()
-    {
-        $(this).val($(this).val().toUpperCase());
-    });
-
-  $('#kerja').keyup(function()
-    {
-        $(this).val($(this).val().toUpperCase());
-    });
-    $('#bantuanlain').keyup(function()
-    {
-        $(this).val($(this).val().toUpperCase());
-    });
-   
-
-    $('#standard_calendar')
-  .calendar({
-    monthFirst: false,
-    type: 'date',
-    formatter: {
-      date: function (date, settings) {
-        if (!date) return '';
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-        return day + '/' + month + '/' + year;
-      }
-    },
-    onChange: function (date, text) {
-     var newValue = text;
-
-      const d = new Date();
-      let curyear = d.getFullYear();
-      var year = date.getFullYear();
-
-       var umur = curyear-parseInt(year)
-
-     $('#umur').val(umur);
-
-   
-    },
-  })
-;
-
-
-
-$("#pendapat").change(function() {
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(2));        
-});
-
-
-$('#tlahirauto').hide();
-$('#jantinaauto').hide();
-
-
-$('#divnopengenalan').hide();
-$('#divnopengenalannotes').hide();
-$('#divnoic').show();
-$('#divnoicnotes').show();
-
-
-$("#noic").on("keyup", function(){
-
-var type=$("#typepengenalan").val();
-
-   if(type==''){
-    alert('Sila Pilih Jenis Pengenalan');
-    $("#noic").val('');
-
-   }
-
- });
-
-
-
- // $("#noic").on("keyup", function(){
-
- //      var noic=this.value;
-
- //      const str = this.value;
-	//   const substr = str.slice(0, 6);
-
-	  
-
-	//   let str2 = substr;
-
-	//   let year = str2.substring(0, 2);
-
-	//   let month = str2.substring(2, 4);
-
-	//   let day = str2.substring(4, 6);
-
-	  
-
-	//   let startyear=str2.substring(0, 1);
-
-	//   if(startyear==0 || startyear==1 || startyear==2){
-
-	//   	var pangkal='20';
-
-	//   }else{
-
-	//   	var pangkal='19'
-
-
-	//   }
-
-	//   var lahir=day+'-'+month+'-'+pangkal+year;
-
-	//   var tahun=pangkal+year;
-
-	//   $('#tarikhlahir').val(lahir);
-
-	  
-
-	//    const d = new Date();
-	//    let curyear = d.getFullYear();
-
-	//    var umur = curyear-parseInt(tahun)
-
-	//    $('#umur').val(umur);
-
-	 
-
- //     });
-
-    $("#pendapat").on("keyup", function(){
-                     var valid = /^\d{0,20}(\.\d{0,2})?$/.test(this.value),
-                      val = this.value;
-
-                    if(!valid){
-                        console.log("Invalid input!");
-                        this.value = val.substring(0, val.length - 1);
-                    }
-                   });
-
-	      $("#bantuanbulan").change(function(e) {
-
-          var jenis=this.value;
-
-          if(jenis==138){
-            
-            $('#bantuanlain').prop('readonly', false);
-            $('#wajib').show();
-            //$('#bantuanlain').attr('required', false)
-
-          }else{
-
-            $('#bantuanlain').prop('readonly', true);
-            $('#wajib').hide();
-            //$('#bantuanlain').attr('required', true);
-
-          }
-
-
-         });
-
-
-
-    });
- function validateahli() {
-
-  	var typepengenalan = document.getElementById("typepengenalan").value; // added .value
-    var pjgic=$('#noic').val();
-    var jantina = document.getElementById("jantina").value; // added .value
-    var warga = document.getElementById("warga").value; // added .value
-    var bangsa = document.getElementById("bangsa").value; // added .value
-    var agama = document.getElementById("agama").value; // added .value
-    var taraf = document.getElementById("taraf").value; // added .value
-    var statuskerja = document.getElementById("statuskerja").value; // added .value
-    var bantuanbulan = document.getElementById("bantuanbulan").value; // added .value
-    var umur = document.getElementById("umur").value; // added .value
-   
-     
-   	
-
-
-  	 if(typepengenalan==''){
-
-      alert('Sila Pilih Jenis Pengenalan');
-
-      return false;
-
-     }else{
-
-      if(typepengenalan==150){//kad pengenalan baru
-
-        $('#noic').attr('required', true);
-        $('#nopengenalan').attr('required', false)
-      }else{
-
-        $('#noic').attr('required', false);
-        $('#nopengenalan').attr('required', true)
-
-          }
-
-        if(jantina=='' && typepengenalan!=150){
-          alert('Sila Pilih Jantina');
-            return false;
-
-        }else{
-
-          if(bangsa==''){
-             alert('Sila Pilih Bangsa');
-             return false;
-          }else{
-
-            if(umur=='' && typepengenalan==150){
-
-
-              alert('Sila Masukan Kad Pengenalan');
-                return false;
-
-            }else{
-
-              if(umur==''){
-                alert('Sila Masukan Tarikh Lahir');
-                 return false;
-              }else{
-
-                  if(agama==''){
-
-                  alert('Sila Pilih Agama')
-                    return false;
-
-                    }else{
-
-                       if(taraf==''){
-
-                        alert('Sila Pilih Taraf Perkahwinan')
-                          return false;
-
-                          }else{
-
-                             if(statuskerja==''){
-
-                            alert('Sila Pilih Status Perkerjaan')
-                              return false;
-
-                              }else{
-
-                                if(bantuanbulan==''){
-
-                                  alert('Sila Pilih Penerima Bantuan (Bulanan)')
-                                  return false;
-
-                                  }else{
-
-                                  if(bantuanbulan==138){//
-                                    
-                                    //$('#bantuanlain').prop('readonly', false);
-                                    $('#bantuanlain').attr('required', true)
-
-                                  }else{
-
-                                    //$('#bantuanlain').prop('readonly', true);
-                                    $('#bantuanlain').attr('required', false);
-
-                                  }
-                                  
-                                  } 
-
-                                  return true;
-                                }
-                              }
-                            }  
-                          }
-                        } 
-                      }
-                    }
+    $(document).ready(function() {
+        $('#wajib').hide();
+
+        // Uppercase
+        $('#name, #kerja, #bantuanlain').keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+
+        // Calendar
+        $('#standard_calendar').calendar({
+            monthFirst: false, type: 'date',
+            formatter: {
+                date: function(date, settings) {
+                    if (!date) return '';
+                    var day = date.getDate(); var month = date.getMonth() + 1; var year = date.getFullYear();
+                    return day + '/' + month + '/' + year;
                 }
-             }
- function warga($type) {
+            },
+            onChange: function(date, text) {
+                if(date) {
+                    const d = new Date(); let curyear = d.getFullYear(); var year = date.getFullYear();
+                    $('#umur').val(curyear - parseInt(year));
+                }
+            },
+        });
 
-  var warga=106;
-  var bukanwarga=107;
+        // Input Formatting
+        $("#pendapat").change(function() { $(this).val(parseFloat($(this).val()).toFixed(2)); });
+        $("#pendapat").on("keyup keypress", function() {
+            var valid = /^\d{0,20}(\.\d{0,8})?$/.test(this.value);
+            if (!valid) this.value = this.value.substring(0, this.value.length - 1);
+        });
 
+        // IC Listener
+        $("#noic").on("keyup", function() {
+            var type = $("#typepengenalan").val();
+            if (type == '') { alert('Sila Pilih Jenis Pengenalan'); $("#noic").val(''); }
+            checkICLogic(this.value);
+        });
 
-$('#tarikhlahirauto').val('');
-$('#tarikhlahir').val('');
-$('#noic').val('');
-$('#umur').val('');
-$('#nopengenalan').val('');
+        // Bantuan Logic
+        var jenisBantuanAwal = "{{-- $ahli->PenerimaBantuan --}}"; // Pastikan variable ini wujud
+        if(jenisBantuanAwal == 138) { $('#wajib').show(); $('#bantuanlain').prop('readonly', false).attr('required', true); }
 
-if($type==150){//kad pengenalan baru
+        $("#bantuanbulan").change(function(e) {
+            var jenis = this.value;
+            if (jenis == 138) {
+                $('#bantuanlain').prop('readonly', false); $('#wajib').show(); $('#bantuanlain').attr('required', true);
+            } else {
+                $('#bantuanlain').prop('readonly', true); $('#bantuanlain').val(''); $('#wajib').hide(); $('#bantuanlain').attr('required', false);
+            }
+        });
 
-        $('#tlahirauto').show();
-        $('#tlahircal').hide();
-
-        $('#jantinaauto').show();
-        $('#jantinapilih').hide();
-
-        $('#divnopengenalan').hide();
-        $('#divnopengenalannotes').hide();
-        $('#divnoic').show();
-        $('#divnoicnotes').show();
-
-        $('#noic').attr('required', true)
-
-
-
+        // --- INITIALIZE DATA (PENTING UNTUK EDIT) ---
+        var savedType = "{{-- $ahli->JenisPengenalan --}}";
+        var savedLahir = "{{-- date('d/m/Y', strtotime($ahli->TarikhLahir)) --}}";
         
+        // Kira Umur Awal
+        if(savedLahir) {
+            var parts = savedLahir.split('/'); var tahunLahir = parts[2];
+            const d = new Date(); let curyear = d.getFullYear();
+            $('#umur').val(curyear - parseInt(tahunLahir));
+        }
 
-  //$("#labellahirauto").html("Tarikh Lahir<font color='red'>*</font>");
-
-   $("#labellahirauto").append("");
-   $("#labeljantinaauto").append("");
-
-
-   
-
- $("#noic").on("keyup", function(){
-
-
-    var noic=this.value;
-
-    const str = this.value;
-    const substr = str.slice(0, 6);
-
-    
-
-    let str2 = substr;
-
-    let year = str2.substring(0, 2);
-
-    let month = str2.substring(2, 4);
-
-    let day = str2.substring(4, 6);
-
-    let startyear=str2.substring(0, 1);
-
-
-
-    if(startyear==0 || startyear==1 || startyear==2){
-
-      var pangkal='20';
-
-    }else{
-       var pangkal='19'
-
-
-    }
-
-    var lahir=day+'-'+month+'-'+pangkal+year;
-
-    var tahun=pangkal+year;
-
-    if(day==''){
-        $('#tarikhlahirauto').val('');
-
-    }else{
-        $('#tarikhlahirauto').val(lahir);
-
-    }
-
-  
-
-    
-
-     const d = new Date();
-     let curyear = d.getFullYear();
-
-     var umur = curyear-parseInt(tahun)
-
-
-
-    if(day==''){
-        $('#umur').val('');
-
-    }else{
-        $('#umur').val(umur);
-
-    }
-
-
-    const subst3 = str.slice(0, 12);
-
-    
-
-    let str3 = subst3;
-
-    let last = str3.substring(11, 12);
-
-    
-
-    var number=last;
-
-
-    if(number==''){
-
-       $('#jauto').val('');
-
-    }else{
-
-    if(number % 2 == 0){
-
-      
-      $('#jauto').val('Perempuan');
-
-    }else{
-       $('#jauto').val('Lelaki');
-
-    }
-    
-
-    }
-
-
-     });
+        // Set Paparan Awal
+        warga(savedType); 
         
+        if(savedType == 150) {
+             // Override warga() clearing behavior
+             $('#noic').val("{{-- $ahli->NoKP --}}");
+             checkICLogic($('#noic').val());
+        }
+    });
 
-      }else{
+    // --- LOGIC FUNCTIONS (SAMA SEPERTI ADD) ---
+    function checkICLogic(icValue) {
+        var type = $("#typepengenalan").val();
+        if(type == 150) {
+            if (icValue.length == 12) {
+                $('#tlahirauto').show(); $('#tlahircal').hide();
+                $('#jantinaauto').show(); $('#jantinapilih').hide();
+                $('#umur').prop('readonly', true);
+                $('input[name="warga"]').prop('disabled', true);
+                $("#warga").prop("checked", true); $("#wn").val(1);
 
-        $('#tlahirauto').hide();
-        $('#tlahircal').show();
-        $("#labellahir").html("Tarikh Lahir<font color='red'>*</font>");
-         $('#jantinaauto').hide();
-        $('#jantinapilih').show();
-         $("#labeljantina").html("Jantina<font color='red'>*</font>")
+                const str = icValue;
+                let year = str.substring(0, 2); let month = str.substring(2, 4); let day = str.substring(4, 6); let startyear = str.substring(0, 1);
+                var pangkal = (startyear == 0 || startyear == 1 || startyear == 2) ? '20' : '19';
+                var lahir = day + '/' + month + '/' + pangkal + year; var tahun = pangkal + year;
 
-        $('#divnopengenalan').show();
-        $('#divnopengenalannotes').show();
-        $('#divnoic').hide();
-        $('#divnoicnotes').hide();
+                $('#tarikhlahirauto').val(lahir); $('#tarikhlahir').val(lahir);
+                const d = new Date(); let curyear = d.getFullYear();
+                $('#umur').val(curyear - parseInt(tahun));
 
-        $('#noic').attr('required', false)
+                let last = str.substring(11, 12);
+                if (last % 2 == 0) { $('#jauto').val('Perempuan'); $('#jantina').dropdown('set selected', '2'); }
+                else { $('#jauto').val('Lelaki'); $('#jantina').dropdown('set selected', '1'); }
+            } else {
+                $('#tlahirauto').hide(); $('#tlahircal').show();
+                $('#jantinaauto').hide(); $('#jantinapilih').show();
+                $('#umur').prop('readonly', false);
+                $('input[name="warga"]').prop('disabled', false);
+                if(icValue.length == 0) {
+                     $("#warga").prop("checked", false); $("#nonewarga").prop("checked", false); $("#wn").val('');
+                }
+            }
+        }
+    }
 
-      }
+    function warga(type) {
+        var id_tidak_berkenaan = 169; 
+        if (type == 150) {
+            $('#tlahirauto').show(); $('#tlahircal').hide();
+            $('#jantinaauto').show(); $('#jantinapilih').hide();
+            $('#divnopengenalan').hide(); $('#divnoic').show();
+            $('#noic').attr('required', false);
+            $('#umur').prop('readonly', true);
+            $('input[name="warga"]').prop('disabled', true);
+        } else if (type == id_tidak_berkenaan) {
+            $('#tlahirauto').hide(); $('#tlahircal').show();
+            $('#jantinaauto').hide(); $('#jantinapilih').show();
+            $('#divnopengenalan').hide(); $('#divnoic').hide();
+            $('#noic').attr('required', false); $('#nopengenalan').attr('required', false);
+            $('#umur').prop('readonly', false);
+            $('input[name="warga"]').prop('disabled', false);
+             $('input[name="warga"]').change(function(){ $("#wn").val($(this).val()); });
+        } else {
+            $('#tlahirauto').hide(); $('#tlahircal').show();
+            $('#jantinaauto').hide(); $('#jantinapilih').show();
+            $('#divnopengenalan').show(); $('#divnoic').hide();
+            $('#noic').attr('required', false); $('#nopengenalan').attr('required', true);
+            $('#umur').prop('readonly', false);
+            if (type == 152) { $("#nonewarga").prop("checked", true); $("#wn").val(0); $('input[name="warga"]').prop('disabled', true); }
+            else { $("#warga").prop("checked", true); $("#wn").val(1); $('input[name="warga"]').prop('disabled', true); }
+        }
+    }
 
+    function validateahli() {
+        var typepengenalan = document.getElementById("typepengenalan").value;
+        var jantina = document.getElementById("jantina").value;
+        var bangsa = document.getElementById("bangsa").value;
+        var agama = document.getElementById("agama").value;
+        var taraf = document.getElementById("taraf").value;
+        var statuskerja = document.getElementById("statuskerja").value;
+        var bantuanbulan = document.getElementById("bantuanbulan").value;
+        var umur = document.getElementById("umur").value;
+        var tarikhlahir = $('#tarikhlahir').val();
+        
+        if($('#tarikhlahirauto').is(":visible") && $('#tarikhlahirauto').val() != ""){
+             tarikhlahir = $('#tarikhlahirauto').val();
+        }
 
-  if($type==152){//paspport
+        if (typepengenalan == '') { alert('Sila Pilih Jenis Pengenalan'); return false; }
+        if (jantina == '') { alert('Sila Pilih Jantina'); return false; }
+        if (bangsa == '') { alert('Sila Pilih Bangsa'); return false; }
+        if (umur == '') { alert('Sila Masukan Umur atau Tarikh Lahir'); return false; }
+        if (tarikhlahir == '') { alert('Sila Masukan Tarikh Lahir'); return false; }
+        if (agama == '') { alert('Sila Pilih Agama'); return false; }
+        if (taraf == '') { alert('Sila Pilih Taraf Perkahwinan'); return false; }
+        if (statuskerja == '') { alert('Sila Pilih Status Perkerjaan'); return false; }
+        if (bantuanbulan == '') { alert('Sila Pilih Penerima Bantuan (Bulanan)'); return false; }
+        if (bantuanbulan == 138 && $('#bantuanlain').val() == '') { alert('Sila Masukkan Bantuan Lain-lain'); return false; }
 
-    $("#nonewarga").prop("checked", true);
-     $("#wn").val(0);
-
-  }else{
-
-      $("#warga").prop("checked", true);
-      $("#wn").val(1);
-
-
-  }
-
-
-  }
+        return true;
+    }
 </script>
 @endpush

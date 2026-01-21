@@ -99,13 +99,11 @@
             text-align: center;
         }
 
-        /* CSS untuk sorok textfield manual */
         .manual-input {
             display: none;
             margin-top: 10px;
         }
 
-        /* Jata Perak Center */
         .x-auth__header {
             text-align: center;
             display: block;
@@ -136,6 +134,11 @@
 
             {!! form()->open(route('auth::registration.store'), ['class' => 'ui form']) !!} 
                 
+                {{-- MULA: Hidden input untuk hantar nilai gabungan ke database --}}
+                <input type="hidden" name="jabatan" id="jabatan_final" required>
+                <input type="hidden" name="jawatan" id="jawatan_final" required>
+                {{-- TAMAT --}}
+
                 <div class="field">
                     <label>Nama<font color="red">*</font></label>
                     <input type="text" name="name" id="name" required value="{{ old('name') }}" placeholder="NAMA PENUH">
@@ -154,7 +157,7 @@
                 {{-- DROP DOWN JABATAN --}}
                 <div class="field">
                     <label>Jabatan / Agensi<font color="red">*</font></label>
-                    <select name="jabatan" id="jabatan" class="ui dropdown searchable" required>
+                    <select id="jabatan_selector" class="ui dropdown searchable" required>
                         <option value="">-- Pilih Jabatan --</option>
                         <optgroup label="PENTADBIRAN NEGERI">
                             <option value="PEJABAT SETIAUSAHA KERAJAAN NEGERI (SUK)">PEJABAT SETIAUSAHA KERAJAAN NEGERI (SUK)</option>
@@ -205,10 +208,10 @@
                 {{-- DROP DOWN JAWATAN --}}
                 <div class="field">
                     <label>Jawatan<font color="red">*</font></label>
-                    <select name="jawatan" id="jawatan" class="ui dropdown searchable" required>
+                    {{-- ID tukar ke jawatan_selector --}}
+                    <select id="jawatan_selector" class="ui dropdown searchable" required>
                         <option value="">-- Pilih Jawatan --</option>
                         <optgroup label="KOMUNITI & KAMPUNG">
-                            <option value="KETUA KAMPUNG / TOK SIDANG">KETUA KAMPUNG</option>
                             <option value="SETIAUSAHA JPKK">SETIAUSAHA JPKK</option>
                             <option value="PENGERUSI JPKK">PENGERUSI JPKK</option>
                         </optgroup>
@@ -287,11 +290,40 @@
             allowClear: true
         });
 
+        // --- FUNGSI GABUNGAN JABATAN ---
+        function setJabatanFinal() {
+            var mainVal = $('#jabatan_selector').val();
+            var pdtVal = $('#pdt_daerah').val();
+            var manualVal = $('#jabatan_manual').val();
+            var finalStr = "";
+
+            if(mainVal == "PEJABAT DAERAH DAN TANAH (PDT)") {
+                finalStr = mainVal + (pdtVal ? " - " + pdtVal : "");
+            } else if(["MAJLIS PERBANDARAN", "MAJLIS DAERAH", "JPKK / KETUA KAMPUNG", "LAIN-LAIN"].includes(mainVal)) {
+                finalStr = mainVal + (manualVal ? " (" + manualVal + ")" : "");
+            } else {
+                finalStr = mainVal;
+            }
+            $('#jabatan_final').val(finalStr.toUpperCase());
+        }
+
+        // --- FUNGSI GABUNGAN JAWATAN ---
+        function setJawatanFinal() {
+            var mainVal = $('#jawatan_selector').val();
+            var manualVal = $('#jawatan_manual').val();
+            var finalStr = "";
+
+            if(mainVal == "LAIN-LAIN") {
+                finalStr = mainVal + (manualVal ? " (" + manualVal + ")" : "");
+            } else {
+                finalStr = mainVal;
+            }
+            $('#jawatan_final').val(finalStr.toUpperCase());
+        }
+
         // Logik Jabatan
-        $('#jabatan').on('change', function() {
+        $('#jabatan_selector').on('change', function() {
             var val = $(this).val();
-            
-            // Sembunyikan semua dulu
             $('#div_pdt_detail, #div_jabatan_manual').hide();
             $('#pdt_daerah, #jabatan_manual').attr('required', false);
 
@@ -302,10 +334,14 @@
                 $('#div_jabatan_manual').slideDown();
                 $('#jabatan_manual').attr('required', true);
             }
+            setJabatanFinal();
         });
 
+        $('#pdt_daerah').on('change', function() { setJabatanFinal(); });
+        $('#jabatan_manual').on('keyup', function() { setJabatanFinal(); });
+
         // Logik Jawatan
-        $('#jawatan').on('change', function() {
+        $('#jawatan_selector').on('change', function() {
             var val = $(this).val();
             if(val == "LAIN-LAIN") {
                 $('#div_jawatan_manual').slideDown();
@@ -314,11 +350,16 @@
                 $('#div_jawatan_manual').slideUp();
                 $('#jawatan_manual').attr('required', false).val('');
             }
+            setJawatanFinal();
         });
 
-        // Auto-Uppercase
+        $('#jawatan_manual').on('keyup', function() { setJawatanFinal(); });
+
+        // Auto-Uppercase & Trigger Hidden Updates
         $('#name, #Tujuan, #jabatan_manual, #jawatan_manual').keyup(function() {
             $(this).val($(this).val().toUpperCase());
+            setJabatanFinal();
+            setJawatanFinal();
         });
     });
 </script>

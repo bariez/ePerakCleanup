@@ -1,18 +1,6 @@
 @extends('laravolt::eperak.layouts.base')
 
 @section('content')
-<div class="time-date-center-wrapper">
-    <div class="time-date-integrated">
-        <div class="info-badge-small" id="date-badge">
-            <i class="icon-small">🗓️</i>
-            <span id="current-date-small"></span>
-        </div>
-        <div class="info-badge-small" id="time-badge">
-            <i class="icon-small">⏰</i>
-            <span id="current-time-small"></span>
-        </div>
-    </div>
-</div>
 
 
     @push('style')
@@ -66,6 +54,118 @@
             font-family: 'Poppins', sans-serif !important;
         }
         /* TAMAT: Override Font Family */
+
+        /* --- KOD BARU: CSS PANEL MAKLUM BALAS BELAH KIRI --- */
+        #feedback-float {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            /* Sizing disamakan dengan chatbot anda (contoh: 120px) */
+            width: 120px; 
+            height: 140px;
+            cursor: pointer;
+            z-index: 10001;
+            transition: transform 0.3s ease-in-out;
+            
+            /* MENGHILANGKAN LATAR BELAKANG & BORDER */
+            background-color: transparent; 
+            border: none;
+            overflow: visible; /* Tukar ke visible supaya drop-shadow nampak */
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #feedback-float:hover { 
+            transform: scale(1.1); 
+            /* Menggunakan drop-shadow supaya bayang ikut bentuk logo lutsinar */
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.3));
+        }
+
+        /* Tetapan imej di dalam butang */
+        #feedback-float img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* Guna contain supaya logo tidak terpotong */
+            display: block;
+        }
+
+        /* Bahagian Panel Kekal Sama */
+        #feedback-panel {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 420px;
+            background: rgba(255,255,255,0.98);
+            border-radius: 10px;
+            z-index: 10002;
+            box-shadow: 0 10px 30px rgba(0,0,0,.4);
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .fb-header { 
+            background: #198754; 
+            color: white; 
+            padding: 15px; 
+            font-weight: 600; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top-left-radius: 10px; 
+            border-top-right-radius: 10px; 
+        }
+
+        .fb-body { padding: 20px; }
+        #feedback-close { cursor: pointer; font-size: 20px; }
+        /* Mengikuti gaya modern portal rujukan */
+    .hero-section {
+        padding: 40px 0;
+        background: #fdfdfd;
+    }
+    .custom-card {
+        border-radius: 15px !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+        border: none !important;
+        transition: all 0.3s ease;
+        text-align: center;
+        padding: 20px;
+    }
+    .custom-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+    }
+    .icon-wrapper {
+        background: #f0f4ff;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .icon-wrapper i {
+        font-size: 2.5rem !important;
+        color: #1a3352;
+    }
+    .section-title {
+        color: #1a3352 !important;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 30px !important;
+    }
+    .news-card {
+        border-radius: 10px !important;
+        overflow: hidden;
+    }
+    .news-card img {
+        height: 200px;
+        object-fit: cover;
+    }
     </style>
 @endpush
 
@@ -74,22 +174,20 @@
         // JavaScript untuk menutup popup sedia ada
         document.addEventListener('DOMContentLoaded', function () {
             var popup = document.getElementById('infoPopup');
-            popup.style.display = 'flex'; // Popup akan muncul apabila halaman dibuka
+            if(popup) popup.style.display = 'flex'; 
 
             var closePopupBtn = document.getElementById('closePopupBtn');
             var closePopupX = document.getElementById('closePopup');
 
-            closePopupBtn.addEventListener('click', function () {
-                popup.style.display = 'none';
-            });
-
-            closePopupX.addEventListener('click', function () {
-                popup.style.display = 'none';
-            });
+            if(closePopupBtn) {
+                closePopupBtn.addEventListener('click', function () { popup.style.display = 'none'; });
+            }
+            if(closePopupX) {
+                closePopupX.addEventListener('click', function () { popup.style.display = 'none'; });
+            }
         });
     </script>
 @endpush
-
 
 @push('style')
 <style type="text/css">
@@ -102,12 +200,10 @@
     z-index: 10000;
 }
 
-/* KOD PENTING BARU: Ini cuba sasarkan tajuk besar PORTAL RASMI E-PERAK dalam base layout */
-/* Sila tukar 'header .h1' jika tidak berfungsi (cuba .logo-text atau .main-header-title) */
 .header .h1, 
 .header .logo a strong { 
-    font-size: 1.2em !important; /* Contoh pengecilan font */
-    padding: 3px 10px; /* Padding untuk background */
+    font-size: 1.2em !important; 
+    padding: 3px 10px; 
     border-radius: 15px;
     color: white !important;
     background: linear-gradient(
@@ -150,34 +246,28 @@
     font-size: 1em;
 }
 
-/* KOD PENTING BARU/DIUBAH UNTUK SELARAS KETINGGIAN PAUTAN LUAR */
-
-/* 1. Paksa setiap kad (swiper-slide) menjadi flex container untuk menyelaraskan kandungan di dalamnya */
 .swiper-slide.autosizinghyperlink {
     display: flex;
 }
 
-/* 2. Pastikan card itu sendiri mengambil ruang yang tersedia */
 .card-grid-2.hover-up.h-100 {
     display: flex;
-    flex-direction: column; /* Susun kandungan (gambar dan teks) secara menegak */
-    height: 100%; /* Pastikan card mengisi ketinggian swiper-slide */
+    flex-direction: column; 
+    height: 100%; 
 }
 
-/* 3. Gunakan flexbox pada card-block-info untuk menolak butang ke bawah (jika perlu) */
 .card-block-info {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Paksa kandungan (terutamanya butang) ke bahagian bawah */
-    align-items: center; /* Pastikan kandungan di tengah horizontal */
-    flex-grow: 1; /* Biarkan ia mengambil semua ruang vertikal yang tersisa */
-    min-height: 50px; /* Nilai asas minimum ketinggian ruang teks */
+    justify-content: flex-end; 
+    align-items: center; 
+    flex-grow: 1; 
+    min-height: 50px; 
 }
 
-/* 4. Pastikan butang pautan (anchor tag) mempunyai ketinggian yang konsisten */
 .portal-link-style {
     display: inline-block;
-    padding: 6px 10px; /* Menambah padding untuk ketinggian yang jelas */
+    padding: 6px 10px; 
     border-radius: 8px; 
     font-size: 12px !important; 
     font-weight: bolder;
@@ -193,10 +283,9 @@
     align-self: center; 
     width: 90%; 
     text-align: center;
-    margin-bottom: 5px; /* Tambah margin bawah sedikit */
+    margin-bottom: 5px; 
 }
 
-/* KOD LAMA ASAL */
     .autosizing
     {
         height: auto;
@@ -246,8 +335,8 @@
         cursor: pointer;
         z-index: 10001;
         transition: transform .3s;
-        border-radius: 50%; /* Tambah border radius untuk icon */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Tambah shadow */
+        border-radius: 50%; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
     }
     #ai-chatbot-float:hover {
         transform: scale(1.1);
@@ -255,7 +344,7 @@
     #ai-chatbot-float img {
         width: 100%;
         height: 100%;
-        border-radius: 50%; /* Penting untuk icon gambar bulat */
+        border-radius: 50%; 
     }
     /* OVERLAY */
     #ai-chatbot-overlay {
@@ -273,7 +362,7 @@
         right: 30px;
         width: 420px;
         height: 570px;
-        background: rgba(255,255,255,0.95); /* Sedikit lutsinar */
+        background: rgba(255,255,255,0.95); 
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -282,7 +371,7 @@
     }
     /* HEADER */
     .ai-header {
-        background: #003366; /* Warna rasmi lebih gelap */
+        background: #003366; 
         color: white;
         padding: 15px;
         font-weight: 600;
@@ -313,10 +402,10 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     .ai-bot-msg {
-        background: #e0f7fa; /* Biru muda bot */
+        background: #e0f7fa; 
     }
     .ai-user-msg {
-        background: #bbdefb; /* Biru pengguna */
+        background: #bbdefb; 
         margin-left: auto;
         text-align: left;
     }
@@ -330,13 +419,13 @@
     .ai-footer input {
         flex: 1;
         padding: 10px;
-        border-radius: 20px; /* Bentuk pil */
+        border-radius: 20px; 
         border: 1px solid #ccc;
     }
     .ai-footer button {
         margin-left: 8px;
         padding: 8px 14px;
-        border-radius: 20px; /* Bentuk pil */
+        border-radius: 20px; 
         background: #007bff;
         color: white;
         border: none;
@@ -480,47 +569,46 @@
                                                                      data-wow-delay=".5s" 
                                                                      onclick="location.href = '/news/{{ data_get($notiss, 'id') }}';"
                                                                      style="cursor: pointer">
-                                                                    <div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
+                                                                     <div class="card-grid-2 h-100" style="border-top-width: 0px; border-left-width: 0px; border-right-width: 0px; border-bottom-width: 10px;">
                                                                          <div class="text-center card-grid-2-image">
                                                                          <a href="javascript:;">
-                                                                                                                           <figure>
+                                                                                                                                                            figure>
 
-                                                                                                                             
-                                                                                                                                @if( data_get($notiss, 'path') )
-                                                                                                                                    @if( file_exists( public_path( data_get($notiss, 'path') ) ) )
-                                                                                                                                        <img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                                                                                            style="height: 200px !important">
-                                                                                                                                    @else
-                                                                                                                                        <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                                                                                            style="height: 50% !important; width: 50% !important">
-                                                                                                                                    @endif
-                                                                                                                                @else
-                                                                                                                                    <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
-                                                                                                                                        style="height: 50% !important; width: 50% !important">
-                                                                                                                                @endif
+                                                                                                                                                                 @if( data_get($notiss, 'path') )
+                                                                                                                                                                     @if( file_exists( public_path( data_get($notiss, 'path') ) ) )
+                                                                                                                                                                         <img src="{!! URL::to(data_get($notiss, 'path')) !!}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                                                                             style="height: 200px !important">
+                                                                                                                                                                     @else
+                                                                                                                                                                         <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                                                                             style="height: 50% !important; width: 50% !important">
+                                                                                                                                                                     @endif
+                                                                                                                                                                 @else
+                                                                                                                                                                     <img src="{{ asset('theme/assets/imgs/theme/perak/noimage.jpg') }}" alt="{{ data_get($notiss, 'filename') }}" title="{{ data_get($notiss, 'tajuk') }}"
+                                                                                                                                                                         style="height: 50% !important; width: 50% !important">
+                                                                                                                                                                 @endif
 
-                                                                                                                            </figure>
-                                                                                                                        </a>
-                                                                                                                        </div>
+                                                                                                                                                             </figure>
+                                                                         </a>
+                                                                         </div>
                                                                          <div class="card-block-info" style="padding-top: 5px; padding-bottom: 5px"><h6 class="">
                                                                          <a href="javascript:;">
-                                                                                                                                {{ data_get($notiss, 'tajuk') }}
-                                                                                                                                </a>
-                                                                                                                                </h6>
-                                                                                                                                <div class="row">
+                                                                                                                                                                 {{ data_get($notiss, 'tajuk') }}
+                                                                                                                                                                 </a>
+                                                                                                                                                                 </h6>
+                                                                                                                                                                 <div class="row">
                                                                          <a href="javascript:;" class="">
-                                                                                                                                        <span>
-                                                                                                                                        {{ data_get($notiss, 'ringkasan') }}
-                                                                                                                                        </span>
-                                                                                                                                </a>
-                                                                                                                                </div>
+                                                                                                                                                                     <span>
+                                                                                                                                                                     {{ data_get($notiss, 'ringkasan') }}
+                                                                                                                                                                     </span>
+                                                                                                                                                                 </a>
+                                                                                                                                                                 </div>
                                                                          <div class="card-2-bottom mt-30 mb-30">
                                                                              <div class="row ml-0">
                                                                                  <span class="card-calender">{{ data_get($notiss, 'tarikh_notis') }}</span>
                                                                                  </div>
                                                                          </div>
                                                                          </div>
-                                                                                                                        </div>
+                                                                                                                                                             </div>
                                                                  </div>
                                                                 </div>
 
@@ -557,10 +645,10 @@
                                                     <div class="col-xl-12 col-md-12 mx-auto">
                                                         <div class="contact-from-area padding-20-row-col">
                                                             <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".2s"
-                                                                    style="color: white; text-shadow: 2px 2px #000000;">
-                                                                    <div class="hover-up">
-                                                                        <a class="" href="activity?page=1" style="color: white" title="Senarai Aktiviti e-Perak">AKTIVITI</a>
-                                                                    </div>
+                                                                     style="color: white; text-shadow: 2px 2px #000000;">
+                                                                     <div class="hover-up">
+                                                                         <a class="" href="activity?page=1" style="color: white" title="Senarai Aktiviti e-Perak">AKTIVITI</a>
+                                                                     </div>
                                                                 </h4>
                                                                 </div>
                                                     </div>
@@ -585,9 +673,9 @@
                                                                                         @if( file_exists( public_path( data_get($aktivitis, 'Gambar_path') ) ) )
                                                                                             <a href="javascript:;">
                                                                                                 <img src="{!! URL::to(data_get($aktivitis, 'Gambar_path')) !!}"
-                                                                                                    alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                                    title="{{ data_get($aktivitis, 'NamaAktiviti') }}" 
-                                                                                                    style="width: 160px; height: 115px; object-fit: cover;">
+                                                                                                     alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                     title="{{ data_get($aktivitis, 'NamaAktiviti') }}" 
+                                                                                                     style="width: 160px; height: 115px; object-fit: cover;">
                                                                                             </a>
                                                                                         @else
                                                                                             <a href="javascript:;">
@@ -605,7 +693,7 @@
                                                                                 <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                                                                                     <strong class="small-heading pt-0 mb-10">
                                                                                         <a href="javascript:;">
-                                                                                            {{ data_get($aktivitis, 'NamaAktiviti') }}
+                                                                                             {{ data_get($aktivitis, 'NamaAktiviti') }}
                                                                                         </a>
                                                                                     </strong>
                                                                                     <span class="text-description"><i class="fi fi-rr-paper-plane"></i>
@@ -634,9 +722,9 @@
                                                 <div class="col-xl-12 col-md-12 mx-auto">
                                                     <div class="contact-from-area padding-20-row-col">
                                                          <h4 class="section-title mt-15 mb-5 text-center wow animate__animated animate__fadeInUp" data-wow-delay=".2s"
-                                                                style="color: white; text-shadow: 2px 2px #000000;">
-                                                                <span style="color: white">PRODUK TEMPATAN</span>
-                                                           </h4>
+                                                                 style="color: white; text-shadow: 2px 2px #000000;">
+                                                                 <span style="color: white">PRODUK TEMPATAN</span>
+                                                            </h4>
                                                         </div>
                                                 </div>
                                             </div>
@@ -663,12 +751,13 @@
 
                                                                                         @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
                                                                                             <img src="{!! URL::to(data_get($icons, 'path')) !!}"
-                                                                                                alt="{{ data_get($icons, 'filename') }}" 
-                                                                                                style="width: 40%">
+                                                                                                 alt="{{ data_get($icons, 'filename') }}" 
+                                                                                                 style="width: 40%">
                                                                                         @empty
-                                                                                            <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-                                                                                                alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                                style="width: 40%">
+                                                                                            <img src="{{ asset('theme/assets/imgs/theme/perak/de
+                                                                                            afulticon.png') }}"
+                                                                                                 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                 style="width: 40%">
                                                                                         @endforelse
 
                                                                                     </figure>
@@ -700,12 +789,12 @@
 
                                                                                         @forelse($lkpproduks->product_icon->where('status', 1)->take(1) as $key => $icons)
                                                                                             <img src="{!! URL::to(data_get($icons, 'path')) !!}"
-                                                                                                alt="{{ data_get($icons, 'filename') }}" 
-                                                                                                style="width: 40%">
+                                                                                                 alt="{{ data_get($icons, 'filename') }}" 
+                                                                                                 style="width: 40%">
                                                                                         @empty
                                                                                             <img src="{{ asset('theme/assets/imgs/theme/perak/deafulticon.png') }}"
-                                                                                                alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
-                                                                                                style="width: 40%">
+                                                                                                 alt="{{ data_get($aktivitis, 'NamaAktiviti') }}"
+                                                                                                 style="width: 40%">
                                                                                         @endforelse
 
                                                                                     </figure>
@@ -731,11 +820,11 @@
                                                    </center>
                                             </div>
                                             </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     <section class="section-box" style="margin-bottom: -60px">
             <div class="row">
@@ -860,6 +949,44 @@
             </div>
         </section>
     
+    <div id="feedback-float">
+        <img src="{{ asset('theme/assets/imgs/theme/perak/goodfeedback.png') }}" alt="Feedback Perak" style="filter: hue-rotate(90deg);">
+    </div>
+
+    <div id="feedback-panel">
+        <div class="fb-header">
+            <span>📝 Maklum Balas Portal</span>
+            <span id="feedback-close">&times;</span>
+        </div>
+        <div class="fb-body">
+            <form action="{{ url('/eperak/hantar-maklumbalas') }}" method="POST">
+                @csrf
+                <div class="mb-2">
+                    <label class="small fw-bold">Nama Penuh</label>
+                    <input type="text" name="nama" class="form-control" placeholder="Nama anda" required>
+                </div>
+                <div class="mb-2">
+                    <label class="small fw-bold">E-mel</label>
+                    <input type="email" name="emel" class="form-control" placeholder="emel@contoh.com" required>
+                </div>
+                <div class="mb-2">
+                    <label class="small fw-bold">Rating</label>
+                    <select name="rating" class="form-select" required>
+                        <option value="5">Sangat Puas Hati</option>
+                        <option value="4">Puas Hati</option>
+                        <option value="3">Sederhana</option>
+                        <option value="2">Kurang Memuaskan</option>
+                        <option value="1">Tidak Puas Hati</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="small fw-bold">Komen / Cadangan</label>
+                    <textarea name="komen_cadangan" class="form-control" rows="4" placeholder="Tuliskan di sini..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Hantar Maklum Balas</button>
+            </form>
+        </div>
+    </div>
     <div id="ai-chatbot-float">
         <img src="{{ asset('theme/assets/imgs/theme/perak/chatbot.png') }}" alt="Perak AI">
     </div>
@@ -874,7 +1001,7 @@
 
             <div class="ai-body" id="ai-chat-messages">
                 <div class="ai-bot-msg">
-                    Assalamualaikum 👋  
+                    Assalamualaikum dan Salam Sejahtera👋  
                     Saya pembantu AI Rasmi Portal e-Perak/PerakGIS.
                     Sila tanya apa-apa berkaitan peta, kampung, aktiviti atau data Perak.
                 </div>
@@ -940,9 +1067,28 @@
     // Panggil fungsi setiap 1 saat
     setInterval(updateDateTimeSmall, 1000);
 
-    // MULA: Logik Interaktif Chatbot (API Integration)
+    // MULA: Logik Interaktif Chatbot & Maklum Balas
     document.addEventListener('DOMContentLoaded', function () {
-        // Guna ID baharu yang anda berikan
+        
+        // LOGIK MAKLUM BALAS (KIRI)
+        const fbBtn = document.getElementById('feedback-float');
+        const fbPanel = document.getElementById('feedback-panel');
+        const fbClose = document.getElementById('feedback-close');
+
+        if(fbBtn) {
+            fbBtn.onclick = () => {
+                fbPanel.style.display = 'flex';
+                fbBtn.style.display = 'none';
+            };
+        }
+        if(fbClose) {
+            fbClose.onclick = () => {
+                fbPanel.style.display = 'none';
+                fbBtn.style.display = 'block';
+            };
+        }
+
+        // LOGIK CHATBOT AI (KANAN)
         const floatBtn = document.getElementById('ai-chatbot-float');
         const overlay = document.getElementById('ai-chatbot-overlay');
         const closeBtn = document.getElementById('ai-chatbot-close');
@@ -994,79 +1140,42 @@
             messages.appendChild(typing);
             messages.scrollTop = messages.scrollHeight;
             
-            // Disable input/send button semasa memproses
-            input.disabled = true;
-            sendBtn.disabled = true;
-
-
-            // 🔥 AJAX KE BACKEND AI CHATGPT
+            // AJAX KE BACKEND
             fetch("{{ url('/api/chatbot') }}", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    // Wajib untuk POST Request Laravel
                     "X-CSRF-TOKEN": "{{ csrf_token() }}" 
                 },
-                body: JSON.stringify({
-                    message: msg
-                })
+                body: JSON.stringify({ message: msg })
             })
-            .then(res => {
-                if (!res.ok) {
-                    // Cuba dapatkan error body jika response tidak OK
-                    return res.json().then(error => Promise.reject(error));
-                }
-                return res.json();
-            })
+            .then(res => res.json())
             .then(data => {
                 typing.remove();
                 addBotMsg(data.reply ?? 'Maaf, tiada jawapan buat masa ini.');
             })
             .catch(error => {
                 typing.remove();
-                console.error("AJAX Error:", error);
-                // Jawapan ralat yang lebih mesra pengguna
-                addBotMsg("Ralat sistem AI: Gagal menyambung ke pelayan.");
-            })
-            .finally(() => {
-                // Aktifkan semula input/send button
-                input.disabled = false;
-                sendBtn.disabled = false;
-                input.focus();
+                addBotMsg("Ralat sistem AI: Maaf jawapan yang anda mahukan tiada dalam pangkalan data kami.");
             });
         }
 
-        sendBtn.onclick = sendMessage;
-        input.addEventListener('keypress', e => {
-            if (e.key === 'Enter') sendMessage();
-        });
+        if(sendBtn) sendBtn.onclick = sendMessage;
+        if(input) {
+            input.addEventListener('keypress', e => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
     });
-    // TAMAT: Logik Interaktif Chatbot
 
 // Kod sedia ada (Popup dan AJAX Map)
 document.addEventListener('DOMContentLoaded', function () {
-    // NOTE: Kod ini mengendalikan popup awal
     var popup = document.getElementById('infoPopup');
     if (!localStorage.getItem('popupShown')) {
         @if(isset($popupShown) && $popupShown)
             popup.style.display = 'flex';
             localStorage.setItem('popupShown', 'true');
         @endif 
-    }
-
-    var closePopupBtn = document.getElementById('closePopupBtn');
-    var closePopupX = document.getElementById('closePopup');
-
-    if (closePopupBtn) {
-        closePopupBtn.addEventListener('click', function () {
-            popup.style.display = 'none';
-        });
-    }
-
-    if (closePopupX) {
-        closePopupX.addEventListener('click', function () {
-            popup.style.display = 'none';
-        });
     }
 
     // Kod AJAX sedia ada
@@ -1077,7 +1186,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 type: "GET",
                 url: "{{ URL::to('/ajax/mapinfo')}}",
                 datatype : 'json',
-    
                 beforeSend: function ()
                 {
                     $('#searchpapar').hide();
@@ -1095,41 +1203,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Fungsi pautan luar sedia ada
-function show1()
-{
-    window.open(
-        'https://www.malaysia.gov.my/portal/index',
-        '_blank' 
-        );
-}
-function show2()
-{
-    window.open(
-        'https://www.mampu.gov.my/',
-        '_blank' 
-        );
-}
-function show3()
-{
-    window.open(
-        'https://mdec.my/',
-        '_blank' 
-        );
-}
-function show4()
-{
-    window.open(
-        'https://www.perak.gov.my/',
-        '_blank' 
-        );
-}
-function show5()
-{
-    window.open(
-        'https://www.perakgis.my/',
-        '_blank' 
-        );
-}
+function show1() { window.open('https://www.malaysia.gov.my/portal/index', '_blank'); }
+function show2() { window.open('https://www.mampu.gov.my/', '_blank'); }
+function show3() { window.open('https://mdec.my/', '_blank'); }
+function show4() { window.open('https://www.perak.gov.my/', '_blank'); }
+function show5() { window.open('https://www.perakgis.my/', '_blank'); }
 
 </script>
 @endpush

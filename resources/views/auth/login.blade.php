@@ -112,37 +112,32 @@
             margin-bottom: 25px; 
         }
 
-       /* --- Gaya Kata Laluan/Ikon Mata (KEMASKINI) --- */
+       /* --- Gaya Kata Laluan/Ikon Mata --- */
         .input-icons {
             position: relative;
             width: 100%;
         }
         
-        /* Pastikan input memenuhi ruang dan ada ruang untuk ikon di kanan */
         .ui.form .field .input-icons input {
             width: 100%;
-            padding-right: 45px !important; /* Ruang supaya teks tak kena ikon */
+            padding-right: 45px !important; 
             box-sizing: border-box;
-            margin-top: 5px; /* Ikut margin asal input anda */
+            margin-top: 5px;
         }
         
-        /* Setting untuk ikon mata */
         .input-icons > i.icon {
             position: absolute;
-            right: 15px;      /* Jarak dari kanan */
-            top: 50%;         /* Titik tengah relatif kepada wrapper */
-            /* PENTING: translateY -50% menarik ikon ke atas supaya betul-betul center */
-            /* Tambahan: memandangkan input ada margin-top 5px, kita adjust sikit offset */
+            right: 15px;      
+            top: 50%;         
             transform: translateY(-35%); 
             cursor: pointer;
             color: #aaa;
             z-index: 5;
-            margin: 0 !important; /* Reset margin supaya tak lari */
+            margin: 0 !important; 
             height: auto !important;
             line-height: 1 !important;
         }
         
-        /* Gaya Bar Kemajuan dan Slider (Kekal dari sebelum ini) */
         .forgot-password-link {
             text-align: right; 
             margin-top: 5px; 
@@ -241,6 +236,25 @@
             margin-top: 25px;
         }
 
+        /* --- Gaya Baru: Back to Main Menu --- */
+        .back-to-menu {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .back-to-menu a {
+            color: #777 !important;
+            font-weight: 500;
+            font-size: 0.95em;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-to-menu a:hover {
+            color: #000 !important;
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 
@@ -314,6 +328,12 @@
                     @endif
                 </div>
 
+                <div class="back-to-menu">
+                    <a href="{{ url('/') }}">
+                        <i class="left arrow icon"></i> Kembali ke Menu Utama
+                    </a>
+                </div>
+
             </form>
 
         </div>
@@ -322,29 +342,21 @@
 
 @push('script')
     <script>
-        // FUNGSI KATA LALUAN HIDE/UNHIDE (PEMBETULAN LOGIK DAN STABILITI)
+        // FUNGSI KATA LALUAN HIDE/UNHIDE
         function show(a) {
-    var x = document.getElementById(a); // Input field (upass)
-    var c = x.nextElementSibling;     // Icon element
+            var x = document.getElementById(a);
+            var c = x.nextElementSibling;
 
-    if (x.getAttribute('type') === "password") {
-        // Tunjuk Password
-        x.setAttribute("type", "text");
-        
-        // Tukar class ikon terus kepada "Mata Terbuka"
-        // Kita reset className sepenuhnya supaya tiada konflik
-        c.className = "eye icon"; 
-        
-    } else {
-        // Sorok Password
-        x.setAttribute('type', 'password');
-        
-        // Tukar class ikon terus kepada "Mata Tertutup (Slash)"
-        c.className = "eye slash icon";
-    }
-}
+            if (x.getAttribute('type') === "password") {
+                x.setAttribute("type", "text");
+                c.className = "eye icon"; 
+            } else {
+                x.setAttribute('type', 'password');
+                c.className = "eye slash icon";
+            }
+        }
 
-        // FUNGSI SLIDER CAPTCHA (Kekal)
+        // FUNGSI SLIDER CAPTCHA
         document.addEventListener('DOMContentLoaded', function () {
             const sliderWrapper = document.getElementById('sliderWrapper');
             const sliderButton = document.getElementById('sliderButton');
@@ -390,15 +402,12 @@
 
             function performDrag(clientX) {
                 const wrapperRect = sliderWrapper.getBoundingClientRect();
-                
                 let newLeft = clientX - wrapperRect.left - (buttonWidth / 2);
-                
                 const maxLeft = wrapperRect.width - buttonWidth - 10;
                 newLeft = Math.max(5, Math.min(newLeft, maxLeft)); 
 
                 sliderButton.style.left = newLeft + 'px';
                 sliderProgress.style.width = (newLeft + buttonWidth) + 'px';
-                
                 const percentage = Math.floor((newLeft / maxLeft) * 100);
                 sliderPercentage.textContent = percentage + '%';
                 
@@ -413,10 +422,7 @@
                 sliderButton.style.cursor = 'grab';
                 document.removeEventListener('mousemove', onDrag);
                 document.removeEventListener('mouseup', stopDrag);
-                
-                if (!isVerified) {
-                    resetSlider();
-                }
+                if (!isVerified) resetSlider();
             }
 
             function stopDragTouch() {
@@ -424,9 +430,7 @@
                 isDragging = false;
                 document.removeEventListener('touchmove', onDragTouch);
                 document.removeEventListener('touchend', stopDragTouch);
-                 if (!isVerified) {
-                    resetSlider();
-                }
+                 if (!isVerified) resetSlider();
             }
 
             function verifyCaptcha() {
@@ -434,11 +438,9 @@
                 sliderWrapper.classList.add('success');
                 sliderText.textContent = 'Selesai. Anda bukan robot.';
                 sliderPercentage.textContent = '100%';
-                
                 sliderButton.innerHTML = '<i class="check icon"></i>';
                 sliderButton.style.left = (sliderWrapper.offsetWidth - buttonWidth - 5) + 'px';
                 sliderButton.style.cursor = 'default';
-
                 captchaToken.value = 'VERIFIED_SLIDER_TOKEN';
                 loginButton.disabled = false;
             }
@@ -447,7 +449,6 @@
                 sliderButton.style.left = '0px';
                 sliderProgress.style.width = '5px';
                 sliderPercentage.textContent = '0%';
-
                 isVerified = false;
                 sliderWrapper.classList.remove('success');
                 sliderText.textContent = 'Sila seret ke kanan untuk sahkan';
@@ -455,12 +456,8 @@
             
             const style = document.createElement('style');
             style.innerHTML = `
-                .slider-wrapper.success {
-                    background-color: #d4edda;
-                }
-                .slider-wrapper.success .slider-progress {
-                    background-color: #387838;
-                }
+                .slider-wrapper.success { background-color: #d4edda; }
+                .slider-wrapper.success .slider-progress { background-color: #387838; }
             `;
             document.head.appendChild(style);
         });

@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Home;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ChatbotController; // <--- TAMBAH INI
+use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\MaklumbalasController;
+use App\Http\Controllers\SoalanController;
 
 Route::get(
     '/',
@@ -12,6 +14,12 @@ Route::get(
 // --- MULA: ROUTE UNTUK CHATBOT AI ---
 Route::post('/api/chatbot', [ChatbotController::class, 'askAI']);
 // --- TAMAT: ROUTE UNTUK CHATBOT AI ---
+
+// --- MULA: ROUTE UNTUK MAKLUM BALAS ---
+Route::post('/eperak/hantar-maklumbalas', [MaklumbalasController::class, 'store']);
+// --- TAMAT: ROUTE UNTUK MAKLUM BALAS ---
+// --- DELETE : SOALAN LAZIM FAQ
+Route::delete('/site/soalan/delete/{id}', [SoalanController::class, 'destroy'])->name('soalan.destroy');
 
 Route::middleware(['auth', 'verified'])
     ->group(

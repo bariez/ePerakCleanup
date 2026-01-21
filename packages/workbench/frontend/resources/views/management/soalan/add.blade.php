@@ -93,11 +93,10 @@
 						  id="idanswer" ></textarea>
 			</div>
 
-			<div class="field" id="selqueue">
-				<label>Susunan<span style="color: red">&nbsp;*</span></label>
-				<input type="text" name="queue" id="idqueue" 
-					   placeholder="Susunan" >
-			</div>
+				<div class="field" id="selqueue">
+				    <label>Susunan (Masukkan Nombor Sahaja)<span style="color: red">&nbsp;*</span></label>
+				    <input type="number" name="queue" id="idqueue" placeholder="Contoh: 1" min="1">
+				</div>
 
 			<div class="field" id="selstatus">
 				<label>Status<span style="color: red">&nbsp;*</span></label>

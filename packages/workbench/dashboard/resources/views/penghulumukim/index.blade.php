@@ -12,14 +12,55 @@
       height: 200px;
       width: 400px;
   }
+
+    body { background-color: #f4f7fe !important; }
+    
+    .tab-content.raised {
+        border-radius: 20px !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+        border: none !important;
+    }
+
+    .ui.card, .card {
+        border-radius: 20px !important;
+        border: none !important;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.06) !important;
+        transition: transform 0.3s ease;
+    }
+
+    .ui.card:hover {
+        transform: translateY(-5px);
+    }
+
+    canvas {
+        padding: 10px;
+    }
+
+    .ui.styled.accordion {
+        border-radius: 15px !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    }
 </style>
 
-<div id="actionbar" class="ui two column grid content__body p-3" >
-    <div class="column middle aligned">
-                <h3 class="ui header m-t-xs" style="color:black">
-          DASHBOARD PENGHULU MUKIM - {{data_get($mukim,'NamaMukim')}}
-        </h3>
-    </div>
+  <div class="ui container-fluid p-x-3 p-y-2" style="background: linear-gradient(135deg, #1a3352 0%, #2c5282 100%); border-radius: 0 0 30px 30px; margin-bottom: 20px;">
+      <div class="ui grid stackable">
+          <div class="ten wide column middle aligned">
+              <h2 class="ui header inverted m-0">
+                  <i class="chart line icon"></i>
+                  <div class="content">
+                      DASHBOARD PENGHULU MUKIM
+                      <div class="sub header inverted" style="opacity: 0.8; letter-spacing: 1px;">MUKIM: {{data_get($mukim,'NamaMukim')}}</div>
+                  </div>
+              </h2>
+          </div>
+          <div class="six wide column right aligned middle aligned">
+              <div class="ui label large teal shadow-sm">
+                  <i class="calendar alternate icon"></i> <span id="current-date-small"></span>
+              </div>
+          </div>
+      </div>
+  </div>
 
 </div>
 <br>
@@ -261,7 +302,8 @@
   </div>
 @endsection
 
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 @push('script')
 
 <script type="text/javascript">

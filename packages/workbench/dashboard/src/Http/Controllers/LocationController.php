@@ -35,35 +35,34 @@ class LocationController extends Controller
     }
 
     // =============================================================
-    // 2. FUNCTION INDEXGIS (Untuk Paparan Halaman Utama)
+    // 2. FUNCTION INDEXGIS (Halaman Utama)
     // =============================================================
     public function indexGis(Request $request)
     {
         $userAuth = auth()->user();
         
-        // Redirect jika session expired
         if (!$userAuth) {
             return redirect('/login');
         }
 
         $roleuser = AclRoleUser::where('user_id', data_get($userAuth, 'id'))->first();
 
-        $user = Users::with('daerah')
-                    ->where('id', $userAuth->id)
-                    ->first();
+        // PENTING: with('daerah') supaya tajuk di view tak error
+        $user = Users::with('daerah')->where('id', $userAuth->id)->first();
 
-        // PEMBETULAN UTAMA:
-        // Kita HANYA hantar 'roleuser' dan 'user'. 
-        // JANGAN hantar 'datalocation' di sini (ini punca error page putih/500).
+        // Pastikan path view ini betul ikut folder anda
+        // Jika fail anda di 'admindaerah/index_location.blade.php', guna 'dashboard::admindaerah.index_location'
+        // Jika di 'location/indexgis.blade.php', guna 'dashboard::location.indexgis'
+        // Di sini saya guna default asal anda:
         return view('dashboard::location.indexgis', compact('roleuser', 'user'));
     }
 
     // =============================================================
-    // 3. FUNCTION AJAXINDEX (Untuk Data Peta & Logic Mukim)
+    // 3. FUNCTION AJAXINDEX (API Peta)
     // =============================================================
     public function ajaxIndex(Request $request)
     {
-        // Panggil data dari repo
+        // 1. Panggil data dari repo
         $data = $this->repos->jumlahkirGis($request);
         $datalocation = $this->repos->locationGis($request);
         $kampungdata = $this->repos->kampungGis($request);
@@ -73,21 +72,32 @@ class LocationController extends Controller
         $latKampung = $data['lat'];
         $longKampung = $data['long'];
 
-        // Dapatkan User & Role
-        $user = auth()->user();
-        $roleuser = AclRoleUser::where('user_id', data_get($user, 'id'))->first();
+        // 2. Dapatkan User & Role
+        $userAuth = auth()->user();
+        $roleuser = AclRoleUser::where('user_id', data_get($userAuth, 'id'))->first();
 
-        // Variable Default
+        // Eager load daerah untuk dapatkan NamaDaerah
+        $user = Users::with('daerah')->find($userAuth->id);
+
+        // 3. Variable Default
+        $whereKampung = "1=1";
+        $whereMukim   = "1=1";
+        $whereDaerah  = "1=1";
+
         $kodMukim = '';
         $namaMukim = '';
-        $daerah = '';
+        $daerah = ''; 
 
-        // Check ID Mukim User
+        // --- LOGIC 1: USER ADA DAERAH (ROLE 2) ---
+        if ($user && $user->daerah) {
+            $daerah = $user->daerah->NamaDaerah; 
+            if ($roleuser->role_id == '2') {
+                $whereDaerah = "NAM = '" . $daerah . "'"; 
+            }
+        }
+
+        // --- LOGIC 2: USER ADA MUKIM (ROLE 3) ---
         if (!empty($user->Mukim)) {
-            
-            // PEMBETULAN DATABASE:
-            // Menggunakan 'NamaDaerah' (huruf besar/kecil mesti tepat ikut DB anda)
-            
             try {
                 $mukimInfo = DB::table('dbo.mukim')
                     ->join('dbo.daerah', 'dbo.mukim.fk_daerah', '=', 'dbo.daerah.id')
@@ -95,41 +105,49 @@ class LocationController extends Controller
                     ->select(
                         'dbo.mukim.KodMukim', 
                         'dbo.mukim.NamaMukim', 
-                        'dbo.daerah.NamaDaerah as nama_daerah_alias' // <-- Guna NamaDaerah
+                        'dbo.daerah.NamaDaerah as nama_daerah_alias'
                     )
                     ->first();
 
                 if ($mukimInfo) {
                     $kodMukim  = $mukimInfo->KodMukim;
                     $namaMukim = $mukimInfo->NamaMukim;
-                    $daerah    = $mukimInfo->nama_daerah_alias;
+                    if (empty($daerah)) {
+                        $daerah = $mukimInfo->nama_daerah_alias;
+                    }
+
+                    if ($roleuser->role_id == '3') {
+                        $whereMukim  = "NAM = '" . $namaMukim . "'"; 
+                        $whereDaerah = "NAM = '" . $daerah . "'";
+                    }
                 }
             } catch (\Exception $e) {
                 Log::error("GIS DB Error: " . $e->getMessage());
             }
         }
 
-        Log::info("GIS Debug -> User: " . $user->id . " | Kod: $kodMukim | Mukim: $namaMukim | Daerah: $daerah");
-
-        // Return View Mengikut Role (AJAX sahaja)
+        // 4. RETURN VIEW MENGIKUT ROLE
         if ($roleuser->role_id == '1' || $roleuser->role_id == '4' || $roleuser->role_id == '5') { 
-            return view('dashboard::location.gisadmin', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata'));
+            return view('dashboard::location.gisadmin', compact(
+                'datalocation', 'datagis', 'latKampung', 'longKampung', 
+                'kampungdata', 'kemudahandata',
+                'whereKampung', 'whereMukim', 'whereDaerah'
+            ));
         
         } elseif ($roleuser->role_id == '2') { 
-            return view('dashboard::location.gisdaerah', compact('datalocation', 'datagis', 'latKampung', 'longKampung', 'kampungdata', 'kemudahandata'));
+            return view('dashboard::location.gisdaerah', compact(
+                'datalocation', 'datagis', 'latKampung', 'longKampung', 
+                'kampungdata', 'kemudahandata',
+                'whereKampung', 'whereMukim', 'whereDaerah',
+                'daerah' // PENTING: Variable daerah dihantar ke sini
+            ));
         
         } elseif ($roleuser->role_id == '3') { 
-            // Penghulu Mukim
             return view('dashboard::location.gismukim', compact(
-                'datalocation', 
-                'datagis', 
-                'latKampung', 
-                'longKampung', 
-                'kampungdata', 
-                'kemudahandata', 
-                'kodMukim',   
-                'namaMukim',  
-                'daerah'      
+                'datalocation', 'datagis', 'latKampung', 'longKampung', 
+                'kampungdata', 'kemudahandata', 
+                'kodMukim', 'namaMukim', 'daerah',
+                'whereKampung', 'whereMukim', 'whereDaerah'      
             ));
         }
 

@@ -44,7 +44,7 @@
 					<td style="text-align: left">{{ data_get($results, 'dun.NamaDun') }}</td>
 					<td style="text-align: left">{{ data_get($results, 'catpetempatan.description') }}</td>
 					<td style="text-align: left">
-						<a href="/info/{{ data_get($results,'id') }}" style="font-weight: bolder">
+						<a href="/eperak/info/{{ data_get($results,'id') }}" style="font-weight: bolder">
 							{{ data_get($results, 'NamaKampung') }}&nbsp;&nbsp;<i class="fi fi-rr-search"></i>
 						</a>
 						<span style=" font-size: 12px">

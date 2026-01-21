@@ -40,9 +40,10 @@
     <div class="divaccordion">
         <div class="column middle aligned">
             <center>
-                <h2 class="ui header m-t-xs" style="text-shadow: rgb(0 0 0) 4px 4px;font-size: 40px"> DASHBOARD PENTADBIR DAERAH {{data_get($daerah,'NamaDaerah')}} </h2>
-
-            </center>
+    <h2 class="ui header m-t-xs" style="text-shadow: rgb(0 0 0) 4px 4px;font-size: 40px"> 
+        DASHBOARD PENTADBIR DAERAH {{ isset($user->daerah) ? $user->daerah->NamaDaerah : '' }} 
+    </h2>
+</center>
         </div>
         <div class="ui container-fluid p-2">
             <div class="ui four stackable link cards">
@@ -117,14 +118,14 @@
     </div>
 
     <div class="ui one column grid content__body" id="divtitle" style="margin-top: -100px; display: none">
-        <div class="column middle aligned">
-            <center>
-                <h1 class="">
-                    PETA LOKASI DAERAH {{data_get($daerah,'NamaDaerah')}}
-                </h1>
-            </center>
-        </div>
+    <div class="column middle aligned">
+        <center>
+            <h1>
+                PETA LOKASI DAERAH {{ isset($user->daerah) ? $user->daerah->NamaDaerah : '' }}
+            </h1>
+        </center>
     </div>
+</div>
 
     <div class="tab-content p-2 raised" style="page-break-after: avoid !important">
         <div class="ui one stackable cards raised">
@@ -140,50 +141,56 @@
 
 @push('script')
 <script type="text/javascript">
-    $( document ).ready(function() 
-    {
+    // -----------------------------------------------------------
+    // GUNA URL LARAVEL SUPAYA LEBIH STABIL
+    // -----------------------------------------------------------
+    var baseUrl = "{{ url('/') }}"; 
+
+    $(document).ready(function() {
+        console.log("Memuatkan Peta...");
+        
         $.ajax({
             type: "GET",
-            url: "{{ URL::to('/location/ajaxindex')}}",
-            datatype : 'json',
+            url: baseUrl + "/location/ajaxindex", 
+            datatype: 'json',
 
-            beforeSend: function ()
-            {
+            beforeSend: function () {
                 $('#loading').show();
                 $('#contentgis').hide();
             },
-            success: function(data)
-            {
+            success: function(data) {
                 $('#loading').hide();
                 $("#contentgis").html(data);
                 $('#contentgis').show();
+            },
+            error: function(xhr) {
+                console.log("AJAX Error:", xhr.responseText);
+                alert("Gagal memuatkan peta. Sila semak console.");
+                $('#loading').hide();
             }
         });
-
     });
 
-    function showcarian()
-    {
+    // -----------------------------------------------------------
+    // NAVIGATION
+    // -----------------------------------------------------------
+
+    function showcarian() {
         $('#loading').show();
         $('#contentgis').hide();
-                
-        window.location.href = "/dashboard/admindaerah/2";
+        window.location.href = baseUrl + "/dashboard/admindaerah/2";
     }
 
-    function showstat() 
-    {
+    function showstat() {
         $('#loading').show();
         $('#contentgis').hide();
-                
-        window.location.href = "/dashboard/admindaerah/1";
+        window.location.href = baseUrl + "/dashboard/admindaerah/1";
     }
 
-    function showportal() 
-    {
+    function showportal() {
         $('#loading').show();
         $('#contentgis').hide();
-
-        window.location.href = "/";
+        window.location.href = baseUrl + "/";
     }
 </script>
 @endpush

@@ -438,7 +438,7 @@
             <div class="ui divider section"></div>
 
             <div class="ui buttons right floated">
-                <a class="ui button" href="{!! URL::to('dashboard/admin') !!}">SET SEMULA</a>
+                <a class="ui button" href="{!! URL::to('/eperak/dashboard/admin') !!}">SET SEMULA</a>
                 <div class="or" data-text="@"></div>
                 <button class="ui button primary" onclick="search()" id="addbutton"> CARIAN </button>
                 <div class="or" data-text="@"></div>
@@ -1061,7 +1061,14 @@
 @endsection
 
 @push('script')
+
 <script type="text/javascript">
+    // ----------------------------------------------------------------------
+    // 1. TETAPKAN BASE URL SECARA MANUAL
+    // ----------------------------------------------------------------------
+   // 1. Tetapkan Base URL
+    var baseUrl = window.location.origin + "/eperak";
+
     $(document).ready(function() 
     {
         var type="{{ $request->menu }}";
@@ -1070,38 +1077,33 @@
         {
             showcarian();
         }
-        else
-        {
-            
-        }
 
         $('#sel_kampung').change(function()
         {
             var id = $('#kampung').val();
-            // alert("kampung -> "+kampung)
-        
-            $.ajax(
-            {
+            
+            $.ajax({
                 type: "GET",
-                url: "{{ URL::to('dashboard/kampungname/')}}" + "/" + id,
+                // Gunakan baseUrl + path manual untuk elak error
+                url: baseUrl + "/dashboard/kampungname/" + id,
                 datatype: 'json',
-
                 beforeSend: function() 
                 {
                     block("tab-content");
-                    // $('#contentstatistic').hide();
                     $('#loading').show();
                 },
                 success: function(data) 
                 {
                     $('#showkampung').html(data);
-
-                    search();
+                    search(); // Memanggil fungsi search() yang ada di script bawah
                 }
             });
         });
-
     });
+
+    // ----------------------------------------------------------------------
+    // 2. FUNGSI MENU (LINK YANG DIBETULKAN)
+    // ----------------------------------------------------------------------
 
     function showmap() 
     {
@@ -1109,16 +1111,17 @@
         $('#contentstatistic').hide();
         $('#contentcarian').hide();
 
-        window.location.href = "/eperak/location/admindaerah";
+        // Betulkan link peta
+        window.location.href = baseUrl + "/location/admindaerah";
     }
 
     function showcarian()
     {
         $.ajax({
             type: "GET",
-            url: "{{ URL::to('/eperak/dashboard/showcarian')}}",
+            // Betulkan link carian
+            url: baseUrl + "/dashboard/showcarian",
             datatype: 'json',
-
             beforeSend: function() 
             {
                 $('#loading').show();
@@ -1135,12 +1138,15 @@
             },
             complete:  function(data)
             {
-                select2('daerahselect');
-                select2('mukimselect');
-                select2('parlimenselect');
-                select2('dunselect');
-                select2('katselect');
-                select2('kampungselect');
+                // Init dropdown
+                if(typeof select2 === "function") {
+                    select2('daerahselect');
+                    select2('mukimselect');
+                    select2('parlimenselect');
+                    select2('dunselect');
+                    select2('katselect');
+                    select2('kampungselect');
+                }
             }
         });
     }
@@ -1151,16 +1157,18 @@
         $('#contentstatistic').hide();
         $('#contentcarian').hide();
 
-        window.location.href = "eperak/dashboard/admindaerah/1";
+        // Betulkan link statistik (tambah baseUrl)
+        window.location.href = baseUrl + "/dashboard/admindaerah/1";
     }
 
     function select2(idselect)
     {
-        $('#'+idselect).dropdown(
-        {
-            sortSelect: true,
-            fullTextSearch:'exact'
-        });
+        if($('#'+idselect).length > 0) {
+            $('#'+idselect).dropdown({
+                sortSelect: true,
+                fullTextSearch:'exact'
+            });
+        }
     }
 
     function showportal() 
@@ -1168,7 +1176,8 @@
         $('#loading').show();
         $('#contentstatistic').hide();
 
-        window.location.href = "/eperak/";
+        // Betulkan link portal
+        window.location.href = baseUrl + "/";
     }
 
     function pdfclick()
@@ -1177,6 +1186,11 @@
     }
 
 </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.ui.accordion').accordion();
+        // ... sambungan kod asal anda ...
 
 <script type="text/javascript">
     $(document).ready(function() 

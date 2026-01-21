@@ -336,7 +336,7 @@
                             <div class="label" style="font-size: 20px;color:white"> PORTAL <span style="text-transform: lowercase">e</span>-PERAK </div>
                             <br>
                             <div class="value" style="color:white">
-                                <a href="/" style="color: white">
+                                <a href="/eperak" style="color: white">
                                     <i class="clone icon"></i>
                                 </a>
                             </div>
@@ -363,28 +363,43 @@
 @push('script')
 
 <script type="text/javascript">
+    // -------------------------------------------------------------
+    // 1. DEFINISIKAN BASE URL DI LUAR (GLOBAL)
+    // -------------------------------------------------------------
+    // Guna helper Laravel 'url('/')' supaya dia automatik dapat http://domain.com/eperak
+    // Jika tak nak guna blade, boleh kekalkan var baseUrl = "/eperak";
+    var baseUrl = "{{ url('/') }}"; 
+    
+    // Atau jika anda nak hardcode seperti asal, uncomment baris bawah:
+    // var baseUrl = "/eperak"; 
+
     $(document).ready(function() 
     {
+        console.log("Memulakan dashboard dengan Base URL: " + baseUrl);
+
         var type="{{$type}}";
 
-        if(type==1)
-        {
-            showstat()
-        }
-        else
-        {
-            showcarian()
+        // Panggil function TANPA menghantar baseUrl (sebab dah global)
+        if(type==1) {
+            showstat();
+        } else {
+            showcarian();
         }
     });
 
-    function showstat()
+    // -------------------------------------------------------------
+    // 2. BUANG 'baseUrl' DARI DALAM KURUNGAN FUNCTION
+    // -------------------------------------------------------------
+    
+    function showstat() // <-- Dulu: function showstat(baseUrl)
     {
-        $.ajax(
-        {
-            type: "GET",
-            url: "{{ URL::to('/dashboard/showcardstat')}}",
-            datatype: 'json',
+        // Sekarang dia akan baca variable 'baseUrl' yang kat atas sekali
+        var targetUrl = baseUrl + "/dashboard/showcardstat";
 
+        $.ajax({
+            type: "GET",
+            url: targetUrl,
+            datatype: 'json',
             beforeSend: function() 
             {
                 $('#loading').show();
@@ -394,18 +409,25 @@
             {
                 $('#loading').hide();
                 $('#contentdashboard').html(data);
+            },
+            error: function(xhr, status, error) {
+                $('#loading').hide();
+                // Alert error standard
+                console.error("Error URL:", targetUrl);
+                alert("RALAT!\n\nTidak dapat akses ke: " + targetUrl + "\n\nKod Error: " + xhr.status);
             }
         });
     }
 
-    function showcarian()
+    function showcarian() // <-- Dulu: function showcarian(baseUrl)
     {
-        $.ajax(
-        {
-            type: "GET",
-            url: "{{ URL::to('/dashboard/showcarian')}}",
-            datatype: 'json',
+        // Dia akan baca variable 'baseUrl' global
+        var targetUrl = baseUrl + "/dashboard/showcarian";
 
+        $.ajax({
+            type: "GET",
+            url: targetUrl,
+            datatype: 'json',
             beforeSend: function() 
             {
                 $('#loading').show();
@@ -418,33 +440,42 @@
             },
             complete:  function(data)
             {
-                select2('daerahselect');
-                select2('mukimselect');
-                select2('parlimenselect');
-                select2('dunselect');
-                select2('katselect');
-                select2('kampungselect');
+                try {
+                    select2('daerahselect');
+                    select2('mukimselect');
+                    select2('parlimenselect');
+                    select2('dunselect');
+                    select2('katselect');
+                    select2('kampungselect');
+                } catch(e) {
+                    console.log("Error dropdown: " + e);
+                }
+            },
+            error: function(xhr, status, error) {
+                $('#loading').hide();
+                console.error("Error URL:", targetUrl);
+                alert("RALAT!\n\nTidak dapat akses ke: " + targetUrl + "\n\nKod Error: " + xhr.status);
             }
         });
     }
 
     function select2(idselect)
     {
-        $('#'+idselect).dropdown(
-        {
-            sortSelect: true,
-            fullTextSearch:'exact'
-        });
+        if($('#'+idselect).length > 0) {
+            $('#'+idselect).dropdown({
+                sortSelect: true,
+                fullTextSearch:'exact'
+            });
+        }
     }
 
     function showmap() 
     {
         $('#loading').show();
         $('#contentdashboard').hide();
-
-        window.location.href = "/eperak/location/topmanage";
+        // Gunakan baseUrl juga di sini supaya seragam
+        window.location.href = baseUrl + "/location/topmanage";
     }
-
 </script>
 
 @endpush

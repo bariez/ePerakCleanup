@@ -383,7 +383,7 @@
         //     }
         // });
                 
-        window.location.href = "/dashboard/topmanage/1";
+        window.location.href = "/eperak/dashboard/topmanage/1";
     }
      function showcarian() 
     {
@@ -407,7 +407,7 @@
         //     }
         // });
                 
-        window.location.href = "/dashboard/topmanage/2";
+        window.location.href = "/eperak/dashboard/topmanage/2";
     }
 </script>
 @endpush

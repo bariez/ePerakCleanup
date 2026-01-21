@@ -1,99 +1,239 @@
 @extends('laravolt::layout.app2')
 
 @section('content')
+    <style type="text/css">
+        :root {
+            /* Warna Biru Gelap Korporat Spesifik */
+            --primary-dark-blue: #0d214a; 
+            --primary-blue: #1e3a8a; 
+            --soft-bg: #f8fafc;
+            --border-color: #e2e8f0;
+        }
 
+        /* 1. PENYELESAIAN UTAMA: Mengatasi isu bertindih dengan Top Bar */
+        .layout--app .layout__content {
+            /* Ditambah jarak supaya kandungan tidak selindung di belakang bar navigasi coklat */
+            padding-top: 110px !important; 
+            background-color: var(--soft-bg);
+        }
 
+        /* 2. PENETAPAN FONT PENGGUNA (BIRU GELAP) */
+        .page-main-title {
+            color: var(--primary-dark-blue) !important;
+            font-weight: 1000 !important;
+            font-size: 2.6rem !important;
+            margin: 0 !important;
+        }
 
-<div id="actionbar" class="ui two column grid content__body p-x-3 p-y-1 m-b-0" >
-    <div class="column middle aligned">
-        <h3 class="ui header m-t-xs">
-            Pengguna
-        </h3>
+        .sub.header {
+            color: #64748b !important;
+            margin-top: 5px !important;
+        }
+
+        /* 3. KAWALAN GAP & POSITIONING */
+        #actionbar {
+            /* Memberi ruang selesa dari Top Bar dan Kad Statistik */
+            margin-bottom: 30px !important;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* STATS CARD STYLING */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px; /* Jarak antara kad */
+            margin-bottom: 35px; /* Jarak sebelum jadual */
+            padding: 0 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .stat-info h3 { margin: 0; font-size: 26px; color: var(--primary-dark-blue); font-weight: 800; }
+        .stat-info p { margin: 0; color: #64748b; font-size: 14px; font-weight: 600; }
+
+        /* TABLE STYLING */
+        .ui.top.attached.header.custom-header {
+            background: #ffffff !important;
+            color: var(--primary-blue) !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 12px 12px 0 0 !important;
+            padding: 18px !important;
+            display: flex; align-items: center;
+        }
+
+        .custom-header i.icon { color: #fecb3a !important; margin-right: 12px !important; }
+
+        .ui.attached.segment.raised {
+            border-radius: 0 0 12px 12px !important;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05) !important;
+            border: 1px solid var(--border-color) !important;
+            border-top: none !important;
+            padding: 1.5rem !important;
+            background: white !important;
+        }
+
+        /* BUTTON GREEN MODEN */
+        .ui.button.primary-custom {
+            background-color: #16a34a !important; 
+            color: white !important;
+            border-radius: 10px !important;
+            padding: 12px 25px !important;
+            font-weight: bold !important;
+            box-shadow: 0 4px 6px rgba(22, 163, 74, 0.2);
+        }
+    </style>
+
+    <div id="actionbar" class="ui grid">
+        <div class="row">
+            <div class="eight wide column middle aligned">
+                <h1 class="ui header page-main-title">
+                    <i class="users icon" style="color: var(--primary-dark-blue);"></i>
+                    <div class="content">
+                        Pengguna
+                        <div class="sub header">Pengurusan akaun dan akses sistem</div>
+                    </div>
+                </h1>
+            </div>
+            <div class="eight wide column right aligned middle aligned">
+                <a href="/site/users/create" class="ui button primary-custom">
+                    <i class="plus icon"></i> Tambah Pengguna
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="column right aligned middle aligned">
-        <a href="/site/users/create" class="ui button green primary" themed="" id="addbutton">
-        <i class="icon plus"></i>
-            Tambah
-        </a>
-        <!-- <button class="ui yellow button" id="reset" onclick="window.location.href='/site/users/index'; return false;" type="button">
-            <i class="icon redo"></i>Set Semula
-        </button> -->
 
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #eff6ff; color: #1e40af;"><i class="users icon"></i></div>
+            <div class="stat-info">
+                <h3>{{ $data->count() }}</h3>
+                <p>Jumlah Pengguna</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #f0fdf4; color: #166534;"><i class="check circle icon"></i></div>
+            <div class="stat-info">
+                <h3>{{ $data->where('status', 'ACTIVE')->count() }}</h3>
+                <p>Pengguna Aktif</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #fefce8; color: #854d0e;"><i class="user plus icon"></i></div>
+            <div class="stat-info">
+                <h3>{{ $data->where('created_at', '>=', now()->startOfMonth())->count() }}</h3>
+                <p>Pendaftaran Baru (Bulan Ini)</p>
+            </div>
+        </div>
     </div>
-</div>
-
-<br>
-<h4 class="ui top attached header">
-Senarai Pengguna
-</h4>
-    <div class="ui container-fluid content__body p-1">
-<div class="ui attached segment raised">
-
-                <table id="listuser" class="ui celled table" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="text-align: center;">Bil</th>
-                                <th style="text-align: center;">Nama</th>
-                                <th style="text-align: center;">Emel</th>
-                                <th style="text-align: center;">Kategori Pengguna</th>
-                                <th style="text-align: center;">Status</th>
-                                <th style="text-align: center;">Tarikh Daftar</th>
-                                <th style="text-align: center;">Tindakan</th>
-                            </tr>
-                        </thead>
-                         <tbody>
-                           <?php $i=1; ?>
-                           @forelse($data as $key =>$data)
-                             <tr style="text-align: center;">
-                                 <td>{{$i}}</td>
-                                 <td>{{data_get($data,'name')}}</td>
-                                 <td>{{data_get($data,'email')}}</td>
-                                  <td>{{data_get($data,'namerole')}}</td>
-                                 <td>{{data_get($data,'status')}}</td>
-                                  <td>{{data_get($data,'created_at')}}</td>
-                                  <td><a href="{!! URL::to('/site/users/edit/'.data_get($data,'id')) !!}" data-tooltip="Profile" data-position="bottom center"><i class="user icon"></i>
-                                  </a>
-                                  <a href="{!! URL::to('/site/users/accesslog/'.data_get($data,'id')) !!}" data-tooltip="Log" data-position="bottom center"><i class="eye icon"></i></a> 
-                                  </td>
-                             </tr>
-
-                             <?php $i++;?>
-                            @empty
-                                 <tr><td colspan='8' class="center aligned">Tiada Data</td></tr>
-                            @endforelse
-                          </tbody>
-                 
-                    </table>
-                
-                </div>
-              </div>
-
- 
+    
+    <div class="ui container-fluid content__body p-x-3">
+        <h4 class="ui top attached header custom-header">
+            <i class="address card outline icon"></i> Senarai Pengguna Terkini
+        </h4>
+        
+        <div class="ui attached segment raised">
+            <table id="listuser" class="ui celled table selectable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="text-align: center; width: 50px;">Bil</th>
+                        <th style="text-align: center;">Nama</th>
+                        <th style="text-align: center;">Emel</th>
+                        <th style="text-align: center;">Kategori</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Tarikh Daftar</th>
+                        <th style="text-align: center; width: 120px;">Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $row)
+                        <tr>
+                            <td style="text-align: center;">{{ $loop->iteration }}</td>
+                            <td><strong>{{ data_get($row,'name') }}</strong></td>
+                            <td>{{ data_get($row,'email') }}</td>
+                            <td style="text-align: center;">
+                                <div class="ui label basic small">{{ data_get($row,'namerole') }}</div>
+                            </td>
+                            <td style="text-align: center;">
+                                @if(Str::upper(data_get($row,'status')) == 'ACTIVE')
+                                    <span class="ui green tiny label">Aktif</span>
+                                @else
+                                    <span class="ui grey tiny label">{{ data_get($row,'status') }}</span>
+                                @endif
+                            </td>
+                            <td style="text-align: center;">{{ \Carbon\Carbon::parse(data_get($row,'created_at'))->format('d/m/Y') }}</td>
+                            <td style="text-align: center;">
+                                <div class="ui icon buttons tiny">
+                                    <a href="{!! URL::to('/site/users/edit/'.data_get($row,'id')) !!}" class="ui button basic blue" data-tooltip="Kemas kini"><i class="user icon"></i></a>
+                                    <a href="{!! URL::to('/site/users/accesslog/'.data_get($row,'id')) !!}" class="ui button basic grey" data-tooltip="Log Akses"><i class="history icon"></i></a>
+                                    <button type="button" class="ui button basic red btn-delete" data-id="{{ data_get($row,'id') }}" data-name="{{ data_get($row,'name') }}" data-tooltip="Padam"><i class="trash icon"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
+
 @push('script')
-<script type="text/javascript">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#listuser').DataTable({
+                "lengthChange": false,
+                "pageLength": 10,
+                "language": { "search": "Carian Pantas:" }
+            });
 
-  $(document).ready(function() 
-  {
-
-                $('#listuser').DataTable( {
-                   "lengthChange": false,
-                    "language": {
-                   "search":  "Carian:",
-                    "info":     "Paparan _START_ hingga _END_ daripada _TOTAL_ jumlah data",
-                    "infoEmpty": "Paparan 0 hingga 0 daripada 0 jumlah data",
-                     "paginate": {
-                        "first":      "Pertama",
-                        "last":       "Terakhir",
-                        "next":       "Seterusnya",
-                        "previous":   "Sebelumnya"
-                    },
-                 }
-             });
-
-              });
-  </script>
-
+            $('.btn-delete').on('click', function() {
+                var id = $(this).data('id');
+                var name = $(this).data('name');
+                Swal.fire({
+                    title: 'Padam Pengguna?',
+                    text: "Adakah anda pasti mahu memadam pengguna " + name + "?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Padam!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/site/users/delete/" + id,
+                            type: 'DELETE',
+                            data: { "_token": "{{ csrf_token() }}" },
+                            success: function() { location.reload(); }
+                        });
+                    }
+                });
+            });
+            $('[data-tooltip]').popup();
+        });
+    </script>
 @endpush
-
-

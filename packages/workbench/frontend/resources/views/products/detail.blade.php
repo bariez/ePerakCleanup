@@ -350,7 +350,7 @@
         $('#papar-produk').hide();
         $('#ajaxloadingpapar-produk').show();
 
-        window.location.href = "/product/"+idtype+"?page=1";
+        window.location.href = "/eperak/product/"+idtype+"?page=1";
     }
 
     // onselect oncahnge daerah

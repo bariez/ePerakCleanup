@@ -1361,7 +1361,7 @@
         {
             var data = [];
             var arr_color = [ 
-                 ["#16747E", "#97AB38"
+                 ["#16747E", "#97AB38"]
                     ],
 
             var colors = arr_color[Math.floor(Math.random() * arr_color.length)];

@@ -33,7 +33,7 @@
                                  </td>
                                  @if(data_get($roleuser,'role_id')==2 || data_get($roleuser,'role_id')==4)
                                  <td style="text-align: left; vertical-align: top;">
-                                    <a target="_blank" href="{!! URL::to('dataentry/searchkampung/cetakprofil/1/'.data_get($data,'id')) !!}"data-tooltip="Cetakan" data-position="bottom center"><i class="print icon"></i>
+                                    <a target="_blank" href="{!! URL::to('/dataentry/searchkampung/cetakprofil/1/'.data_get($data,'id')) !!}"data-tooltip="Cetakan" data-position="bottom center"><i class="print icon"></i>
                                     </a>
                                     <!--  <a href="{!! URL::to('/dataentry/searchkampung/isirumah/ketuaisirumah/'.data_get($data,'id')) !!}"data-tooltip="Maklumat KIR" data-position="bottom center"><i class="user icon"></i></a>
                                      <a target="_blank" href="{!! URL::to('/info/'.data_get($data,'id')) !!}"data-tooltip="Info Petempatan" data-position="bottom center"><i class="file alternate outline icon"></i>
@@ -45,10 +45,10 @@
                                    </td>
                                    @else
                                     <td style="text-align: left; vertical-align: top;">
-                                    <a target="_blank" href="{!! URL::to('dataentry/searchkampung/cetakprofil/1/'.data_get($data,'id')) !!}"data-tooltip="Cetakan" data-position="bottom center"><i class="print icon"></i>
+                                    <a target="_blank" href="{!! URL::to('/dataentry/searchkampung/cetakprofil/1/'.data_get($data,'id')) !!}"data-tooltip="Cetakan" data-position="bottom center"><i class="print icon"></i>
                                     </a>
-                                    <a target="_blank" href="{!! URL::to('dataentry/searchkampung/mainmenu/ '.data_get($data,'id').'/1/1/0') !!}" data-tooltip="Kemaskini" data-position="bottom center"><i class="edit icon"></i></a>
-                                    <a onclick="return confirm('Adakah anda pasti untuk hapus?');" href="{!! URL::to('dataentry/searchkampung/deletekampung/'.data_get($data,'id')) !!}" data-tooltip="Padam" data-position="bottom center"><i class="trash alternate icon" style="color:red"></i>
+                                    <a target="_blank" href="{!! URL::to('/dataentry/searchkampung/mainmenu/ '.data_get($data,'id').'/1/1/0') !!}" data-tooltip="Kemaskini" data-position="bottom center"><i class="edit icon"></i></a>
+                                    <a onclick="return confirm('Adakah anda pasti untuk hapus?');" href="{!! URL::to('/eperak/dataentry/searchkampung/deletekampung/'.data_get($data,'id')) !!}" data-tooltip="Padam" data-position="bottom center"><i class="trash alternate icon" style="color:red"></i>
                                     </a>
                                      <a target="_blank" href="{!! URL::to('/info/'.data_get($data,'id')) !!}"data-tooltip="Info Petempatan" data-position="bottom center"><i class="file alternate outline icon"></i>
                                     </a>

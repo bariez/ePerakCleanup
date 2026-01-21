@@ -166,9 +166,9 @@
 													</div>
 												@else
 													<div class="btn-group" role="group" aria-label="Basic example">
-														<a href="auth/login" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
-														<a href="auth/register" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
-														<!-- <button type="button" class="btn btn-outline-light btn-shadow hover-up">Daftar</button> -->
+													    {{-- Gunakan url() supaya dia sentiasa bermula dari pangkal --}}
+													    <a href="{{ url('auth/login') }}" class="btn btn-default btn-shadow hover-up" style="color: white; background-color: #432712">Log Masuk</a>
+													    <a href="{{ url('auth/register') }}" class="btn btn-light btn-shadow hover-up" style="color: #432712">Daftar</a>
 													</div>
 												@endauth
 											</li>

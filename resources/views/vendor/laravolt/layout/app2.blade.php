@@ -5,8 +5,10 @@
 
         @include('laravolt::menu.topbar')
         @include('laravolt::menu.sidebar')
+        
+        {{-- Tukar background-image kepada background-color mengikut tema imej yang diberikan --}}
         <div class="content"
-            style="background-image: url('{{ asset('theme/assets/imgs/theme/perak/bgone.png') }}') !important;">
+            style="background-color: #fdfaf0 !important; background-image: none !important; min-height: 100vh;">
             <div class="content__inner">
 
                 <div class="ui container-fluid content__body p-10">

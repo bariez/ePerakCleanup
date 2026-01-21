@@ -147,7 +147,7 @@
                     <?php $i++; ?>
                 @empty
                     <tr>
-                        <td colspan='8' class="center aligned">Tiada Data</td>
+                        <td colspan='4' class="center aligned">Tiada Data</td>
                     </tr>
                 @endforelse
 
