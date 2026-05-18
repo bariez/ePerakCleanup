@@ -36,20 +36,33 @@
                <textarea id="keterangan" name="keterangan" disabled="disabled">{{data_get($data_aktiviti,'Keterangan')}}</textarea>
              </div>
              <div class="field">
-              <label>Gambar</label>
-             @if(data_get($data_aktiviti,'Gambar_path')=='')
-             <a target="_blank" href="{{ URL::asset('logo.png') }}"><img src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:100px">
+    <label>Gambar</label>
+    @php 
+        $pathGambar = data_get($data_aktiviti, 'Gambar_path');
+    @endphp
+
+    @if(empty($pathGambar))
+        {{-- Jika database kosong --}}
+        <a target="_blank" href="{{ URL::asset('logo.png') }}">
+            <img src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:100px">
+        </a>
+    @elseif(file_exists(public_path($pathGambar)))
+        {{-- Jika fail wujud mengikut path dalam DB (Cara Projek) --}}
+        <a target="_blank" href="{!! URL::to($pathGambar) !!}">
+            <img src="{!! URL::to($pathGambar) !!}" alt="ePerak" style="width:200px; border: 1px solid #ddd; padding: 5px;">
+        </a>
+    @else
+        {{-- Jika path ada dalam DB tapi fail fizikal tiada di server --}}
+        <div style="margin-bottom: 5px;">
+            <a target="_blank" href="{{ URL::asset('logo.png') }}">
+                <img src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:100px; opacity: 0.5;">
             </a>
-            @elseif(file_exists(public_path (data_get($data_aktiviti,'Gambar_path'))))
-             <a target="_blank" href="{!! URL::to(data_get($data_aktiviti,'Gambar_path')) !!}"><img src="{!! URL::to(data_get($data_aktiviti,'Gambar_path')) !!}" alt="ePerak" style="width:100px">
-            </a>
-            @else
-            <a target="_blank" href="{{ URL::asset('logo.png') }}"><img src="{{ URL::asset('logo.png') }}" alt="ePerak" style="width:100px">
-            </a>
-            
-            @endif
-                                   
-              </div>
+        </div>
+        <span style="color: red; font-size: 0.8em;">
+            <i class="warning icon"></i> Fail tidak dijumpai: {{ $pathGambar }}
+        </span>
+    @endif
+</div>
 
  			<div class="ui divider section"></div>
 		        <div align="right">

@@ -3,21 +3,17 @@
 @section('content')
     <style type="text/css">
         :root {
-            /* Warna Biru Gelap Korporat Spesifik */
             --primary-dark-blue: #0d214a; 
             --primary-blue: #1e3a8a; 
             --soft-bg: #f8fafc;
             --border-color: #e2e8f0;
         }
 
-        /* 1. PENYELESAIAN UTAMA: Mengatasi isu bertindih dengan Top Bar */
         .layout--app .layout__content {
-            /* Ditambah jarak supaya kandungan tidak selindung di belakang bar navigasi coklat */
             padding-top: 110px !important; 
             background-color: var(--soft-bg);
         }
 
-        /* 2. PENETAPAN FONT PENGGUNA (BIRU GELAP) */
         .page-main-title {
             color: var(--primary-dark-blue) !important;
             font-weight: 1000 !important;
@@ -30,20 +26,17 @@
             margin-top: 5px !important;
         }
 
-        /* 3. KAWALAN GAP & POSITIONING */
         #actionbar {
-            /* Memberi ruang selesa dari Top Bar dan Kad Statistik */
             margin-bottom: 30px !important;
             padding: 0 1.5rem;
             width: 100%;
         }
 
-        /* STATS CARD STYLING */
         .stats-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px; /* Jarak antara kad */
-            margin-bottom: 35px; /* Jarak sebelum jadual */
+            gap: 25px;
+            margin-bottom: 35px;
             padding: 0 1.5rem;
         }
 
@@ -77,7 +70,6 @@
         .stat-info h3 { margin: 0; font-size: 26px; color: var(--primary-dark-blue); font-weight: 800; }
         .stat-info p { margin: 0; color: #64748b; font-size: 14px; font-weight: 600; }
 
-        /* TABLE STYLING */
         .ui.top.attached.header.custom-header {
             background: #ffffff !important;
             color: var(--primary-blue) !important;
@@ -98,7 +90,6 @@
             background: white !important;
         }
 
-        /* BUTTON GREEN MODEN */
         .ui.button.primary-custom {
             background-color: #16a34a !important; 
             color: white !important;
@@ -191,7 +182,12 @@
                                 <div class="ui icon buttons tiny">
                                     <a href="{!! URL::to('/site/users/edit/'.data_get($row,'id')) !!}" class="ui button basic blue" data-tooltip="Kemas kini"><i class="user icon"></i></a>
                                     <a href="{!! URL::to('/site/users/accesslog/'.data_get($row,'id')) !!}" class="ui button basic grey" data-tooltip="Log Akses"><i class="history icon"></i></a>
-                                    <button type="button" class="ui button basic red btn-delete" data-id="{{ data_get($row,'id') }}" data-name="{{ data_get($row,'name') }}" data-tooltip="Padam"><i class="trash icon"></i></button>
+                                    <button type="button" class="ui button basic red btn-delete" 
+                                            data-id="{{ data_get($row,'id') }}" 
+                                            data-name="{{ data_get($row,'name') }}" 
+                                            data-tooltip="Padam">
+                                        <i class="trash icon"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -206,33 +202,49 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            // Inisialisasi DataTable
             $('#listuser').DataTable({
                 "lengthChange": false,
                 "pageLength": 10,
                 "language": { "search": "Carian Pantas:" }
             });
 
-            $('.btn-delete').on('click', function() {
+            // Guna Event Delegation supaya butang berfungsi pada page 2, 3 dan seterusnya
+            $(document).on('click', '.btn-delete', function(e) {
+                e.preventDefault();
                 var id = $(this).data('id');
                 var name = $(this).data('name');
+
                 Swal.fire({
                     title: 'Padam Pengguna?',
                     text: "Adakah anda pasti mahu memadam pengguna " + name + "?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Padam!'
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Padam!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
                             url: "/site/users/delete/" + id,
                             type: 'DELETE',
-                            data: { "_token": "{{ csrf_token() }}" },
-                            success: function() { location.reload(); }
+                            data: { 
+                                "_token": "{{ csrf_token() }}" 
+                            },
+                            success: function(response) { 
+                                Swal.fire('Berjaya!', 'Data telah dipadam.', 'success');
+                                location.reload(); 
+                            },
+                            error: function(xhr) {
+                                Swal.fire('Gagal!', 'Ralat pelayan: ' + xhr.status + '. Sila semak controller.', 'error');
+                            }
                         });
                     }
                 });
             });
+
+            // Aktifkan tooltip Semantic UI
             $('[data-tooltip]').popup();
         });
     </script>

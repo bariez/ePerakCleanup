@@ -20,7 +20,7 @@
                     	<!-- Berita Terkini -->
                     <!-- </h3> -->
                     <ul class="breadcrumbs">
-                        <li ><a href="/news?page=1" style="font-size: 20px; font-weight: bold;">BERITA</a></li>
+                        <li ><a href="/eperak/news?page=1" style="font-size: 20px; font-weight: bold;">BERITA</a></li>
                         <li style="font-size: 20px; font-weight: bold;">{{ data_get($notis, 'tajuk') }}</li>
                     </ul>
                 </div>
@@ -59,7 +59,7 @@
                                 We're looking to add more product designers to our growing teams.
                             </div> -->
                             <div class="text-end">
-                                <a href="/news?page=1" class="btn btn-border">Kembali</a>
+                                <a href="/eperak/news?page=1" class="btn btn-border">Kembali</a>
                             </div>
                         </div>
                     </div>

@@ -82,23 +82,17 @@
 
     <h4 class="ui dividing header">Muat Naik Gambar</h4>
     <div class="field">
-        <div class="ui placeholder segment">
-            <div class="ui icon header">
-                <i class="images outline icon"></i>
-                Pilih Gambar Aktiviti (Maksimum 3 Keping)
-            </div>
-            
-            <input type="file" id="getFile_taktiviti" name="gambar[]" multiple accept=".jpg,.jpeg,.png" style="display:none">
-            
-            <div class="ui primary button" onclick="document.getElementById('getFile_taktiviti').click()">
-                <i class="upload icon"></i> Pilih Fail
-            </div>
-            <div class="ui hidden divider"></div>
-            <div style="color: gray; font-size: 0.9em;">
-                <i class="info circle icon"></i> Saiz had: 3MB/fail. Format: .jpg, .jpeg, .png sahaja.
-            </div>
-        </div>
-    </div>
+    <label>Gambar Aktiviti (Maksimum 3)</label>
+    <button type="button" class="ui button" onclick="document.getElementById('getFile_taktiviti').click()">
+        <i class="image icon"></i> Pilih Fail
+    </button>
+    <input type="file" id="getFile_taktiviti" name="gambar[]" multiple accept=".jpg,.jpeg,.png" style="display:none">
+</div>
+
+<div class="field" id="divpreview_taktiviti" style="display:none;">
+    <label>Preview</label>
+    <div id="preview_grid_aktiviti" class="ui small images"></div>
+</div>
 
     <div class="field" id="preview_container" style="display:none; text-align: center;">
         <label>Pratonton Gambar:</label>
@@ -121,54 +115,20 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Dropdown Semantic UI init
-        $('.ui.dropdown').dropdown();
+    $('#getFile_taktiviti').on('change', function() {
+    var file = this.files[0];
+    var reader = new FileReader();
 
-        // Logic untuk Gambar
-        $('#getFile_taktiviti').on('change', function() {
-            var files = this.files;
-            var maxFiles = 3;
-            var maxSize = 3 * 1024 * 1024; // 3MB
-            var previewGrid = $('#preview_images_grid');
-            var container = $('#preview_container');
+    reader.onload = function(e) {
+        // Pastikan ID 'preview_taktiviti_kemaskini' wujud dalam HTML anda
+        $('#preview_taktiviti_kemaskini').attr('src', e.target.result);
+        $('#preview_container').show(); // Paparkan container preview
+    }
 
-            // Reset Preview
-            previewGrid.empty();
-            
-            // Validasi Jumlah Fail
-            if (files.length > maxFiles) {
-                alert('Harap maaf, anda hanya boleh memuat naik maksimum ' + maxFiles + ' gambar sahaja.');
-                this.value = ''; // Kosongkan input
-                container.hide();
-                return;
-            }
-
-            // Validasi Saiz & Preview
-            if (files.length > 0) {
-                container.show();
-                
-                $.each(files, function(i, file) {
-                    // Check saiz
-                    if (file.size > maxSize) {
-                        alert('Fail ' + file.name + ' terlalu besar (Melebihi 3MB).');
-                        $('#getFile_taktiviti').val(''); // Reset semua jika ada satu fail besar
-                        container.hide();
-                        return false; 
-                    }
-
-                    // Baca fail untuk preview
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var imgHtml = '<img class="ui image rounded bordered" src="' + e.target.result + '" style="width:150px; height:150px; object-fit:cover; margin:5px;">';
-                        previewGrid.append(imgHtml);
-                    }
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                container.hide();
-            }
-        });
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+});
     });
 
     function validateaktiviti() {

@@ -73,7 +73,7 @@
                 <th>Jenis Aktiviti</th>
                 <th>Aktiviti</th>
                 <th>Penganjur</th>
-                <th style="width: 280px;">Gambar (Max 3)</th>
+                <th style="width: 280px;">Gambar</th>
                 <th style="width: 15%;">Tindakan</th>
             </tr>
         </thead>
@@ -87,50 +87,27 @@
             <td style="font-weight: bold;">{{ data_get($data, 'NamaAktiviti') }}</td>
             <td>{{ data_get($data, 'Penganjur') }}</td>
             
-            <td>
-                <div class="ui center aligned">
-                    @php
-                        $imagesToShow = [];
+            <td class="center aligned">
+         @php
+              $rawPath = data_get($data, 'Gambar_path');
+                // Bersihkan path: Buang '/' di depan dan betulkan folder jika perlu
+             $cleanPath = ltrim($rawPath, '/');
+        
+                     // Semak jika fail benar-benar wujud di server
+             $exists = (!empty($cleanPath) && file_exists(public_path($cleanPath)));
+         @endphp
 
-                        // 1. AMBIL GAMBAR UTAMA (Dari table profil_aktiviti)
-                        $mainImage = data_get($data, 'Gambar_path');
-                        if (!empty($mainImage) && file_exists(public_path($mainImage))) {
-                            $imagesToShow[] = URL::to($mainImage);
-                        }
-
-                        // 2. AMBIL GAMBAR TAMBAHAN (Dari table profil_aktiviti_gambar)
-                        // Kita guna DB query terus supaya tak perlu ubah Model
-                        $extraImages = \DB::table('profil_aktiviti_gambar')
-                                        ->where('fk_profil_aktiviti', data_get($data, 'id'))
-                                        ->pluck('path_gambar');
-
-                        foreach($extraImages as $path) {
-                            if (!empty($path) && file_exists(public_path($path))) {
-                                $imagesToShow[] = URL::to($path);
-                            }
-                        }
-
-                        // 3. Encode untuk Javascript Popup
-                        $jsonImages = json_encode($imagesToShow);
-                    @endphp
-
-                    @if (count($imagesToShow) > 0)
-                        @foreach (array_slice($imagesToShow, 0, 3) as $index => $imgUrl)
-                            <img src="{{ $imgUrl }}" 
-                                 class="gallery-thumb" 
-                                 alt="Aktiviti"
-                                 onclick='openGallery({{ $jsonImages }}, {{ $index }})'>
-                        @endforeach
-
-                        @if(count($imagesToShow) > 3)
-                            <div style="font-size: 10px; color: grey; margin-top: 2px;">
-                                +{{ count($imagesToShow) - 3 }} lagi gambar
-                            </div>
-                        @endif
-                    @else
-                        <img src="{{ URL::asset('logo.png') }}" class="gallery-thumb" alt="Tiada Gambar" style="opacity: 0.5; cursor: default;">
-                    @endif
-                </div>
+    @if($exists)
+        <img src="{{ asset($cleanPath) }}" class="ui small rounded image" 
+             style="width:100px; cursor:pointer;" 
+             onclick="openMyModal('{{ asset($cleanPath) }}')">
+    @else
+        <div style="text-align: center;">
+            <img src="{{ asset('logo.png') }}" style="width:60px; opacity:0.4;">
+            <br>
+            <span style="color:red; font-size:9px;">Fail tidak ditemui</span>
+        </div>
+                @endif
             </td>
             <td>
                 <a href="#" onclick="gettab({{ $id }},5,4,{{ data_get($data, 'id') }})"

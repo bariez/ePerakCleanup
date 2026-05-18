@@ -14,8 +14,6 @@
     @stack('meta')
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    {{-- Tambah Select2 CSS untuk Dropdown Carian --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <style>
@@ -104,6 +102,14 @@
             margin-top: 10px;
         }
 
+        .gis-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed #ffc33d;
+            margin-bottom: 15px;
+        }
+
         .x-auth__header {
             text-align: center;
             display: block;
@@ -134,10 +140,8 @@
 
             {!! form()->open(route('auth::registration.store'), ['class' => 'ui form']) !!} 
                 
-                {{-- MULA: Hidden input untuk hantar nilai gabungan ke database --}}
                 <input type="hidden" name="jabatan" id="jabatan_final" required>
                 <input type="hidden" name="jawatan" id="jawatan_final" required>
-                {{-- TAMAT --}}
 
                 <div class="field">
                     <label>Nama<font color="red">*</font></label>
@@ -153,8 +157,36 @@
                 </div>
 
                 {!! form()->password('password_confirmation')->label(__('Mengesahkan kata laluan anda<html><font color="red">*</font></html>')) !!}
-                
-                {{-- DROP DOWN JABATAN --}}
+
+                <div class="gis-section">
+                    <h5 class="ui header">LOKALITI GIS (UNTUK PEMETAAN)</h5>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Daerah<font color="red">*</font></label>
+                            <select name="Daerah" id="gis_daerah" class="ui dropdown searchable" required>
+                                <option value="">-- Pilih Daerah --</option>
+                                <option value="KINTA">KINTA</option>
+                                <option value="LARUT MATANG & SELAMA">LARUT MATANG & SELAMA</option>
+                                <option value="HILIR PERAK">HILIR PERAK</option>
+                                <option value="MANJUNG">MANJUNG</option>
+                                <option value="BATANG PADANG">BATANG PADANG</option>
+                                <option value="KERIAN">KERIAN</option>
+                                <option value="KUALA KANGSAR">KUALA KANGSAR</option>
+                                <option value="HULU PERAK">HULU PERAK</option>
+                                <option value="PERAK TENGAH">PERAK TENGAH</option>
+                                <option value="KAMPAR">KAMPAR</option>
+                                <option value="MUALLIM">MUALLIM</option>
+                                <option value="BAGAN DATUK">BAGAN DATUK</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Mukim<font color="red">*</font></label>
+                            <select name="Mukim" id="gis_mukim" class="ui dropdown searchable" required>
+                                <option value="">-- Pilih Mukim --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="field">
                     <label>Jabatan / Agensi<font color="red">*</font></label>
                     <select id="jabatan_selector" class="ui dropdown searchable" required>
@@ -205,10 +237,8 @@
                     </div>
                 </div>
                 
-                {{-- DROP DOWN JAWATAN --}}
                 <div class="field">
                     <label>Jawatan<font color="red">*</font></label>
-                    {{-- ID tukar ke jawatan_selector --}}
                     <select id="jawatan_selector" class="ui dropdown searchable" required>
                         <option value="">-- Pilih Jawatan --</option>
                         <optgroup label="KOMUNITI & KAMPUNG">
@@ -260,14 +290,14 @@
 
                 <div class="ui divider section"></div>
 
-                <div class="login-link-container">
-                    <font color="#000"><b>Sudah ada Akaun e-Perak?</b></font>
+                <div class="login-link-container" style="text-align: center">
+                    <font color="#000"><b>Sudah ada Akaun e-Perak?</b></font><br><br>
                     <a href="{{ route('auth::login.show') }}" class="login-link-button">
                         Log Masuk Disini <i class="sign in alternate icon"></i>
                     </a>
                 </div>
 
-                <div class="ui equal width grid">
+                <div class="ui equal width grid" style="margin-top: 10px">
                     <div class="column right aligned">
                         <a href="/eperak" class="link">
                             <font color="#000" style="font-size: small"><b>Laman Utama <i class="home icon"></i></b></font>
@@ -280,17 +310,44 @@
     </div>
 </div>
 
-{{-- Scripts --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() { 
-        // Aktifkan Dropdown Searchable
         $('.searchable').select2({
             placeholder: "Sila pilih...",
             allowClear: true
         });
 
-        // --- FUNGSI GABUNGAN JABATAN ---
+        // DATA MUKIM PERAK
+        const mukimData = {
+            "KINTA": ["HULU KINTA", "SUNGAI TERAP", "SUNGAI RAYA", "BELANJA", "TANJUNG TUALANG"],
+            "LARUT MATANG & SELAMA": ["ASAM KUMBANG", "BATU KURAU", "BUKIT GANTANG", "SELAMA", "SUNGAI TINGGI"],
+            "HILIR PERAK": ["DURIAN SEBATANG", "CHANGKAT JONG", "SUNGAI MANIK", "LABU KUBONG"],
+            "MANJUNG": ["LUMUT", "LEKIR", "SITIAWAN", "PENGKALAN BAHARU", "BERUAS"],
+            "BATANG PADANG": ["TAPAH", "BIDOR", "CHENDERIANG", "SUNGKAI"],
+            "KERIAN": ["BAGAN SERAI", "BAGAN TIANG", "PARIT BUNTAR", "SELINSING", "GUNUNG SEMANGGOL"],
+            "KUALA KANGSAR": ["SAYONG", "KOTA LAMA KANAN", "KOTA LAMA KIRI", "SENGGANG", "SUNGAI SIPUT"],
+            "HULU PERAK": ["GERIK", "PENGKALAN HULU", "LENGGONG", "TEMENGOR"],
+            "PERAK TENGAH": ["BOTA", "LAMB KANAN", "LAMBO KIRI", "LAYANG-LAYANG", "BELANJA"],
+            "KAMPAR": ["KAMPAR", "TEJA"],
+            "MUALLIM": ["HULU BERNAM TIMUR", "HULU BERNAM BARAT", "SLIM"],
+            "BAGAN DATUK": ["BAGAN DATUK", "HUTAN MELINTANG", "RUNGKUP", "TELUK BHARU"]
+        };
+
+        // Logik Tukar Mukim berdasarkan Daerah GIS
+        $('#gis_daerah').on('change', function() {
+            const daerah = $(this).val();
+            const mukimSelect = $('#gis_mukim');
+            mukimSelect.empty().append('<option value="">-- Pilih Mukim --</option>');
+            
+            if(mukimData[daerah]) {
+                mukimData[daerah].forEach(m => {
+                    mukimSelect.append(`<option value="${m}">${m}</option>`);
+                });
+            }
+            mukimSelect.trigger('change');
+        });
+
         function setJabatanFinal() {
             var mainVal = $('#jabatan_selector').val();
             var pdtVal = $('#pdt_daerah').val();
@@ -307,7 +364,6 @@
             $('#jabatan_final').val(finalStr.toUpperCase());
         }
 
-        // --- FUNGSI GABUNGAN JAWATAN ---
         function setJawatanFinal() {
             var mainVal = $('#jawatan_selector').val();
             var manualVal = $('#jawatan_manual').val();
@@ -321,7 +377,6 @@
             $('#jawatan_final').val(finalStr.toUpperCase());
         }
 
-        // Logik Jabatan
         $('#jabatan_selector').on('change', function() {
             var val = $(this).val();
             $('#div_pdt_detail, #div_jabatan_manual').hide();
@@ -340,7 +395,6 @@
         $('#pdt_daerah').on('change', function() { setJabatanFinal(); });
         $('#jabatan_manual').on('keyup', function() { setJabatanFinal(); });
 
-        // Logik Jawatan
         $('#jawatan_selector').on('change', function() {
             var val = $(this).val();
             if(val == "LAIN-LAIN") {
@@ -355,7 +409,6 @@
 
         $('#jawatan_manual').on('keyup', function() { setJawatanFinal(); });
 
-        // Auto-Uppercase & Trigger Hidden Updates
         $('#name, #Tujuan, #jabatan_manual, #jawatan_manual').keyup(function() {
             $(this).val($(this).val().toUpperCase());
             setJabatanFinal();

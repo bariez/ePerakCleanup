@@ -92,7 +92,7 @@
                                 <div class="list-recent-jobs">
                                     <!-- Item job -->
                                     	@foreach($notis as $key => $notiss)
-		                                    <div class="card-job hover-up wow animate__animated animate__fadeIn" onclick="window.location='/news/{{ data_get($notiss, 'id') }}';"
+		                                    <div class="card-job hover-up wow animate__animated animate__fadeIn" onclick="window.location='/eperak/news/{{ data_get($notiss, 'id') }}';"
 		                                    	 style="cursor: pointer !important;">
 		                                        <div class="card-job-top">
 		                                            <!-- <div class="card-job-top--image"> -->

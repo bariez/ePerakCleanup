@@ -8,6 +8,13 @@
         margin: 5px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    #preview_images_grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
 </style>
 
 <h3 class="ui top attached center aligned header">
@@ -15,13 +22,12 @@
 </h3>
 
 <div class="ui attached segment">
-
     {!! form()->open()->post()->action(route('dataentry::searchkampung.editaktiviti'))->attribute('id', 'formkemudahan')->multipart()->horizontal() !!}
 
-    <input type="hidden" name="tabmain" required="required" value="{{$tabmain}}">
-    <input type="hidden" name="tabdetail" required="required" value="{{$tabdetail}}">
-    <input type="hidden" name="idkampung" required="required" value="{{$id}}">
-    <input type="hidden" name="iddetail" required="required" value="{{$iddetail}}">
+    <input type="hidden" name="tabmain" value="{{$tabmain}}">
+    <input type="hidden" name="tabdetail" value="{{$tabdetail}}">
+    <input type="hidden" name="idkampung" value="{{$id}}">
+    <input type="hidden" name="iddetail" value="{{$iddetail}}">
 
     <h4 class="ui dividing header">Maklumat Asas</h4>
     <div class="three fields">
@@ -73,17 +79,11 @@
     <div class="two fields">
         <div class="field">
             <label>Nama Aktiviti <span style="color:red">*</span></label>
-            <div class="ui input left icon">
-                <i class="font icon"></i>
-                <input type="text" name="aktiviti" id="aktiviti" required="required" value="{{ data_get($data_aktiviti,'NamaAktiviti') }}" onkeyup="this.value = this.value.toUpperCase();">
-            </div>
+            <input type="text" name="aktiviti" id="aktiviti" required value="{{ data_get($data_aktiviti,'NamaAktiviti') }}" onkeyup="this.value = this.value.toUpperCase();">
         </div>
         <div class="field">
             <label>Penganjur <span style="color:red">*</span></label>
-            <div class="ui input left icon">
-                <i class="users icon"></i>
-                <input type="text" name="penganjur" id="penganjur" required="required" value="{{ data_get($data_aktiviti,'Penganjur') }}" onkeyup="this.value = this.value.toUpperCase();">
-            </div>
+            <input type="text" name="penganjur" id="penganjur" required value="{{ data_get($data_aktiviti,'Penganjur') }}" onkeyup="this.value = this.value.toUpperCase();">
         </div>
     </div>
 
@@ -92,60 +92,39 @@
         <textarea id="keterangan" name="keterangan" rows="3" onkeyup="this.value = this.value.toUpperCase();">{{ data_get($data_aktiviti,'Keterangan') }}</textarea>
     </div>
 
-    <h4 class="ui dividing header">Gambar Sedia Ada</h4>
+    <h4 class="ui dividing header">Gambar</h4>
     <div class="field">
-        <div class="ui segment">
-            <div class="ui small images">
-                @if(data_get($data_aktiviti,'Gambar_path') == '' || !file_exists(public_path(data_get($data_aktiviti,'Gambar_path'))))
-                    <div class="ui label basic">Tiada gambar utama</div>
-                @else
-                    <a target="_blank" href="{!! URL::to(data_get($data_aktiviti,'Gambar_path')) !!}">
-                        <img src="{!! URL::to(data_get($data_aktiviti,'Gambar_path')) !!}" class="gallery-thumb" alt="Gambar Utama">
-                    </a>
-                @endif
-
-                {{-- @foreach($gambar_tambahan as $g)
-                    <a target="_blank" href="{{ URL::to($g->path_gambar) }}">
-                        <img src="{{ URL::to($g->path_gambar) }}" class="gallery-thumb">
-                    </a>
-                @endforeach --}}
-            </div>
-        </div>
+        <label>Pilih Gambar Baru (Jika Ingin Tukar)</label>
+        <button type="button" class="ui button" onclick="document.getElementById('getFile_taktiviti_edit').click()">Pilih Fail</button>
+        <input type="file" id="getFile_taktiviti_edit" name="gambar" accept=".jpg,.jpeg,.png" style="display:none">
+        <p><small><b>* Saiz had: 3MB. Format: .jpg, .jpeg, .png</b></small></p>
     </div>
 
-    <h4 class="ui dividing header">Tambah Gambar Baru</h4>
-    <div class="field">
-        <div class="ui placeholder segment">
-            <div class="ui icon header">
-                <i class="images outline icon"></i>
-                Muat Naik Gambar Tambahan (Maksimum 3 Keping Sekali Muat Naik)
-            </div>
-            
-            <input type="file" id="getFile_taktiviti_edit" name="gambar[]" multiple accept=".jpg,.jpeg,.png" style="display:none">
-            
-            <div class="ui primary button" onclick="document.getElementById('getFile_taktiviti_edit').click()">
-                <i class="upload icon"></i> Pilih Fail
-            </div>
-            <div class="ui hidden divider"></div>
-            <div style="color: gray; font-size: 0.9em;">
-                <i class="info circle icon"></i> Saiz had: 3MB/fail. Format: .jpg, .jpeg, .png
-            </div>
-        </div>
+    <div class="field" id="divpreview_taktiviti_edit" style="display:none">
+        <label>Preview Gambar Baru</label>
+        <img style="width:200px" id="preview_taktiviti_edit" class="ui rounded image">
     </div>
 
-    <div class="field" id="preview_container" style="display:none; text-align: center;">
-        <label>Pratonton Gambar Baru:</label>
-        <div class="ui small images" id="preview_images_grid"></div>
+    <div class="field">
+        <label>Gambar Sedia Ada</label>
+        @php $currentImg = data_get($data_aktiviti,'Gambar_path'); @endphp
+        @if(!$currentImg || !file_exists(public_path(ltrim($currentImg, '/'))))
+            <a target="_blank" href="{{ URL::asset('logo.png') }}">
+                <img src="{{ URL::asset('logo.png') }}" alt="Default" style="width:200px" class="ui rounded image">
+            </a>
+        @else
+            <a target="_blank" href="{{ URL::to($currentImg) }}">
+                <img src="{{ URL::to($currentImg) }}" alt="Semasa" style="width:200px" class="ui rounded image">
+            </a>
+        @endif
     </div>
 
     <div class="ui divider section"></div>
     <div align="right">
-        <a href="#" class="ui button" onclick="gettab({{$id}},5,1,0)" id="buttonbackdown">
-            <i class="arrow left icon"></i> Kembali
-        </a>
-        <button type="submit" class="ui primary button" id="addbutton" name="hantar" onclick="return validateaktiviti();">
+        <button type="submit" class="ui primary button" id="btnSubmitEdit" onclick="return validateaktiviti();">
             <i class="save icon"></i> Kemaskini
         </button>
+        <a href="#" class="ui button" onclick="gettab({{$id}},5,1,0)">Kembali</a>
     </div>
 
     {!! form()->close() !!}
@@ -155,53 +134,36 @@
     $(document).ready(function() {
         $('.ui.dropdown').dropdown();
 
-        // Logic Preview Gambar Baru
+        // Fungsi Preview Gambar (Sama logik dengan editprojek)
         $('#getFile_taktiviti_edit').on('change', function() {
-            var files = this.files;
-            var maxFiles = 3;
-            var maxSize = 3 * 1024 * 1024; // 3MB
-            var previewGrid = $('#preview_images_grid');
-            var container = $('#preview_container');
+            var file = this.files[0];
+            var reader = new FileReader();
 
-            previewGrid.empty();
-            
-            if (files.length > maxFiles) {
-                alert('Harap maaf, anda hanya boleh memuat naik maksimum ' + maxFiles + ' gambar pada satu masa.');
-                this.value = ''; 
-                container.hide();
-                return;
+            reader.onload = function(e) {
+                $('#preview_taktiviti_edit').attr('src', e.target.result);
+                $('#divpreview_taktiviti_edit').show();
             }
 
-            if (files.length > 0) {
-                container.show();
-                $.each(files, function(i, file) {
-                    if (file.size > maxSize) {
-                        alert('Fail ' + file.name + ' terlalu besar (Melebihi 3MB).');
-                        $('#getFile_taktiviti_edit').val(''); 
-                        container.hide();
-                        return false; 
-                    }
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var imgHtml = '<img class="ui image rounded bordered gallery-thumb" src="' + e.target.result + '">';
-                        previewGrid.append(imgHtml);
-                    }
+            if (file) {
+                if (file.size > 3 * 1024 * 1024) {
+                    alert('Saiz fail melebihi 3MB!');
+                    $(this).val('');
+                    $('#divpreview_taktiviti_edit').hide();
+                } else {
                     reader.readAsDataURL(file);
-                });
-            } else {
-                container.hide();
+                }
             }
         });
     });
 
     function validateaktiviti() {
-        var tahun = document.getElementById("tahun").value;
-        var peringkat = document.getElementById("peringkat").value;
-        var jenis = document.getElementById("jenisaktiviti").value;
-        var aktiviti = document.getElementById("aktiviti").value;
-        var penganjur = document.getElementById("penganjur").value;
+        var tahun = $("#tahun").val();
+        var peringkat = $("#peringkat").val();
+        var jenis = $("#jenisaktiviti").val();
+        var aktiviti = $("#aktiviti").val();
+        var penganjur = $("#penganjur").val();
 
-        if(tahun == "" || peringkat == "" || jenis == "" || aktiviti == "" || penganjur == "") {
+        if(!tahun || !peringkat || !jenis || !aktiviti || !penganjur) {
             alert("Sila pastikan semua medan bertanda * diisi.");
             return false;
         }

@@ -21,6 +21,11 @@ Route::post('/eperak/hantar-maklumbalas', [MaklumbalasController::class, 'store'
 // --- DELETE : SOALAN LAZIM FAQ
 Route::delete('/site/soalan/delete/{id}', [SoalanController::class, 'destroy'])->name('soalan.destroy');
 
+// ROUTE DELETE USER DALAM DB
+Route::delete('/site/users/delete/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+
+
+
 Route::middleware(['auth', 'verified'])
     ->group(
         function () {

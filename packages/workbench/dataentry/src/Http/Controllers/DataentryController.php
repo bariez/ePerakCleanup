@@ -607,58 +607,51 @@ $pentadbiran = ProfilPentadbiran::select('profil_pentadbiran.*')
         ->withSuccess(__('Data telah berjaya dikemaskini'));
 }
 
-   public function editaktiviti(Request $request)
+public function editaktiviti(Request $request)
 {
-    // 1. CARI DATA AKTIVITI
+    // 1. CARI DATA AKTIVITI (Guna iddetail seperti dalam hidden input anda)
     $aktiviti = ProfilAktiviti::find($request->iddetail);
     
-    if($aktiviti) {
-        // 2. KEMASKINI DATA UTAMA
-        $aktiviti->Tahun = $request->tahun;
-        $aktiviti->Peringkat = $request->peringkat; 
-        $aktiviti->Kategori = $request->jenisaktiviti; 
-        
-        $aktiviti->NamaAktiviti = strtoupper($request->aktiviti);
-        $aktiviti->Penganjur = strtoupper($request->penganjur);
-        $aktiviti->Keterangan = strtoupper($request->keterangan);
-        
-        $aktiviti->save();
+    if(!$aktiviti) {
+        return redirect()->back()->withErrors(__('Data aktiviti tidak dijumpai.'));
+    }
 
-        // 3. PROSES GAMBAR BARU (MULTIPLE UPLOAD)
-        // Jika pengguna upload gambar baru, kita tambah ke table profil_aktiviti_gambar
-        if($request->hasFile('gambar')) {
+    // 2. KEMASKINI DATA TEKS (Guna strtoupper untuk standarisasi)
+    $aktiviti->Tahun = $request->tahun;
+    $aktiviti->Peringkat = $request->peringkat; 
+    $aktiviti->Kategori = $request->jenisaktiviti; 
+    $aktiviti->NamaAktiviti = strtoupper($request->aktiviti);
+    $aktiviti->Penganjur = strtoupper($request->penganjur);
+    $aktiviti->Keterangan = strtoupper($request->keterangan);
+    
+    // 3. PROSES GAMBAR (Hanya jika user pilih fail baru)
+    if($request->hasFile('gambar')) {
+        $file = $request->file('gambar');
+
+        // Validasi fail di peringkat Controller (Double Safety)
+        if ($file->isValid()) {
+            // Nama fail unik
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
             
-            foreach($request->file('gambar') as $file) {
-                
-                // Rename fail
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $destinationPath = public_path('/uploads/aktiviti');
-                $file->move($destinationPath, $filename);
-                
-                // Simpan ke table anak (profil_aktiviti_gambar)
-                try {
-                    DB::table('profil_aktiviti_gambar')->insert([
-                        'fk_profil_aktiviti' => $aktiviti->id,
-                        'path_gambar' => '/uploads/aktiviti/' . $filename,
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ]);
-                } catch (\Exception $e) {
-                    // Skip jika table tak wujud
-                }
+            // Lokasi simpan: public/uploads/aktiviti
+            $destinationPath = public_path('uploads/aktiviti');
+            
+            // Pindahkan fail
+            $file->move($destinationPath, $filename);
 
-                // OPTIONAL: Jika gambar utama kosong, isi dengan gambar baru pertama
-                if(empty($aktiviti->Gambar_path)) {
-                    $aktiviti->Gambar_path = '/uploads/aktiviti/' . $filename;
-                    $aktiviti->filename = $filename;
-                    $aktiviti->save();
-                }
-            }
+            // Simpan path ke DB (Format: uploads/aktiviti/fail.jpg)
+            // Nota: Elakkan letak '/' di depan jika asset() sudah menguruskan base URL
+            $aktiviti->Gambar_path = 'uploads/aktiviti/' . $filename;
+            $aktiviti->filename = $filename;
         }
     }
 
+    // 4. SIMPAN SEMUA PERUBAHAN
+    $aktiviti->save();
+
+    // 5. REDIRECT (Guna idkampung untuk kembali ke tab yang betul)
     return redirect::to('/dataentry/searchkampung/editkampung/'.$request->idkampung.'/5/1/0')
-        ->withSuccess(__('Data telah berjaya dikemaskini'));
+        ->withSuccess(__('Maklumat aktiviti berjaya dikemaskini.'));
 }
 
     public function deleteaktiviti($deleteaktiviti, $idkampung)
